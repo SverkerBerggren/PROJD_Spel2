@@ -640,7 +640,11 @@ public class GameState : MonoBehaviour
             {
                 Champion champ = playerChampion.champion;
                 playerChampion.champion = playerChampions[randomChamp].champion;
-                playerChampions[randomChamp].champion = champ;
+
+                if (champ.health > 0)
+                { 
+                    playerChampions[randomChamp].champion = champ;
+                }
 
                 if(isOnline)
                 {
@@ -693,10 +697,6 @@ public class GameState : MonoBehaviour
                 Champion champ = opponentChampion.champion;
                 opponentChampion.champion = opponentChampions[randomChamp].champion;
                 opponentChampions[randomChamp].champion = champ;
-                
-                ListEnum lE = new ListEnum();
-                lE.opponentChampions = true;
-                TargetInfo tI = new TargetInfo(lE, randomChamp);
                 break;
 
             }
@@ -878,34 +878,30 @@ public class GameState : MonoBehaviour
 
     private void SearchDeadChampion(Champion deadChampion)
     {
-
         if (playerChampion.champion == deadChampion)
         {
             SwapActiveChampion(null);
+            foreach (AvailableChampion ac in playerChampions)
+            {
+                if (ac.champion == deadChampion)
+                {
+                    playerChampions.Remove(ac);
+                    break;
+                }
+            }
         }
-        else if (opponentChampion.champion == deadChampion)
+        else if (!isOnline && opponentChampion.champion == deadChampion)
         {
             SwapActiveChampionEnemy(null);
-        }
-
-        foreach (AvailableChampion ac in playerChampions)
-        {
-            if (ac.champion == deadChampion)
+            foreach (AvailableChampion ac in opponentChampions)
             {
-                playerChampions.Remove(ac);
-                break;
+                if (ac.champion == deadChampion)
+                {
+                    opponentChampions.Remove(ac);
+                    break;
+                }
             }
         }
-
-        foreach (AvailableChampion ac in opponentChampions)
-        {
-            if (ac.champion == deadChampion)
-            {
-                opponentChampions.Remove(ac);
-                break;
-            }
-        }
-
     }
 
     public void SwitchWhenChampionDead()
