@@ -649,7 +649,9 @@ public class GameState : MonoBehaviour
 
 				Swap(playerChampions, 0, randomChamp);
 
-                if(isOnline)
+                RemoveChampion(playerChampions[randomChamp].champion);
+
+                if (isOnline)
                 {
                     //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
                     ListEnum lE = new ListEnum();
@@ -677,6 +679,7 @@ public class GameState : MonoBehaviour
         else if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
+            RemoveChampion(opponentChampions[targetInfo.index].champion);
             /* Champion champ = opponentChampion.champion;
              opponentChampion.champion = opponentChampions[targetInfo.index].champion;
              opponentChampions[targetInfo.index].champion = champ; */
@@ -908,18 +911,15 @@ public class GameState : MonoBehaviour
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
-        {
-            print("Naughty");
+        {          
             SwapActiveChampionEnemy(null);
         }
 
-        deadChamp = deadChampion;
-        Invoke(nameof(RemoveChampion), 0.01f);
+
     }
 
-    Champion deadChamp;
 
-    public void RemoveChampion()
+    public void RemoveChampion(Champion deadChamp)
     {
         foreach (AvailableChampion ac in playerChampions)
         {
