@@ -690,11 +690,8 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
             if (opponentChampion != opponentChampions[randomChamp])
             {
-                Champion champ = opponentChampion.champion;
-                opponentChampion.champion = opponentChampions[randomChamp].champion;
-                opponentChampions[randomChamp].champion = champ;
+                Swap(opponentChampions, 0, randomChamp);
                 break;
-
             }
         }
         opponentChampion.champion.WhenCurrentChampion();
@@ -1004,9 +1001,9 @@ public class GameState : MonoBehaviour
         //Request victory maybe????
     }
 
-    public static void Swap<T>(this List<T> list, int i, int j)
+    public static void Swap(List<AvailableChampion> list, int i, int j)
     {
-        T temp = list[i];
+        AvailableChampion temp = list[i];
         list[i] = list[j];
         list[j] = temp;
     }
