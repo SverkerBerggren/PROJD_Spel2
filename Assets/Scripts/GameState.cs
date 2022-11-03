@@ -9,55 +9,62 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameState : MonoBehaviour
 {
-    public int currentPlayerID = 0;
-    public bool hasPriority = true;
-
-    public bool isItMyTurn;
-    public bool didIStart;
-
-    public int amountOfTurns;
-
    
     private int amountOfCardsToStartWith = 5;
 
-    [SerializeField] private GameObject lostScreen;
-    [SerializeField] private GameObject wonScreen;
-
-    [SerializeField] private GameObject healEffect;
-
-    public ActionOfPlayer actionOfPlayer;
-    public int currentMana;
-    public SpriteRenderer playedCardSpriteRenderer;
-    public Sprite backfaceCard;
-
-    public GameObject EndTurnButton;
-    private UnityEngine.UI.Button endTurnBttn;
-
+    [Header("Active Champions")]
     public AvailableChampion playerChampion;
     public AvailableChampion opponentChampion;
-    [NonSerialized] public bool drawExtraCardsEachTurn = false;
-    [NonSerialized] public int occultGathering = 0;
 
+    [Header("ChampionLists")]
     public List<AvailableChampion> playerChampions = new List<AvailableChampion>();
     public List<AvailableChampion> opponentChampions = new List<AvailableChampion>();
 
+    [Header("LandmarkLists")]
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
+    [Header("Have Friends?")]
+    public bool isOnline = false;
+
+    [Header("CardsPlayed")]
     public List<Card> cardsPlayedThisTurn = new List<Card>();
-    public int attacksPlayedThisTurn;
+
+    [Header("Win Screen")]
+    [SerializeField] private GameObject lostScreen;
+    [SerializeField] private GameObject wonScreen;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject healEffect;
+
+    
+    [Header("UI Elements")]
+    public SpriteRenderer playedCardSpriteRenderer;
+    public Sprite backfaceCard;
+    public UnityEngine.UI.Button endTurnBttn;
+
+
+    [NonSerialized] public int currentPlayerID = 0;
+    [NonSerialized] public bool hasPriority = true;
+
+    [NonSerialized] public bool isItMyTurn;
+    [NonSerialized] public bool didIStart;
+    [NonSerialized] public int amountOfTurns;
 
     [NonSerialized] public int tenExtraDamage;
     [NonSerialized] public int damageRamp = 0;
     [NonSerialized] public int slaughterhouse = 0;
     [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
+    [NonSerialized] public bool drawExtraCardsEachTurn = false;
+    [NonSerialized] public int occultGathering = 0;
+    [NonSerialized] public int attacksPlayedThisTurn;
+    
+    private ActionOfPlayer actionOfPlayer;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
 
-
-    public bool isOnline = false;
 
 
     private void Awake()
@@ -68,7 +75,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Destroy(Instance);
+            Destroy(gameObject);
         }
 
         AddChampions(playerChampions);
@@ -80,7 +87,6 @@ public class GameState : MonoBehaviour
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;
-        endTurnBttn = EndTurnButton.GetComponent<UnityEngine.UI.Button>();
         if (isOnline)
         {
             if (ClientConnection.Instance.playerId == 0)
