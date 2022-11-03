@@ -57,6 +57,8 @@ public class CardTargeting : MonoBehaviour
         Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 75f);
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
 
+        print(hitEnemy.collider.gameObject.name);
+
         if (hitEnemy.collider == null)
         {
             CardGoBackToStartingPosition();
@@ -128,14 +130,14 @@ public class CardTargeting : MonoBehaviour
             case "AttackSpell":
                 card.LandmarkTarget = landmarkSlot;
                 Graveyard.Instance.AddCardToGraveyard(card);
-                card.LandmarkTarget.DestroyLandmark();
+                card.PlayCard();
                 cardDisplay.card = null;
                 break;
             case "Spell":
                 card.LandmarkTarget = landmarkSlot;
 
                 Graveyard.Instance.AddCardToGraveyard(card);
-                card.LandmarkTarget.DestroyLandmark();
+                card.PlayCard();
                 cardDisplay.card = null;
                 return;
             case "HealingLandmark":

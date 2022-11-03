@@ -118,6 +118,7 @@ public class GameState : MonoBehaviour
 
     public void CalculateBonusDamage(int damage, Card cardUsed)
     {
+        
         damage = playerChampion.champion.DealDamageAttack(damage);
 
         damage += damageRamp;
