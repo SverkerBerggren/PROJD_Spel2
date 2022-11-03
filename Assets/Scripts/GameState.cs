@@ -733,7 +733,9 @@ public class GameState : MonoBehaviour
     {
         if (opponentPlayedLandmark)
         {
+
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].health = landmark.minionHealth;
         }
         else
         {
