@@ -134,19 +134,19 @@ public class AvailableChampion : MonoBehaviour
                 builderMesh.SetActive(true);
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(false);
-                meshToShow.name = builderMesh.name;
+                meshToShow = builderMesh;
                 break;
             case "Cultist":
                 builderMesh.SetActive(false);
                 cultistMesh.SetActive(true);
                 graverobberMesh.SetActive(false);
-                meshToShow.name = cultistMesh.name;
+                meshToShow = cultistMesh;
                 break;
             case "Gravedigger":
                 builderMesh.SetActive(false);               
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(true);
-                meshToShow.name = graverobberMesh.name;
+                meshToShow = graverobberMesh;
                 break;
         }
     }
