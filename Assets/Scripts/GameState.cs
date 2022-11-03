@@ -1009,8 +1009,8 @@ public class GameState : MonoBehaviour
 
     public static void Swap(List<AvailableChampion> list, int i, int j)
     {
-        AvailableChampion temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
+        Champion temp = list[i].champion;
+        list[i].champion = list[j].champion;
+        list[j].champion = temp;
     }
 }
