@@ -794,7 +794,7 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
-            playerChampion.champion.EndStep();
+            //playerChampion.champion.EndStep();
             //opponentChampion.champion.UpKeep();
         }
         else
@@ -802,7 +802,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             DrawCard(1, null);
             actionOfPlayer.IncreaseMana();
-            opponentChampion.champion.EndStep();
+            //opponentChampion.champion.EndStep();
             //playerChampion.champion.UpKeep();
         }
 
