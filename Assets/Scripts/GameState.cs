@@ -636,6 +636,7 @@ public class GameState : MonoBehaviour
     {   
         if(targetInfo != null)
         {
+            print("Comes in here MYPLAYER");
             SwapChampionWithTargetInfo(targetInfo);
             return;
         }
@@ -687,6 +688,7 @@ public class GameState : MonoBehaviour
     {
         if (targetInfo != null)
         {
+            print("Comes in here ENEMY");
             SwapChampionWithTargetInfo(targetInfo);
             return;
         }
