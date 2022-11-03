@@ -609,7 +609,7 @@ public class GameState : MonoBehaviour
 
                 if (specificCard == null)
                 {
-                    cardDisplay.card = actionOfPlayer.handOpponent.deck.WhichCardToDrawPlayer();
+                    cardDisplay.card = actionOfPlayer.handOpponent.deck.WhichCardToDrawOpponent();
                     cardDisplay.opponentCard = true;
                     cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
                 }
