@@ -19,13 +19,16 @@ public class LandmarkDisplay : MonoBehaviour
     public bool occultGathering = false;
     [NonSerialized] public int tenExtraDamage;
     private GameState gameState;
+    private Graveyard graveyard;
     public int index;
+    public bool opponentLandmarks = false;
 
 
 
     private void Start()
     {
         gameState = GameState.Instance;
+        graveyard = Graveyard.Instance;
     }
 
     private void UpdateTextOnCard()
@@ -49,8 +52,13 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void LandmarkDead()
     {
+        if (opponentLandmarks)
+            graveyard.AddCardToGraveyardOpponent(card);
+        else
+            graveyard.AddCardToGraveyard(card);
         card.LandmarkEffectTakeBack();
         card.WhenLandmarksDie();
+        card = null;
     }
 
     public void TakeDamage(int amount)
@@ -59,9 +67,7 @@ public class LandmarkDisplay : MonoBehaviour
 
         if (health <= 0)
         {
-            LandmarkDead();
-            Graveyard.Instance.AddCardToGraveyard(card);
-            card = null;
+            LandmarkDead();                     
         }
     }
 

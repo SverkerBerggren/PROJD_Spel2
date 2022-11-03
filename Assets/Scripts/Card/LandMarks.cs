@@ -27,7 +27,10 @@ public class Landmarks : Card
         minionHealth -= damageToTake;
     }
 
-    public virtual void PlaceLandmark() { }
+    public virtual void PlaceLandmark() 
+    { 
+        
+    }
     public virtual void LandmarkEffectTakeBack() { }
 
     public virtual void DrawCard() { }

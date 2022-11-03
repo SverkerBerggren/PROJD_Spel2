@@ -9,55 +9,62 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameState : MonoBehaviour
 {
-    public int currentPlayerID = 0;
-    public bool hasPriority = true;
-
-    public bool isItMyTurn;
-    public bool didIStart;
-
-    public int amountOfTurns;
-
    
     private int amountOfCardsToStartWith = 5;
 
-    [SerializeField] private GameObject lostScreen;
-    [SerializeField] private GameObject wonScreen;
-
-    [SerializeField] private GameObject healEffect;
-
-    public ActionOfPlayer actionOfPlayer;
-    public int currentMana;
-    public SpriteRenderer playedCardSpriteRenderer;
-    public Sprite backfaceCard;
-
-    public GameObject EndTurnButton;
-    private UnityEngine.UI.Button endTurnBttn;
-
+    [Header("Active Champions")]
     public AvailableChampion playerChampion;
     public AvailableChampion opponentChampion;
-    [NonSerialized] public bool drawExtraCardsEachTurn = false;
-    [NonSerialized] public int occultGathering = 0;
 
+    [Header("ChampionLists")]
     public List<AvailableChampion> playerChampions = new List<AvailableChampion>();
     public List<AvailableChampion> opponentChampions = new List<AvailableChampion>();
 
+    [Header("LandmarkLists")]
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
+    [Header("Have Friends?")]
+    public bool isOnline = false;
+
+    [Header("CardsPlayed")]
     public List<Card> cardsPlayedThisTurn = new List<Card>();
-    public int attacksPlayedThisTurn;
+
+    [Header("Win Screen")]
+    [SerializeField] private GameObject lostScreen;
+    [SerializeField] private GameObject wonScreen;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject healEffect;
+
+    
+    [Header("UI Elements")]
+    public SpriteRenderer playedCardSpriteRenderer;
+    public Sprite backfaceCard;
+    public UnityEngine.UI.Button endTurnBttn;
+
+
+    [NonSerialized] public int currentPlayerID = 0;
+    [NonSerialized] public bool hasPriority = true;
+
+    [NonSerialized] public bool isItMyTurn;
+    [NonSerialized] public bool didIStart;
+    [NonSerialized] public int amountOfTurns;
 
     [NonSerialized] public int tenExtraDamage;
     [NonSerialized] public int damageRamp = 0;
     [NonSerialized] public int slaughterhouse = 0;
     [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
+    [NonSerialized] public bool drawExtraCardsEachTurn = false;
+    [NonSerialized] public int occultGathering = 0;
+    [NonSerialized] public int attacksPlayedThisTurn;
+    
+    private ActionOfPlayer actionOfPlayer;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
 
-
-    public bool isOnline = false;
 
 
     private void Awake()
@@ -68,7 +75,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Destroy(Instance);
+            Destroy(gameObject);
         }
 
         AddChampions(playerChampions);
@@ -80,7 +87,6 @@ public class GameState : MonoBehaviour
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;
-        endTurnBttn = EndTurnButton.GetComponent<UnityEngine.UI.Button>();
         if (isOnline)
         {
             if (ClientConnection.Instance.playerId == 0)
@@ -118,6 +124,7 @@ public class GameState : MonoBehaviour
 
     public void CalculateBonusDamage(int damage, Card cardUsed)
     {
+        
         damage = playerChampion.champion.DealDamageAttack(damage);
 
         damage += damageRamp;
@@ -184,7 +191,7 @@ public class GameState : MonoBehaviour
     {
         for (int i = 0; i < landmarks.Count; i++)
         {
-            if (landmarks[i] == cardUsed.Target)
+            if (landmarks[i] == cardUsed.LandmarkTarget)
             {
                 return i;
             }
@@ -638,13 +645,8 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-                Champion champ = playerChampion.champion;
-                playerChampion.champion = playerChampions[randomChamp].champion;
 
-                if (champ.health > 0)
-                { 
-                    playerChampions[randomChamp].champion = champ;
-                }
+				Swap(playerChampions, 0, randomChamp);
 
                 if(isOnline)
                 {
@@ -694,11 +696,8 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
             if (opponentChampion != opponentChampions[randomChamp])
             {
-                Champion champ = opponentChampion.champion;
-                opponentChampion.champion = opponentChampions[randomChamp].champion;
-                opponentChampions[randomChamp].champion = champ;
+                Swap(opponentChampions, 0, randomChamp);
                 break;
-
             }
         }
         opponentChampion.champion.WhenCurrentChampion();
@@ -731,13 +730,38 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
+        switch (landmark.tag)
+        {
+            case "HealingLandmark":
+                landmark = new HealingLandmark((HealingLandmark)landmark);
+                break;
+            case "TauntLandmark":
+                landmark = new TauntLandmark((TauntLandmark)landmark);
+                break;
+            case "DamageLandmark":
+                landmark = new DamageLandmark((DamageLandmark)landmark);
+                break;
+            case "DrawCardLandmark":
+                landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
+                break;
+            case "CultistLandmark":
+                landmark = new CultistLandmark((CultistLandmark)landmark);
+                break;
+            case "BuilderLandmark":
+                landmark = new BuilderLandmark((BuilderLandmark)landmark);
+                break;
+        }
+
         if (opponentPlayedLandmark)
         {
+
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].health = landmark.minionHealth;
         }
         else
         {
             print("landmark index " + index);
+            playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].card = landmark;
         }
     }
@@ -791,7 +815,7 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
-            playerChampion.champion.EndStep();
+            //playerChampion.champion.EndStep();
             //opponentChampion.champion.UpKeep();
         }
         else
@@ -799,7 +823,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             DrawCard(1, null);
             actionOfPlayer.IncreaseMana();
-            opponentChampion.champion.EndStep();
+            //opponentChampion.champion.EndStep();
             //playerChampion.champion.UpKeep();
         }
 
@@ -881,25 +905,26 @@ public class GameState : MonoBehaviour
         if (playerChampion.champion == deadChampion)
         {
             SwapActiveChampion(null);
-            foreach (AvailableChampion ac in playerChampions)
-            {
-                if (ac.champion == deadChampion)
-                {
-                    playerChampions.Remove(ac);
-                    break;
-                }
-            }
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {
             SwapActiveChampionEnemy(null);
-            foreach (AvailableChampion ac in opponentChampions)
+        }
+
+        foreach (AvailableChampion ac in playerChampions)
+        {
+            if (ac.champion == deadChampion)
             {
-                if (ac.champion == deadChampion)
-                {
-                    opponentChampions.Remove(ac);
-                    break;
-                }
+                playerChampions.Remove(ac);
+                break;
+            }
+        }
+        foreach (AvailableChampion ac in opponentChampions)
+        {
+            if (ac.champion == deadChampion)
+            {
+                opponentChampions.Remove(ac);
+                break;
             }
         }
     }
@@ -980,5 +1005,12 @@ public class GameState : MonoBehaviour
     {
         lostScreen.SetActive(true);
         //Request victory maybe????
+    }
+
+    public static void Swap(List<AvailableChampion> list, int i, int j)
+    {
+        Champion temp = list[i].champion;
+        list[i].champion = list[j].champion;
+        list[j].champion = temp;
     }
 }
