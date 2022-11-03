@@ -4,10 +4,10 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-[CreateAssetMenu(fileName = "Gravedigger", menuName = "Champion/Gravedigger", order = 1)]
-public class Gravedigger : Champion
+[CreateAssetMenu(fileName = "Graverobber", menuName = "Champion/Graverobber", order = 1)]
+public class Graverobber : Champion
 {
-	public Gravedigger(Gravedigger c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, c.mesh) { }
+	public Graverobber(Graverobber c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, c.mesh) { }
 
 	public override void EndStep()
 	{

@@ -28,6 +28,7 @@ public class AvailableChampion : MonoBehaviour
     private ArmorEffect armorEffect;
 
 
+
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text passiveEffect;
@@ -41,7 +42,6 @@ public class AvailableChampion : MonoBehaviour
         passiveEffect.text = champion.passiveEffect;
         health = champion.health;
         maxHealth = champion.maxHealth;
-
 		//InvokeRepeating(nameof(Deal5Damage), 5, 2);
 	}
 
@@ -60,12 +60,16 @@ public class AvailableChampion : MonoBehaviour
         {
             case "Builder":
                 builderMesh.SetActive(true);
+                champion.animator = builderMesh.GetComponentInChildren<Animator>();
                 break;
             case "Cultist":
                 cultistMesh.SetActive(true);
+                champion.animator = cultistMesh.GetComponentInChildren<Animator>();
                 break;
-            case "Gravedigger":
+            case "Graverobber":
                 graverobberMesh.SetActive(true);
+                champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
+                print("asdas");
                 break;
         }
     }
@@ -107,7 +111,7 @@ public class AvailableChampion : MonoBehaviour
 
     public void FixedUpdate()
 	{
-        if (champion.destroyShild)
+        if (champion.destroyShield)
         {
             armorEffect.DamageArmor(10);
             print("RUns");
@@ -135,18 +139,21 @@ public class AvailableChampion : MonoBehaviour
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(false);
                 meshToShow.name = builderMesh.name;
+                champion.animator = builderMesh.GetComponentInChildren<Animator>();
                 break;
             case "Cultist":
                 builderMesh.SetActive(false);
                 cultistMesh.SetActive(true);
                 graverobberMesh.SetActive(false);
                 meshToShow.name = cultistMesh.name;
+                champion.animator = cultistMesh.GetComponentInChildren<Animator>();
                 break;
             case "Gravedigger":
                 builderMesh.SetActive(false);               
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(true);
                 meshToShow.name = graverobberMesh.name;
+                champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
                 break;
         }
     }

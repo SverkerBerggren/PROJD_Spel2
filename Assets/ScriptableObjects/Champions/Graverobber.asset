@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfe027922d122c64fac3bfa861dc11c3, type: 3}
-  m_Name: Gravedigger
+  m_Name: Graverobber
   m_EditorClassIdentifier: 
-  name: Gravedigger
+  name: Graverobber
   health: 120
   maxHealth: 120
   shield: 0
   artwork: {fileID: 21300000, guid: 7700b43f80e81de45b4b2277dfd58989, type: 3}
   passiveEffect: 
   healEachRound: 0
+  mesh: {fileID: 0}
+  animator: {fileID: 0}
+  destroyShield: 0

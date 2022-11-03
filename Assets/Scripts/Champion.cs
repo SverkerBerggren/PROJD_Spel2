@@ -7,6 +7,10 @@ using TMPro;
 
 public abstract class Champion : ScriptableObject
 {
+    private AvailableChampion aC;
+
+    protected GameState gameState;
+
     public new string name;
     public int health = 100;
     public int maxHealth;
@@ -15,13 +19,13 @@ public abstract class Champion : ScriptableObject
     public string passiveEffect;
     public bool healEachRound = false;
     public GameObject mesh;
-
-    public bool destroyShild = false;
+    public Animator animator;
+    public bool destroyShield = false;
     
-    private GameState gameState;
 
     public Champion(string name, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, GameObject mesh)
     {
+        gameState = GameState.Instance;
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -46,7 +50,7 @@ public abstract class Champion : ScriptableObject
             {
                 int differenceAfterShieldDamage = damage - shield;
                 shield = 0;
-                destroyShild = true;
+                destroyShield = true;
                 health -= differenceAfterShieldDamage;
             }
             else
@@ -80,7 +84,7 @@ public abstract class Champion : ScriptableObject
     }
     public virtual void GainShield(int amountToBlock)
     {
-        destroyShild = false;
+        destroyShield = false;
         shield += amountToBlock;
     }
 
@@ -88,7 +92,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual void AmountOfCardsPlayed(Card card) {}
 
-    public virtual int DealDamageAttack(int damage) { return damage; }
+    public virtual int DealDamageAttack(int damage) {animator.SetTrigger("Attack"); return damage; }
 
     public virtual void UpKeep() { HealEachRound(); } // Osäker på om jag gjort rätt när jag la in den här
 
@@ -102,7 +106,7 @@ public abstract class Champion : ScriptableObject
     {
 
         //CancelInvoke();
-        GameState.Instance.ChampionDeath(this);
+        gameState.ChampionDeath(this);
     }
 
 }

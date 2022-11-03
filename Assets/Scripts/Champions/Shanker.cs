@@ -18,7 +18,6 @@ public class Shanker : Champion
 	public override void EndStep()
 	{
 		base.EndStep();
-		GameState gameState = GameState.Instance;
 		int attackCardsPlayed = 0;
 		foreach (Card c in gameState.cardsPlayedThisTurn)
 		{

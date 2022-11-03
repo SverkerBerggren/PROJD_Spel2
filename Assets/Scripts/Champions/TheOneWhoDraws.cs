@@ -14,6 +14,6 @@ public class TheOneWhoDraws : Champion
 	public override void EndStep()
 	{
 		base.EndStep();
-		GameState.Instance.DrawCard(1, null);
+		gameState.DrawCard(1, null);
 	}
 }

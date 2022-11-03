@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Graverobber")]
-public class Graverobber : Spells
+[CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Gravedigging")]
+public class Gravedigging : Spells
 {
     public int amountOfCardsToReturn;
     public int topCardsInGraveyard = 0;

@@ -370,8 +370,8 @@ public class GameState : MonoBehaviour
                     champ = new Shanker((Shanker)champions[i].champion);
                     break;
 
-                case "Gravedigger":
-                    champ = new Gravedigger((Gravedigger)champions[i].champion);
+                case "Graverobber":
+                    champ = new Graverobber((Graverobber)champions[i].champion);
                     break;
 
                 case "TheOneWhoDraws":
@@ -405,8 +405,8 @@ public class GameState : MonoBehaviour
                     champ = new Shanker((Shanker)champions[i].champion);
                     break;
 
-                case "Gravedigger":
-                    champ = new Gravedigger((Gravedigger)champions[i].champion);
+                case "Graverobber":
+                    champ = new Graverobber((Graverobber)champions[i].champion);
                     break;
 
                 case "TheOneWhoDraws":
