@@ -120,7 +120,6 @@ public class CardTargeting : MonoBehaviour
     private void WhatToDoWhenLandmarkSlotTargeted()
     {
         LandmarkDisplay landmarkSlot = gameObjectHit.GetComponent<LandmarkDisplay>();
-        Landmarks landmark = null;
 
         switch (card.tag)
         {
@@ -146,8 +145,9 @@ public class CardTargeting : MonoBehaviour
 
 
         if (card.typeOfCard == CardType.Landmark)
-        {         
-            GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark,false);
+        {
+            Landmarks landmark = (Landmarks)card;
+            GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
 
             if (GameState.Instance.isOnline)
