@@ -14,35 +14,17 @@ public class EffectController : MonoBehaviour
     private Dictionary<string, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
     private GameObject shiledToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
-    private Renderer shiledArmor;
-    private MaterialPropertyBlock m_PropetyBlock;
-    private float targetDiss;
-    private float currentDiss;
-    private int shaderSlide; //the max value of current effect to reach
-    private int currentSilde; //the counting value
+
     void Start()
     {
         shields = new Dictionary<string, GameObject>();
-        m_PropetyBlock = new MaterialPropertyBlock();
-        targetDiss = currentDiss = 1f;
-        shaderSlide = currentSilde = 0;
-        //the slides max = 1, min = 0, default = 1,
+
       }
 
     // Update is called once per frame
     void Update()
     {
-        if(shiledToGo != null)
-        {
-            //if there is a current shiled should go 
 
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Get space");
-            Instantiate(healingPrefab);
-        
-        }
     }
 
     //two parameters, which champion should have shiled and how much  
@@ -55,7 +37,8 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-        GameObject toStore = Instantiate(shieldPrefab,champions.transform.position,Quaternion.identity);
+        GameObject toStore = Instantiate(shieldPrefab,champions.transform.position,Quaternion.identity); //the GO should have Shieldeffect script
+       
         shields.Add(champions.name, toStore);
         //champions.shield = shiledAmount;
     }
@@ -63,23 +46,14 @@ public class EffectController : MonoBehaviour
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
         shiledToGo = shields[champion.name];
-        shaderSlide = 100;
+        shiledToGo.GetComponent<Shieldeffect>().Disslove(); 
         //apply the fade out effect
     }
-    public void DamageShield()
+
+    public void GainHealingEffect(GameObject go)
     {
-        //shiled effect 50 procent
-        shaderSlide = 50;
+        Instantiate(healingPrefab, champions.transform.position, Quaternion.identity);
     }
 
-    public void ShaderAccount(int dmg)
-    {
 
-        SetShaderSlide(Mathf.Min(currentSilde + dmg, 100));
-    }
-    public void SetShaderSlide(int value)
-    {
-        currentSilde = value;
-        targetDiss = (float)(shaderSlide - currentSilde) / shaderSlide;
-    }
 }
