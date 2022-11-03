@@ -907,25 +907,26 @@ public class GameState : MonoBehaviour
         if (playerChampion.champion == deadChampion)
         {
             SwapActiveChampion(null);
-            foreach (AvailableChampion ac in playerChampions)
-            {
-                if (ac.champion == deadChampion)
-                {
-                    playerChampions.Remove(ac);
-                    break;
-                }
-            }
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {
             SwapActiveChampionEnemy(null);
-            foreach (AvailableChampion ac in opponentChampions)
+        }
+
+        foreach (AvailableChampion ac in playerChampions)
+        {
+            if (ac.champion == deadChampion)
             {
-                if (ac.champion == deadChampion)
-                {
-                    opponentChampions.Remove(ac);
-                    break;
-                }
+                playerChampions.Remove(ac);
+                break;
+            }
+        }
+        foreach (AvailableChampion ac in opponentChampions)
+        {
+            if (ac.champion == deadChampion)
+            {
+                opponentChampions.Remove(ac);
+                break;
             }
         }
     }
