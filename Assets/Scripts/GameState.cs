@@ -671,17 +671,15 @@ public class GameState : MonoBehaviour
     {
         if (targetInfo.whichList.opponentChampions == true)
         {
-            Swap(playerChampions, 0, targetInfo.index);
-/*            Champion champ = playerChampion.champion;
+            Champion champ = playerChampion.champion;
             playerChampion.champion = playerChampions[targetInfo.index].champion;
-            playerChampions[targetInfo.index].champion = champ;*/
+            playerChampions[targetInfo.index].champion = champ;
         }
         else if (targetInfo.whichList.myChampions == true)
         {
-            Swap(opponentChampions, 0, targetInfo.index);
-           /* Champion champ = opponentChampion.champion;
+            Champion champ = opponentChampion.champion;
             opponentChampion.champion = opponentChampions[targetInfo.index].champion;
-            opponentChampions[targetInfo.index].champion = champ;*/
+            opponentChampions[targetInfo.index].champion = champ;
         }
     }
 
@@ -913,9 +911,17 @@ public class GameState : MonoBehaviour
             SwapActiveChampionEnemy(null);
         }
 
+        deadChamp = deadChampion;
+        Invoke(nameof(RemoveChampion), 0.01f);
+    }
+
+    Champion deadChamp;
+
+    public void RemoveChampion()
+    {
         foreach (AvailableChampion ac in playerChampions)
         {
-            if (ac.champion == deadChampion)
+            if (ac.champion == deadChamp)
             {
                 playerChampions.Remove(ac);
                 break;
@@ -923,7 +929,7 @@ public class GameState : MonoBehaviour
         }
         foreach (AvailableChampion ac in opponentChampions)
         {
-            if (ac.champion == deadChampion)
+            if (ac.champion == deadChamp)
             {
                 opponentChampions.Remove(ac);
                 break;
