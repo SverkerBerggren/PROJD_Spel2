@@ -811,10 +811,6 @@ public class GameState : MonoBehaviour
             return;
         }
         
-        if(!didIStart)
-        {
-            amountOfTurns++;
-        }
 
         if (isItMyTurn)
         {
@@ -824,6 +820,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            amountOfTurns++;
             isItMyTurn = true;
             DrawCard(1, null);
             actionOfPlayer.IncreaseMana();
