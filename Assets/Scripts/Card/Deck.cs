@@ -44,7 +44,6 @@ public class Deck : MonoBehaviour
 
     private void Start()
     {
-        Shuffle(deckPlayer);
         while (deckOfCardsPlayer.Count < 30)
         {
             foreach (Card card in deckPlayer)
@@ -52,8 +51,10 @@ public class Deck : MonoBehaviour
                 deckOfCardsPlayer.Push(card);
             }
         }
+        Shuffle(deckPlayer);
 
-        Shuffle(deckOpponent);
+        print(deckOfCardsPlayer.Count);
+
         while (deckOfCardsOpponent.Count < 30)
         {
             foreach (Card card in deckOpponent)
@@ -61,6 +62,9 @@ public class Deck : MonoBehaviour
                 deckOfCardsOpponent.Push(card);
             }
         }
+        Shuffle(deckOpponent);
+
+        print(deckOfCardsOpponent.Count);
     }
 
 
