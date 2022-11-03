@@ -645,13 +645,8 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-                Champion champ = playerChampion.champion;
-                playerChampion.champion = playerChampions[randomChamp].champion;
 
-                if (champ.health > 0)
-                { 
-                    playerChampions[randomChamp].champion = champ;
-                }
+				Swap(playerChampions, 0, randomChamp);
 
                 if(isOnline)
                 {
@@ -1013,5 +1008,12 @@ public class GameState : MonoBehaviour
     {
         lostScreen.SetActive(true);
         //Request victory maybe????
+    }
+
+    public static void Swap<T>(this List<T> list, int i, int j)
+    {
+        T temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
     }
 }
