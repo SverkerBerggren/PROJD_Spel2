@@ -75,7 +75,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Destroy(Instance);
+            Destroy(gameObject);
         }
 
         AddChampions(playerChampions);
