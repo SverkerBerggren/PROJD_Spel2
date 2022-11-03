@@ -105,7 +105,7 @@ public class Deck : MonoBehaviour
 
     public Card WhichCardToDrawOpponent()
     {
-        if (deckOfCardsPlayer.Count > 0)
+        if (deckOfCardsOpponent.Count > 0)
             return deckOfCardsOpponent.Pop();
 
         GameState.Instance.Victory();
