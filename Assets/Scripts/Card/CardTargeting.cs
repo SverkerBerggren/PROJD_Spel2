@@ -54,12 +54,13 @@ public class CardTargeting : MonoBehaviour
         GameObject gO = GameObject.Find("Platform");
 
         RaycastHit hitEnemy;
-        Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 75f);
+        Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 200f);
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
 
 
         if (hitEnemy.collider == null)
         {
+            print("RUNS");
             CardGoBackToStartingPosition();
             return;
         }
