@@ -67,9 +67,24 @@ public class Deck : MonoBehaviour
         print(deckOfCardsOpponent.Count);
     }
 
+	private void Update()
+	{
+        deckPlayer.Clear();
+        foreach (Card c in deckOfCardsPlayer)
+        {
+            deckPlayer.Add(c);
+        }
+
+        deckOfCardsOpponent.Clear();
+        foreach (Card c in deckOfCardsOpponent)
+        {
+            deckOpponent.Add(c);
+        }
+    }
 
 
-    public void AddCardToDeckPlayer(Card cardToAdd)
+
+	public void AddCardToDeckPlayer(Card cardToAdd)
     {
         deckOfCardsPlayer.Push(cardToAdd);
     }
