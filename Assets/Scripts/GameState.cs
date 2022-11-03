@@ -185,7 +185,7 @@ public class GameState : MonoBehaviour
     {
         for (int i = 0; i < landmarks.Count; i++)
         {
-            if (landmarks[i] == cardUsed.Target)
+            if (landmarks[i] == cardUsed.LandmarkTarget)
             {
                 return i;
             }
