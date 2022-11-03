@@ -909,6 +909,7 @@ public class GameState : MonoBehaviour
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {
+            print("Naughty");
             SwapActiveChampionEnemy(null);
         }
 
