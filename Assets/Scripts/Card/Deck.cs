@@ -75,7 +75,7 @@ public class Deck : MonoBehaviour
             deckPlayer.Add(c);
         }
 
-        deckOfCardsOpponent.Clear();
+        deckOpponent.Clear();
         foreach (Card c in deckOfCardsOpponent)
         {
             deckOpponent.Add(c);
