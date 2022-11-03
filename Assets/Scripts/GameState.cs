@@ -671,15 +671,17 @@ public class GameState : MonoBehaviour
     {
         if (targetInfo.whichList.opponentChampions == true)
         {
-            Champion champ = playerChampion.champion;
+            Swap(playerChampions, 0, targetInfo.index);
+/*            Champion champ = playerChampion.champion;
             playerChampion.champion = playerChampions[targetInfo.index].champion;
-            playerChampions[targetInfo.index].champion = champ;
+            playerChampions[targetInfo.index].champion = champ;*/
         }
         else if (targetInfo.whichList.myChampions == true)
         {
-            Champion champ = opponentChampion.champion;
+            Swap(opponentChampions, 0, targetInfo.index);
+           /* Champion champ = opponentChampion.champion;
             opponentChampion.champion = opponentChampions[targetInfo.index].champion;
-            opponentChampions[targetInfo.index].champion = champ;
+            opponentChampions[targetInfo.index].champion = champ;*/
         }
     }
 
