@@ -49,7 +49,7 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
-    [NonSerialized] public int amountOfTurns;
+    public int amountOfTurns;
 
     [NonSerialized] public int tenExtraDamage;
     [NonSerialized] public int damageRamp = 0;
