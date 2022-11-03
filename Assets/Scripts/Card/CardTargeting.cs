@@ -142,31 +142,11 @@ public class CardTargeting : MonoBehaviour
                 card.PlayCard();
                 cardDisplay.card = null;
                 return;
-            case "HealingLandmark":
-                landmark = new HealingLandmark((HealingLandmark)card); 
-                break;
-            case "TauntLandmark":
-                landmark = new TauntLandmark((TauntLandmark)card);
-                break;
-            case "DamageLandmark":
-                landmark = new DamageLandmark((DamageLandmark)card);
-                break;
-            case "DrawCardLandmark":
-                landmark = new DrawCardLandmark((DrawCardLandmark)card);
-                break;
-            case "CultistLandmark":
-                landmark = new CultistLandmark((CultistLandmark)card);
-                break;
-            case "BuilderLandmark":
-                landmark = new BuilderLandmark((BuilderLandmark)card);
-                break;
         }
 
 
-        if (landmark != null)
-        {
-            landmarkSlot.health = landmark.minionHealth;
-            landmarkSlot.card = landmark;            
+        if (card.typeOfCard == CardType.Landmark)
+        {         
             GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark,false);
 
 

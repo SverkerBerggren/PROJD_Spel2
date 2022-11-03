@@ -732,6 +732,28 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
+        switch (landmark.tag)
+        {
+            case "HealingLandmark":
+                landmark = new HealingLandmark((HealingLandmark)landmark);
+                break;
+            case "TauntLandmark":
+                landmark = new TauntLandmark((TauntLandmark)landmark);
+                break;
+            case "DamageLandmark":
+                landmark = new DamageLandmark((DamageLandmark)landmark);
+                break;
+            case "DrawCardLandmark":
+                landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
+                break;
+            case "CultistLandmark":
+                landmark = new CultistLandmark((CultistLandmark)landmark);
+                break;
+            case "BuilderLandmark":
+                landmark = new BuilderLandmark((BuilderLandmark)landmark);
+                break;
+        }
+
         if (opponentPlayedLandmark)
         {
 
@@ -741,6 +763,7 @@ public class GameState : MonoBehaviour
         else
         {
             print("landmark index " + index);
+            playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].card = landmark;
         }
     }
