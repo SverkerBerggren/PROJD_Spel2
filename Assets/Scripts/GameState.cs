@@ -604,7 +604,7 @@ public class GameState : MonoBehaviour
                 {
                     cardDisplay.card = actionOfPlayer.handPlayer.deck.WhichCardToDrawPlayer();
                     cardDisplay.opponentCard = true;
-                   //cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+                    cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
                 }
 
                 else

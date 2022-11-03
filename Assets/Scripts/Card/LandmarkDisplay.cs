@@ -7,8 +7,15 @@ using UnityEngine;
 public class LandmarkDisplay : MonoBehaviour
 {
     public Landmarks card;
-    public SpriteRenderer artworkSpriteRenderer;
+    
     public int health;
+    public TMP_Text healthText;
+    public TMP_Text descriptionText;
+    public TMP_Text nameText;
+    public TMP_Text manaText;
+
+    public GameObject landmarkPrefab;
+
     public bool occultGathering = false;
     [NonSerialized] public int tenExtraDamage;
     private GameState gameState;
@@ -25,11 +32,14 @@ public class LandmarkDisplay : MonoBehaviour
     {
         if (card == null)
         {
-            artworkSpriteRenderer.sprite = null;
+            landmarkPrefab.SetActive(false);
             return;
         }
-
-        artworkSpriteRenderer.sprite = card.artwork;
+        landmarkPrefab.SetActive(true);
+        healthText.text = health.ToString();
+        descriptionText.text = card.description;
+        manaText.text = card.manaCost.ToString();
+        nameText.text = card.cardName;
     }
 
     public void DestroyLandmark()
