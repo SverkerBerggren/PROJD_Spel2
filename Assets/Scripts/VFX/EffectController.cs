@@ -52,7 +52,7 @@ public class EffectController : MonoBehaviour
 
     public void GainHealingEffect(GameObject go)
     {
-        Instantiate(healingPrefab, champions.transform.position, Quaternion.identity);
+        Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
 
 
