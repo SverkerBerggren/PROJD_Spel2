@@ -6,6 +6,8 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
+    [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+
     public Card card;  
 
     [Header("CardAtributes")]
@@ -26,14 +28,24 @@ public class CardDisplay : MonoBehaviour
     public GameObject hpGameObject;
     public TMP_Text hpText;
 
+    public Sprite backfaceSprite;
+
     public GameObject border;
     [System.NonSerialized] public bool opponentCard;
+
+    private void Start()
+    {
+        artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+    }
 
     private void UpdateTextOnCard()
     {
         if (card == null) return;
         
-        
+        if (opponentCard)
+        {
+
+        }
         
         if (!opponentCard)
         {

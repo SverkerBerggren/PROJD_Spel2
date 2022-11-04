@@ -44,7 +44,6 @@ public class Deck : MonoBehaviour
 
     private void Start()
     {
-        Shuffle(deckPlayer);
         while (deckOfCardsPlayer.Count < 30)
         {
             foreach (Card card in deckPlayer)
@@ -52,8 +51,10 @@ public class Deck : MonoBehaviour
                 deckOfCardsPlayer.Push(card);
             }
         }
+        Shuffle(deckPlayer);
 
-        Shuffle(deckOpponent);
+        print(deckOfCardsPlayer.Count);
+
         while (deckOfCardsOpponent.Count < 30)
         {
             foreach (Card card in deckOpponent)
@@ -61,11 +62,29 @@ public class Deck : MonoBehaviour
                 deckOfCardsOpponent.Push(card);
             }
         }
+        Shuffle(deckOpponent);
+
+        print(deckOfCardsOpponent.Count);
+    }
+
+	private void Update()
+	{
+        deckPlayer.Clear();
+        foreach (Card c in deckOfCardsPlayer)
+        {
+            deckPlayer.Add(c);
+        }
+
+        deckOpponent.Clear();
+        foreach (Card c in deckOfCardsOpponent)
+        {
+            deckOpponent.Add(c);
+        }
     }
 
 
 
-    public void AddCardToDeckPlayer(Card cardToAdd)
+	public void AddCardToDeckPlayer(Card cardToAdd)
     {
         deckOfCardsPlayer.Push(cardToAdd);
     }
@@ -86,7 +105,7 @@ public class Deck : MonoBehaviour
 
     public Card WhichCardToDrawOpponent()
     {
-        if (deckOfCardsPlayer.Count > 0)
+        if (deckOfCardsOpponent.Count > 0)
             return deckOfCardsOpponent.Pop();
 
         GameState.Instance.Victory();

@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class VFXController : MonoBehaviour
 {
-    [SerializeField] private GameObject ownArmor;
-    [SerializeField] private GameObject opponentArmor;
+    [SerializeField] private GameObject testChamp;
     // Start is called before the first frame update
     void Start()
     {
-        ownArmor.SetActive(true);
-        opponentArmor.SetActive(true);
+    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            gameObject.GetComponent<EffectController>().ActiveShield(testChamp, 10);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gameObject.GetComponent<EffectController>().DesstoryShield(testChamp);
+        }
     }
 }

@@ -7,29 +7,42 @@ using UnityEngine;
 public class LandmarkDisplay : MonoBehaviour
 {
     public Landmarks card;
-    public SpriteRenderer artworkSpriteRenderer;
+    
     public int health;
+    public TMP_Text healthText;
+    public TMP_Text descriptionText;
+    public TMP_Text nameText;
+    public TMP_Text manaText;
+
+    public GameObject landmarkPrefab;
+
     public bool occultGathering = false;
     [NonSerialized] public int tenExtraDamage;
     private GameState gameState;
+    private Graveyard graveyard;
     public int index;
+    public bool opponentLandmarks = false;
 
 
 
     private void Start()
     {
         gameState = GameState.Instance;
+        graveyard = Graveyard.Instance;
     }
 
     private void UpdateTextOnCard()
     {
         if (card == null)
         {
-            artworkSpriteRenderer.sprite = null;
+            landmarkPrefab.SetActive(false);
             return;
         }
-
-        artworkSpriteRenderer.sprite = card.artwork;
+        landmarkPrefab.SetActive(true);
+        healthText.text = health.ToString();
+        descriptionText.text = card.description;
+        manaText.text = card.manaCost.ToString();
+        nameText.text = card.cardName;
     }
 
     public void DestroyLandmark()
@@ -39,8 +52,13 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void LandmarkDead()
     {
+        if (opponentLandmarks)
+            graveyard.AddCardToGraveyardOpponent(card);
+        else
+            graveyard.AddCardToGraveyard(card);
         card.LandmarkEffectTakeBack();
         card.WhenLandmarksDie();
+        card = null;
     }
 
     public void TakeDamage(int amount)
@@ -49,9 +67,7 @@ public class LandmarkDisplay : MonoBehaviour
 
         if (health <= 0)
         {
-            LandmarkDead();
-            Graveyard.Instance.AddCardToGraveyard(card);
-            card = null;
+            LandmarkDead();                     
         }
     }
 
@@ -59,11 +75,15 @@ public class LandmarkDisplay : MonoBehaviour
     {
         if (gameState.amountOfTurns == 10)
         {
-            if (card.cardName.Equals("Mysterious Forest"))
+            if (card != null)
             {
-                DestroyLandmark();
-                gameState.DrawCard(5, null);
+                if (card.cardName.Equals("Mysterious Forest"))
+                {
+                    DestroyLandmark();
+                    gameState.DrawCard(5, null);
+                }
             }
+            
         }
         UpdateTextOnCard();
     }

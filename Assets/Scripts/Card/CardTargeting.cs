@@ -54,15 +54,19 @@ public class CardTargeting : MonoBehaviour
         GameObject gO = GameObject.Find("Platform");
 
         RaycastHit hitEnemy;
-        Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 75f);
+        Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 200f);
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
+
 
         if (hitEnemy.collider == null)
         {
+            print("RUNS");
             CardGoBackToStartingPosition();
             return;
         }
         
+        print(hitEnemy.collider.gameObject.name);
+
         gameObjectHit = hitEnemy.transform.gameObject;
 
 
@@ -116,7 +120,6 @@ public class CardTargeting : MonoBehaviour
     private void WhatToDoWhenLandmarkSlotTargeted()
     {
         LandmarkDisplay landmarkSlot = gameObjectHit.GetComponent<LandmarkDisplay>();
-        Landmarks landmark = null;
 
         switch (card.tag)
         {
@@ -128,42 +131,23 @@ public class CardTargeting : MonoBehaviour
             case "AttackSpell":
                 card.LandmarkTarget = landmarkSlot;
                 Graveyard.Instance.AddCardToGraveyard(card);
-                card.LandmarkTarget.DestroyLandmark();
+                card.PlayCard();
                 cardDisplay.card = null;
                 break;
             case "Spell":
                 card.LandmarkTarget = landmarkSlot;
 
                 Graveyard.Instance.AddCardToGraveyard(card);
-                card.LandmarkTarget.DestroyLandmark();
+                card.PlayCard();
                 cardDisplay.card = null;
                 return;
-            case "HealingLandmark":
-                landmark = new HealingLandmark((HealingLandmark)card); 
-                break;
-            case "TauntLandmark":
-                landmark = new TauntLandmark((TauntLandmark)card);
-                break;
-            case "DamageLandmark":
-                landmark = new DamageLandmark((DamageLandmark)card);
-                break;
-            case "DrawCardLandmark":
-                landmark = new DrawCardLandmark((DrawCardLandmark)card);
-                break;
-            case "CultistLandmark":
-                landmark = new CultistLandmark((CultistLandmark)card);
-                break;
-            case "BuilderLandmark":
-                landmark = new BuilderLandmark((BuilderLandmark)card);
-                break;
         }
 
 
-        if (landmark != null)
+        if (card.typeOfCard == CardType.Landmark)
         {
-            landmarkSlot.health = landmark.minionHealth;
-            landmarkSlot.card = landmark;            
-            GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark,false);
+            Landmarks landmark = (Landmarks)card;
+            GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
 
             if (GameState.Instance.isOnline)

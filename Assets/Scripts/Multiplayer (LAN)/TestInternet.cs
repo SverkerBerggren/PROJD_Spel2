@@ -97,7 +97,7 @@ public class TestInternet : MonoBehaviour
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
                     Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                    gameState.actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                    ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
                 }
 
@@ -179,7 +179,7 @@ public class TestInternet : MonoBehaviour
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
                 GameState.Instance.SwapActiveChampionEnemy(castedAction.targetToSwitch);
-
+                
                 //Draw card opponents
 
             }            
@@ -233,7 +233,7 @@ public class TestInternet : MonoBehaviour
 
                 Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
-                gameState.actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
                 GameState.Instance.ShowPlayedCard(cardPlayed);
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
