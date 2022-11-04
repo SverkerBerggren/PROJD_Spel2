@@ -53,7 +53,6 @@ public class Deck : MonoBehaviour
         }
         Shuffle(deckPlayer);
 
-        print(deckOfCardsPlayer.Count);
 
         while (deckOfCardsOpponent.Count < 30)
         {
@@ -63,28 +62,10 @@ public class Deck : MonoBehaviour
             }
         }
         Shuffle(deckOpponent);
-
-        print(deckOfCardsOpponent.Count);
+        InvokeRepeating(nameof(UpdateUnityDeck), 1, 1);
     }
 
-	private void Update()
-	{
-        deckPlayer.Clear();
-        foreach (Card c in deckOfCardsPlayer)
-        {
-            deckPlayer.Add(c);
-        }
-
-        deckOpponent.Clear();
-        foreach (Card c in deckOfCardsOpponent)
-        {
-            deckOpponent.Add(c);
-        }
-    }
-
-
-
-	public void AddCardToDeckPlayer(Card cardToAdd)
+    public void AddCardToDeckPlayer(Card cardToAdd)
     {
         deckOfCardsPlayer.Push(cardToAdd);
     }
@@ -96,8 +77,8 @@ public class Deck : MonoBehaviour
 
     public Card WhichCardToDrawPlayer()
     {
-        if(deckOfCardsPlayer.Count > 0)
-        return deckOfCardsPlayer.Pop();
+        if (deckOfCardsPlayer.Count > 0)
+            return deckOfCardsPlayer.Pop();
 
         GameState.Instance.Defeat();
         return null;
@@ -110,5 +91,20 @@ public class Deck : MonoBehaviour
 
         GameState.Instance.Victory();
         return null;
+    }
+
+    private void UpdateUnityDeck()
+    {
+        deckPlayer.Clear();
+        foreach (Card c in deckOfCardsPlayer)
+        {
+            deckPlayer.Add(c);
+        }
+
+        deckOpponent.Clear();
+        foreach (Card c in deckOfCardsOpponent)
+        {
+            deckOpponent.Add(c);
+        }
     }
 }
