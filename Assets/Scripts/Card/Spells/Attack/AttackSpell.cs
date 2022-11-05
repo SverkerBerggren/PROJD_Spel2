@@ -13,6 +13,7 @@ public class AttackSpell : Spells
     private AttackSpell()
     {
         typeOfCard = CardType.Attack;
+        targetable = true;
     }
 
     private GameState gameState;

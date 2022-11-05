@@ -55,41 +55,63 @@ public class CardTargeting : MonoBehaviour
 
         GameObject gO = GameObject.Find("Platform");
 
-        RaycastHit hitEnemy;
-        Physics.Raycast(mousePosition, Vector3.forward * 100 + Vector3.down * 55, out hitEnemy, 200f);
+        RaycastHit[] hitEnemy;
+        hitEnemy = Physics.RaycastAll(mousePosition, Vector3.forward * 100 + Vector3.down * 55, 200f);
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
 
-
-        if (hitEnemy.collider == null || hitEnemy.collider.gameObject.tag.Equals("DeckAndGraveyard"))
+        for (int i = 0; i < hitEnemy.Length;i++)
         {
-            print("RUNS");
-            CardGoBackToStartingPosition();
-            return;
-        }
-        
-        print(hitEnemy.collider.gameObject.name);
+            gameObjectHit = hitEnemy[i].collider.gameObject;
 
-        gameObjectHit = hitEnemy.transform.gameObject;
-
-
-        if (actionOfPlayer.CheckIfCanPlayCard(card))
-        {
+            if (gameObjectHit == null || gameObjectHit.tag.Equals("DeckAndGraveyard") && actionOfPlayer.CheckIfCanPlayCard(card))
+            {
+                CardGoBackToStartingPosition();
+                return;
+            }
 
             gameState.ShowPlayedCard(card);
-            WhatToDoWhenTargeted();
-            print(gameObjectHit.name);
-        }
-        else
-            CardGoBackToStartingPosition();
-    }
-    private void CardGoBackToStartingPosition()
-    {
-        gameObjectRectTransform.anchoredPosition = startposition;
-        print(gameObjectRectTransform.anchoredPosition);
+
+            if (card.targetable)          
+                PlayedATargetableCard();
+           
+            if (!card.targetable && hitEnemy[i].collider.tag.Equals("NonTargetCollider"))
+            {
+                PlayedAnUntargetableCard();
+            }   
+        }       
     }
 
-    private void WhatToDoWhenTargeted()
+    private void PlayedAnUntargetableCard()
     {
+        if (card.typeOfCard == CardType.Landmark)
+        {
+            int amountOfLandmarksAlreadyInUse = 0;
+            foreach (LandmarkDisplay landmarkDisplay in GameState.Instance.playerLandmarks)
+            {
+                if (landmarkDisplay.card == null)
+                {
+                    PlaceLandmark(landmarkDisplay);
+                    break;
+                }
+
+                else
+                    amountOfLandmarksAlreadyInUse++;
+            }
+            if (amountOfLandmarksAlreadyInUse == 4)
+                CardGoBackToStartingPosition();
+        }
+
+        else if (card.typeOfCard == CardType.Spell)
+        {
+            Graveyard.Instance.AddCardToGraveyard(card);
+            card.PlayCard();
+            cardDisplay.card = null;
+        }
+    }
+
+    private void PlayedATargetableCard()
+    {
+        // Should indicate the TauntLandmark so its more obvious
         if (actionOfPlayer.tauntPlaced > 0)
         {
             if (gameObjectHit.tag.Equals("TauntCard"))
@@ -97,84 +119,63 @@ public class CardTargeting : MonoBehaviour
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
-                cardDisplay.card = null;                
+                cardDisplay.card = null;
             }
+            CardGoBackToStartingPosition();
             return;
         }
 
-        switch (gameObjectHit.tag)
+        if (gameObjectHit.tag.Equals("Champion"))
         {
-            case "Champion":
-                card.Target = gameObjectHit.GetComponent<AvailableChampion>().champion;
-                 
-                Graveyard.Instance.AddCardToGraveyard(card);
-                card.PlayCard();
-                cardDisplay.card = null;
-                
-                break;
-            case "LandmarkSlot":
-                WhatToDoWhenLandmarkSlotTargeted();
-                break;
+            card.Target = gameObjectHit.GetComponent<AvailableChampion>().champion;
+
+            Graveyard.Instance.AddCardToGraveyard(card);
+            card.PlayCard();
+            cardDisplay.card = null;
         }
-        
+
+        else if (gameObjectHit.tag.Equals("LandmarkSlot"))
+        {
+            card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
+            Graveyard.Instance.AddCardToGraveyard(card);
+            card.PlayCard();
+            cardDisplay.card = null;
+        }
     }
 
-    private void WhatToDoWhenLandmarkSlotTargeted()
+    private void CardGoBackToStartingPosition()
     {
-        LandmarkDisplay landmarkSlot = gameObjectHit.GetComponent<LandmarkDisplay>();
+        gameObjectRectTransform.anchoredPosition = startposition;
+        print(gameObjectRectTransform.anchoredPosition);
+    }
 
-        switch (card.tag)
-        {
-            case "DestroyLandmark":
-                card.PlayCard();
-                graveyard.AddCardToGraveyard(card);
-                cardDisplay.card = null;
-                return;
-            case "AttackSpell":
-                card.LandmarkTarget = landmarkSlot;
-                Graveyard.Instance.AddCardToGraveyard(card);
-                card.PlayCard();
-                cardDisplay.card = null;
-                break;
-            case "Spell":
-                card.LandmarkTarget = landmarkSlot;
-
-                Graveyard.Instance.AddCardToGraveyard(card);
-                card.PlayCard();
-                cardDisplay.card = null;
-                return;
-        }
-
-
-        if (card.typeOfCard == CardType.Landmark)
-        {
-            Landmarks landmark = (Landmarks)card;
-            GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
-
-
-            if (GameState.Instance.isOnline)
-            {
-                RequestPlayLandmark request = new RequestPlayLandmark();
-                request.whichPlayer = ClientConnection.Instance.playerId;
-
-                CardAndPlacement cardAndPlacement = new CardAndPlacement();
-                cardAndPlacement.cardName = landmark.cardName;
-
-                TargetInfo targetInfo = new TargetInfo();
-                targetInfo.index = landmarkSlot.index;
-                ListEnum listEnum = new ListEnum();
-                listEnum.myLandmarks = true;
-                targetInfo.whichList = listEnum;
-
-                cardAndPlacement.placement = targetInfo;
-
-                request.landmarkToPlace = cardAndPlacement;
-
-                ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
-            }
-        }
+    private void PlaceLandmark(LandmarkDisplay landmarkSlot)
+    {
         cardDisplay.card = null;
+        Landmarks landmark = (Landmarks)card;
+        GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
+
+        if (GameState.Instance.isOnline)
+        {
+            RequestPlayLandmark request = new RequestPlayLandmark();
+            request.whichPlayer = ClientConnection.Instance.playerId;
+
+            CardAndPlacement cardAndPlacement = new CardAndPlacement();
+            cardAndPlacement.cardName = landmark.cardName;
+
+            TargetInfo targetInfo = new TargetInfo();
+            targetInfo.index = landmarkSlot.index;
+            ListEnum listEnum = new ListEnum();
+            listEnum.myLandmarks = true;
+            targetInfo.whichList = listEnum;
+
+            cardAndPlacement.placement = targetInfo;
+
+            request.landmarkToPlace = cardAndPlacement;
+
+            ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+        }       
     }
 
 

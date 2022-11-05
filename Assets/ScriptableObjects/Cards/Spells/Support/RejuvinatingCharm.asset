@@ -17,9 +17,11 @@ MonoBehaviour:
   description: Heal a friendly champion 40 hp
   artwork: {fileID: 21300000, guid: 43a45d25f30b6f14fa3ce146aaa00ea6, type: 3}
   manaCost: 4
+  maxManaCost: 4
   tag: Spell
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
+  targetable: 1
   amountToHeal: 40
   allChampions: 0

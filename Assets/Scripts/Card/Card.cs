@@ -28,7 +28,7 @@ public abstract class Card : ScriptableObject
     public int amountOfCardsToDraw = 0;
     public int amountOfCardsToDiscard = 0;
     public bool discardCardsYourself = true;
-
+    public bool targetable = false;
 
   
     public Champion Target { get { return target; } set { target = value; } }
