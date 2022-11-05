@@ -8,23 +8,28 @@ public class CardMovement : MonoBehaviour
     private Camera mainCamera;
     [System.NonSerialized] public Vector3 mousePosition;
     private CardDisplay cardDisplay;
+    
 
     void Start()
     {
         mainCamera = Camera.main;
         cardDisplay = GetComponent<CardDisplay>();
-
     }
 
     private void OnMouseDown()
     {
         offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
+        if (GameState.Instance.targetingEffect != null && cardDisplay.card.typeOfCard == CardType.Attack) GameState.Instance.targetingEffect.SetActive(true);
     }
 
     private void OnMouseDrag()
     {
         if (gameObject.tag.Equals("LandmarkSlot")) return;
         if (gameObject.GetComponent<CardDisplay>().opponentCard == true) return;
+        
+        
+
+
         mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
 
         transform.position = mousePosition + offset;

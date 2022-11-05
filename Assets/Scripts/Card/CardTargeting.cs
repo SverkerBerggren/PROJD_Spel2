@@ -13,7 +13,7 @@ public class CardTargeting : MonoBehaviour
     private Vector3 mousePosition;
     private Card card;
     private Graveyard graveyard;
-
+    private GameState gameState;
 
     private GameObject gameObjectHit;
     
@@ -22,6 +22,7 @@ public class CardTargeting : MonoBehaviour
     {
         graveyard = Graveyard.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
+        gameState = GameState.Instance;
         cardDisplay = GetComponent<CardDisplay>();       
 
         if (!gameObject.tag.Equals("LandmarkSlot"))
@@ -37,15 +38,16 @@ public class CardTargeting : MonoBehaviour
         mousePosition = cardMovement.mousePosition;
         card = cardDisplay.card;
 
-        if (GameState.Instance.isOnline)
+        if (gameState.isOnline)
         {
-            if (!GameState.Instance.isItMyTurn)
+            if (!gameState.isItMyTurn)
             {
                 CardGoBackToStartingPosition();
                 return;
             }
         }
-            
+
+        gameState.targetingEffect.SetActive(false);
 
         if (cardDisplay.opponentCard == true) return;
 
@@ -58,7 +60,7 @@ public class CardTargeting : MonoBehaviour
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
 
 
-        if (hitEnemy.collider == null)
+        if (hitEnemy.collider == null || hitEnemy.collider.gameObject.tag.Equals("DeckAndGraveyard"))
         {
             print("RUNS");
             CardGoBackToStartingPosition();
@@ -73,7 +75,7 @@ public class CardTargeting : MonoBehaviour
         if (actionOfPlayer.CheckIfCanPlayCard(card))
         {
 
-            GameState.Instance.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(card);
             WhatToDoWhenTargeted();
             print(gameObjectHit.name);
         }

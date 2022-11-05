@@ -33,9 +33,11 @@ public class AvailableChampion : MonoBehaviour
     [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text passiveEffect;
 
+    [NonSerialized] public GameObject targetingEffect;
+
     //public SpriteRenderer artwork;
 
-	private void Awake()
+    private void Awake()
 	{
         name = champion.name;
         //artwork.sprite = champion.artwork;
@@ -52,6 +54,12 @@ public class AvailableChampion : MonoBehaviour
             armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
         SetWichMeshToShowOnStart();
 
+        if (transform.Find("TargetingEffect") != null)
+        {
+            targetingEffect = transform.Find("TargetingEffect").gameObject;
+            targetingEffect.SetActive(false);
+            GameState.Instance.targetingEffect = targetingEffect;
+        }
     }
 
     private void SetWichMeshToShowOnStart()

@@ -51,6 +51,8 @@ public class GameState : MonoBehaviour
     [NonSerialized] public bool didIStart;
     public int amountOfTurns;
 
+    [NonSerialized] public GameObject targetingEffect;
+
     [NonSerialized] public int tenExtraDamage;
     [NonSerialized] public int damageRamp = 0;
     [NonSerialized] public int slaughterhouse = 0;

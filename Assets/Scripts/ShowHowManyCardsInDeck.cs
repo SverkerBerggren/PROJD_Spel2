@@ -13,8 +13,8 @@ public class ShowHowManyCardsInDeck : MonoBehaviour
 
     private void Awake()
     {
-        if (GetComponent<Deck>() != null)
-            deck = GetComponent<Deck>();
+        if (transform.parent.GetComponent<Deck>() != null)
+            deck = transform.parent.GetComponent<Deck>();
 
     }
 
