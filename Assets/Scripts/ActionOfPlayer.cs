@@ -60,8 +60,7 @@ public class ActionOfPlayer : MonoBehaviour
         if (gameState.factory > 0)        
             if (gameState.playerLandmarks.Count >= 3)
                 cardCost -= (2 * gameState.factory);
-        
-        
+
         if (currentMana >= cardCost)
         {
                 currentMana -= cardCost;

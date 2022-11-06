@@ -14,6 +14,7 @@ public class DrawCardLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         GameState.Instance.drawExtraCardsEachTurn = true;
 
         if (destroyOnRoundTen)

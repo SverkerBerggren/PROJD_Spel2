@@ -12,7 +12,7 @@ public class DuelistLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
-
+        base.PlaceLandmark();
     }
 
     public override void LandmarkEffectTakeBack()

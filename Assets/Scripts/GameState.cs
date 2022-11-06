@@ -577,7 +577,7 @@ public class GameState : MonoBehaviour
 
                 cardSlot.SetActive(true);
                 drawnCards++;
-                playerChampion.champion.DrawCard();
+                playerChampion.champion.DrawCard(cardDisplay.card);
             }
         }
 
@@ -620,7 +620,7 @@ public class GameState : MonoBehaviour
                     cardDisplay.card = specificCard;
                 cardSlot.SetActive(true);
                 drawnCards++;
-                opponentChampion.champion.DrawCard();
+                opponentChampion.champion.DrawCard(cardDisplay.card);
             }
         }
 

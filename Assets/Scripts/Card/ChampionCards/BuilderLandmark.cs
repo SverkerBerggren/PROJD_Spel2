@@ -11,6 +11,7 @@ public class BuilderLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         if (slaughterhouse)
             GameState.Instance.slaughterhouse++;
         if (factory)

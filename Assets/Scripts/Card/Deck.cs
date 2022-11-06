@@ -30,6 +30,7 @@ public class Deck : MonoBehaviour
 
 	private void Start()
 	{
+        Shuffle(deckPlayer);
         while (deckOfCardsPlayer.Count < 30)
         {
             foreach (Card card in deckPlayer)
@@ -38,6 +39,7 @@ public class Deck : MonoBehaviour
             }
         }
 
+        Shuffle(deckOpponent);
         while (deckOfCardsOpponent.Count < 30)
         {
             foreach (Card card in deckOpponent)
@@ -45,7 +47,7 @@ public class Deck : MonoBehaviour
                 deckOfCardsOpponent.Push(card);
             }
         }
-        ShuffleDecks();
+        UpdateDecks();
 	}
 
 
@@ -58,13 +60,6 @@ public class Deck : MonoBehaviour
             int k = UnityEngine.Random.Range(0, n + 1);
             (list[n], list[k]) = (list[k], list[n]);
         }
-    }
-
-	private void ShuffleDecks()
-    {
-        Shuffle(deckPlayer);
-        Shuffle(deckOpponent);
-        UpdateDecks();
     }
 
     public void AddCardToDeckPlayer(Card cardToAdd)

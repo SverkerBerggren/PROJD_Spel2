@@ -19,7 +19,7 @@ public abstract class Card : ScriptableObject
     public Sprite artwork;
     public int manaCost;
 
-    public int maxManaCost;
+    [System.NonSerialized] public int maxManaCost;
     public string tag;   
 
     private Champion target;

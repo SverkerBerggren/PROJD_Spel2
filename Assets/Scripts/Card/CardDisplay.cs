@@ -42,10 +42,6 @@ public class CardDisplay : MonoBehaviour
     {
         if (card == null) return;
         
-        if (opponentCard)
-        {
-
-        }
         
         if (!opponentCard)
         {

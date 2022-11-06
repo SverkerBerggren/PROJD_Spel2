@@ -154,7 +154,7 @@ public class CardTargeting : MonoBehaviour
         cardDisplay.card = null;
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
-
+        GameState.Instance.AddCardToPlayedCardsThisTurn(card);
 
         if (GameState.Instance.isOnline)
         {
