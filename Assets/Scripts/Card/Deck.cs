@@ -51,7 +51,7 @@ public class Deck : MonoBehaviour
 	}
 
 
-	void Shuffle(List<Card> list)
+	static void Shuffle(List<Card> list)
     {
         int n = list.Count;
         while (n > 1) //Randomizes the list
