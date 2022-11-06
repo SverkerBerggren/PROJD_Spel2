@@ -64,7 +64,7 @@ public class ActionOfPlayer : MonoBehaviour
         
         if (currentMana >= cardCost)
         {
-                currentMana -= cardCost;
+            currentMana -= cardCost;
             return true;
         }
         else

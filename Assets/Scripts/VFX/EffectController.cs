@@ -15,11 +15,24 @@ public class EffectController : MonoBehaviour
     private GameObject shiledToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
 
+    private static EffectController instance;
+
+    public static EffectController Instance { get { return instance; } set { instance = value; } }
+
     void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         shields = new Dictionary<string, GameObject>();
 
-      }
+    }
 
     // Update is called once per frame
     void Update()
@@ -42,7 +55,7 @@ public class EffectController : MonoBehaviour
         shields.Add(champions.name, toStore);
         //champions.shield = shiledAmount;
     }
-    public void DesstoryShield(GameObject champion)
+    public void DestoryShield(GameObject champion)
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
         shiledToGo = shields[champion.name];

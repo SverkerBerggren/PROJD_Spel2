@@ -20,7 +20,7 @@ public class VFXController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            gameObject.GetComponent<EffectController>().DesstoryShield(testChamp);
+            gameObject.GetComponent<EffectController>().DestoryShield(testChamp);
         }
     }
 }

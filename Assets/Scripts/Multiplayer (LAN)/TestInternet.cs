@@ -129,7 +129,7 @@ public class TestInternet : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        GameState.Instance.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+                        GameState.Instance.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, GameState.Instance.playerChampion.gameObject);
                     }
                     if (targetAndAmount.targetInfo.whichList.opponentLandmarks)
                     {
@@ -137,7 +137,7 @@ public class TestInternet : MonoBehaviour
                     }
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        GameState.Instance.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+                        GameState.Instance.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, GameState.Instance.opponentChampion.gameObject);
                     }
                     if (targetAndAmount.targetInfo.whichList.myLandmarks)
                     {

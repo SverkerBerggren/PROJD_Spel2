@@ -51,10 +51,6 @@ public class CardTargeting : MonoBehaviour
 
         if (cardDisplay.opponentCard == true) return;
 
-        //Quaternion angle = Quaternion.AxisAngle()
-
-        GameObject gO = GameObject.Find("Platform");
-
         RaycastHit[] hitEnemy;
         hitEnemy = Physics.RaycastAll(mousePosition, Vector3.forward * 100 + Vector3.down * 55, 200f);
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
@@ -63,22 +59,25 @@ public class CardTargeting : MonoBehaviour
         {
             gameObjectHit = hitEnemy[i].collider.gameObject;
 
-            if (gameObjectHit == null || gameObjectHit.CompareTag("DeckAndGraveyard") && actionOfPlayer.CheckIfCanPlayCard(card))
-            {
-                CardGoBackToStartingPosition();
-                return;
-            }
+            if (gameObjectHit == null || gameObjectHit.CompareTag("DeckAndGraveyard")) break;
+            
 
-            gameState.ShowPlayedCard(card);
+            
 
-            if (card.targetable)          
-                PlayedATargetableCard();
-           
-            if (!card.targetable && hitEnemy[i].collider.CompareTag("NonTargetCollider"))
+            if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
-                PlayedAnUntargetableCard();
+                print("TArgetCard");
+                if (actionOfPlayer.CheckIfCanPlayCard(card))
+                    PlayedATargetableCard();
+            }           
+            else if (!card.targetable && gameObjectHit.CompareTag("NonTargetCollider"))
+            {
+                print("UnTargetCard");
+                if (actionOfPlayer.CheckIfCanPlayCard(card))
+                    PlayedAnUntargetableCard();
             }   
-        }       
+        }
+        CardGoBackToStartingPosition();
     }
 
     private void PlayedAnUntargetableCard()
@@ -91,6 +90,8 @@ public class CardTargeting : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
+                    card.PlayCard();
+                    gameState.ShowPlayedCard(card);
                     break;
                 }
 
@@ -105,6 +106,7 @@ public class CardTargeting : MonoBehaviour
         {
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
+            gameState.ShowPlayedCard(card);
             cardDisplay.card = null;
         }
     }
@@ -118,6 +120,7 @@ public class CardTargeting : MonoBehaviour
             {
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
                 card.PlayCard();
+                gameState.ShowPlayedCard(card);
                 graveyard.AddCardToGraveyard(card);
                 cardDisplay.card = null;
             }
@@ -131,14 +134,16 @@ public class CardTargeting : MonoBehaviour
 
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
+            gameState.ShowPlayedCard(card);
             cardDisplay.card = null;
         }
 
-        else if (gameObjectHit.CompareTag("LandmarkSlot"))
+        else if (gameObjectHit.CompareTag("LandmarkSlot") && gameObjectHit.GetComponent<LandmarkDisplay>().card != null)
         {
             card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
+            gameState.ShowPlayedCard(card);
             cardDisplay.card = null;
         }
     }

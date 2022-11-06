@@ -10,10 +10,13 @@ public class HealingLandmark : Landmarks
     public bool doubleHealingEffect = false;
     public bool healEachRound = false;
 
+    private GameState gameState;
+
     public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.manaCost,card.tag)
     {
         doubleHealingEffect = card.doubleHealingEffect;
         healEachRound = card.healEachRound;
+        gameState = GameState.Instance;
     }
 
     public static void CreateInstance(HealingLandmark card)
@@ -25,17 +28,9 @@ public class HealingLandmark : Landmarks
     {
         if (doubleHealingEffect)
         {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            foreach (AvailableChampion champ in gameState.playerChampions)
             {
-                GameState.Instance.landmarkEffect *= 2;
-            }
-        }
-        
-        if (healEachRound)
-        {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
-            {
-                champ.champion.healEachRound = true;
+                gameState.landmarkEffect *= 2;
             }
         }
     }
@@ -46,18 +41,25 @@ public class HealingLandmark : Landmarks
 
         if (doubleHealingEffect)
         {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            foreach (AvailableChampion champ in gameState.playerChampions)
             {
-                GameState.Instance.landmarkEffect /= 2;
+                gameState.landmarkEffect /= 2;
             }
         }
+    }
 
+    public override void UpKeep()
+    {
+        base.UpKeep();
         if (healEachRound)
         {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
-                champ.champion.healEachRound = false;
+                Target = gameState.playerChampions[i].champion;
+                gameState.CalculateHealing(10, this);
             }
+            
         }
+           
     }
 }

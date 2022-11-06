@@ -16,7 +16,7 @@ public class BuilderCard : Spells
             gameState.DrawCard(1, null);
         }       
         if (Target != null)
-            Target.TakeDamage(damage);
+            //Target.TakeDamage(damage);
         if (LandmarkTarget != null)
             LandmarkTarget.TakeDamage(damage);       
     }

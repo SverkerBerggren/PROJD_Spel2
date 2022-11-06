@@ -213,11 +213,11 @@ public class GameState : MonoBehaviour
 
         if(lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, playerChampion.gameObject);
         }
         if(lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, opponentChampion.gameObject);
         }
         if(lE.myLandmarks)
         {
@@ -328,7 +328,7 @@ public class GameState : MonoBehaviour
         tI = new TargetInfo(listEnum, index);
         tAA = new TargetAndAmount(tI, shieldingToDo);
 
-        playerChampion.GetComponent<ArmorEffect>().SetArmor(shieldingToDo);
+        
 
         ShieldTarget(tAA);
     }
@@ -342,10 +342,12 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+            EffectController.Instance.ActiveShield(playerChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+            EffectController.Instance.ActiveShield(opponentChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
         }
 
         if (isOnline)
