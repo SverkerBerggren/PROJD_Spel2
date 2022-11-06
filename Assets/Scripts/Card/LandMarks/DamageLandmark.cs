@@ -22,4 +22,6 @@ public class DamageLandmark : Landmarks
         LandmarkTarget.tenExtraDamage -= 1;
     }
 
+    
+
 }
