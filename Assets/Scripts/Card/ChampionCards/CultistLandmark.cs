@@ -9,7 +9,8 @@ public class CultistLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
-            GameState.Instance.occultGathering++;
+        base.PlaceLandmark();
+        GameState.Instance.occultGathering++;
     }
 
     public override void LandmarkEffectTakeBack()

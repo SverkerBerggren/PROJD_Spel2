@@ -89,11 +89,11 @@ public abstract class Champion : ScriptableObject
         shield += amountToBlock;
     }
 
-    public virtual void DrawCard() { }
+    public virtual void DrawCard(Card card) { }
 
     public virtual void AmountOfCardsPlayed(Card card) {}
 
-    public virtual int DealDamageAttack(int damage) {animator.SetTrigger("Attack"); return damage; }
+    public virtual int DealDamageAttack(int damage) { if(animator != null) animator.SetTrigger("Attack"); return damage; }
 
     public virtual void UpKeep() { HealEachRound(); } // Osäker på om jag gjort rätt när jag la in den här
 

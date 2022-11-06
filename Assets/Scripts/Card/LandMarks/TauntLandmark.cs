@@ -14,6 +14,7 @@ public class TauntLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         ActionOfPlayer.Instance.tauntPlaced++;
     }
 

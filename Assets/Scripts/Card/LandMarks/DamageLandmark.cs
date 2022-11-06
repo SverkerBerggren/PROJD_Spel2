@@ -13,6 +13,7 @@ public class DamageLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         GameState.Instance.tenExtraDamage += 1;
         LandmarkTarget.tenExtraDamage += 1;
     }

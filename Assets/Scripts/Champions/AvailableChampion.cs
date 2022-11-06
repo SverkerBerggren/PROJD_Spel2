@@ -77,7 +77,6 @@ public class AvailableChampion : MonoBehaviour
             case "Graverobber":
                 graverobberMesh.SetActive(true);
                 champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
-                print("asdas");
                 break;
         }
     }

@@ -26,6 +26,7 @@ public class HealingLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         if (doubleHealingEffect)
         {
             foreach (AvailableChampion champ in gameState.playerChampions)

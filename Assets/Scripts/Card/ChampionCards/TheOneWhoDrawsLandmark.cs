@@ -12,6 +12,7 @@ public class TheOneWhoDrawsLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
+        base.PlaceLandmark();
         GameState.Instance.SwapActiveChampion(null);
     }
 }
