@@ -25,7 +25,7 @@ public class CardTargeting : MonoBehaviour
         gameState = GameState.Instance;
         cardDisplay = GetComponent<CardDisplay>();       
 
-        if (!gameObject.tag.Equals("LandmarkSlot"))
+        if (!gameObject.CompareTag("LandmarkSlot"))
         {
                 gameObjectRectTransform = GetComponent<RectTransform>();           
                 startposition = gameObjectRectTransform.anchoredPosition;
@@ -63,7 +63,7 @@ public class CardTargeting : MonoBehaviour
         {
             gameObjectHit = hitEnemy[i].collider.gameObject;
 
-            if (gameObjectHit == null || gameObjectHit.tag.Equals("DeckAndGraveyard") && actionOfPlayer.CheckIfCanPlayCard(card))
+            if (gameObjectHit == null || gameObjectHit.CompareTag("DeckAndGraveyard") && actionOfPlayer.CheckIfCanPlayCard(card))
             {
                 CardGoBackToStartingPosition();
                 return;
@@ -74,7 +74,7 @@ public class CardTargeting : MonoBehaviour
             if (card.targetable)          
                 PlayedATargetableCard();
            
-            if (!card.targetable && hitEnemy[i].collider.tag.Equals("NonTargetCollider"))
+            if (!card.targetable && hitEnemy[i].collider.CompareTag("NonTargetCollider"))
             {
                 PlayedAnUntargetableCard();
             }   
@@ -114,7 +114,7 @@ public class CardTargeting : MonoBehaviour
         // Should indicate the TauntLandmark so its more obvious
         if (actionOfPlayer.tauntPlaced > 0)
         {
-            if (gameObjectHit.tag.Equals("TauntCard"))
+            if (gameObjectHit.CompareTag("TauntCard"))
             {
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
                 card.PlayCard();
@@ -125,7 +125,7 @@ public class CardTargeting : MonoBehaviour
             return;
         }
 
-        if (gameObjectHit.tag.Equals("Champion"))
+        if (gameObjectHit.CompareTag("Champion"))
         {
             card.Target = gameObjectHit.GetComponent<AvailableChampion>().champion;
 
@@ -134,7 +134,7 @@ public class CardTargeting : MonoBehaviour
             cardDisplay.card = null;
         }
 
-        else if (gameObjectHit.tag.Equals("LandmarkSlot"))
+        else if (gameObjectHit.CompareTag("LandmarkSlot"))
         {
             card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);

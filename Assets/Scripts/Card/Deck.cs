@@ -28,9 +28,28 @@ public class Deck : MonoBehaviour
         }
     }
 
+	private void Start()
+	{
+        while (deckOfCardsPlayer.Count < 30)
+        {
+            foreach (Card card in deckPlayer)
+            {
+                deckOfCardsPlayer.Push(card);
+            }
+        }
+
+        while (deckOfCardsOpponent.Count < 30)
+        {
+            foreach (Card card in deckOpponent)
+            {
+                deckOfCardsOpponent.Push(card);
+            }
+        }
+        ShuffleDecks();
+	}
 
 
-    void Shuffle(List<Card> list)
+	void Shuffle(List<Card> list)
     {
         int n = list.Count;
         while (n > 1) //Randomizes the list
@@ -41,44 +60,33 @@ public class Deck : MonoBehaviour
         }
     }
 
-
-    private void Start()
+	private void ShuffleDecks()
     {
-        while (deckOfCardsPlayer.Count < 30)
-        {
-            foreach (Card card in deckPlayer)
-            {
-                deckOfCardsPlayer.Push(card);
-            }
-        }
         Shuffle(deckPlayer);
-
-
-        while (deckOfCardsOpponent.Count < 30)
-        {
-            foreach (Card card in deckOpponent)
-            {
-                deckOfCardsOpponent.Push(card);
-            }
-        }
         Shuffle(deckOpponent);
-        InvokeRepeating(nameof(UpdateUnityDeck), 1, 1);
+        UpdateDecks();
     }
 
     public void AddCardToDeckPlayer(Card cardToAdd)
     {
         deckOfCardsPlayer.Push(cardToAdd);
+        deckPlayer.Add(cardToAdd);
     }
 
     public void AddCardToDeckOpponent(Card cardToAdd)
     {
         deckOfCardsOpponent.Push(cardToAdd);
+        deckOpponent.Add(cardToAdd);
     }
 
     public Card WhichCardToDrawPlayer()
     {
         if (deckOfCardsPlayer.Count > 0)
-            return deckOfCardsPlayer.Pop();
+        {
+            Card c = deckOfCardsPlayer.Pop();
+            deckOpponent.Remove(c);
+            return c;
+        }
 
         GameState.Instance.Defeat();
         return null;
@@ -87,13 +95,17 @@ public class Deck : MonoBehaviour
     public Card WhichCardToDrawOpponent()
     {
         if (deckOfCardsOpponent.Count > 0)
-            return deckOfCardsOpponent.Pop();
+        {
+            Card c = deckOfCardsOpponent.Pop();
+            deckPlayer.Remove(c);
+            return c;
+        }
 
         GameState.Instance.Victory();
         return null;
     }
 
-    private void UpdateUnityDeck()
+    private void UpdateDecks()
     {
         deckPlayer.Clear();
         foreach (Card c in deckOfCardsPlayer)
