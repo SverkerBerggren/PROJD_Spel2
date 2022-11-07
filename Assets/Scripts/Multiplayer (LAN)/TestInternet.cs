@@ -186,7 +186,20 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDestroyLandmark)
             {
                 print("skickar den en gameAction destroylandmark");
-                //GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
+                GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
+
+                for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
+                {   
+                    TargetInfo targetInfo = theAction.landmarksToDestroy[i];
+                    if (targetInfo.whichList.myLandmarks)
+                    {
+                        GameState.Instance.opponentLandmarks[i].DestroyLandmark();
+                    }
+                    else
+                    {
+						GameState.Instance.playerLandmarks[i].DestroyLandmark();
+					}
+                }
 
                 //Draw card opponents
 
