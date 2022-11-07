@@ -62,7 +62,7 @@ public class LandmarkDisplay : MonoBehaviour
 			targetInfoList.Add(targetInfo);
 
 			RequestDestroyLandmark request = new RequestDestroyLandmark(targetInfoList);
-
+            request.whichPlayer = ClientConnection.Instance.playerId;
 			ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
 		}
 	}
