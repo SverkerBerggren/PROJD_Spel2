@@ -295,6 +295,7 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
 		GameActionGameSetup gameAction = new GameActionGameSetup();
+        gameAction.reciprocate = requestToHandle.reciprocate;
         
         AddGameAction(response, gameAction);
         return response;
