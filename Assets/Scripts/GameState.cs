@@ -454,21 +454,21 @@ public class GameState : MonoBehaviour
     }
 
 
-    public void ShowPlayedCardLandmark(LandmarkDisplay landmarkDisplay)
+    public void ShowPlayedCardLandmark(Landmarks landmarkDisplay)
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
-        cardDisp.card = landmarkDisplay.card;
-        cardDisp.manaCost = landmarkDisplay.card.maxManaCost;
+        cardDisp.card = landmarkDisplay;
+        cardDisp.manaCost = landmarkDisplay.maxManaCost;
         Invoke(nameof(HideLandmarkPlayed), 3f);
     }
 
-    public void ShowPlayedCard(CardDisplay cardDisplay)
+    public void ShowPlayedCard(Card card)
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
-        cardDisp.card = cardDisplay.card;
-        cardDisp.manaCost = cardDisplay.card.maxManaCost;
+        cardDisp.card = card;
+        cardDisp.manaCost = card.maxManaCost;
         Invoke(nameof(HideCardPlayed), 3f);
     }
     private void HideCardPlayed()
