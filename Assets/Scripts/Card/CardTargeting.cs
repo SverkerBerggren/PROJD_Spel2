@@ -149,7 +149,6 @@ public class CardTargeting : MonoBehaviour
     private void CardGoBackToStartingPosition()
     {
         gameObjectRectTransform.anchoredPosition = startposition;
-        print(gameObjectRectTransform.anchoredPosition);
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
