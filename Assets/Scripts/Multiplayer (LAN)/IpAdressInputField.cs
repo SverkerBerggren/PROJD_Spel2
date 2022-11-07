@@ -66,7 +66,6 @@ public class IpAdressInputField : MonoBehaviour
 
 
         testInternet.hasJoinedLobby = true;
-        
 
 
         clientConnection.AddRequest(request, CreateScene);
@@ -77,13 +76,14 @@ public class IpAdressInputField : MonoBehaviour
             gameSetup.whichPlayer = 1;
 			gameSetup.reciprocate = true;
 
+            print("Not In method");
 			ClientConnection.Instance.AddRequest(request, EmptyMethod);
 		}
 	}
 
     public void EmptyMethod(ServerResponse response)
     {
-
+        print("In method");
     }
 
 }
