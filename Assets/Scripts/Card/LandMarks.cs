@@ -37,6 +37,8 @@ public class Landmarks : Card
 
     public virtual int DealDamageAttack(int damage) { return damage; }
 
+    public virtual int HealingEffect(int healing) { return healing; }
+
     public virtual void UpKeep()  {} // Osäker på om jag gjort rätt när jag la in den här
 
     public virtual void EndStep() { }

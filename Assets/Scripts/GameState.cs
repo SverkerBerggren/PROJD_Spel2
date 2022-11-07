@@ -231,13 +231,16 @@ public class GameState : MonoBehaviour
 
     public void CalculateHealing(int amount, Card cardUsed)
     {
-        int healingToDo = 0;
-        healingToDo += amount * landmarkEffect;
 
         TargetAndAmount tAA = null;
         TargetInfo tI = null;
         ListEnum listEnum = new ListEnum();
         int index = 0;
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            amount = landmark.card.HealingEffect(amount);
+        }
+
         // WIP
         if (cardUsed.Target != null)
         {
@@ -253,7 +256,7 @@ public class GameState : MonoBehaviour
             }
         }
         tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, healingToDo);
+        tAA = new TargetAndAmount(tI, amount);
 
         healEffect.SetActive(true);
         Invoke(nameof(TakeAwayHealEffect), 3f);

@@ -49,6 +49,13 @@ public class HealingLandmark : Landmarks
         }
     }
 
+    public override int HealingEffect(int healing)
+    {   
+        if(doubleHealingEffect)
+            return healing * 2;
+        return healing;
+    }
+
     public override void UpKeep()
     {
         base.UpKeep();

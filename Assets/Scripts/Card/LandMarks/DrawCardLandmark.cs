@@ -10,16 +10,6 @@ public class DrawCardLandmark : Landmarks
 
     }
 
-    public override void PlaceLandmark()
-    {
-        base.PlaceLandmark();
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-
-    }
-
     public override void UpKeep()
     {
         base.UpKeep();
