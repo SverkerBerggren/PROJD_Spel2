@@ -239,7 +239,10 @@ public class TestInternet : MonoBehaviour
 
                 Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
-                GameState.Instance.ShowPlayedCard(cardPlayed);
+                if (cardPlayed.typeOfCard == CardType.Landmark)
+                    GameState.Instance.ShowPlayedCardLandmark((Landmarks)cardPlayed);
+                else
+                    GameState.Instance.ShowPlayedCard(cardPlayed);
 
                 ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
