@@ -70,6 +70,14 @@ public class IpAdressInputField : MonoBehaviour
 
 
         clientConnection.AddRequest(request, CreateScene);
+
+        if (!clientConnection.isHost)
+        {
+            ClientRequestGameSetup gameSetup = new ClientRequestGameSetup();
+            gameSetup.reciprocate = true;
+
+            ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+        }
     }
 
 }

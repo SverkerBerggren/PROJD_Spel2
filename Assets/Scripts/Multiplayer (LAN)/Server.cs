@@ -190,6 +190,14 @@ public class Server
             testRequest.whichPlayer = requestToHandle.whichPlayer;
             return HandlePlayLandmark(testRequest);
         }
+           
+        if (requestToHandle is ClientRequestGameSetup)
+        {
+			//RequestAddSpecificCardToHand castedRequest = (RequestAddSpecificCardToHand)requestToHandle;
+			ClientRequestGameSetup testRequest = (ClientRequestGameSetup)requestToHandle;
+            testRequest.whichPlayer = requestToHandle.whichPlayer;
+            return HandleGameSetup(testRequest);
+        }
 
         GameAction errorMessage = new GameAction();
         errorMessage.errorMessage = "den kommer inte till ratt handle " + requestToHandle.Type +" " + requestToHandle.GetType() + " "+ (requestToHandle is RequestAddSpecificCardToHand);
@@ -276,6 +284,17 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
         GameActionOpponentDiscardCard gameAction = new GameActionOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard);
+        
+        AddGameAction(response, gameAction);
+        return response;
+    }
+    private ServerResponse HandleGameSetup(ClientRequestGameSetup requestToHandle)
+    {
+        ServerResponse response = new ServerResponse();
+        
+        response.whichPlayer = requestToHandle.whichPlayer;
+
+		GameActionGameSetup gameAction = new GameActionGameSetup();
         
         AddGameAction(response, gameAction);
         return response;

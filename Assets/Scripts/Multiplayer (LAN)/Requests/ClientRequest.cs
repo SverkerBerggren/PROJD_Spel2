@@ -82,6 +82,10 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         {
             return (typeof(RequestPlayLandmark));
         }
+        if (IntegerToConvert == 15)
+        {
+            return (typeof(ClientRequestGameSetup));
+        }
 
         return (typeof(ClientRequest));
     }

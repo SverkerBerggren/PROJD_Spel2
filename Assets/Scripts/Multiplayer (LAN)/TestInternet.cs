@@ -283,7 +283,23 @@ public class TestInternet : MonoBehaviour
 
                 //Draw card opponents
 
-            }
+            }  
+            if (action  is GameActionGameSetup)
+            {   
+
+                print("Hej hej nu startar spelet");
+
+				GameActionGameSetup castedAction = (GameActionGameSetup)action;
+                if (castedAction.reciprocate)
+                {
+					ClientRequestGameSetup request = new ClientRequestGameSetup();
+					request.whichPlayer = ClientConnection.Instance.playerId;
+					request.reciprocate = false;
+					ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+				}
+
+
+			}
            
             if (action.GetType(action.Type).Equals(typeof(GameActionAddSpecificCardToHand)))
             {
