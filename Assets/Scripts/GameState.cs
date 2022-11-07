@@ -205,6 +205,15 @@ public class GameState : MonoBehaviour
     {
 
         ListEnum lE =  targetAndAmount.targetInfo.whichList;
+        if (isOnline)
+        {
+            List<TargetAndAmount> list = new List<TargetAndAmount>();
+            list.Add(targetAndAmount);
+
+            RequestDamage request = new RequestDamage(list);
+            request.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(request, RequestDamage);
+        }
 
         if (targetAndAmount.targetInfo.index == -1)
         {
@@ -228,15 +237,7 @@ public class GameState : MonoBehaviour
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
 
-        if(isOnline)
-        {
-            List<TargetAndAmount> list = new List<TargetAndAmount>();
-            list.Add(targetAndAmount);
 
-            RequestDamage request = new RequestDamage(list);
-            request.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(request, RequestDamage);
-        }
     }
 
     public void CalculateHealing(int amount, Card cardUsed)
@@ -669,14 +670,13 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void SwapActiveChampion(TargetInfo targetInfo)
+    public void SwitchMyChampions(TargetInfo targetInfo)
+    {
+
+    }
+
+    public void SwapActiveChampion()
     {   
-        if(targetInfo != null)
-        {
-            print("Comes in here MYPLAYER");
-            SwapChampionWithTargetInfo(targetInfo);
-            return;
-        }
 
         for (int i = 0; i < 25; i++)
         {
@@ -703,24 +703,23 @@ public class GameState : MonoBehaviour
                 break; 
             }
         }
-        playerChampion.champion.WhenCurrentChampion();
         //playerChampion.champion = playerChampions[randomChamp].champion; 
     }
 
     private void SwapChampionWithTargetInfo(TargetInfo targetInfo)
     {
-        if (targetInfo.whichList.opponentChampions == true)
+/*        if (targetInfo.whichList.opponentChampions == true)
         {
             Swap(playerChampions, 0, targetInfo.index);
-        }
-        else if (targetInfo.whichList.myChampions == true)
+            playerChampion.champion.WhenCurrentChampion();
+        }*/
+        if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
             RemoveChampion(opponentChampions[targetInfo.index].champion);
-            /* Champion champ = opponentChampion.champion;
-             opponentChampion.champion = opponentChampions[targetInfo.index].champion;
-             opponentChampions[targetInfo.index].champion = champ; */
+            opponentChampion.champion.WhenCurrentChampion();
         }
+
     }
 
     public void SwapActiveChampionEnemy(TargetInfo targetInfo)
@@ -732,16 +731,21 @@ public class GameState : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < 25; i++)
+        if (!isOnline)
         {
-            int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
-            if (opponentChampion != opponentChampions[randomChamp])
+            for (int i = 0; i < 25; i++)
             {
-                Swap(opponentChampions, 0, randomChamp);
-                break;
+                int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
+                if (opponentChampion != opponentChampions[randomChamp])
+                {
+                    Swap(opponentChampions, 0, randomChamp);
+                    break;
+                }
             }
+            
         }
-        opponentChampion.champion.WhenCurrentChampion();
+        
+        
         //playerChampion.champion = playerChampions[randomChamp].champion; 
     }
 
@@ -944,7 +948,7 @@ public class GameState : MonoBehaviour
     {
         if (playerChampion.champion == deadChampion)
         {
-            SwapActiveChampion(null);
+            SwapActiveChampion();
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          
