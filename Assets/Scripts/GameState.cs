@@ -762,13 +762,14 @@ public class GameState : MonoBehaviour
 
         if (opponentPlayedLandmark)
         {
-
+            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
             opponentLandmarks[index].card = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
         }
         else
         {
             print("landmark index " + index);
+            playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].card = landmark;
         }

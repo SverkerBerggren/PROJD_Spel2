@@ -156,6 +156,8 @@ public class CardTargeting : MonoBehaviour
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
+
+
         cardDisplay.card = null;
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
