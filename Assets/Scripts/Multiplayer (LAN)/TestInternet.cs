@@ -52,13 +52,12 @@ public class TestInternet : MonoBehaviour
             
             if(action.cardPlayed)
             {
-                //print("Skiter det sig i perform oppnent action " + action.cardId);
                 PlayCard(action.cardId);
 
                 Destroy(GameObject.Find("Card (1)"));
             }
 
-            print("vilket object typ ar grejen " + action.GetType());
+            print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
                 // print("skickar den en gameAction end turn");
