@@ -78,9 +78,10 @@ public class IpAdressInputField : MonoBehaviour
             gameSetup.Type = 15;
 
             print("Not In method");
-			ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
+			clientConnection.AddRequest(gameSetup, EmptyMethod);
 		}
 	}
+
 
     public void EmptyMethod(ServerResponse response)
     {
