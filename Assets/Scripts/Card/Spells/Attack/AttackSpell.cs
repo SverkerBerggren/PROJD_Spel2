@@ -26,7 +26,7 @@ public class AttackSpell : Spells
             gameState.CalculateBonusDamage(damage, this);
 
         if (destroyLandmark)
-            gameState.DestroyLandmark();
+            LandmarkTarget.DestroyLandmark();
         if (damageToBothActiveChampions)
         { 
             if (Target == gameState.playerChampion.champion)
