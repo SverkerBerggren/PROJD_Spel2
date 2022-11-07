@@ -296,9 +296,10 @@ public class GameState : MonoBehaviour
 
     public void CalculateShield(int amount, Card cardUsed)
     {
-        int shieldingToDo = 0;
-        shieldingToDo += amount * landmarkEffect;
-
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            amount = landmark.card.ShieldingEffect(amount);
+        }
         TargetAndAmount tAA = null;
         TargetInfo tI = null;
         ListEnum listEnum = new ListEnum();
@@ -319,9 +320,7 @@ public class GameState : MonoBehaviour
         }
 
         tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, shieldingToDo);
-
-        
+        tAA = new TargetAndAmount(tI, amount);
 
         ShieldTarget(tAA);
     }

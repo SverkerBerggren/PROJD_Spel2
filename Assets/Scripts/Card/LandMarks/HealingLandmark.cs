@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/HealingLandmark")]
 public class HealingLandmark : Landmarks
@@ -54,6 +55,13 @@ public class HealingLandmark : Landmarks
         if(doubleHealingEffect)
             return healing * 2;
         return healing;
+    }
+
+    public override int ShieldingEffect(int shielding)
+    {
+        if (doubleHealingEffect)
+            return shielding * 2;
+        return shielding;
     }
 
     public override void UpKeep()
