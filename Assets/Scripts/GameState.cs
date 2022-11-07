@@ -832,7 +832,7 @@ public class GameState : MonoBehaviour
             amountOfTurns++;
             DrawCard(1, null);
             actionOfPlayer.IncreaseMana();
-            playerChampion.champion.EndStep();
+            //playerChampion.champion.EndStep();
             //playerChampion.champion.UpKeep();
             return;
         }
