@@ -577,6 +577,7 @@ public class GameState : MonoBehaviour
                 else
                     cardDisplay.card = specificCard;
 
+                cardDisplay.manaCost = cardDisplay.card.maxManaCost;
                 cardSlot.SetActive(true);
                 drawnCards++;
                 playerChampion.champion.DrawCard(cardDisplay);
