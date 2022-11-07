@@ -49,7 +49,23 @@ public class LandmarkDisplay : MonoBehaviour
     public void DestroyLandmark()
     {
         card = null;
-    }
+		if (gameState.isOnline)
+		{
+			TargetInfo targetInfo = new TargetInfo();
+			ListEnum listEnum = new ListEnum();
+			listEnum.myLandmarks = opponentLandmarks;
+			targetInfo.whichList = listEnum;
+
+			targetInfo.index = index;
+
+			List<TargetInfo> targetInfoList = new List<TargetInfo>();
+			targetInfoList.Add(targetInfo);
+
+			RequestDestroyLandmark request = new RequestDestroyLandmark(targetInfoList);
+
+			ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+		}
+	}
 
     private void LandmarkDead()
     {
