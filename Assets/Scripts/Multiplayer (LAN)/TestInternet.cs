@@ -124,8 +124,9 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDamage)
             {
                 GameActionDamage castedAction = (GameActionDamage)action;
+				print("skickar den en gameAction damage");
 
-                foreach(TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
+				foreach (TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
@@ -145,7 +146,7 @@ public class TestInternet : MonoBehaviour
                     }
                 }
                 
-                print("skickar den en gameAction damage");
+
                 //GameActionDamage theAction = (GameActionDamage)action;
 
                 //Draw card opponents
@@ -225,7 +226,6 @@ public class TestInternet : MonoBehaviour
             }            
             if (action  is GameActionPlayCard)
             {
-                print("skickar den en gameAction play card");
 
 
                 GameActionPlayCard castedAction = (GameActionPlayCard)action;
