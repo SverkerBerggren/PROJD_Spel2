@@ -191,14 +191,7 @@ public class TestInternet : MonoBehaviour
                 for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
                 {   
                     TargetInfo targetInfo = theAction.landmarksToDestroy[i];
-                    if (targetInfo.whichList.myLandmarks)
-                    {
-                        GameState.Instance.opponentLandmarks[i].DestroyLandmark();
-                    }
-                    else
-                    {
-						GameState.Instance.playerLandmarks[i].DestroyLandmark();
-					}
+                    GameState.Instance.DestroyLandmark(targetInfo);
                 }
 
                 //Draw card opponents

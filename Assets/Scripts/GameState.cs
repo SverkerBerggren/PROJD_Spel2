@@ -508,6 +508,17 @@ public class GameState : MonoBehaviour
             }
         }
     }
+    public void DestroyLandmark(TargetInfo targetInfo)
+    {
+        if (targetInfo.whichList.myLandmarks)
+        {
+            opponentLandmarks[targetInfo.index].card = null;
+        }
+        else
+        {
+            playerLandmarks[targetInfo.index].card = null; 
+        }
+    }
 
     public string DiscardWhichCard(bool yourself)
     {
