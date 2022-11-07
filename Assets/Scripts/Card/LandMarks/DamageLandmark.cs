@@ -6,23 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/DamageLandmark")]
 public class DamageLandmark : Landmarks
 {
+    public int damage = 10;
     public DamageLandmark(DamageLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
     {
-
+        this.damage = card.damage;
     }
 
-    public override void PlaceLandmark()
+    public override int DealDamageAttack(int damage)
     {
-        base.PlaceLandmark();
-        GameState.Instance.tenExtraDamage += 1;
-        LandmarkTarget.tenExtraDamage += 1;
+        return this.damage + damage;
     }
-    public override void LandmarkEffectTakeBack()
-    {
-        GameState.Instance.tenExtraDamage -= 1;
-        LandmarkTarget.tenExtraDamage -= 1;
-    }
-
-    
-
 }

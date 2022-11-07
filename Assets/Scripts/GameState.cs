@@ -53,13 +53,8 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public GameObject targetingEffect;
 
-    [NonSerialized] public int tenExtraDamage;
-    [NonSerialized] public int damageRamp = 0;
-    [NonSerialized] public int slaughterhouse = 0;
     [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
-    [NonSerialized] public bool drawExtraCardsEachTurn = false;
-    [NonSerialized] public int occultGathering = 0;
     [NonSerialized] public int attacksPlayedThisTurn;
     
     private ActionOfPlayer actionOfPlayer;
@@ -129,16 +124,9 @@ public class GameState : MonoBehaviour
         
         damage = playerChampion.champion.DealDamageAttack(damage);
 
-        damage += damageRamp;
-
-        if (slaughterhouse > 0)
+        foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            damage += 10 * slaughterhouse;           
-        }
-
-        if (tenExtraDamage > 0)
-        {
-            damage += (10 * tenExtraDamage);
+            damage = landmark.card.DealDamageAttack(damage);
         }
 
         TargetAndAmount tAA = null;
@@ -808,32 +796,32 @@ public class GameState : MonoBehaviour
         }
     }
 
-
-    public void SwitchTurn(ServerResponse response)
+    public void TriggerUpKeep()
     {
-        print("switchar eden tur");
-        TriggerEndStep(response);
-        // spelaren med priority end of turn effects triggrar aka EndOfTurnEffects(Player player1)
-
-        TriggerUpKeep(response);
-        // spelaren med priority upkeep effects triggrar aka UpkeepEffects(Player player2)
-        hasPriority = false;
+        print("Den triggrar upkeep");
+        DrawCard(1, null);
+        if (didIStart)
+        {
+            actionOfPlayer.IncreaseMana();
+            amountOfTurns++;
+        }
+        playerChampion.champion.UpKeep();
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            landmark.card.UpKeep();
+            //Trigger landmark endstep
+        }
     }
 
-    public void TriggerEndStep(ServerResponse response)
+    public void TriggerEndStep()
     {
         print("Den triggrar endstep");
         playerChampion.champion.EndStep();
-        //opponentChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            landmark.card.EndStep();
             //Trigger landmark endstep
         }
-        foreach (LandmarkDisplay landmark in opponentLandmarks)
-        {
-            //Trigger landmark endstep opponent
-        }
-        EndTurn();
     }
 
 
@@ -842,10 +830,8 @@ public class GameState : MonoBehaviour
         if (!isOnline)
         {
             amountOfTurns++;
-            DrawCard(1, null);
-            actionOfPlayer.IncreaseMana();
-            //playerChampion.champion.EndStep();
-            //playerChampion.champion.UpKeep();
+            TriggerEndStep();
+            TriggerUpKeep();
             return;
         }
         
@@ -853,62 +839,30 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
-            //playerChampion.champion.EndStep();
-            //opponentChampion.champion.UpKeep();
+            TriggerEndStep();
         }
         else
         {
-            amountOfTurns++;
             isItMyTurn = true;
-            DrawCard(1, null);
-            actionOfPlayer.IncreaseMana();
-            //opponentChampion.champion.EndStep();
-            //playerChampion.champion.UpKeep();
+            TriggerUpKeep();
         }
-
-        if (drawExtraCardsEachTurn)
-            DrawCard(1, null);
 
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
-        damageRamp = 0;
     }
 
     public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
     {
         cardsPlayedThisTurn.Add(cardPlayed);
 
-
         if (cardPlayed.GetType().Equals("AttackSpell"))
         {
             attacksPlayedThisTurn++;
         }
 
-        if (occultGathering > 0)
-        {
-            if (cardPlayed.GetType().Equals("AttackSpell"))
-            {
-                damageRamp += 10 * occultGathering;
-            }
-        }
-
         playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
     }
 
-    public void TriggerUpKeep(ServerResponse response)
-    {
-        print("Den triggrar upkeep");
-        playerChampion.champion.UpKeep();
-        //opponentChampion.champion.UpKeep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
-        {
-            //Trigger landmark endstep
-        }
-        foreach (LandmarkDisplay landmark in opponentLandmarks)
-        {
-            //Trigger landmark endstep opponent
-        }
-    }
 
     public void OnChampionDeath(ServerResponse response)
     {

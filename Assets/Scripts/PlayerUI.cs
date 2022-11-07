@@ -18,10 +18,4 @@ public class PlayerUI : MonoBehaviour
             Destroy(Instance);
         }
     }
-
-    public void EndTurn()
-    {
-            RequestEndTurn request = new RequestEndTurn(ClientConnection.Instance.playerId);
-            ClientConnection.Instance.AddRequest(request, GameState.Instance.SwitchTurn);
-    }
 }
