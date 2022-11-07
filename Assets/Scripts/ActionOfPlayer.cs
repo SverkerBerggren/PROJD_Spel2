@@ -18,6 +18,7 @@ public class ActionOfPlayer : MonoBehaviour
     public int currentMana = 0;
     public readonly int maxMana = 10;
     [System.NonSerialized] public int tauntPlaced = 0;
+    public bool selectCardOption = false;
 
     private GameState gameState;
 
