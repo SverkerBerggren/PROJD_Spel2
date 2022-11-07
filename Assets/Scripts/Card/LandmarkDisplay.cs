@@ -53,7 +53,12 @@ public class LandmarkDisplay : MonoBehaviour
 		{
 			TargetInfo targetInfo = new TargetInfo();
 			ListEnum listEnum = new ListEnum();
-			listEnum.myLandmarks = !opponentLandmarks;
+
+            if (opponentLandmarks)
+                listEnum.opponentLandmarks = true;
+            else
+                listEnum.myLandmarks = true;
+
 			targetInfo.whichList = listEnum;
 
 			targetInfo.index = index;
