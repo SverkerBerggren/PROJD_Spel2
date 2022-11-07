@@ -155,7 +155,7 @@ public class AvailableChampion : MonoBehaviour
                 champion.animator = cultistMesh.GetComponentInChildren<Animator>();
                 meshToShow = cultistMesh;
                 break;
-            case "Gravedigger":
+            case "Graverobber":
                 builderMesh.SetActive(false);               
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(true);

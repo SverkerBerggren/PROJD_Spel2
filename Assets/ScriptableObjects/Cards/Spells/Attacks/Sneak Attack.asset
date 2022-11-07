@@ -17,11 +17,12 @@ MonoBehaviour:
   description: Deal 10 damage
   artwork: {fileID: 21300000, guid: a49bd06cf70e1af4d925316445a6ce01, type: 3}
   manaCost: 1
-  maxManaCost: 0
+  maxManaCost: 1
   tag: AttackSpell
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
+  targetable: 1
   damage: 10
   destroyLandmark: 0
   damageEqualsToYourChampionHP: 0

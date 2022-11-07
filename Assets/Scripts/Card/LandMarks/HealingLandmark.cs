@@ -12,7 +12,7 @@ public class HealingLandmark : Landmarks
 
     private GameState gameState;
 
-    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.manaCost,card.tag)
+    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.tag)
     {
         doubleHealingEffect = card.doubleHealingEffect;
         healEachRound = card.healEachRound;

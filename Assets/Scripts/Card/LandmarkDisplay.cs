@@ -13,8 +13,9 @@ public class LandmarkDisplay : MonoBehaviour
     public TMP_Text descriptionText;
     public TMP_Text nameText;
     public TMP_Text manaText;
+	public int manaCost;
 
-    public GameObject landmarkPrefab;
+	public GameObject landmarkPrefab;
 
     public bool occultGathering = false;
     [NonSerialized] public int tenExtraDamage;
@@ -41,14 +42,40 @@ public class LandmarkDisplay : MonoBehaviour
         landmarkPrefab.SetActive(true);
         healthText.text = health.ToString();
         descriptionText.text = card.description;
-        manaText.text = card.manaCost.ToString();
+        manaText.text = manaCost.ToString();
         nameText.text = card.cardName;
     }
 
     public void DestroyLandmark()
     {
+        if (opponentLandmarks)
+            Graveyard.Instance.AddCardToGraveyardOpponent(card);
+        else
+            Graveyard.Instance.AddCardToGraveyard(card);
         card = null;
-    }
+
+		if (gameState.isOnline)
+		{
+			TargetInfo targetInfo = new TargetInfo();
+			ListEnum listEnum = new ListEnum();
+
+            if (opponentLandmarks)
+                listEnum.opponentLandmarks = true;
+            else
+                listEnum.myLandmarks = true;
+
+			targetInfo.whichList = listEnum;
+
+			targetInfo.index = index;
+
+			List<TargetInfo> targetInfoList = new List<TargetInfo>();
+			targetInfoList.Add(targetInfo);
+
+			RequestDestroyLandmark request = new RequestDestroyLandmark(targetInfoList);
+            request.whichPlayer = ClientConnection.Instance.playerId;
+			ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+		}
+	}
 
     private void LandmarkDead()
     {

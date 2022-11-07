@@ -7,7 +7,7 @@ public class BuilderLandmark : Landmarks
 {
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.manaCost, card.tag) { }
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) { }
 
     public override void PlaceLandmark()
     {

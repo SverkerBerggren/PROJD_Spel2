@@ -18,6 +18,7 @@ public class ActionOfPlayer : MonoBehaviour
     public int currentMana = 0;
     public readonly int maxMana = 10;
     [System.NonSerialized] public int tauntPlaced = 0;
+    public bool selectCardOption = false;
 
     private GameState gameState;
 
@@ -54,9 +55,9 @@ public class ActionOfPlayer : MonoBehaviour
         manaText.text = "Mana: " + currentMana.ToString();
     }
 
-    public bool CheckIfCanPlayCard(Card card)
+    public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
     {
-        cardCost = card.manaCost;
+        cardCost = cardDisplay.manaCost;
         if (gameState.factory > 0)        
             if (gameState.playerLandmarks.Count >= 3)
                 cardCost -= (2 * gameState.factory);

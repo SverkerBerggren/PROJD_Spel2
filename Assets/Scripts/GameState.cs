@@ -39,7 +39,7 @@ public class GameState : MonoBehaviour
 
     
     [Header("UI Elements")]
-    public SpriteRenderer playedCardSpriteRenderer;
+    public GameObject playedCardGO;
     public Sprite backfaceCard;
     public UnityEngine.UI.Button endTurnBttn;
 
@@ -454,14 +454,33 @@ public class GameState : MonoBehaviour
     }
 
 
+    public void ShowPlayedCardLandmark(Landmarks landmark)
+    {
+        playedCardGO.SetActive(true);
+        CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        cardDisp.card = landmark;
+        cardDisp.manaCost = landmark.maxManaCost;
+        Invoke(nameof(HideLandmarkPlayed), 3f);
+    }
+
     public void ShowPlayedCard(Card card)
     {
-        playedCardSpriteRenderer.sprite = card.artwork;
+        playedCardGO.SetActive(true);
+        CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        cardDisp.card = card;
+        cardDisp.manaCost = card.maxManaCost;
         Invoke(nameof(HideCardPlayed), 3f);
     }
     private void HideCardPlayed()
     {
-        playedCardSpriteRenderer.sprite = null;
+        playedCardGO.GetComponent<CardDisplay>().card = null;
+        playedCardGO.SetActive(false);
+    }
+
+    private void HideLandmarkPlayed()
+    {
+        playedCardGO.GetComponent<CardDisplay>().card = null;
+        playedCardGO.SetActive(false);
     }
 
 
@@ -487,6 +506,19 @@ public class GameState : MonoBehaviour
                 opponentLandmarks[random] = null;
                 break;
             }
+        }
+    }
+    public void DestroyLandmark(TargetInfo targetInfo)
+    {
+        if (targetInfo.whichList.myLandmarks)
+        {
+            Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
+            opponentLandmarks[targetInfo.index].card = null;
+        }
+        else
+        {
+            Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
+            playerLandmarks[targetInfo.index].card = null; 
         }
     }
 
@@ -577,9 +609,10 @@ public class GameState : MonoBehaviour
                 else
                     cardDisplay.card = specificCard;
 
+                cardDisplay.manaCost = cardDisplay.card.maxManaCost;
                 cardSlot.SetActive(true);
                 drawnCards++;
-                playerChampion.champion.DrawCard(cardDisplay.card);
+                playerChampion.champion.DrawCard(cardDisplay);
             }
         }
 
@@ -622,7 +655,7 @@ public class GameState : MonoBehaviour
                     cardDisplay.card = specificCard;
                 cardSlot.SetActive(true);
                 drawnCards++;
-                opponentChampion.champion.DrawCard(cardDisplay.card);
+                opponentChampion.champion.DrawCard(cardDisplay);
             }
         }
 
@@ -723,6 +756,7 @@ public class GameState : MonoBehaviour
                 {
                     if (hand.cardSlotsInHand[j].activeSelf == false)
                     {
+                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
                         hand.cardSlotsInHand[j].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
                         hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
                         hand.cardsInHand.Add(hand.cardSlotsInHand[j]);
@@ -762,15 +796,16 @@ public class GameState : MonoBehaviour
 
         if (opponentPlayedLandmark)
         {
-
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
             opponentLandmarks[index].health = landmark.minionHealth;
         }
         else
         {
             print("landmark index " + index);
-            playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].card = landmark;
+            playerLandmarks[index].health = landmark.minionHealth;
+            playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
     }
 
@@ -810,7 +845,7 @@ public class GameState : MonoBehaviour
             amountOfTurns++;
             DrawCard(1, null);
             actionOfPlayer.IncreaseMana();
-            playerChampion.champion.EndStep();
+            //playerChampion.champion.EndStep();
             //playerChampion.champion.UpKeep();
             return;
         }

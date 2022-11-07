@@ -186,7 +186,13 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDestroyLandmark)
             {
                 print("skickar den en gameAction destroylandmark");
-                //GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
+                GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
+
+                for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
+                {   
+                    TargetInfo targetInfo = theAction.landmarksToDestroy[i];
+                    GameState.Instance.DestroyLandmark(targetInfo);
+                }
 
                 //Draw card opponents
 
@@ -233,9 +239,13 @@ public class TestInternet : MonoBehaviour
 
                 Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
+                if (cardPlayed.typeOfCard == CardType.Landmark)
+                    GameState.Instance.ShowPlayedCardLandmark((Landmarks)cardPlayed);
+                else
+                    GameState.Instance.ShowPlayedCard(cardPlayed);
+
                 ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
-                GameState.Instance.ShowPlayedCard(cardPlayed);
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
 
