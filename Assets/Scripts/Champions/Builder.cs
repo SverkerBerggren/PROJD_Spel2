@@ -37,15 +37,15 @@ public class Builder : Champion
 	{
         foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
         {
-			Card card = gO.GetComponent<CardDisplay>().card;
-			if (card != null)
+			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			if (cardDisplay.card != null)
 			{
-				if (card.typeOfCard == CardType.Landmark)
+				if (cardDisplay.card.typeOfCard == CardType.Landmark)
 				{
-					card.manaCost -= cardCostReduce;
-					if (card.manaCost < 0)
+					cardDisplay.manaCost -= cardCostReduce;
+					if (cardDisplay.manaCost < 0)
 					{	
-						card.manaCost = 0;
+						cardDisplay.manaCost = 0;
 					}
 				}
 			}
@@ -57,15 +57,15 @@ public class Builder : Champion
 	{
         foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
         {
-            Card card = gO.GetComponent<CardDisplay>().card;
-			if (card != null)
+			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			if (cardDisplay.card != null)
 			{
-				if (card.typeOfCard == CardType.Landmark)
+				if (cardDisplay.card.typeOfCard == CardType.Landmark)
 				{
-					card.manaCost += cardCostReduce;
-					if (card.manaCost > card.maxManaCost)
+					cardDisplay.manaCost += cardCostReduce;
+					if (cardDisplay.manaCost > cardDisplay.card.maxManaCost)
 					{
-						card.manaCost = card.maxManaCost;
+						cardDisplay.manaCost = cardDisplay.card.maxManaCost;
 					}
 				}
 			}
@@ -84,15 +84,15 @@ public class Builder : Champion
 		UpdatePassive();
 	}
 
-	public override void DrawCard(Card card)
+	public override void DrawCard(CardDisplay cardDisplay)
 	{
-		base.DrawCard(card);
-		if (landmarkCount >= landmarkNeeded && card.typeOfCard == CardType.Landmark)
+		base.DrawCard(cardDisplay);
+		if (landmarkCount >= landmarkNeeded && cardDisplay.card.typeOfCard == CardType.Landmark)
 		{
-			card.manaCost -= cardCostReduce;
-			if (card.manaCost < 0)
+			cardDisplay.manaCost -= cardCostReduce;
+			if (cardDisplay.manaCost < 0)
 			{
-				card.manaCost = 0;
+				cardDisplay.manaCost = 0;
 			}
 		}
 	}

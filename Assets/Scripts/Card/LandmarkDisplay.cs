@@ -13,8 +13,9 @@ public class LandmarkDisplay : MonoBehaviour
     public TMP_Text descriptionText;
     public TMP_Text nameText;
     public TMP_Text manaText;
+	public int manaCost;
 
-    public GameObject landmarkPrefab;
+	public GameObject landmarkPrefab;
 
     public bool occultGathering = false;
     [NonSerialized] public int tenExtraDamage;
@@ -41,7 +42,7 @@ public class LandmarkDisplay : MonoBehaviour
         landmarkPrefab.SetActive(true);
         healthText.text = health.ToString();
         descriptionText.text = card.description;
-        manaText.text = card.manaCost.ToString();
+        manaText.text = manaCost.ToString();
         nameText.text = card.cardName;
     }
 

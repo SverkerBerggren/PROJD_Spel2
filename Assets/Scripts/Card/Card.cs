@@ -17,7 +17,6 @@ public abstract class Card : ScriptableObject
     public string description;
 
     public Sprite artwork;
-    public int manaCost;
     public int maxManaCost;
 
     public string tag;   

@@ -55,9 +55,9 @@ public class ActionOfPlayer : MonoBehaviour
         manaText.text = "Mana: " + currentMana.ToString();
     }
 
-    public bool CheckIfCanPlayCard(Card card)
+    public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
     {
-        cardCost = card.manaCost;
+        cardCost = cardDisplay.manaCost;
         if (gameState.factory > 0)        
             if (gameState.playerLandmarks.Count >= 3)
                 cardCost -= (2 * gameState.factory);

@@ -89,7 +89,7 @@ public abstract class Champion : ScriptableObject
         shield += amountToBlock;
     }
 
-    public virtual void DrawCard(Card card) { }
+    public virtual void DrawCard(CardDisplay cardDisplay) { }
 
     public virtual void AmountOfCardsPlayed(Card card) {}
 

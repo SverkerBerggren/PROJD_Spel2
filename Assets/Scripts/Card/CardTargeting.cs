@@ -67,13 +67,13 @@ public class CardTargeting : MonoBehaviour
             if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
                 print("TArgetCard");
-                if (actionOfPlayer.CheckIfCanPlayCard(card))
+                if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
                     PlayedATargetableCard();
             }           
             else if (!card.targetable && gameObjectHit.CompareTag("NonTargetCollider"))
             {
                 print("UnTargetCard");
-                if (actionOfPlayer.CheckIfCanPlayCard(card))
+                if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
                     PlayedAnUntargetableCard();
             }   
         }

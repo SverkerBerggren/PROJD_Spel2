@@ -14,6 +14,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text cardName;
     public TMP_Text description;
     public TMP_Text manaText;
+    public int manaCost;
 
     [Header("CardMaterial")]
     public MeshRenderer artworkMeshRenderer;
@@ -48,10 +49,10 @@ public class CardDisplay : MonoBehaviour
             UpdateMaterialOnCard();
 
             cardName.text = card.cardName;
-            manaText.text = card.manaCost.ToString();
+            manaText.text = manaCost.ToString();
             description.text = card.description;
 
-            if (ActionOfPlayer.Instance.currentMana >= card.manaCost)
+            if (ActionOfPlayer.Instance.currentMana >= manaCost)
                 cardPlayableEffect.SetActive(true);
             else
                 cardPlayableEffect.SetActive(false);
