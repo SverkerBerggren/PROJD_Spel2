@@ -700,6 +700,8 @@ public class GameState : MonoBehaviour
                     RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tI);
                     request.whichPlayer = ClientConnection.Instance.playerId;
                     request.targetToSwitch = tI;
+                    if (card == null)
+                        request.championDied = true;
                     ClientConnection.Instance.AddRequest(request, RequestEmpty);
                 }
 
@@ -709,17 +711,14 @@ public class GameState : MonoBehaviour
         //playerChampion.champion = playerChampions[randomChamp].champion; 
     }
 
-    private void SwapChampionWithTargetInfo(TargetInfo targetInfo)
+    public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
     {
-/*        if (targetInfo.whichList.opponentChampions == true)
-        {
-            Swap(playerChampions, 0, targetInfo.index);
-            playerChampion.champion.WhenCurrentChampion();
-        }*/
+
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
-            RemoveChampion(opponentChampions[targetInfo.index].champion);
+            if(championDied)
+                RemoveChampion(opponentChampions[targetInfo.index].champion);
             opponentChampion.champion.WhenCurrentChampion();
         }
 
@@ -727,12 +726,6 @@ public class GameState : MonoBehaviour
 
     public void SwapActiveChampionEnemy(TargetInfo targetInfo)
     {
-        if (targetInfo != null)
-        {
-            print("Comes in here ENEMY");
-            SwapChampionWithTargetInfo(targetInfo);
-            return;
-        }
 
         if (!isOnline)
         {

@@ -331,7 +331,7 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
         GameActionSwitchActiveChamp gameAction = new GameActionSwitchActiveChamp(requestToHandle.targetToSwitch);
-
+        gameAction.championDied = requestToHandle.championDied;
         AddGameAction(response, gameAction);
         return response;
     }

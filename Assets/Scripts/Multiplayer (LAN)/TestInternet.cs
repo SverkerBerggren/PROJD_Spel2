@@ -179,7 +179,7 @@ public class TestInternet : MonoBehaviour
 
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
-                GameState.Instance.SwapActiveChampionEnemy(castedAction.targetToSwitch);
+                GameState.Instance.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
                 
                 //Draw card opponents
 
