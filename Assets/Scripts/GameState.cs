@@ -676,7 +676,7 @@ public class GameState : MonoBehaviour
 
     }
 
-    public void SwapActiveChampion()
+    public void SwapActiveChampion(Card card)
     {   
 
         for (int i = 0; i < 25; i++)
@@ -687,7 +687,8 @@ public class GameState : MonoBehaviour
 
 				Swap(playerChampions, 0, randomChamp);
 
-                RemoveChampion(playerChampions[randomChamp].champion);
+                if (card == null)
+                    RemoveChampion(playerChampions[randomChamp].champion);
 
                 if (isOnline)
                 {
@@ -949,7 +950,7 @@ public class GameState : MonoBehaviour
     {
         if (playerChampion.champion == deadChampion)
         {
-            SwapActiveChampion();
+            SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          

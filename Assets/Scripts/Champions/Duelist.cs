@@ -10,7 +10,7 @@ public class Duelist : Champion
 	public override void WhenCurrentChampion()
 	{
 		base.WhenCurrentChampion();
-		gameState.SwapActiveChampion();
+		gameState.SwapActiveChampionEnemy(null);
 		//Choose Opponent champion
 	}
 }
