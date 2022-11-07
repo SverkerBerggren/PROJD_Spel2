@@ -806,7 +806,6 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            print("landmark index " + index);
             playerLandmarks[index].card = landmark;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
