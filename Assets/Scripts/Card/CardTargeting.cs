@@ -66,13 +66,11 @@ public class CardTargeting : MonoBehaviour
 
             if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
-                print("TArgetCard");
                 if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
                     PlayedATargetableCard();
             }           
             else if (!card.targetable && gameObjectHit.CompareTag("NonTargetCollider"))
             {
-                print("UnTargetCard");
                 if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
                     PlayedAnUntargetableCard();
             }   
@@ -151,7 +149,6 @@ public class CardTargeting : MonoBehaviour
     private void CardGoBackToStartingPosition()
     {
         gameObjectRectTransform.anchoredPosition = startposition;
-        print(gameObjectRectTransform.anchoredPosition);
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)

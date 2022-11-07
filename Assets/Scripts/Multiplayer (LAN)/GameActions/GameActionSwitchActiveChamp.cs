@@ -6,6 +6,7 @@ public class GameActionSwitchActiveChamp : GameAction
 {
 
     public TargetInfo targetToSwitch = new TargetInfo();
+    public bool championDied = false;
 
     public GameActionSwitchActiveChamp()
     {

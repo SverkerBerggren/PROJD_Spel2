@@ -6,8 +6,8 @@ public class ResponseSwitchActiveChamp : ServerResponse
 {
 
     public TargetInfo targetToSwitch = new TargetInfo();
-
-    public ResponseSwitchActiveChamp()
+	public bool championDied = false;
+	public ResponseSwitchActiveChamp()
     {
         Type = 7;
     }

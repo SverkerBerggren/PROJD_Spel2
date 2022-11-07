@@ -12,7 +12,7 @@ public class DuelistAttack : Spells
         gameState = GameState.Instance;
 
         gameState.CalculateBonusDamage(damage, this);
-        gameState.SwapActiveChampion(null);
+        gameState.SwapActiveChampion(this);
         gameState.CalculateBonusDamage(damage, this);
     }
 }

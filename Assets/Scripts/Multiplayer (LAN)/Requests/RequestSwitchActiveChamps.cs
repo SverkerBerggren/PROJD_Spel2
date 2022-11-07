@@ -5,8 +5,8 @@ using System;
 public class RequestSwitchActiveChamps : ClientRequest
 {
     public TargetInfo targetToSwitch = new TargetInfo();
-
-    public RequestSwitchActiveChamps()
+	public bool championDied = false;
+	public RequestSwitchActiveChamps()
     {
         Type = 8; 
     }

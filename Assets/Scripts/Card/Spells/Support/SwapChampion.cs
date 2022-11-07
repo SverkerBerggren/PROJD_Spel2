@@ -7,6 +7,6 @@ public class SwapChampion : Spells
 {
     public override void PlaySpell()
     {
-        GameState.Instance.SwapActiveChampion(null);
+        GameState.Instance.SwapActiveChampion(this);
     }
 }
