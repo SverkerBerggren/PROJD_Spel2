@@ -75,9 +75,10 @@ public class IpAdressInputField : MonoBehaviour
 			ClientRequestGameSetup gameSetup = new ClientRequestGameSetup();
             gameSetup.whichPlayer = 1;
 			gameSetup.reciprocate = true;
+            gameSetup.Type = 15;
 
             print("Not In method");
-			ClientConnection.Instance.AddRequest(request, EmptyMethod);
+			ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
 		}
 	}
 
