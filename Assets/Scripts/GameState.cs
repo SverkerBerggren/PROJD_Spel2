@@ -743,6 +743,7 @@ public class GameState : MonoBehaviour
                 {
                     if (hand.cardSlotsInHand[j].activeSelf == false)
                     {
+                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
                         hand.cardSlotsInHand[j].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
                         hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
                         hand.cardsInHand.Add(hand.cardSlotsInHand[j]);
