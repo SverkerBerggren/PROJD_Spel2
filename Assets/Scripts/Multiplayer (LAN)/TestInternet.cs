@@ -233,9 +233,10 @@ public class TestInternet : MonoBehaviour
 
                 Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
+                GameState.Instance.ShowPlayedCard(ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+
                 ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
-                GameState.Instance.ShowPlayedCard(cardPlayed);
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
 

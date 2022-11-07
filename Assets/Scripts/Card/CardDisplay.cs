@@ -36,7 +36,8 @@ public class CardDisplay : MonoBehaviour
 
     private void Start()
     {
-        artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        if (transform.Find("Sprite") != null)
+            artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
     }
 
     private void UpdateTextOnCard()
@@ -52,10 +53,13 @@ public class CardDisplay : MonoBehaviour
             manaText.text = manaCost.ToString();
             description.text = card.description;
 
-            if (ActionOfPlayer.Instance.currentMana >= manaCost)
-                cardPlayableEffect.SetActive(true);
-            else
-                cardPlayableEffect.SetActive(false);
+            if (cardPlayableEffect != null)
+            {
+                if (ActionOfPlayer.Instance.currentMana >= manaCost)
+                    cardPlayableEffect.SetActive(true);
+                else
+                    cardPlayableEffect.SetActive(false);
+            }
         }
             
 

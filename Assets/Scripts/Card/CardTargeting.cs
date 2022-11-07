@@ -91,7 +91,7 @@ public class CardTargeting : MonoBehaviour
                 {
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
-                    gameState.ShowPlayedCard(card);
+                    gameState.ShowPlayedCardLandmark(landmarkDisplay);
                     break;
                 }
 
@@ -106,7 +106,7 @@ public class CardTargeting : MonoBehaviour
         {
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(cardDisplay);
             cardDisplay.card = null;
         }
     }
@@ -120,7 +120,7 @@ public class CardTargeting : MonoBehaviour
             {
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
                 card.PlayCard();
-                gameState.ShowPlayedCard(card);
+                gameState.ShowPlayedCard(cardDisplay);
                 graveyard.AddCardToGraveyard(card);
                 cardDisplay.card = null;
             }
@@ -134,7 +134,7 @@ public class CardTargeting : MonoBehaviour
 
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(cardDisplay);
             cardDisplay.card = null;
         }
 
@@ -143,7 +143,7 @@ public class CardTargeting : MonoBehaviour
             card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(cardDisplay);
             cardDisplay.card = null;
         }
     }

@@ -39,7 +39,7 @@ public class GameState : MonoBehaviour
 
     
     [Header("UI Elements")]
-    public SpriteRenderer playedCardSpriteRenderer;
+    public GameObject playedCardGO;
     public Sprite backfaceCard;
     public UnityEngine.UI.Button endTurnBttn;
 
@@ -454,14 +454,33 @@ public class GameState : MonoBehaviour
     }
 
 
-    public void ShowPlayedCard(Card card)
+    public void ShowPlayedCardLandmark(LandmarkDisplay landmarkDisplay)
     {
-        playedCardSpriteRenderer.sprite = card.artwork;
+        playedCardGO.SetActive(true);
+        CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        cardDisp.card = landmarkDisplay.card;
+        cardDisp.manaCost = landmarkDisplay.card.maxManaCost;
+        Invoke(nameof(HideLandmarkPlayed), 3f);
+    }
+
+    public void ShowPlayedCard(CardDisplay cardDisplay)
+    {
+        playedCardGO.SetActive(true);
+        CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        cardDisp.card = cardDisplay.card;
+        cardDisp.manaCost = cardDisplay.card.maxManaCost;
         Invoke(nameof(HideCardPlayed), 3f);
     }
     private void HideCardPlayed()
     {
-        playedCardSpriteRenderer.sprite = null;
+        playedCardGO.GetComponent<CardDisplay>().card = null;
+        playedCardGO.SetActive(false);
+    }
+
+    private void HideLandmarkPlayed()
+    {
+        playedCardGO.GetComponent<CardDisplay>().card = null;
+        playedCardGO.SetActive(false);
     }
 
 
@@ -763,16 +782,16 @@ public class GameState : MonoBehaviour
 
         if (opponentPlayedLandmark)
         {
-            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
             opponentLandmarks[index].health = landmark.minionHealth;
         }
         else
         {
             print("landmark index " + index);
-            playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
-            playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].card = landmark;
+            playerLandmarks[index].health = landmark.minionHealth;
+            playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
     }
 
