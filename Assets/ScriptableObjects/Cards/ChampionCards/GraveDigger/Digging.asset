@@ -17,9 +17,11 @@ MonoBehaviour:
   description: Return 2 cards from your graveyard to your hand
   artwork: {fileID: 21300000, guid: 5f4ade5d31a51d84795294d4f224b57a, type: 3}
   manaCost: 2
+  maxManaCost: 2
   tag: Spell
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
+  targetable: 0
   amountOfCardsToReturn: 2
   topCardsInGraveyard: 0

@@ -17,10 +17,11 @@ MonoBehaviour:
   description: Deal 20 damage for each attack in the top 3 cards of your graveyard
   artwork: {fileID: 21300000, guid: 89461812c24c87147b0ac02615bc7943, type: 3}
   manaCost: 2
-  maxManaCost: 0
+  maxManaCost: 2
   tag: AttackSpell
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
+  targetable: 0
   amountOfCardsToReturn: 0
   topCardsInGraveyard: 3

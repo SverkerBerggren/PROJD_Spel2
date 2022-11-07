@@ -22,7 +22,6 @@ public class Builder : Champion
 	public override void AmountOfCardsPlayed(Card c)
 	{
 		base.AmountOfCardsPlayed(c);
-		Debug.Log(landmarkCount + " " + landmarkNeeded);
 		if (c.typeOfCard == CardType.Landmark)
 		{
 			landmarkCount++;

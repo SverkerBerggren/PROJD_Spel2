@@ -18,8 +18,8 @@ public abstract class Card : ScriptableObject
 
     public Sprite artwork;
     public int manaCost;
+    public int maxManaCost;
 
-    [System.NonSerialized] public int maxManaCost;
     public string tag;   
 
     private Champion target;
@@ -34,11 +34,11 @@ public abstract class Card : ScriptableObject
     public Champion Target { get { return target; } set { target = value; } }
     public LandmarkDisplay LandmarkTarget { get { return landmarkTarget; } set { landmarkTarget = value; } }
 
-    protected Card() { maxManaCost = manaCost; }
+    protected Card() { }
 
     public virtual void PlayCard()
     {
-        maxManaCost = manaCost;
+        
 
         CardAndPlacement cardPlacement = new CardAndPlacement();
         cardPlacement.cardName = cardName;
