@@ -815,6 +815,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            print("GIVE ME MANA");
             isItMyTurn = true;
             TriggerUpKeep();
         }
