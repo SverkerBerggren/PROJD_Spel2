@@ -305,7 +305,7 @@ public class TestInternet : MonoBehaviour
 					ClientRequestGameSetup request = new ClientRequestGameSetup();
 					request.whichPlayer = ClientConnection.Instance.playerId;
 					request.reciprocate = false;
-					ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+					ClientConnection.Instance.AddRequest(request, EmptyRequest);
 				}
 
                 CreateScene();
@@ -433,6 +433,11 @@ public class TestInternet : MonoBehaviour
         clientConnection.AddRequest(request, PerformOpponentsActions);
        
         yield return new WaitForSeconds(0);
+    }
+
+    private void EmptyRequest(ServerResponse response)
+    {
+
     }
 
 
