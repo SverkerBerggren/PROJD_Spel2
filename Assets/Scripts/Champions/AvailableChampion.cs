@@ -25,7 +25,7 @@ public class AvailableChampion : MonoBehaviour
     private float timeBeforeShowing = 0.5f;
 
     public SpriteRenderer champCard;
-    private ArmorEffect armorEffect;
+    //private ArmorEffect armorEffect;
 
 
 
@@ -51,7 +51,7 @@ public class AvailableChampion : MonoBehaviour
 	{
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
-            armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
+           // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
         SetWichMeshToShowOnStart();
 
         if (transform.Find("TargetingEffect") != null)
@@ -120,7 +120,7 @@ public class AvailableChampion : MonoBehaviour
 	{
         if (champion.destroyShield)
         {
-            armorEffect.DamageArmor(10);
+            //armorEffect.DamageArmor(10);
             print("RUns");
         }
             
