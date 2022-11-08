@@ -18,16 +18,8 @@ public class Shanker : Champion
 	public override void EndStep()
 	{
 		base.EndStep();
-		int attackCardsPlayed = 0;
-		foreach (Card c in gameState.cardsPlayedThisTurn)
-		{
-			if (c.typeOfCard == CardType.Attack)
-			{
-				attackCardsPlayed++;
-			}
-		}
-
-		if (attackCardsPlayed >= attackCardsToDraw)
+		
+		if (gameState.attacksPlayedThisTurn >= attackCardsToDraw)
 		{
 			gameState.DrawCard(attackCardsToDraw, null);
 		}
