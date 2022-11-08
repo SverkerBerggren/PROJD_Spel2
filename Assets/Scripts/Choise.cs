@@ -83,7 +83,7 @@ public class Choise : MonoBehaviour
 
     private void SwitchChamp(bool died)
     {
-        gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
+        gameState.SwitchMyChampions(chosenTargets[0]);
 
         if (gameState.isOnline)
         {

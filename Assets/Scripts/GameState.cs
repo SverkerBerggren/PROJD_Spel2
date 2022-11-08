@@ -683,7 +683,8 @@ public class GameState : MonoBehaviour
 
     public void SwitchMyChampions(TargetInfo targetInfo)
     {
-
+        Swap(playerChampions, 0, targetInfo.index);
+        playerChampion.champion.WhenCurrentChampion();
     }
 
     public void SwapActiveChampion(Card card)
@@ -728,9 +729,13 @@ public class GameState : MonoBehaviour
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
-            if(championDied)
+            if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
             opponentChampion.champion.WhenCurrentChampion();
+        }
+        else
+        {
+
         }
 
     }
