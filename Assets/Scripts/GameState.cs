@@ -77,6 +77,9 @@ public class GameState : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (ClientConnection.Instance != null)
+            isOnline = true;
+
         AddChampions(playerChampions);
         AddChampionsOpponent(opponentChampions);
         playerChampion = playerChampions[0];
