@@ -105,6 +105,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
     }
@@ -120,6 +121,7 @@ public class CardTargeting : MonoBehaviour
                 card.PlayCard();
                 gameState.ShowPlayedCard(card);
                 graveyard.AddCardToGraveyard(card);
+                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 cardDisplay.card = null;
             }
             CardGoBackToStartingPosition();
@@ -133,6 +135,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
 
@@ -142,6 +145,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
     }
@@ -153,12 +157,10 @@ public class CardTargeting : MonoBehaviour
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
-
-
+        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay);
         cardDisplay.card = null;
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
-        GameState.Instance.AddCardToPlayedCardsThisTurn(card);
 
         if (GameState.Instance.isOnline)
         {

@@ -76,7 +76,7 @@ public class TestInternet : MonoBehaviour
                 }
                 if(theAction.amountToDraw > 0)
                 {
-                    StartCoroutine(gameState.DrawCardOpponent(theAction.amountToDraw,null));
+                    gameState.DrawCardOpponent(theAction.amountToDraw,null);
 
                 }
                 //Draw card opponents
@@ -144,7 +144,8 @@ public class TestInternet : MonoBehaviour
                         GameState.Instance.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                 }
-                
+                if (GameState.Instance.opponentChampion.champion.animator != null)
+                    GameState.Instance.opponentChampion.champion.animator.SetTrigger("Attack");
 
                 //GameActionDamage theAction = (GameActionDamage)action;
 
@@ -243,7 +244,10 @@ public class TestInternet : MonoBehaviour
                 else
                     GameState.Instance.ShowPlayedCard(cardPlayed);
 
-                ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+                actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 

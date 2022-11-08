@@ -27,60 +27,16 @@ public class Builder : Champion
 			landmarkCount++;
 			UpdatePassive();
 			if (landmarkCount >= landmarkNeeded && !effectOn)
-			{
 				ReduceLandmarksInHand();
-			}
 		}
 	}
-
-	public void ReduceLandmarksInHand()
-	{
-        foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
-        {
-			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
-			if (cardDisplay.card != null)
-			{
-				if (cardDisplay.card.typeOfCard == CardType.Landmark)
-				{
-					cardDisplay.manaCost -= cardCostReduce;
-					if (cardDisplay.manaCost < 0)
-					{	
-						cardDisplay.manaCost = 0;
-					}
-				}
-			}
-        }
-		effectOn = true;
-	}
-
-	public void ResetLandmarkCost()
-	{
-        foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
-        {
-			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
-			if (cardDisplay.card != null)
-			{
-				if (cardDisplay.card.typeOfCard == CardType.Landmark)
-				{
-					cardDisplay.manaCost += cardCostReduce;
-					if (cardDisplay.manaCost > cardDisplay.card.maxManaCost)
-					{
-						cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-					}
-				}
-			}
-        }
-		effectOn = false;
-    }
 
 	public override void WhenLandmarksDie()
 	{
 		base.WhenLandmarksDie();
 		landmarkCount--;
 		if (landmarkCount < landmarkNeeded && effectOn)
-		{
 			ResetLandmarkCost();
-        }
 		UpdatePassive();
 	}
 
@@ -97,10 +53,64 @@ public class Builder : Champion
 		}
 	}
 
-	private void UpdatePassive()
+	public override void WhenCurrentChampion()
 	{
-		passiveEffect = landmarkCount + "/" + landmarkNeeded;
-		
+		base.WhenCurrentChampion();
+		landmarkCount = 0;
+		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
+		{
+			if (landmark.card != null)
+				landmarkCount++;
+		}
+		if (landmarkCount >= landmarkNeeded)
+			ReduceLandmarksInHand();
+		UpdatePassive();
 	}
 
+	public override void WhenInactiveChampion()
+	{
+		if (effectOn)
+			ResetLandmarkCost();
+	}
+
+	private void UpdatePassive()
+	{
+		passiveEffect = landmarkCount + "/" + landmarkNeeded;	
+	}
+
+	private void ReduceLandmarksInHand()
+	{
+        foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
+        {
+			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			if (cardDisplay.card != null)
+			{
+				if (cardDisplay.card.typeOfCard == CardType.Landmark)
+				{
+					cardDisplay.manaCost -= cardCostReduce;
+					if (cardDisplay.manaCost < 0)
+						cardDisplay.manaCost = 0;
+				}
+			}
+        }
+		effectOn = true;
+	}
+
+	private void ResetLandmarkCost()
+	{
+        foreach (GameObject gO in ActionOfPlayer.Instance.handPlayer.cardsInHand)
+        {
+			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			if (cardDisplay.card != null)
+			{
+				if (cardDisplay.card.typeOfCard == CardType.Landmark)
+				{
+					cardDisplay.manaCost += cardCostReduce;
+					if (cardDisplay.manaCost > cardDisplay.card.maxManaCost)
+						cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+				}
+			}
+        }
+		effectOn = false;
+    }
 }
