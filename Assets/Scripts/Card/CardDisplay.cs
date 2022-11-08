@@ -6,7 +6,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+    public SpriteRenderer artworkSpriteRenderer;
 
     public Card card;  
 
@@ -38,8 +38,6 @@ public class CardDisplay : MonoBehaviour
 
     private void Start()
     {
-        if (transform.Find("Sprite") != null)
-            artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         originalSize = transform.localScale;
     }
 
