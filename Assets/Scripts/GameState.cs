@@ -861,22 +861,6 @@ public class GameState : MonoBehaviour
         actionOfPlayer.ChangeCardOrder(true, cardPlayed);
     }
 
-
-    public void OnChampionDeath(ServerResponse response)
-    {
-        if (response.whichPlayer == ClientConnection.Instance.playerId)
-        {
-
-            //Choose Champion
-            //Pass priority
-            //hasPriority = true;
-        }
-        else
-        {
-            //hasPriority = false;
-        }
-    }
-
     public void ChampionDeath(Champion deadChampion)
     {
         SearchDeadChampion(deadChampion);
@@ -895,6 +879,7 @@ public class GameState : MonoBehaviour
     {
         if (playerChampion.champion == deadChampion)
         {
+            hasPriority = true;
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
@@ -902,8 +887,11 @@ public class GameState : MonoBehaviour
             SwapActiveChampionEnemy(null);
         }
 
-
-    }
+		if (isOnline && opponentChampion.champion == deadChampion)
+		{
+            hasPriority = false;
+		}
+	}
 
 
     public void RemoveChampion(Champion deadChamp)
