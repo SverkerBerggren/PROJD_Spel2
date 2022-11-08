@@ -47,7 +47,7 @@ public class IpAdressInputField : MonoBehaviour
 
     public void ConnectToServer()
     {
-        clientConnection.ConnectToServer("193.10.9.92", 63000);
+        clientConnection.ConnectToServer("193.10.9.114", 63000);
 
 
 

@@ -799,9 +799,9 @@ public class GameState : MonoBehaviour
 
     public void EndTurn()
     {
+        print("Ending turn");
         if (!isOnline)
         {
-            //amountOfTurns++;
             TriggerEndStep();
             TriggerUpKeep();
             return;
