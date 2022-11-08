@@ -44,7 +44,7 @@ public class ActionOfPlayer : MonoBehaviour
 
 
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.M))
         {

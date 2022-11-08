@@ -733,11 +733,6 @@ public class GameState : MonoBehaviour
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
             opponentChampion.champion.WhenCurrentChampion();
         }
-        else
-        {
-
-        }
-
     }
 
     public void SwapActiveChampionEnemy(TargetInfo targetInfo)
