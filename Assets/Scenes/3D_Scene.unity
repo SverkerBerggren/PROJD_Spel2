@@ -16759,6 +16759,7 @@ MonoBehaviour:
   handPlayer: {fileID: 1670523642}
   handOpponent: {fileID: 1361169675}
   manaText: {fileID: 1798038969}
+  choice: {fileID: 1448377065}
   playerMana: 1
   currentMana: 1
   selectCardOption: 0
@@ -17122,7 +17123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1448377066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17195,11 +17196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaae5df1be473b44986831ac129f14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: []
-  amountOfTargetsToSelect: 0
+  amountOfTargets: 0
   choiceButtonPrefab: {fileID: 4087350943102769212, guid: e954e49bfde1adc459aca5bddc2346f5, type: 3}
   descriptionText: {fileID: 1494451929}
   buttonHolder: {fileID: 1721278805}
+  whichMethod: 0
+  buttonsToDestroy: []
 --- !u!1 &1448664346
 GameObject:
   m_ObjectHideFlags: 0
@@ -20307,7 +20309,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -43.2, y: 190}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721278807
 MonoBehaviour:
@@ -20329,7 +20331,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 200, y: 300}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
