@@ -49,26 +49,20 @@ public class IpAdressInputField : MonoBehaviour
     {
         clientConnection.ConnectToServer("193.10.9.114", 63000);
 
-
-
-        ClientRequest request = new ClientRequest();
         if (clientConnection.isHost)
-        {
-            request.whichPlayer = 0;
+        {  
             clientConnection.playerId = 0;
         }
         else
-        {
-            request.whichPlayer = 1;
+        {          
             clientConnection.playerId = 1;
         }
-        request.createScene = true;
 
 
         testInternet.hasJoinedLobby = true;
 
 
-        clientConnection.AddRequest(request, CreateScene);
+        
 
 		if (!clientConnection.isHost)
 		{
@@ -76,6 +70,13 @@ public class IpAdressInputField : MonoBehaviour
             gameSetup.whichPlayer = 1;
 			gameSetup.reciprocate = true;
            // gameSetup.Type = 15;
+           List<string> ownChampions = new List<string>();
+
+            foreach (string stringen in Setup.Instance.hostChamps)
+            {
+                ownChampions.Add(stringen);
+            }
+            gameSetup.opponentChampions = ownChampions;
 
             print("Not In method");
 			ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
