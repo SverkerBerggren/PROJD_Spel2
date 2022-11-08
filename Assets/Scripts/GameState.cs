@@ -766,13 +766,18 @@ public class GameState : MonoBehaviour
         }
     }
 
+    private bool firstTurn = true;
+
     public void TriggerUpKeep()
     {
         print("Den triggrar upkeep");
         DrawCard(1, null);
-        if (didIStart || !isOnline)
+        if (!isItMyTurn && !firstTurn)
         {
             actionOfPlayer.IncreaseMana();
+        }
+        if (didIStart || !isOnline)
+        {
             amountOfTurns++;
         }
         playerChampion.champion.UpKeep();
@@ -782,6 +787,7 @@ public class GameState : MonoBehaviour
                 landmark.card.UpKeep();
             //Trigger landmark endstep
         }
+        firstTurn = false;
     }
 
     public void TriggerEndStep()
