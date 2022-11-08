@@ -34,6 +34,7 @@ public class CardDisplay : MonoBehaviour
     public GameObject border;
     [System.NonSerialized] public bool opponentCard;
 
+
     private void Start()
     {
         if (transform.Find("Sprite") != null)
@@ -96,15 +97,19 @@ public class CardDisplay : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateTextOnCard();
+        UpdateTextOnCard();    
+        
     }
 
     private void OnMouseEnter()
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1); 
+    {       
+        transform.position = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z - 1);
+        transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+
     }
     private void OnMouseExit()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 10, transform.position.z + 1);
+        transform.localScale = new Vector3(transform.localScale.x - 0.5f, transform.localScale.x - 0.5f, transform.localScale.x - 0.5f);
     }
 }
