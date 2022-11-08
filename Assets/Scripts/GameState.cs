@@ -683,6 +683,7 @@ public class GameState : MonoBehaviour
 
     public void SwitchMyChampions(TargetInfo targetInfo)
     {
+        print(targetInfo.index + "vilket index");
         Swap(playerChampions, 0, targetInfo.index);
         playerChampion.champion.WhenCurrentChampion();
     }
@@ -733,11 +734,6 @@ public class GameState : MonoBehaviour
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
             opponentChampion.champion.WhenCurrentChampion();
         }
-        else
-        {
-
-        }
-
     }
 
     public void SwapActiveChampionEnemy(TargetInfo targetInfo)
