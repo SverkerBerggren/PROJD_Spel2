@@ -325,11 +325,14 @@ public class TestInternet : MonoBehaviour
 
                 GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
 
-               //GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
+                ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+				actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
-                //Draw card opponents
+				//Draw card opponents
 
-            }
+			}
 
             
 
