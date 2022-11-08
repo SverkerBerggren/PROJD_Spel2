@@ -786,8 +786,7 @@ public class GameState : MonoBehaviour
             if (landmark.card != null)
                 landmark.card.UpKeep();
             //Trigger landmark endstep
-        }
-        firstTurn = false;
+        }       
     }
 
     public void TriggerEndStep()
@@ -817,6 +816,7 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
+            firstTurn = false;
             //TriggerEndStep();
         }
         else
