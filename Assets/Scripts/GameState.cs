@@ -81,10 +81,7 @@ public class GameState : MonoBehaviour
             isOnline = true;
 
 
-        AddChampions(Setup.Instance.myChampions);
-        AddChampionsOpponent(Setup.Instance.opponentChampions);
-        playerChampion = playerChampions[0];
-        opponentChampion = opponentChampions[0];
+
         DontDestroyOnLoad(this);
     }
 
@@ -105,6 +102,11 @@ public class GameState : MonoBehaviour
                 ChangeInteractabiltyEndTurn();
             }
         }
+
+        AddChampions(Setup.Instance.myChampions);
+        AddChampionsOpponent(Setup.Instance.opponentChampions);
+        playerChampion = playerChampions[0];
+        opponentChampion = opponentChampions[0];
 
         Invoke(nameof(DrawStartingCards), 0.01f);
     }
