@@ -80,10 +80,6 @@ public class GameState : MonoBehaviour
         if (ClientConnection.Instance != null)
             isOnline = true;
 
-        if (ClientConnection.Instance.playerId == 0)
-        {
-            SetUpEnemyChamps();
-        }
 
         AddChampions(playerChampions);
         AddChampionsOpponent(opponentChampions);
@@ -92,10 +88,6 @@ public class GameState : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void SetUpEnemyChamps()
-    {
-
-    }
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;

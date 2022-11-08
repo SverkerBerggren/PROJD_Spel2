@@ -21,7 +21,9 @@ public class CardMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
+        cardDisplay.ResetSize();
         offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
+        cardDisplay.mouseDown = true;
         if (GameState.Instance.targetingEffect != null && cardDisplay.card.typeOfCard == CardType.Attack) GameState.Instance.targetingEffect.SetActive(true);
         if (ActionOfPlayer.Instance.selectCardOption) clickedOnCard = true;
     }
