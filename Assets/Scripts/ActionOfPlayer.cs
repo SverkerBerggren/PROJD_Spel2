@@ -13,6 +13,8 @@ public class ActionOfPlayer : MonoBehaviour
 
     [SerializeField] private TMP_Text manaText;
 
+    public GameObject choice;
+
     private int cardCost;
     public int playerMana = 0;
     public int currentMana = 0;
@@ -51,6 +53,13 @@ public class ActionOfPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             GameState.Instance.DrawCard(1, null);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            ListEnum lE = new ListEnum();
+            lE.myChampions = true;
+            choice.SetActive(true);
+            Choise.Instance.ShowChoiceMenu(lE);
         }
         manaText.text = "Mana: " + currentMana.ToString();
     }

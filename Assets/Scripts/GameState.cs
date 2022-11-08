@@ -102,9 +102,21 @@ public class GameState : MonoBehaviour
                 ChangeInteractabiltyEndTurn();
             }
         }
+        if (isOnline)
+        {
+            AddChampions(Setup.Instance.myChampions);
+            AddChampionsOpponent(Setup.Instance.opponentChampions);
 
-        AddChampions(Setup.Instance.myChampions);
-        AddChampionsOpponent(Setup.Instance.opponentChampions);
+        }
+        else
+        {
+            List<string> ha = new List<string>();
+            ha.Add("Cultist");
+            ha.Add("Graverobber");
+            ha.Add("Builder"); 
+            AddChampions(ha);
+            AddChampionsOpponent(ha);
+        }
         playerChampion = playerChampions[0];
         opponentChampion = opponentChampions[0];
 
@@ -880,6 +892,7 @@ public class GameState : MonoBehaviour
         if (playerChampion.champion == deadChampion)
         {
             hasPriority = true;
+            //Choise.Instance.ShowChoiceMenu();
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
@@ -892,6 +905,8 @@ public class GameState : MonoBehaviour
             hasPriority = false;
 		}
 	}
+
+
 
 
     public void RemoveChampion(Champion deadChamp)
