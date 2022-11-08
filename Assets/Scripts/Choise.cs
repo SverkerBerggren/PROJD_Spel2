@@ -11,7 +11,7 @@ public class Choise : MonoBehaviour
     public ListEnum listEnum;
 
     public List<TargetInfo> chosenTargets = new List<TargetInfo>();
-    public int amountOfTargetsToSelect = 0;
+    public int amountOfTargets = 0;
     public GameObject choiceButtonPrefab;
 
     public TMP_Text descriptionText;
@@ -23,38 +23,15 @@ public class Choise : MonoBehaviour
 
     private static Choise instance;
 
+    public List<GameObject> buttonsToDestroy = new List<GameObject>();
+
     public static Choise Instance { get { return instance; } set { instance = value; } }
 
-    public void ChoiseOfALifetime()
+    public void ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod)
     {
-        if (listEnum.myChampions)
-        {
-
-        }
-        else if (listEnum.opponentChampions)
-        {
-
-        }
-        else if (listEnum.myLandmarks)
-        {
-
-        }
-        else if (listEnum.opponentLandmarks)
-        {
-
-        }
-        else if (listEnum.myGraveyard)
-        {
-
-        }
-        else if (listEnum.opponentGraveyard)
-        {
-
-        }
-    }
-
-    public void ShowChoiceMenu(ListEnum listEnum)
-    {
+        gameObject.SetActive(true);
+        whichMethod = theMethod;
+        amountOfTargets = amountToTarget;
         if (listEnum.myChampions)
         {
             for (int i = 0; i < gameState.playerChampions.Count; i++)
@@ -68,6 +45,7 @@ public class Choise : MonoBehaviour
 
                 gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
 
+                buttonsToDestroy.Add(gO);
             }
         }
     }
@@ -76,19 +54,31 @@ public class Choise : MonoBehaviour
     {
         chosenTargets.Add(targetInfo);
 
-        if (chosenTargets.Count == amountOfTargetsToSelect)
+        if (chosenTargets.Count == amountOfTargets)
         {
             switch(whichMethod)
             {
                 case WhichMethod.switchChampion:
-                    SwitchChamp(false);
+                    SwitchChamp(false);                   
                     break;
 
                 case WhichMethod.switchChampionDied:
-                    SwitchChamp(true);
+                    SwitchChamp(true);                    
                     break;
             }
         }
+        ResetChoice();
+    }
+
+    private void ResetChoice()
+    {   
+        amountOfTargets = 0;
+        chosenTargets.Clear();
+        foreach(GameObject obj in buttonsToDestroy)
+        {
+            Destroy(obj);
+        }
+        gameObject.SetActive(false);
     }
 
     private void SwitchChamp(bool died)
