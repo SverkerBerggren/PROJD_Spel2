@@ -81,8 +81,8 @@ public class GameState : MonoBehaviour
             isOnline = true;
 
 
-        AddChampions(playerChampions);
-        AddChampionsOpponent(opponentChampions);
+        AddChampions(Setup.Instance.myChampions);
+        AddChampionsOpponent(Setup.Instance.opponentChampions);
         playerChampion = playerChampions[0];
         opponentChampion = opponentChampions[0];
         DontDestroyOnLoad(this);
@@ -363,70 +363,72 @@ public class GameState : MonoBehaviour
     }
 
 
-    private void AddChampions(List<AvailableChampion> champions)
+    private void AddChampions(List<string> champions)
     {
+        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
             Champion champ = null;
-            switch (champions[i].champion.name)
+            switch (champions[i])
             {
                 case "Cultist":
-                    champ = new Cultist((Cultist)champions[i].champion);
+                    champ = new Cultist((Cultist)champReg[champions[i]]);
                     break;
 
                 case "Builder":
-                    champ = new Builder((Builder)champions[i].champion);
+                    champ = new Builder((Builder)champReg[champions[i]]);
                     break;
 
                 case "Shanker":
-                    champ = new Shanker((Shanker)champions[i].champion);
+                    champ = new Shanker((Shanker)champReg[champions[i]]);
                     break;
 
                 case "Graverobber":
-                    champ = new Graverobber((Graverobber)champions[i].champion);
+                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
                     break;
 
                 case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champions[i].champion);
+                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
                     break;
 
                 case "Duelist":
-                    champ = new Duelist((Duelist)champions[i].champion);
+                    champ = new Duelist((Duelist)champReg[champions[i]]);
                     break;
             }
             playerChampions[i].champion = champ;
         }
     }
 
-    private void AddChampionsOpponent(List<AvailableChampion> champions)
+    private void AddChampionsOpponent(List<string> champions)
     {
+        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
             Champion champ = null;
-            switch (champions[i].champion.name)
+            switch (champions[i])
             {
                 case "Cultist":
-                    champ = new Cultist((Cultist)champions[i].champion);
+                    champ = new Cultist((Cultist)champReg[champions[i]]);
                     break;
 
                 case "Builder":
-                    champ = new Builder((Builder)champions[i].champion);
+                    champ = new Builder((Builder)champReg[champions[i]]);
                     break;
 
                 case "Shanker":
-                    champ = new Shanker((Shanker)champions[i].champion);
+                    champ = new Shanker((Shanker)champReg[champions[i]]);
                     break;
 
                 case "Graverobber":
-                    champ = new Graverobber((Graverobber)champions[i].champion);
+                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
                     break;
 
                 case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champions[i].champion);
+                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
                     break;
 
                 case "Duelist":
-                    champ = new Duelist((Duelist)champions[i].champion);
+                    champ = new Duelist((Duelist)champReg[champions[i]]);
                     break;
             }
             opponentChampions[i].champion = champ;
