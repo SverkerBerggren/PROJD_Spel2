@@ -56,7 +56,9 @@ public class GameState : MonoBehaviour
     [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
     [NonSerialized] public int attacksPlayedThisTurn;
-    
+
+    private bool firstTurn = true;
+
     private ActionOfPlayer actionOfPlayer;
 
     private static GameState instance;
@@ -766,7 +768,7 @@ public class GameState : MonoBehaviour
         }
     }
 
-    private bool firstTurn = true;
+    
 
     public void TriggerUpKeep()
     {
@@ -817,7 +819,7 @@ public class GameState : MonoBehaviour
         {
             isItMyTurn = false;
             firstTurn = false;
-            //TriggerEndStep();
+            TriggerEndStep();
         }
         else
         {
