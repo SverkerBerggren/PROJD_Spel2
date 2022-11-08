@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -997,7 +997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &92863032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,6 +1081,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &92863037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2099,7 +2102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &221342485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2183,6 +2186,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &221342490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3584,6 +3590,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 830393726}
   hpText: {fileID: 1101116562}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &341116896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4344,6 +4353,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 281875069}
   hpText: {fileID: 281875067}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &463547334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4805,7 +4817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &546713595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4889,6 +4901,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &546713600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5085,6 +5100,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 1573680326}
   hpText: {fileID: 399765531}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &550721940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5296,6 +5314,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 865636973}
   hpText: {fileID: 865636971}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &556912646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5835,6 +5856,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 829506287}
   hpText: {fileID: 287946013}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &579991805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6892,7 +6916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &664275501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6976,6 +7000,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &664275506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7545,7 +7572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &706448664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7629,6 +7656,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &706448669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8690,7 +8720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &812522614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8774,6 +8804,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &812522619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9093,7 +9126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &845847466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9177,6 +9210,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &845847471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12305,6 +12341,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 225130325}
   hpText: {fileID: 225130323}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1098960965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15629,7 +15668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1312542808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15713,6 +15752,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1312542813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15946,9 +15988,9 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   fDistance: 15
-  MinAngle: 65
+  MinAngle: 50
   MaxAngle: 17
-  StartAngle: 115
+  StartAngle: 105
 --- !u!114 &1361169675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17240,6 +17282,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 935620179}
   hpText: {fileID: 935620177}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1451398709
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18150,7 +18195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 068c73f8b63986b4e812e64db6f17f8f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -18158,7 +18203,7 @@ SpriteRenderer:
   m_Size: {x: 3.6, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1546277709
@@ -19320,6 +19365,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 1210825700}
   hpText: {fileID: 1210825698}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!1 &1670523640
 GameObject:
   m_ObjectHideFlags: 0
@@ -19641,7 +19689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1692682882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19725,6 +19773,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1692682887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20233,6 +20284,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 583967635}
   hpText: {fileID: 583967633}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1735191245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20417,7 +20471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1741744664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20501,6 +20555,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 0}
   hpText: {fileID: 0}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1741744669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20836,6 +20893,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 1738404591}
   hpText: {fileID: 1738404589}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1758655958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21076,6 +21136,9 @@ MonoBehaviour:
   hpGameObject: {fileID: 965821189}
   hpText: {fileID: 172337448}
   border: {fileID: 0}
+  mouseDown: 0
+  alreadyBig: 0
+  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1768091141
 RectTransform:
   m_ObjectHideFlags: 0
