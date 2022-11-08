@@ -293,6 +293,9 @@ public class TestInternet : MonoBehaviour
                 print("Hej hej nu startar spelet");
 
 				GameActionGameSetup castedAction = (GameActionGameSetup)action;
+
+                    
+
                 if (castedAction.reciprocate)
                 {
 					ClientRequestGameSetup request = new ClientRequestGameSetup();
