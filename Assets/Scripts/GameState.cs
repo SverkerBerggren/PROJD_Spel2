@@ -118,7 +118,9 @@ public class GameState : MonoBehaviour
 
     public  void EndTurnButtonClick()
     {
-        if(isOnline)
+        if (!hasPriority) return;
+            
+        if (isOnline)
         {
             RequestEndTurn request = new RequestEndTurn();
             request.whichPlayer = ClientConnection.Instance.playerId;
