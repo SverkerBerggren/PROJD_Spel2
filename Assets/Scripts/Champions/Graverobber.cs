@@ -14,7 +14,7 @@ public class Graverobber : Champion
 		base.EndStep();
 		if (Graveyard.Instance.graveyardPlayer.Count == 0) return;
 		Tuple<Card, int> info = Graveyard.Instance.RandomizeCardFromGraveyard();
-		GameState.Instance.DrawCard(1, info.Item1);
+		GameState.Instance.DrawCardPlayer(1, info.Item1);
 		if (GameState.Instance.isOnline)
 		{
 			TargetInfo targetInfo = new TargetInfo();
