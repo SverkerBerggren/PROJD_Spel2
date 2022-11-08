@@ -126,6 +126,7 @@ public class GameState : MonoBehaviour
 
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            if(landmark.card != null)
             damage = landmark.card.DealDamageAttack(damage);
         }
 
@@ -163,13 +164,16 @@ public class GameState : MonoBehaviour
         tI = new TargetInfo(listEnum, index);
         tAA = new TargetAndAmount(tI, damage);
         DealDamage(tAA);
+        if (playerChampion.champion.animator != null)
+        {
+            playerChampion.champion.animator.SetTrigger("Attack");
+        }
     }
 
     public int LookForChampionIndex(Card cardUsed, List<AvailableChampion> champ )
     {
         for (int i = 0; i < champ.Count; i++)
         {
-            
             if (champ[i].champion == cardUsed.Target)
             {
                 return i;
@@ -225,8 +229,6 @@ public class GameState : MonoBehaviour
         {
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
-
-
     }
 
     public void CalculateHealing(int amount, Card cardUsed)
@@ -426,8 +428,8 @@ public class GameState : MonoBehaviour
 
     private void DrawStartingCards()
     {
-        StartCoroutine(DrawCardPlayer(amountOfCardsToStartWith, null));
-        StartCoroutine(DrawCardOpponent(amountOfCardsToStartWith, null));
+        DrawCardPlayer(amountOfCardsToStartWith, null);
+        DrawCardOpponent(amountOfCardsToStartWith, null);
     }
 
   
@@ -569,23 +571,17 @@ public class GameState : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
            
             ClientConnection.Instance.AddRequest(request, DrawCardRequest);
-            StartCoroutine(DrawCardPlayer(amountToDraw, specificCard));
+            DrawCardPlayer(amountToDraw, specificCard);
         }
         else
         {
-            StartCoroutine(DrawCardPlayer(amountToDraw, specificCard));
+            DrawCardPlayer(amountToDraw, specificCard);
         }
     }
 
 
-    public IEnumerator DrawCardPlayer(int amountToDraw, Card specificCard)
+    public void DrawCardPlayer(int amountToDraw, Card specificCard)
     {
-        if (actionOfPlayer.handPlayer.cardsInHand.Count > 0)
-        {
-          //  ChangeCardOrder();
-            yield return new WaitForSeconds(0.01f); 
-        }
-
         int drawnCards = 0;
         foreach (GameObject cardSlot in actionOfPlayer.handPlayer.cardSlotsInHand)
         {
@@ -618,14 +614,8 @@ public class GameState : MonoBehaviour
         }
 
     }
-    public IEnumerator DrawCardOpponent(int amountToDraw, Card specificCard)
+    public void DrawCardOpponent(int amountToDraw, Card specificCard)
     {
-        if (actionOfPlayer.handOpponent.cardsInHand.Count > 0)
-        {
-            ChangeCardOrder();
-            yield return new WaitForSeconds(0.01f);
-        }
-
         int drawnCards = 0;
         foreach (GameObject cardSlot in actionOfPlayer.handOpponent.cardSlotsInHand)
         {
@@ -674,8 +664,9 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-
+                playerChampion.champion.WhenInactiveChampion();
 				Swap(playerChampions, 0, randomChamp);
+                playerChampion.champion.WhenCurrentChampion();
 
                 if (card == null)
                     RemoveChampion(playerChampions[randomChamp].champion);
@@ -724,7 +715,9 @@ public class GameState : MonoBehaviour
                 int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
+                    opponentChampion.champion.WhenInactiveChampion();
                     Swap(opponentChampions, 0, randomChamp);
+                    opponentChampion.champion.WhenCurrentChampion();
                     break;
                 }
             }
@@ -733,31 +726,6 @@ public class GameState : MonoBehaviour
         
         
         //playerChampion.champion = playerChampions[randomChamp].champion; 
-    }
-
-    private void ChangeCardOrder()
-    {
-        Hand hand = actionOfPlayer.handPlayer;
-        for (int i = 0; i < hand.cardSlotsInHand.Count; i++)
-        {
-            if (hand.cardSlotsInHand[i].activeSelf == true)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if (hand.cardSlotsInHand[j].activeSelf == false)
-                    {
-                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
-                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
-                        hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
-                        hand.cardsInHand.Add(hand.cardSlotsInHand[j]);
-                        hand.cardSlotsInHand[i].SetActive(false);
-                        hand.cardSlotsInHand[j].SetActive(true);
-                        break;
-                    }
-                }
-
-            }
-        }
     }
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
@@ -802,7 +770,7 @@ public class GameState : MonoBehaviour
     {
         print("Den triggrar upkeep");
         DrawCard(1, null);
-        if (didIStart)
+        if (didIStart || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
             amountOfTurns++;
@@ -810,7 +778,8 @@ public class GameState : MonoBehaviour
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            landmark.card.UpKeep();
+            if (landmark.card != null)
+                landmark.card.UpKeep();
             //Trigger landmark endstep
         }
     }
@@ -821,6 +790,7 @@ public class GameState : MonoBehaviour
         playerChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            if(landmark.card != null)
             landmark.card.EndStep();
             //Trigger landmark endstep
         }
@@ -831,7 +801,7 @@ public class GameState : MonoBehaviour
     {
         if (!isOnline)
         {
-            amountOfTurns++;
+            //amountOfTurns++;
             TriggerEndStep();
             TriggerUpKeep();
             return;
@@ -853,16 +823,17 @@ public class GameState : MonoBehaviour
         cardsPlayedThisTurn.Clear();
     }
 
-    public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
+    public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
     {
-        cardsPlayedThisTurn.Add(cardPlayed);
+        Card card = cardPlayed.card;
+        cardsPlayedThisTurn.Add(cardPlayed.card);
 
         if (cardPlayed.GetType().Equals("AttackSpell"))
         {
             attacksPlayedThisTurn++;
         }
-
-        playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
+        playerChampion.champion.AmountOfCardsPlayed(card);
+        actionOfPlayer.ChangeCardOrder(true, cardPlayed);
     }
 
 
@@ -929,35 +900,6 @@ public class GameState : MonoBehaviour
             }
         }
     }
-
-    public void SwitchWhenChampionDead()
-    {
-        /*
-		if (targetInfo != null)
-		{
-			SwapChampionWithTargetInfo(targetInfo);
-			return;
-		}
-
-		for (int i = 0; i < 25; i++)
-		{
-			int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
-			if (opponentChampion != opponentChampions[randomChamp])
-			{
-				Champion champ = opponentChampion.champion;
-				opponentChampion.champion = opponentChampions[randomChamp].champion;
-				opponentChampions[randomChamp].champion = champ;
-
-				ListEnum lE = new ListEnum();
-				lE.opponentChampions = true;
-				TargetInfo tI = new TargetInfo(lE, randomChamp);
-				return;
-
-			}
-		}
-        */
-    }
-
 
     public void RequestDiscardCard(ServerResponse response)
     {

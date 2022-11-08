@@ -93,13 +93,15 @@ public abstract class Champion : ScriptableObject
 
     public virtual void AmountOfCardsPlayed(Card card) {}
 
-    public virtual int DealDamageAttack(int damage) { if(animator != null) animator.SetTrigger("Attack"); return damage; }
+    public virtual int DealDamageAttack(int damage) { return damage; }
 
     public virtual void UpKeep() { HealEachRound(); } // Osäker på om jag gjort rätt när jag la in den här
 
     public virtual void EndStep() { }
 
     public virtual void WhenCurrentChampion() {}
+
+    public virtual void WhenInactiveChampion() {}
 
     public virtual void WhenLandmarksDie() {}
 

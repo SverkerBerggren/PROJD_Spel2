@@ -82,4 +82,32 @@ public class ActionOfPlayer : MonoBehaviour
         currentMana = playerMana;
     }
 
+    public void ChangeCardOrder(bool isPlayer , CardDisplay cardDisplay)
+    {
+        /*
+        Hand hand;
+        if (isPlayer)
+            hand = handPlayer;
+        else
+            hand = handOpponent;
+
+        int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+
+        for (; index < hand.cardSlotsInHand.Count; index++)
+        {
+            CardDisplay cardI = hand.cardSlotsInHand[index].GetComponent<CardDisplay>();
+            for (int j = index + 1; j < hand.cardSlotsInHand.Count; j++)
+            {
+                int g = hand.cardSlotsInHand.Count;
+                if (hand.cardSlotsInHand[index].activeSelf)
+                {
+                    CardDisplay cardJ = hand.cardSlotsInHand[j].GetComponent<CardDisplay>();
+                    cardI.manaCost = cardJ.manaCost;
+                    cardI.card = cardJ.card;
+                    index--;
+                }
+            }
+        }
+        */
+    }
 }
