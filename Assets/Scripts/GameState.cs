@@ -108,7 +108,7 @@ public class GameState : MonoBehaviour
         playerChampion = playerChampions[0];
         opponentChampion = opponentChampions[0];
 
-        Invoke(nameof(DrawStartingCards), 0.01f);
+        DrawStartingCards();
     }
 
     private void ChangeInteractabiltyEndTurn()
