@@ -305,6 +305,8 @@ public class TestInternet : MonoBehaviour
 					ClientRequestGameSetup request = new ClientRequestGameSetup();
 					request.whichPlayer = ClientConnection.Instance.playerId;
 					request.reciprocate = false;
+                    request.opponentChampions = Setup.Instance.myChampions;
+
 					ClientConnection.Instance.AddRequest(request, EmptyRequest);
 				}
 
