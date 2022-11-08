@@ -304,12 +304,14 @@ public class TestInternet : MonoBehaviour
 
 			}
            
-            if (action.GetType(action.Type).Equals(typeof(GameActionAddSpecificCardToHand)))
+            if (action is GameActionAddSpecificCardToHand)
             {
                 print("skickar den en gameAction add specific card");
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
+                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
                 GameState.Instance.DrawCardOpponent(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
