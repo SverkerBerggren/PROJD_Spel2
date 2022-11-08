@@ -29,8 +29,6 @@ public class CardDisplay : MonoBehaviour
     public GameObject hpGameObject;
     public TMP_Text hpText;
 
-    public Sprite backfaceSprite;
-
     public GameObject border;
     [System.NonSerialized] public bool opponentCard;
 
