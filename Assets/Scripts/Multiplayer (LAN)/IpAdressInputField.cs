@@ -72,7 +72,7 @@ public class IpAdressInputField : MonoBehaviour
            // gameSetup.Type = 15;
            List<string> ownChampions = new List<string>();
 
-            foreach (string stringen in Setup.Instance.hostChamps)
+            foreach (string stringen in Setup.Instance.myChampions)
             {
                 ownChampions.Add(stringen);
             }

@@ -294,10 +294,10 @@ public class TestInternet : MonoBehaviour
 
 				GameActionGameSetup castedAction = (GameActionGameSetup)action;
 
-                Setup.Instance.clientChamps.Clear();
+                Setup.Instance.opponentChampions.Clear();
                 foreach (string stringen in castedAction.opponentChampions)
                 {
-                    Setup.Instance.clientChamps.Add(stringen);
+                    Setup.Instance.opponentChampions.Add(stringen);
                 }
 
                 if (castedAction.reciprocate)

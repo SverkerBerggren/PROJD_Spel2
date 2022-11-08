@@ -7,8 +7,8 @@ public class Setup : MonoBehaviour
 
     private static Setup instance;
 
-    public List<string> hostChamps = new List<string>();
-    public List<string> clientChamps = new List<string>();
+    public List<string> myChampions = new List<string>();
+    public List<string> opponentChampions = new List<string>();
 
     public static Setup Instance { get { return instance; } set { instance = value; } }
     private void Awake()
