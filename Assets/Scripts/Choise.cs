@@ -7,7 +7,6 @@ using TMPro;
 
 public class Choise : MonoBehaviour
 {
-    public List<Button> buttons = new List<Button>();
     public ListEnum listEnum;
 
     public List<TargetInfo> chosenTargets = new List<TargetInfo>();
@@ -78,6 +77,7 @@ public class Choise : MonoBehaviour
         {
             Destroy(obj);
         }
+        buttonsToDestroy.Clear();
         gameObject.SetActive(false);
     }
 
