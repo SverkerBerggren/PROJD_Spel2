@@ -26,10 +26,7 @@ public class Deck : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-	private void Start()
-	{
         Shuffle(deckPlayer);
         while (deckOfCardsPlayer.Count < 30)
         {
@@ -48,8 +45,8 @@ public class Deck : MonoBehaviour
             }
         }
         UpdateDecks();
-	}
 
+    }
 
 	private static void Shuffle(List<Card> list)
     {
