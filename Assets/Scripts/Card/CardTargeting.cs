@@ -37,10 +37,12 @@ public class CardTargeting : MonoBehaviour
         cardMovement = GetComponent<CardMovement>();
         mousePosition = cardMovement.mousePosition;
         card = cardDisplay.card;
+        cardDisplay.mouseDown = false;
+
 
         if (gameState.isOnline)
         {
-            if (!gameState.isItMyTurn)
+            if (!gameState.isItMyTurn && !gameState.hasPriority)
             {
                 CardGoBackToStartingPosition();
                 return;
@@ -153,6 +155,7 @@ public class CardTargeting : MonoBehaviour
     private void CardGoBackToStartingPosition()
     {
         gameObjectRectTransform.anchoredPosition = startposition;
+        cardDisplay.ResetSize();
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)

@@ -6,7 +6,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+    public SpriteRenderer artworkSpriteRenderer;
 
     public Card card;  
 
@@ -29,16 +29,16 @@ public class CardDisplay : MonoBehaviour
     public GameObject hpGameObject;
     public TMP_Text hpText;
 
-    public Sprite backfaceSprite;
-
     public GameObject border;
     [System.NonSerialized] public bool opponentCard;
+    public bool mouseDown = false;
+    public bool alreadyBig = false;
+    public Vector3 originalSize;
 
 
     private void Start()
     {
-        if (transform.Find("Sprite") != null)
-            artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        originalSize = transform.localScale;
     }
 
     private void UpdateTextOnCard()
@@ -101,15 +101,31 @@ public class CardDisplay : MonoBehaviour
         
     }
 
-    private void OnMouseEnter()
-    {       
-        transform.position = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z - 1);
-        transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+    public void ResetSize()
+    {
+        transform.localScale = originalSize;
+    }
 
+    private void OnMouseEnter()
+    {
+        if (opponentCard) return;
+       
+        if (!alreadyBig)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z - 1);
+            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+            alreadyBig = true;
+        }
     }
     private void OnMouseExit()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y - 10, transform.position.z + 1);
-        transform.localScale = new Vector3(transform.localScale.x - 0.5f, transform.localScale.x - 0.5f, transform.localScale.x - 0.5f);
+        if (opponentCard) return;
+        if (!mouseDown)
+        {
+            alreadyBig = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z + 1);
+            ResetSize();
+        }
+
     }
 }

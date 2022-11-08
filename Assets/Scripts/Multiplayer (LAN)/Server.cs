@@ -296,7 +296,7 @@ public class Server
 
 		GameActionGameSetup gameAction = new GameActionGameSetup();
         gameAction.reciprocate = requestToHandle.reciprocate;
-        
+        gameAction.opponentChampions = requestToHandle.opponentChampions;
         AddGameAction(response, gameAction);
         return response;
     }

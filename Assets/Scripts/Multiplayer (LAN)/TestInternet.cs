@@ -293,23 +293,35 @@ public class TestInternet : MonoBehaviour
                 print("Hej hej nu startar spelet");
 
 				GameActionGameSetup castedAction = (GameActionGameSetup)action;
+
+                Setup.Instance.opponentChampions.Clear();
+                foreach (string stringen in castedAction.opponentChampions)
+                {
+                    Setup.Instance.opponentChampions.Add(stringen);
+                }
+
                 if (castedAction.reciprocate)
                 {
 					ClientRequestGameSetup request = new ClientRequestGameSetup();
 					request.whichPlayer = ClientConnection.Instance.playerId;
 					request.reciprocate = false;
-					ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+                    request.opponentChampions = Setup.Instance.myChampions;
+
+					ClientConnection.Instance.AddRequest(request, EmptyRequest);
 				}
 
+                CreateScene();
 
 			}
            
-            if (action.GetType(action.Type).Equals(typeof(GameActionAddSpecificCardToHand)))
+            if (action is GameActionAddSpecificCardToHand)
             {
                 print("skickar den en gameAction add specific card");
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
+                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
                 GameState.Instance.DrawCardOpponent(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
@@ -323,11 +335,14 @@ public class TestInternet : MonoBehaviour
 
                 GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
 
-               //GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
+                ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+				actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
-                //Draw card opponents
+				//Draw card opponents
 
-            }
+			}
 
             
 
@@ -420,6 +435,11 @@ public class TestInternet : MonoBehaviour
         clientConnection.AddRequest(request, PerformOpponentsActions);
        
         yield return new WaitForSeconds(0);
+    }
+
+    private void EmptyRequest(ServerResponse response)
+    {
+
     }
 
 
