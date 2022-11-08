@@ -636,7 +636,12 @@ public class GameState : MonoBehaviour
                 }
 
                 else
+                {
                     cardDisplay.card = specificCard;
+                    cardDisplay.opponentCard = true;
+                    cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+
+                }
                 cardSlot.SetActive(true);
                 drawnCards++;
                 opponentChampion.champion.DrawCard(cardDisplay);
