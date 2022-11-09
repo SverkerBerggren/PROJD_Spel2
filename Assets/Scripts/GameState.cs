@@ -480,6 +480,7 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = landmark;
         cardDisp.manaCost = landmark.maxManaCost;
+        
         Invoke(nameof(HideLandmarkPlayed), 3f);
     }
 
@@ -850,7 +851,7 @@ public class GameState : MonoBehaviour
         Card card = cardPlayed.card;
         cardsPlayedThisTurn.Add(cardPlayed.card);
 
-        if (cardPlayed.GetType().Equals("AttackSpell"))
+        if (card.typeOfCard == CardType.Attack)
         {
             attacksPlayedThisTurn++;
         }
