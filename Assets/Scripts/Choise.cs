@@ -102,7 +102,7 @@ public class Choise : MonoBehaviour
                 print("kommer till choise delen");
                 RequestPassPriority requestPassPriority = new RequestPassPriority();
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
-                ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+                ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
             }
         }
     }
