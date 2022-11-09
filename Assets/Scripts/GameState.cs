@@ -107,6 +107,8 @@ public class GameState : MonoBehaviour
             AddChampions(Setup.Instance.myChampions);
             AddChampionsOpponent(Setup.Instance.opponentChampions);
 
+            Deck.Instance.CreateDecks(Setup.Instance.playerDeckList);
+
         }
         else
         {
