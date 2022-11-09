@@ -58,7 +58,6 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.SetActive(true);
             Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
         manaText.text = "Mana: " + currentMana.ToString();

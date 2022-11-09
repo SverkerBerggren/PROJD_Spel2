@@ -709,6 +709,7 @@ public class GameState : MonoBehaviour
                     ListEnum lE = new ListEnum();
                     lE.myChampions = true;
                     Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+                    
 
                 }
 

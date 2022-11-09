@@ -28,7 +28,7 @@ public class Choise : MonoBehaviour
 
     public void ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod)
     {
-        gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
         if (listEnum.myChampions)
@@ -82,7 +82,7 @@ public class Choise : MonoBehaviour
             Destroy(obj);
         }
         buttonsToDestroy.Clear();
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void SwitchChamp(bool died)
