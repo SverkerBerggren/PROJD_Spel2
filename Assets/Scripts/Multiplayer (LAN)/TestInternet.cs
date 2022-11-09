@@ -67,7 +67,7 @@ public class TestInternet : MonoBehaviour
 
             if (action is GameActionDrawCard)
             {
-                print("skickar den en gameAction draw card");
+            
                 GameActionDrawCard theAction = (GameActionDrawCard)action;
                 
                 if(theAction.amountToDrawOpponent > 0)
@@ -84,7 +84,7 @@ public class TestInternet : MonoBehaviour
             }
             if (action is GameActionDiscardCard)
             {
-                print("skickar den en gameAction discard");
+              
 
 
 
@@ -123,7 +123,7 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDamage)
             {
                 GameActionDamage castedAction = (GameActionDamage)action;
-				print("skickar den en gameAction damage");
+				
 
 				foreach (TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
                 {
@@ -154,7 +154,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action  is GameActionShield)
             {
-                print("skickar den en gameAction Shield");
+    
 
                 GameActionShield castedAction = (GameActionShield)action;
 
@@ -174,7 +174,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action  is GameActionSwitchActiveChamp)
             {
-                print("skickar den en gameAction switch active champion");
+      
                 //GameActionSwitchActiveChamp theAction = (GameActionSwitchActiveChamp)action;
 
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
@@ -188,7 +188,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action is GameActionDestroyLandmark)
             {
-                print("skickar den en gameAction destroylandmark");
+    
                 GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
 
                 for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
@@ -202,7 +202,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action is GameActionRemoveCardsGraveyard)
             {   
-                print("skickar den en gameAction remove card graveyard");
+   
 
                 GameActionRemoveCardsGraveyard castedAction = (GameActionRemoveCardsGraveyard)action;
                 
@@ -263,7 +263,7 @@ public class TestInternet : MonoBehaviour
             if (action  is GameActionOpponentDiscardCard)
             {   
 
-                print("Game action opponent discard card");
+    
 
                 GameActionOpponentDiscardCard castedAction = (GameActionOpponentDiscardCard)action;
                 List<string> discardedCards = new List<string>();
@@ -318,7 +318,7 @@ public class TestInternet : MonoBehaviour
            
             if (action is GameActionAddSpecificCardToHand)
             {
-                print("skickar den en gameAction add specific card");
+
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
                 ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);

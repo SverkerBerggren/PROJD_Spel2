@@ -99,6 +99,7 @@ public class Choise : MonoBehaviour
 
             if(died)
             {
+                print("kommer till choise delen");
                 RequestPassPriority requestPassPriority = new RequestPassPriority();
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
