@@ -37,10 +37,12 @@ public class CardTargeting : MonoBehaviour
         cardMovement = GetComponent<CardMovement>();
         mousePosition = cardMovement.mousePosition;
         card = cardDisplay.card;
+        cardDisplay.mouseDown = false;
+
 
         if (gameState.isOnline)
         {
-            if (!gameState.isItMyTurn)
+            if (!gameState.isItMyTurn || !gameState.hasPriority)
             {
                 CardGoBackToStartingPosition();
                 return;
@@ -105,6 +107,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
     }
@@ -120,6 +123,7 @@ public class CardTargeting : MonoBehaviour
                 card.PlayCard();
                 gameState.ShowPlayedCard(card);
                 graveyard.AddCardToGraveyard(card);
+                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 cardDisplay.card = null;
             }
             CardGoBackToStartingPosition();
@@ -133,6 +137,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
 
@@ -142,6 +147,7 @@ public class CardTargeting : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
             gameState.ShowPlayedCard(card);
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             cardDisplay.card = null;
         }
     }
@@ -149,16 +155,15 @@ public class CardTargeting : MonoBehaviour
     private void CardGoBackToStartingPosition()
     {
         gameObjectRectTransform.anchoredPosition = startposition;
+        cardDisplay.ResetSize();
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
-
-
+        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay);
         cardDisplay.card = null;
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
-        GameState.Instance.AddCardToPlayedCardsThisTurn(card);
 
         if (GameState.Instance.isOnline)
         {

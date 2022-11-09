@@ -13,6 +13,8 @@ public class ActionOfPlayer : MonoBehaviour
 
     [SerializeField] private TMP_Text manaText;
 
+    public GameObject choice;
+
     private int cardCost;
     public int playerMana = 0;
     public int currentMana = 0;
@@ -42,7 +44,7 @@ public class ActionOfPlayer : MonoBehaviour
 
 
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.M))
         {
@@ -51,6 +53,12 @@ public class ActionOfPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             GameState.Instance.DrawCard(1, null);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            ListEnum lE = new ListEnum();
+            lE.myChampions = true;
+            Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
         manaText.text = "Mana: " + currentMana.ToString();
     }
@@ -82,4 +90,27 @@ public class ActionOfPlayer : MonoBehaviour
         currentMana = playerMana;
     }
 
+    public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
+    {
+        /*
+        Hand hand;
+        if (isPlayer)
+            hand = handPlayer;
+        else
+            hand = handOpponent;
+
+        int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
+        {
+            if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
+            {
+                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
+                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
+                hand.cardsInHand.Add(hand.cardSlotsInHand[index]);
+                hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
+                break;
+            }
+        }
+        */
+    }
 }

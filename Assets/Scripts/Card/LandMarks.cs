@@ -37,11 +37,15 @@ public class Landmarks : Card
 
     public virtual int DealDamageAttack(int damage) { return damage; }
 
-    public virtual void UpKeep()  {} // Osäker på om jag gjort rätt när jag la in den här
+    public virtual int HealingEffect(int healing) { return healing; }
+
+    public virtual int ShieldingEffect(int shielding) { return shielding; }
+
+    public virtual void UpKeep()  {}
 
     public virtual void EndStep() { }
 
     public virtual void WhenCurrentChampion() { }
 
-    public virtual void WhenLandmarksDie() { } // Behöver lägga in Gamestate.instance.playerChampion.WhenLandmarksDie() beroende på vilken spelare
+    public virtual void WhenLandmarksDie() { }
 }

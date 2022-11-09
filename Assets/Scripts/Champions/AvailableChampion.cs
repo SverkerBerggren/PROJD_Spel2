@@ -19,13 +19,16 @@ public class AvailableChampion : MonoBehaviour
     public GameObject builderMesh;
     public GameObject cultistMesh;
     public GameObject graverobberMesh;
-    private bool wantToSeInfoOnChamp = false;
+	public GameObject theOneDrawsMesh;
+	public GameObject shankerMesh;
+	public GameObject duelistMesh;
+	private bool wantToSeInfoOnChamp = false;
 
     private float timer = 0f;
     private float timeBeforeShowing = 0.5f;
 
     public SpriteRenderer champCard;
-    private ArmorEffect armorEffect;
+    //private ArmorEffect armorEffect;
 
 
 
@@ -51,7 +54,7 @@ public class AvailableChampion : MonoBehaviour
 	{
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
-            armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
+           // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
         SetWichMeshToShowOnStart();
 
         if (transform.Find("TargetingEffect") != null)
@@ -78,7 +81,16 @@ public class AvailableChampion : MonoBehaviour
                 graverobberMesh.SetActive(true);
                 champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
                 break;
-        }
+            case "Duelist":
+                duelistMesh.SetActive(true);
+                break;
+			case "TheOneDraws":
+				theOneDrawsMesh.SetActive(true);
+				break;
+			case "Shanker":
+				shankerMesh.SetActive(true);
+				break;
+		}
     }
 
     /*
@@ -120,7 +132,7 @@ public class AvailableChampion : MonoBehaviour
 	{
         if (champion.destroyShield)
         {
-            armorEffect.DamageArmor(10);
+            //armorEffect.DamageArmor(10);
             print("RUns");
         }
             
@@ -145,23 +157,64 @@ public class AvailableChampion : MonoBehaviour
                 builderMesh.SetActive(true);
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(false);
+                duelistMesh.SetActive(false);
+                shankerMesh.SetActive(false);
+                theOneDrawsMesh.SetActive(false);
                 champion.animator = builderMesh.GetComponentInChildren<Animator>();
                 meshToShow = builderMesh;
                 break;
+
             case "Cultist":
                 builderMesh.SetActive(false);
                 cultistMesh.SetActive(true);
                 graverobberMesh.SetActive(false);
-                champion.animator = cultistMesh.GetComponentInChildren<Animator>();
+				duelistMesh.SetActive(false);
+				shankerMesh.SetActive(false);
+				theOneDrawsMesh.SetActive(false);
+				champion.animator = cultistMesh.GetComponentInChildren<Animator>();
                 meshToShow = cultistMesh;
                 break;
+
             case "Graverobber":
                 builderMesh.SetActive(false);               
                 cultistMesh.SetActive(false);
                 graverobberMesh.SetActive(true);
-                champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
+				duelistMesh.SetActive(false);
+				shankerMesh.SetActive(false);
+				theOneDrawsMesh.SetActive(false);
+				champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
                 meshToShow = graverobberMesh;
                 break;
-        }
+
+			case "Duelist":
+				builderMesh.SetActive(false);
+				cultistMesh.SetActive(false);
+				graverobberMesh.SetActive(false);
+				duelistMesh.SetActive(true);
+				shankerMesh.SetActive(false);
+				theOneDrawsMesh.SetActive(false);
+				meshToShow = duelistMesh;
+				break;
+
+			case "Shanker":
+				builderMesh.SetActive(false);
+				cultistMesh.SetActive(false);
+				graverobberMesh.SetActive(false);
+				duelistMesh.SetActive(false);
+				shankerMesh.SetActive(true);
+				theOneDrawsMesh.SetActive(false);
+				meshToShow = shankerMesh;
+				break;
+
+			case "TheOneDraws":
+				builderMesh.SetActive(false);
+				cultistMesh.SetActive(false);
+				graverobberMesh.SetActive(false);
+				duelistMesh.SetActive(false);
+				shankerMesh.SetActive(false);
+				theOneDrawsMesh.SetActive(true);
+				meshToShow = theOneDrawsMesh;
+				break;
+		}
     }
 }

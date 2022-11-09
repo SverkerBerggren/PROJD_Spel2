@@ -45,7 +45,7 @@ public class GameState : MonoBehaviour
 
 
     [NonSerialized] public int currentPlayerID = 0;
-    [NonSerialized] public bool hasPriority = true;
+    public bool hasPriority = true;
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
@@ -53,15 +53,12 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public GameObject targetingEffect;
 
-    [NonSerialized] public int tenExtraDamage;
-    [NonSerialized] public int damageRamp = 0;
-    [NonSerialized] public int slaughterhouse = 0;
     [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
-    [NonSerialized] public bool drawExtraCardsEachTurn = false;
-    [NonSerialized] public int occultGathering = 0;
     [NonSerialized] public int attacksPlayedThisTurn;
-    
+
+    private bool firstTurn = true;
+
     private ActionOfPlayer actionOfPlayer;
 
     private static GameState instance;
@@ -80,12 +77,14 @@ public class GameState : MonoBehaviour
             Destroy(gameObject);
         }
 
-        AddChampions(playerChampions);
-        AddChampionsOpponent(opponentChampions);
-        playerChampion = playerChampions[0];
-        opponentChampion = opponentChampions[0];
+        if (ClientConnection.Instance != null)
+            isOnline = true;
+
+
+
         DontDestroyOnLoad(this);
     }
+
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;
@@ -103,8 +102,27 @@ public class GameState : MonoBehaviour
                 ChangeInteractabiltyEndTurn();
             }
         }
+        if (isOnline)
+        {
+            AddChampions(Setup.Instance.myChampions);
+            AddChampionsOpponent(Setup.Instance.opponentChampions);
 
-        Invoke(nameof(DrawStartingCards), 0.01f);
+            Deck.Instance.CreateDecks(Setup.Instance.playerDeckList);
+
+        }
+        else
+        {
+            List<string> ha = new List<string>();
+            ha.Add("Cultist");
+            ha.Add("Graverobber");
+            ha.Add("Builder"); 
+            AddChampions(ha);
+            AddChampionsOpponent(ha);
+        }
+        playerChampion = playerChampions[0];
+        opponentChampion = opponentChampions[0];
+
+        DrawStartingCards();
     }
 
     private void ChangeInteractabiltyEndTurn()
@@ -114,7 +132,9 @@ public class GameState : MonoBehaviour
 
     public  void EndTurnButtonClick()
     {
-        if(isOnline)
+        if (!hasPriority) return;
+            
+        if (isOnline)
         {
             RequestEndTurn request = new RequestEndTurn();
             request.whichPlayer = ClientConnection.Instance.playerId;
@@ -129,16 +149,10 @@ public class GameState : MonoBehaviour
         
         damage = playerChampion.champion.DealDamageAttack(damage);
 
-        damage += damageRamp;
-
-        if (slaughterhouse > 0)
+        foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            damage += 10 * slaughterhouse;           
-        }
-
-        if (tenExtraDamage > 0)
-        {
-            damage += (10 * tenExtraDamage);
+            if(landmark.card != null)
+            damage = landmark.card.DealDamageAttack(damage);
         }
 
         TargetAndAmount tAA = null;
@@ -175,13 +189,16 @@ public class GameState : MonoBehaviour
         tI = new TargetInfo(listEnum, index);
         tAA = new TargetAndAmount(tI, damage);
         DealDamage(tAA);
+        if (playerChampion.champion.animator != null)
+        {
+            playerChampion.champion.animator.SetTrigger("Attack");
+        }
     }
 
     public int LookForChampionIndex(Card cardUsed, List<AvailableChampion> champ )
     {
         for (int i = 0; i < champ.Count; i++)
         {
-            
             if (champ[i].champion == cardUsed.Target)
             {
                 return i;
@@ -207,7 +224,6 @@ public class GameState : MonoBehaviour
         ListEnum lE =  targetAndAmount.targetInfo.whichList;
         if (isOnline)
         {
-            print("I sEnD dAmAgE ReQuEsT");
             List<TargetAndAmount> list = new List<TargetAndAmount>();
             list.Add(targetAndAmount);
 
@@ -237,19 +253,20 @@ public class GameState : MonoBehaviour
         {
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
-
-
     }
 
     public void CalculateHealing(int amount, Card cardUsed)
     {
-        int healingToDo = 0;
-        healingToDo += amount * landmarkEffect;
 
         TargetAndAmount tAA = null;
         TargetInfo tI = null;
         ListEnum listEnum = new ListEnum();
         int index = 0;
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            amount = landmark.card.HealingEffect(amount);
+        }
+
         // WIP
         if (cardUsed.Target != null)
         {
@@ -265,7 +282,7 @@ public class GameState : MonoBehaviour
             }
         }
         tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, healingToDo);
+        tAA = new TargetAndAmount(tI, amount);
 
         healEffect.SetActive(true);
         Invoke(nameof(TakeAwayHealEffect), 3f);
@@ -305,9 +322,10 @@ public class GameState : MonoBehaviour
 
     public void CalculateShield(int amount, Card cardUsed)
     {
-        int shieldingToDo = 0;
-        shieldingToDo += amount * landmarkEffect;
-
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            amount = landmark.card.ShieldingEffect(amount);
+        }
         TargetAndAmount tAA = null;
         TargetInfo tI = null;
         ListEnum listEnum = new ListEnum();
@@ -328,9 +346,7 @@ public class GameState : MonoBehaviour
         }
 
         tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, shieldingToDo);
-
-        
+        tAA = new TargetAndAmount(tI, amount);
 
         ShieldTarget(tAA);
     }
@@ -364,70 +380,72 @@ public class GameState : MonoBehaviour
     }
 
 
-    private void AddChampions(List<AvailableChampion> champions)
+    private void AddChampions(List<string> champions)
     {
+        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
             Champion champ = null;
-            switch (champions[i].champion.name)
+            switch (champions[i])
             {
                 case "Cultist":
-                    champ = new Cultist((Cultist)champions[i].champion);
+                    champ = new Cultist((Cultist)champReg[champions[i]]);
                     break;
 
                 case "Builder":
-                    champ = new Builder((Builder)champions[i].champion);
+                    champ = new Builder((Builder)champReg[champions[i]]);
                     break;
 
                 case "Shanker":
-                    champ = new Shanker((Shanker)champions[i].champion);
+                    champ = new Shanker((Shanker)champReg[champions[i]]);
                     break;
 
                 case "Graverobber":
-                    champ = new Graverobber((Graverobber)champions[i].champion);
+                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
                     break;
 
                 case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champions[i].champion);
+                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
                     break;
 
                 case "Duelist":
-                    champ = new Duelist((Duelist)champions[i].champion);
+                    champ = new Duelist((Duelist)champReg[champions[i]]);
                     break;
             }
             playerChampions[i].champion = champ;
         }
     }
 
-    private void AddChampionsOpponent(List<AvailableChampion> champions)
+    private void AddChampionsOpponent(List<string> champions)
     {
+        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
             Champion champ = null;
-            switch (champions[i].champion.name)
+            switch (champions[i])
             {
                 case "Cultist":
-                    champ = new Cultist((Cultist)champions[i].champion);
+                    champ = new Cultist((Cultist)champReg[champions[i]]);
                     break;
 
                 case "Builder":
-                    champ = new Builder((Builder)champions[i].champion);
+                    champ = new Builder((Builder)champReg[champions[i]]);
                     break;
 
                 case "Shanker":
-                    champ = new Shanker((Shanker)champions[i].champion);
+                    champ = new Shanker((Shanker)champReg[champions[i]]);
                     break;
 
                 case "Graverobber":
-                    champ = new Graverobber((Graverobber)champions[i].champion);
+                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
                     break;
 
                 case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champions[i].champion);
+                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
                     break;
 
                 case "Duelist":
-                    champ = new Duelist((Duelist)champions[i].champion);
+                    champ = new Duelist((Duelist)champReg[champions[i]]);
                     break;
             }
             opponentChampions[i].champion = champ;
@@ -436,8 +454,8 @@ public class GameState : MonoBehaviour
 
     private void DrawStartingCards()
     {
-        StartCoroutine(DrawCardPlayer(amountOfCardsToStartWith, null));
-        StartCoroutine(DrawCardOpponent(amountOfCardsToStartWith, null));
+        DrawCardPlayer(amountOfCardsToStartWith, null);
+        DrawCardOpponent(amountOfCardsToStartWith, null);
     }
 
   
@@ -579,23 +597,17 @@ public class GameState : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
            
             ClientConnection.Instance.AddRequest(request, DrawCardRequest);
-            StartCoroutine(DrawCardPlayer(amountToDraw, specificCard));
+            DrawCardPlayer(amountToDraw, specificCard);
         }
         else
         {
-            StartCoroutine(DrawCardPlayer(amountToDraw, specificCard));
+            DrawCardPlayer(amountToDraw, specificCard);
         }
     }
 
 
-    public IEnumerator DrawCardPlayer(int amountToDraw, Card specificCard)
+    public void DrawCardPlayer(int amountToDraw, Card specificCard)
     {
-        if (actionOfPlayer.handPlayer.cardsInHand.Count > 0)
-        {
-          //  ChangeCardOrder();
-            yield return new WaitForSeconds(0.01f); 
-        }
-
         int drawnCards = 0;
         foreach (GameObject cardSlot in actionOfPlayer.handPlayer.cardSlotsInHand)
         {
@@ -628,14 +640,8 @@ public class GameState : MonoBehaviour
         }
 
     }
-    public IEnumerator DrawCardOpponent(int amountToDraw, Card specificCard)
+    public void DrawCardOpponent(int amountToDraw, Card specificCard)
     {
-        if (actionOfPlayer.handOpponent.cardsInHand.Count > 0)
-        {
-            ChangeCardOrder();
-            yield return new WaitForSeconds(0.01f);
-        }
-
         int drawnCards = 0;
         foreach (GameObject cardSlot in actionOfPlayer.handOpponent.cardSlotsInHand)
         {
@@ -654,7 +660,12 @@ public class GameState : MonoBehaviour
                 }
 
                 else
+                {
                     cardDisplay.card = specificCard;
+                    cardDisplay.opponentCard = true;
+                    cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+
+                }
                 cardSlot.SetActive(true);
                 drawnCards++;
                 opponentChampion.champion.DrawCard(cardDisplay);
@@ -673,7 +684,8 @@ public class GameState : MonoBehaviour
 
     public void SwitchMyChampions(TargetInfo targetInfo)
     {
-
+        Swap(playerChampions, 0, targetInfo.index);
+        playerChampion.champion.WhenCurrentChampion();
     }
 
     public void SwapActiveChampion(Card card)
@@ -684,27 +696,13 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-
-				Swap(playerChampions, 0, randomChamp);
-
-                if (card == null)
-                    RemoveChampion(playerChampions[randomChamp].champion);
-
                 if (isOnline)
                 {
-                    print("I sEnD sWaP ReQuEsT");
                     //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
                     ListEnum lE = new ListEnum();
                     lE.myChampions = true;
-                    TargetInfo tI = new TargetInfo(lE, randomChamp);
-                    RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tI);
-                    request.whichPlayer = ClientConnection.Instance.playerId;
-                    request.targetToSwitch = tI;
-                    if (card == null)
-                        request.championDied = true;
-                    ClientConnection.Instance.AddRequest(request, RequestEmpty);
-                }
-
+                    Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
+                }                    
                 break; 
             }
         }
@@ -717,11 +715,10 @@ public class GameState : MonoBehaviour
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
-            if(championDied)
+            if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
             opponentChampion.champion.WhenCurrentChampion();
         }
-
     }
 
     public void SwapActiveChampionEnemy(TargetInfo targetInfo)
@@ -734,7 +731,9 @@ public class GameState : MonoBehaviour
                 int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
+                    opponentChampion.champion.WhenInactiveChampion();
                     Swap(opponentChampions, 0, randomChamp);
+                    opponentChampion.champion.WhenCurrentChampion();
                     break;
                 }
             }
@@ -743,31 +742,6 @@ public class GameState : MonoBehaviour
         
         
         //playerChampion.champion = playerChampions[randomChamp].champion; 
-    }
-
-    private void ChangeCardOrder()
-    {
-        Hand hand = actionOfPlayer.handPlayer;
-        for (int i = 0; i < hand.cardSlotsInHand.Count; i++)
-        {
-            if (hand.cardSlotsInHand[i].activeSelf == true)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if (hand.cardSlotsInHand[j].activeSelf == false)
-                    {
-                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
-                        hand.cardSlotsInHand[j].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
-                        hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
-                        hand.cardsInHand.Add(hand.cardSlotsInHand[j]);
-                        hand.cardSlotsInHand[i].SetActive(false);
-                        hand.cardSlotsInHand[j].SetActive(true);
-                        break;
-                    }
-                }
-
-            }
-        }
     }
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
@@ -808,44 +782,49 @@ public class GameState : MonoBehaviour
         }
     }
 
+    
 
-    public void SwitchTurn(ServerResponse response)
+    public void TriggerUpKeep()
     {
-        print("switchar eden tur");
-        TriggerEndStep(response);
-        // spelaren med priority end of turn effects triggrar aka EndOfTurnEffects(Player player1)
-
-        TriggerUpKeep(response);
-        // spelaren med priority upkeep effects triggrar aka UpkeepEffects(Player player2)
-        hasPriority = false;
+        print("Den triggrar upkeep");
+        DrawCard(1, null);
+        if (isItMyTurn && !firstTurn || !isOnline)
+        {
+            actionOfPlayer.IncreaseMana();
+        }
+        if (didIStart || !isOnline)
+        {
+            amountOfTurns++;
+        }
+        playerChampion.champion.UpKeep();
+        foreach (LandmarkDisplay landmark in playerLandmarks)
+        {
+            if (landmark.card != null)
+                landmark.card.UpKeep();
+            //Trigger landmark endstep
+        }       
     }
 
-    public void TriggerEndStep(ServerResponse response)
+    public void TriggerEndStep()
     {
         print("Den triggrar endstep");
         playerChampion.champion.EndStep();
-        //opponentChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            if(landmark.card != null)
+            landmark.card.EndStep();
             //Trigger landmark endstep
         }
-        foreach (LandmarkDisplay landmark in opponentLandmarks)
-        {
-            //Trigger landmark endstep opponent
-        }
-        EndTurn();
     }
 
 
     public void EndTurn()
     {
+        print("Ending turn");
         if (!isOnline)
         {
-            amountOfTurns++;
-            DrawCard(1, null);
-            actionOfPlayer.IncreaseMana();
-            //playerChampion.champion.EndStep();
-            //playerChampion.champion.UpKeep();
+            TriggerEndStep();
+            TriggerUpKeep();
             return;
         }
         
@@ -853,96 +832,55 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
-            //playerChampion.champion.EndStep();
-            //opponentChampion.champion.UpKeep();
+            firstTurn = false;
+            TriggerEndStep();
         }
         else
         {
-            amountOfTurns++;
             isItMyTurn = true;
-            DrawCard(1, null);
-            actionOfPlayer.IncreaseMana();
-            //opponentChampion.champion.EndStep();
-            //playerChampion.champion.UpKeep();
+            TriggerUpKeep();
         }
-
-        if (drawExtraCardsEachTurn)
-            DrawCard(1, null);
 
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
-        damageRamp = 0;
     }
 
-    public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
+    public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
     {
-        cardsPlayedThisTurn.Add(cardPlayed);
-
+        Card card = cardPlayed.card;
+        cardsPlayedThisTurn.Add(cardPlayed.card);
 
         if (cardPlayed.GetType().Equals("AttackSpell"))
         {
             attacksPlayedThisTurn++;
         }
-
-        if (occultGathering > 0)
-        {
-            if (cardPlayed.GetType().Equals("AttackSpell"))
-            {
-                damageRamp += 10 * occultGathering;
-            }
-        }
-
-        playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
-    }
-
-    public void TriggerUpKeep(ServerResponse response)
-    {
-        print("Den triggrar upkeep");
-        playerChampion.champion.UpKeep();
-        //opponentChampion.champion.UpKeep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
-        {
-            //Trigger landmark endstep
-        }
-        foreach (LandmarkDisplay landmark in opponentLandmarks)
-        {
-            //Trigger landmark endstep opponent
-        }
-    }
-
-    public void OnChampionDeath(ServerResponse response)
-    {
-        if (response.whichPlayer == ClientConnection.Instance.playerId)
-        {
-
-            //Choose Champion
-            //Pass priority
-            //hasPriority = true;
-        }
-        else
-        {
-            //hasPriority = false;
-        }
+        playerChampion.champion.AmountOfCardsPlayed(card);
+        actionOfPlayer.ChangeCardOrder(true, cardPlayed);
     }
 
     public void ChampionDeath(Champion deadChampion)
     {
-        SearchDeadChampion(deadChampion);
-
-        if (playerChampions.Count == 0)
+        if (playerChampions.Count == 1)
         {
             Defeat();
+            return;
         }
-        else if (opponentChampions.Count == 0)
+        else if (opponentChampions.Count == 1)
         {
             Victory();
+            return;
         }
+        SearchDeadChampion(deadChampion);
+
+
     }
 
     private void SearchDeadChampion(Champion deadChampion)
     {
         if (playerChampion.champion == deadChampion)
         {
+            hasPriority = true;
+            //Choise.Instance.ShowChoiceMenu();
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
@@ -950,8 +888,13 @@ public class GameState : MonoBehaviour
             SwapActiveChampionEnemy(null);
         }
 
+		if (isOnline && opponentChampion.champion == deadChampion)
+		{
+            hasPriority = false;
+		}
+	}
 
-    }
+
 
 
     public void RemoveChampion(Champion deadChamp)
@@ -973,35 +916,6 @@ public class GameState : MonoBehaviour
             }
         }
     }
-
-    public void SwitchWhenChampionDead()
-    {
-        /*
-		if (targetInfo != null)
-		{
-			SwapChampionWithTargetInfo(targetInfo);
-			return;
-		}
-
-		for (int i = 0; i < 25; i++)
-		{
-			int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
-			if (opponentChampion != opponentChampions[randomChamp])
-			{
-				Champion champ = opponentChampion.champion;
-				opponentChampion.champion = opponentChampions[randomChamp].champion;
-				opponentChampions[randomChamp].champion = champ;
-
-				ListEnum lE = new ListEnum();
-				lE.opponentChampions = true;
-				TargetInfo tI = new TargetInfo(lE, randomChamp);
-				return;
-
-			}
-		}
-        */
-    }
-
 
     public void RequestDiscardCard(ServerResponse response)
     {

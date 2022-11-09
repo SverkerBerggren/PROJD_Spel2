@@ -52,13 +52,12 @@ public class TestInternet : MonoBehaviour
             
             if(action.cardPlayed)
             {
-                //print("Skiter det sig i perform oppnent action " + action.cardId);
                 PlayCard(action.cardId);
 
                 Destroy(GameObject.Find("Card (1)"));
             }
 
-            print("vilket object typ ar grejen " + action.GetType());
+            print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
                 // print("skickar den en gameAction end turn");
@@ -68,7 +67,7 @@ public class TestInternet : MonoBehaviour
 
             if (action is GameActionDrawCard)
             {
-                print("skickar den en gameAction draw card");
+            
                 GameActionDrawCard theAction = (GameActionDrawCard)action;
                 
                 if(theAction.amountToDrawOpponent > 0)
@@ -77,7 +76,7 @@ public class TestInternet : MonoBehaviour
                 }
                 if(theAction.amountToDraw > 0)
                 {
-                    StartCoroutine(gameState.DrawCardOpponent(theAction.amountToDraw,null));
+                    gameState.DrawCardOpponent(theAction.amountToDraw,null);
 
                 }
                 //Draw card opponents
@@ -85,7 +84,7 @@ public class TestInternet : MonoBehaviour
             }
             if (action is GameActionDiscardCard)
             {
-                print("skickar den en gameAction discard");
+              
 
 
 
@@ -124,7 +123,7 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDamage)
             {
                 GameActionDamage castedAction = (GameActionDamage)action;
-				print("skickar den en gameAction damage");
+				
 
 				foreach (TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
                 {
@@ -145,7 +144,8 @@ public class TestInternet : MonoBehaviour
                         GameState.Instance.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                 }
-                
+                if (GameState.Instance.opponentChampion.champion.animator != null)
+                    GameState.Instance.opponentChampion.champion.animator.SetTrigger("Attack");
 
                 //GameActionDamage theAction = (GameActionDamage)action;
 
@@ -154,7 +154,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action  is GameActionShield)
             {
-                print("skickar den en gameAction Shield");
+    
 
                 GameActionShield castedAction = (GameActionShield)action;
 
@@ -174,19 +174,21 @@ public class TestInternet : MonoBehaviour
             }            
             if (action  is GameActionSwitchActiveChamp)
             {
-                print("skickar den en gameAction switch active champion");
+      
                 //GameActionSwitchActiveChamp theAction = (GameActionSwitchActiveChamp)action;
 
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
                 GameState.Instance.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
+
+
                 
                 //Draw card opponents
 
             }            
             if (action is GameActionDestroyLandmark)
             {
-                print("skickar den en gameAction destroylandmark");
+    
                 GameActionDestroyLandmark theAction = (GameActionDestroyLandmark)action;
 
                 for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
@@ -200,7 +202,7 @@ public class TestInternet : MonoBehaviour
             }            
             if (action is GameActionRemoveCardsGraveyard)
             {   
-                print("skickar den en gameAction remove card graveyard");
+   
 
                 GameActionRemoveCardsGraveyard castedAction = (GameActionRemoveCardsGraveyard)action;
                 
@@ -244,7 +246,10 @@ public class TestInternet : MonoBehaviour
                 else
                     GameState.Instance.ShowPlayedCard(cardPlayed);
 
-                ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+                actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
@@ -258,7 +263,7 @@ public class TestInternet : MonoBehaviour
             if (action  is GameActionOpponentDiscardCard)
             {   
 
-                print("Game action opponent discard card");
+    
 
                 GameActionOpponentDiscardCard castedAction = (GameActionOpponentDiscardCard)action;
                 List<string> discardedCards = new List<string>();
@@ -283,14 +288,54 @@ public class TestInternet : MonoBehaviour
 
                 //Draw card opponents
 
-            }
+            }  
+            if (action  is GameActionGameSetup)
+            {   
+
+                print("Hej hej nu startar spelet");
+
+				GameActionGameSetup castedAction = (GameActionGameSetup)action;
+
+                Setup.Instance.opponentChampions.Clear();
+                foreach (string stringen in castedAction.opponentChampions)
+                {
+                    Setup.Instance.opponentChampions.Add(stringen);
+                }
+
+                if (castedAction.reciprocate)
+                {
+					ClientRequestGameSetup request = new ClientRequestGameSetup();
+					request.whichPlayer = ClientConnection.Instance.playerId;
+					request.reciprocate = false;
+                    request.opponentChampions = Setup.Instance.myChampions;
+
+					ClientConnection.Instance.AddRequest(request, EmptyRequest);
+				}
+
+                CreateScene();
+
+			}
            
-            if (action.GetType(action.Type).Equals(typeof(GameActionAddSpecificCardToHand)))
+            if (action is GameActionAddSpecificCardToHand)
             {
-                print("skickar den en gameAction add specific card");
+
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
+                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
                 GameState.Instance.DrawCardOpponent(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+
+
+               // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
+
+                //Draw card opponents
+
+            }
+            if (action is GameActionPassPriority)
+            {
+                print("skickar den en gameAction pass priority");
+
+                GameState.Instance.hasPriority = true;
+
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
@@ -304,11 +349,14 @@ public class TestInternet : MonoBehaviour
 
                 GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
 
-               //GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
+                ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+				actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
-                //Draw card opponents
+				//Draw card opponents
 
-            }
+			}
 
             
 
@@ -401,6 +449,11 @@ public class TestInternet : MonoBehaviour
         clientConnection.AddRequest(request, PerformOpponentsActions);
        
         yield return new WaitForSeconds(0);
+    }
+
+    private void EmptyRequest(ServerResponse response)
+    {
+
     }
 
 

@@ -17,7 +17,7 @@ public class Deck : MonoBehaviour
     public static Deck Instance { get { return instance; } }
 
     private void Awake()
-    {
+    {   
         if (instance == null)
         {
             instance = this;
@@ -26,29 +26,60 @@ public class Deck : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(!GameState.Instance.isOnline)
+        {
+            Shuffle(deckPlayer);
+            while (deckOfCardsPlayer.Count < 30)
+            {
+                foreach (Card card in deckPlayer)
+                {
+                    deckOfCardsPlayer.Push(card);
+                }
+            }
+
+            Shuffle(deckOpponent);
+            while (deckOfCardsOpponent.Count < 30)
+            {
+                foreach (Card card in deckOpponent)
+                {
+                    deckOfCardsOpponent.Push(card);
+                }
+            }
+            UpdateDecks();
+        }        
     }
 
-	private void Start()
-	{
-        Shuffle(deckPlayer);
+    public void CreateDecks(List<Card> playerDeck)
+    {
+        deckOfCardsPlayer.Clear();
+        deckPlayer.Clear();
+
+        Shuffle(playerDeck);
         while (deckOfCardsPlayer.Count < 30)
         {
-            foreach (Card card in deckPlayer)
+            foreach (Card card in playerDeck)
             {
                 deckOfCardsPlayer.Push(card);
-            }
-        }
 
+                if(deckOfCardsPlayer.Count >= 30) break;               
+            }
+            if (deckOfCardsPlayer.Count >= 30) break;
+        }
         Shuffle(deckOpponent);
         while (deckOfCardsOpponent.Count < 30)
         {
             foreach (Card card in deckOpponent)
             {
                 deckOfCardsOpponent.Push(card);
+                if (deckOfCardsOpponent.Count >= 30) break;
             }
+             if(deckOfCardsOpponent.Count >= 30) break;
         }
+
         UpdateDecks();
-	}
+    }
+
 
 
 	private static void Shuffle(List<Card> list)

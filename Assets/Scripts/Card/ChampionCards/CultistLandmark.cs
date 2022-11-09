@@ -5,16 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/CultistLandmark")]
 public class CultistLandmark : Landmarks
 {
+    public int damage = 10;
+
     public CultistLandmark(CultistLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) { }
 
-    public override void PlaceLandmark()
+    public override int DealDamageAttack(int damage)
     {
-        base.PlaceLandmark();
-        GameState.Instance.occultGathering++;
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-            GameState.Instance.occultGathering--;
+        return damage + GameState.Instance.attacksPlayedThisTurn * this.damage;
     }
 }
