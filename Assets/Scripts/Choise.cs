@@ -88,6 +88,7 @@ public class Choise : MonoBehaviour
     private void SwitchChamp(bool died)
     {
         Champion champion = null;
+        print(chosenTargets[0].index);
         if (chosenTargets[0].whichList.myChampions)
         {
             champion = gameState.playerChampions[chosenTargets[0].index].champion;
