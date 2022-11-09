@@ -45,7 +45,7 @@ public class GameState : MonoBehaviour
 
 
     [NonSerialized] public int currentPlayerID = 0;
-    [NonSerialized] public bool hasPriority = true;
+    public bool hasPriority = true;
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
