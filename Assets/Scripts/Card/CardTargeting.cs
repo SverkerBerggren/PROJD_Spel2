@@ -42,7 +42,7 @@ public class CardTargeting : MonoBehaviour
 
         if (gameState.isOnline)
         {
-            if (!gameState.isItMyTurn && !gameState.hasPriority)
+            if (!gameState.isItMyTurn || !gameState.hasPriority)
             {
                 CardGoBackToStartingPosition();
                 return;
