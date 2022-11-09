@@ -858,16 +858,19 @@ public class GameState : MonoBehaviour
 
     public void ChampionDeath(Champion deadChampion)
     {
-        SearchDeadChampion(deadChampion);
-
-        if (playerChampions.Count == 0)
+        if (playerChampions.Count == 1)
         {
             Defeat();
+            return;
         }
-        else if (opponentChampions.Count == 0)
+        else if (opponentChampions.Count == 1)
         {
             Victory();
+            return;
         }
+        SearchDeadChampion(deadChampion);
+
+
     }
 
     private void SearchDeadChampion(Champion deadChampion)
