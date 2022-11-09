@@ -11,7 +11,7 @@ public class Builder : Champion
 	public int cardCostReduce = 2;
 	public bool effectOn = false;
 
-	public Builder(Builder c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, c.mesh) {}
+	public Builder(Builder c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
 
 	public override void Awake()
 	{

@@ -18,12 +18,11 @@ public abstract class Champion : ScriptableObject
     public Sprite artwork;
     public string passiveEffect;
     public bool healEachRound = false;
-    public GameObject mesh;
     public Animator animator;
     public bool destroyShield = false;
     
 
-    public Champion(string name, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, GameObject mesh)
+    public Champion(string name, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
     {
         gameState = GameState.Instance;
         this.name = name;
@@ -32,7 +31,6 @@ public abstract class Champion : ScriptableObject
         this.shield = shield;
         this.artwork = artwork;
         this.passiveEffect = passiveEffect;
-        this.mesh = mesh;
     }
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }

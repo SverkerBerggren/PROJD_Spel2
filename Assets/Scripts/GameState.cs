@@ -80,8 +80,6 @@ public class GameState : MonoBehaviour
         if (ClientConnection.Instance != null)
             isOnline = true;
 
-
-
         DontDestroyOnLoad(this);
     }
 
@@ -113,9 +111,9 @@ public class GameState : MonoBehaviour
         else
         {
             List<string> ha = new List<string>();
-            ha.Add("Cultist");
-            ha.Add("Graverobber");
-            ha.Add("Builder"); 
+            ha.Add("Duelist");
+            ha.Add("TheOneWhoDraws");
+            ha.Add("Shanker");
             AddChampions(ha);
             AddChampionsOpponent(ha);
         }

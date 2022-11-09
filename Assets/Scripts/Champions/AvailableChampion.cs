@@ -84,7 +84,7 @@ public class AvailableChampion : MonoBehaviour
             case "Duelist":
                 duelistMesh.SetActive(true);
                 break;
-			case "TheOneDraws":
+			case "TheOneWhoDraws":
 				theOneDrawsMesh.SetActive(true);
 				break;
 			case "Shanker":
@@ -206,7 +206,7 @@ public class AvailableChampion : MonoBehaviour
 				meshToShow = shankerMesh;
 				break;
 
-			case "TheOneDraws":
+			case "TheOneWhoDraws":
 				builderMesh.SetActive(false);
 				cultistMesh.SetActive(false);
 				graverobberMesh.SetActive(false);
@@ -214,6 +214,7 @@ public class AvailableChampion : MonoBehaviour
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(true);
 				meshToShow = theOneDrawsMesh;
+                print("Hello00");
 				break;
 		}
     }

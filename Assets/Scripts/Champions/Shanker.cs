@@ -9,7 +9,7 @@ public class Shanker : Champion
 	private int attackCardsToDraw = 3;
 	private int cardsDrawn = 3;
 
-	public Shanker(Shanker c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, c.mesh)
+	public Shanker(Shanker c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect)
 	{
 		attackCardsToDraw = c.attackCardsToDraw;
 		cardsDrawn = c.cardsDrawn;

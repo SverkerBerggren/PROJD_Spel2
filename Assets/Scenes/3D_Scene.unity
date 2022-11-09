@@ -9287,15 +9287,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8896733249099630344, guid: 1512f61a5e5058545978004d64d653f8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8896733249099630344, guid: 1512f61a5e5058545978004d64d653f8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8896733249099630344, guid: 1512f61a5e5058545978004d64d653f8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8896733249099630344, guid: 1512f61a5e5058545978004d64d653f8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11620,15 +11620,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6668284428869207761, guid: 9e96c00795f12ba459938145e4835135, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6668284428869207761, guid: 9e96c00795f12ba459938145e4835135, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6668284428869207761, guid: 9e96c00795f12ba459938145e4835135, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6668284428869207761, guid: 9e96c00795f12ba459938145e4835135, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16185,18 +16185,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 11400000, guid: 79dc933db5193344d82e1df0654f32c8, type: 2}
+  champion: {fileID: 11400000, guid: 71f4e33a083fa3649896310249374f97, type: 2}
   name: 
   health: 0
   maxHealth: 0
   shield: 0
-  meshToShow: {fileID: 931737210}
+  meshToShow: {fileID: 214592259}
   builderMesh: {fileID: 1773811769}
   cultistMesh: {fileID: 244833425}
   graverobberMesh: {fileID: 931737210}
-  theOneDrawsMesh: {fileID: 0}
-  shankerMesh: {fileID: 0}
-  duelistMesh: {fileID: 0}
+  theOneDrawsMesh: {fileID: 214592259}
+  shankerMesh: {fileID: 824638072}
+  duelistMesh: {fileID: 2041286020}
   champCard: {fileID: 332835980}
   healthText: {fileID: 773101717}
   shieldText: {fileID: 0}
@@ -18423,12 +18423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 11400000, guid: a320bb6d4064fcb47b7c74848a43bac2, type: 2}
-  name: Graverobber
+  champion: {fileID: 11400000, guid: 4660b01868ff88541964f8117d530e82, type: 2}
+  name: 
   health: 0
   maxHealth: 0
   shield: 0
-  meshToShow: {fileID: 624579867}
+  meshToShow: {fileID: 849473047}
   builderMesh: {fileID: 624579867}
   cultistMesh: {fileID: 228093467}
   graverobberMesh: {fileID: 1628359417}
@@ -21019,6 +21019,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
   m_PrefabInstance: {fileID: 157904609}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1785881366 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1960222732626201517, guid: 12ca227bfb1b5da469d9f57796eb447f, type: 3}
+  m_PrefabInstance: {fileID: 1497482869}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1798038967
 GameObject:
   m_ObjectHideFlags: 0
@@ -23398,12 +23403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 11400000, guid: 4660b01868ff88541964f8117d530e82, type: 2}
-  name: Builder
-  health: 19
+  champion: {fileID: 11400000, guid: 7063f1f7341533d4b91b372d62269698, type: 2}
+  name: 
+  health: 0
   maxHealth: 0
   shield: 0
-  meshToShow: {fileID: 958467091}
+  meshToShow: {fileID: 1785881366}
   builderMesh: {fileID: 383467849}
   cultistMesh: {fileID: 313058366}
   graverobberMesh: {fileID: 958467091}
@@ -24008,15 +24013,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
       propertyPath: m_LocalPosition.x
