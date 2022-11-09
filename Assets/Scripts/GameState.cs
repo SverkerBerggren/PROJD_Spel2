@@ -694,20 +694,13 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-
-
-
                 if (isOnline)
                 {
                     //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
                     ListEnum lE = new ListEnum();
                     lE.myChampions = true;
-                    Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
-                    
-
-                }
-                if (card == null)
-                    RemoveChampion(playerChampions[randomChamp].champion);
+                    Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
+                }                    
                 break; 
             }
         }
