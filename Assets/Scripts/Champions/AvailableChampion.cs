@@ -16,12 +16,12 @@ public class AvailableChampion : MonoBehaviour
     public int shield;
 
     public GameObject meshToShow;
-    public GameObject builderMesh;
-    public GameObject cultistMesh;
-    public GameObject graverobberMesh;
-	public GameObject theOneDrawsMesh;
-	public GameObject shankerMesh;
-	public GameObject duelistMesh;
+    private GameObject builderMesh;
+    private GameObject cultistMesh;
+    private GameObject graverobberMesh;
+    private GameObject theOneDrawsMesh;
+    private GameObject shankerMesh;
+    private GameObject duelistMesh;
 	private bool wantToSeInfoOnChamp = false;
 
     private float timer = 0f;
@@ -30,7 +30,7 @@ public class AvailableChampion : MonoBehaviour
     public SpriteRenderer champCard;
     //private ArmorEffect armorEffect;
 
-
+    private GameObject prevGO = null; 
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text shieldText;
@@ -55,7 +55,7 @@ public class AvailableChampion : MonoBehaviour
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
-        SetWichMeshToShowOnStart();
+        Invoke(nameof(SetWichMeshToShowOnStart),0.05f);
 
         if (transform.Find("TargetingEffect") != null)
         {
@@ -63,6 +63,17 @@ public class AvailableChampion : MonoBehaviour
             targetingEffect.SetActive(false);
             GameState.Instance.targetingEffect = targetingEffect;
         }
+
+        GetAllMeshes();
+    }
+    private void GetAllMeshes()
+    {
+        builderMesh = transform.Find("Builder").gameObject;
+        cultistMesh = transform.Find("Cultist").gameObject;
+        graverobberMesh = transform.Find("Graverobber").gameObject;
+        theOneDrawsMesh = transform.Find("TheOneWhoDraws").gameObject;
+        shankerMesh = transform.Find("Shanker").gameObject;
+        duelistMesh = transform.Find("Duelist").gameObject;
     }
 
     private void SetWichMeshToShowOnStart()
@@ -84,7 +95,7 @@ public class AvailableChampion : MonoBehaviour
             case "Duelist":
                 duelistMesh.SetActive(true);
                 break;
-			case "TheOneDraws":
+			case "TheOneWhoDraws":
 				theOneDrawsMesh.SetActive(true);
 				break;
 			case "Shanker":
@@ -138,8 +149,7 @@ public class AvailableChampion : MonoBehaviour
             
 		UpdateTextOnCard();
 
-        if (meshToShow.name != champion.name)
-            SwapMesh();
+        SwapMesh(meshToShow);
 
         if (wantToSeInfoOnChamp)
         {
@@ -148,9 +158,13 @@ public class AvailableChampion : MonoBehaviour
                 champCard.sprite = champion.artwork;
         }
 	}
-
-    private void SwapMesh()
+    
+    private void SwapMesh(GameObject gO)
     {
+
+        if (prevGO == gO) return;
+        prevGO = gO;
+
         switch (champion.name)
         {
             case "Builder":
@@ -206,7 +220,7 @@ public class AvailableChampion : MonoBehaviour
 				meshToShow = shankerMesh;
 				break;
 
-			case "TheOneDraws":
+			case "TheOneWhoDraws":
 				builderMesh.SetActive(false);
 				cultistMesh.SetActive(false);
 				graverobberMesh.SetActive(false);

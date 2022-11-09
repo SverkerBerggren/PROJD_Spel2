@@ -6,7 +6,7 @@ using UnityEngine;
 public class TheOneWhoDraws : Champion
 {
 	int cardsDraw = 1;
-	public TheOneWhoDraws(TheOneWhoDraws c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, c.mesh)
+	public TheOneWhoDraws(TheOneWhoDraws c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect)
 	{
 		cardsDraw = c.cardsDraw;
 	}
