@@ -149,7 +149,7 @@ public class AvailableChampion : MonoBehaviour
             
 		UpdateTextOnCard();
 
-        SwapMesh(meshToShow);
+        SwapMesh();
 
         if (wantToSeInfoOnChamp)
         {
@@ -159,12 +159,8 @@ public class AvailableChampion : MonoBehaviour
         }
 	}
     
-    private void SwapMesh(GameObject gO)
+    private void SwapMesh()
     {
-
-        if (prevGO == gO) return;
-        prevGO = gO;
-
         switch (champion.name)
         {
             case "Builder":

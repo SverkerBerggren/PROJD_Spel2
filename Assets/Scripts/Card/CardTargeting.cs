@@ -49,8 +49,6 @@ public class CardTargeting : MonoBehaviour
             }
         }
 
-        gameState.targetingEffect.SetActive(false);
-
         if (cardDisplay.opponentCard == true) return;
 
         RaycastHit[] hitEnemy;

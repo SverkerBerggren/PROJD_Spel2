@@ -50,7 +50,8 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-        GameObject toStore = Instantiate(shieldPrefab,champions.transform.position,Quaternion.identity); //the GO should have Shieldeffect script
+        Vector3 shiledPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
+        GameObject toStore = Instantiate(shieldPrefab, shiledPos, Quaternion.identity); //the GO should have Shieldeffect script
        
         shields.Add(champions.name, toStore);
         //champions.shield = shiledAmount;

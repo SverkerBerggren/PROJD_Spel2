@@ -262,6 +262,7 @@ public class GameState : MonoBehaviour
         int index = 0;
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            if (landmark.card == null) continue;
             amount = landmark.card.HealingEffect(amount);
         }
 
@@ -322,6 +323,7 @@ public class GameState : MonoBehaviour
     {
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
+            if (landmark.card == null) continue;
             amount = landmark.card.ShieldingEffect(amount);
         }
         TargetAndAmount tAA = null;
