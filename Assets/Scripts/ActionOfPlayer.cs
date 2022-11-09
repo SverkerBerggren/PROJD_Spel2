@@ -92,7 +92,7 @@ public class ActionOfPlayer : MonoBehaviour
 
     public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
-        /*
+
         Hand hand;
         if (isPlayer)
             hand = handPlayer;
@@ -100,17 +100,21 @@ public class ActionOfPlayer : MonoBehaviour
             hand = handOpponent;
 
         int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        cardDisplay.card = null;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
+            print("Runs");
             if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
             {
-                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
-                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
+                if (i - 1 < 0) continue;
+
+                hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
+                hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
                 hand.cardsInHand.Add(hand.cardSlotsInHand[index]);
+                hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card = null;
                 hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
-                break;
             }
         }
-        */
+
     }
 }

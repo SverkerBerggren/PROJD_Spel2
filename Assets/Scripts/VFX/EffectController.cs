@@ -52,8 +52,8 @@ public class EffectController : MonoBehaviour
         //ALT: set shiled as child to champion
         Vector3 shiledPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
         GameObject toStore = Instantiate(shieldPrefab, shiledPos, Quaternion.identity); //the GO should have Shieldeffect script
-       
-        shields.Add(champions.name, toStore);
+        if(!shields.ContainsKey(champions.name))
+            shields.Add(champions.name, toStore);
         //champions.shield = shiledAmount;
     }
     public void DestoryShield(GameObject champion)

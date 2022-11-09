@@ -89,15 +89,17 @@ public class CardTargeting : MonoBehaviour
                 {
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
-                    gameState.ShowPlayedCardLandmark(landmarkDisplay.card);
+                    gameState.ShowPlayedCardLandmark(landmarkDisplay.card);                    
                     break;
                 }
-
                 else
                     amountOfLandmarksAlreadyInUse++;
             }
             if (amountOfLandmarksAlreadyInUse == 4)
+            {
                 CardGoBackToStartingPosition();
+                return;
+            }
         }
 
         else if (card.typeOfCard == CardType.Spell)
@@ -106,7 +108,6 @@ public class CardTargeting : MonoBehaviour
             card.PlayCard();
             gameState.ShowPlayedCard(card);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-            cardDisplay.card = null;
         }
     }
 
@@ -122,7 +123,6 @@ public class CardTargeting : MonoBehaviour
                 gameState.ShowPlayedCard(card);
                 graveyard.AddCardToGraveyard(card);
                 gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-                cardDisplay.card = null;
             }
             CardGoBackToStartingPosition();
             return;
@@ -136,7 +136,6 @@ public class CardTargeting : MonoBehaviour
             card.PlayCard();
             gameState.ShowPlayedCard(card);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-            cardDisplay.card = null;
         }
 
         else if (gameObjectHit.CompareTag("LandmarkSlot") && gameObjectHit.GetComponent<LandmarkDisplay>().card != null)
@@ -146,7 +145,6 @@ public class CardTargeting : MonoBehaviour
             card.PlayCard();
             gameState.ShowPlayedCard(card);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-            cardDisplay.card = null;
         }
     }
 
@@ -159,7 +157,6 @@ public class CardTargeting : MonoBehaviour
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
         GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay);
-        cardDisplay.card = null;
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 

@@ -65,14 +65,17 @@ public class RadialLayout : LayoutGroup
 
         for (int i = 0; i < transform.childCount; i++)
         {
+            float zValue = -2;
+            float zValueMult = i * 0.25f;
             RectTransform child = (RectTransform)transform.GetChild(i);
             if (child != null && child.gameObject.activeSelf)
             {
-                Vector3 vPos = new(Mathf.Cos(fAngle * Mathf.Deg2Rad), Mathf.Sin(fAngle * Mathf.Deg2Rad), 0);
+                Vector2 vPos = new(Mathf.Cos(fAngle * Mathf.Deg2Rad), Mathf.Sin(fAngle * Mathf.Deg2Rad));
                 child.localPosition = vPos * fDistance;
                 child.anchorMin = child.anchorMax = child.pivot = new Vector2(0.5f, 0.5f);
                 fAngle += fOffsetAngle;
             }
+            child.localPosition = new Vector3(child.localPosition.x, child.localPosition.y, zValue + zValueMult);
         }
     }
 }
