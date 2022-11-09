@@ -222,7 +222,6 @@ public class GameState : MonoBehaviour
         ListEnum lE =  targetAndAmount.targetInfo.whichList;
         if (isOnline)
         {
-            print("I sEnD dAmAgE ReQuEsT");
             List<TargetAndAmount> list = new List<TargetAndAmount>();
             list.Add(targetAndAmount);
 
@@ -704,7 +703,6 @@ public class GameState : MonoBehaviour
 
                 if (isOnline)
                 {
-                    print("I sEnD sWaP ReQuEsT");
                     //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
                     ListEnum lE = new ListEnum();
                     lE.myChampions = true;
@@ -847,7 +845,6 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            print("GIVE ME MANA");
             isItMyTurn = true;
             TriggerUpKeep();
         }
