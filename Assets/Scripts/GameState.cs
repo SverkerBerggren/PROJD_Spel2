@@ -694,12 +694,8 @@ public class GameState : MonoBehaviour
             int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
             if (playerChampion != playerChampions[randomChamp])
             {
-                playerChampion.champion.WhenInactiveChampion();
-				Swap(playerChampions, 0, randomChamp);
-                playerChampion.champion.WhenCurrentChampion();
 
-                if (card == null)
-                    RemoveChampion(playerChampions[randomChamp].champion);
+
 
                 if (isOnline)
                 {
@@ -710,7 +706,8 @@ public class GameState : MonoBehaviour
                     
 
                 }
-
+                if (card == null)
+                    RemoveChampion(playerChampions[randomChamp].champion);
                 break; 
             }
         }

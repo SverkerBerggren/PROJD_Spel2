@@ -87,7 +87,19 @@ public class Choise : MonoBehaviour
 
     private void SwitchChamp(bool died)
     {
+        Champion champion = null;
+        if (chosenTargets[0].whichList.myChampions)
+        {
+            champion = gameState.playerChampions[chosenTargets[0].index].champion;
+        }
+        else
+        {
+            champion = gameState.opponentChampions[chosenTargets[0].index].champion;
+        }
+
+        champion.WhenInactiveChampion();
         gameState.SwitchMyChampions(chosenTargets[0]);
+        champion.WhenCurrentChampion();
 
         if (gameState.isOnline)
         {
