@@ -56,7 +56,7 @@ public class CardDisplay : MonoBehaviour
 
             if (cardPlayableEffect != null)
             {
-                if (ActionOfPlayer.Instance.currentMana >= manaCost)
+                if (ActionOfPlayer.Instance.currentMana >= manaCost && GameState.Instance.isItMyTurn)
                     cardPlayableEffect.SetActive(true);
                 else
                     cardPlayableEffect.SetActive(false);
