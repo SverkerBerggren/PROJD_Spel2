@@ -91,7 +91,7 @@ public class ActionOfPlayer : MonoBehaviour
         currentMana = playerMana;
     }
 
-    public void ChangeCardOrder(bool isPlayer , CardDisplay cardDisplay)
+    public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
         /*
         Hand hand;
@@ -101,20 +101,15 @@ public class ActionOfPlayer : MonoBehaviour
             hand = handOpponent;
 
         int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
-
-        for (; index < hand.cardSlotsInHand.Count; index++)
+        for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
-            CardDisplay cardI = hand.cardSlotsInHand[index].GetComponent<CardDisplay>();
-            for (int j = index + 1; j < hand.cardSlotsInHand.Count; j++)
+            if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
             {
-                int g = hand.cardSlotsInHand.Count;
-                if (hand.cardSlotsInHand[index].activeSelf)
-                {
-                    CardDisplay cardJ = hand.cardSlotsInHand[j].GetComponent<CardDisplay>();
-                    cardI.manaCost = cardJ.manaCost;
-                    cardI.card = cardJ.card;
-                    index--;
-                }
+                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
+                hand.cardSlotsInHand[index].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
+                hand.cardsInHand.Add(hand.cardSlotsInHand[index]);
+                hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
+                break;
             }
         }
         */

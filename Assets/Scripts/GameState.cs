@@ -802,7 +802,7 @@ public class GameState : MonoBehaviour
     {
         print("Den triggrar upkeep");
         DrawCard(1, null);
-        if (isItMyTurn && !firstTurn)
+        if (isItMyTurn && !firstTurn || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
         }
