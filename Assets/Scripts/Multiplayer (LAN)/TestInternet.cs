@@ -180,6 +180,8 @@ public class TestInternet : MonoBehaviour
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
                 GameState.Instance.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
+
+
                 
                 //Draw card opponents
 
@@ -321,6 +323,18 @@ public class TestInternet : MonoBehaviour
 
                 ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
                 GameState.Instance.DrawCardOpponent(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+
+
+               // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
+
+                //Draw card opponents
+
+            }
+            if (action is GameActionPassPriority)
+            {
+                print("skickar den en gameAction pass priority");
+
+                GameState.Instance.hasPriority = true;
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;

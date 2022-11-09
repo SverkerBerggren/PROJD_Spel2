@@ -708,13 +708,8 @@ public class GameState : MonoBehaviour
                     //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
                     ListEnum lE = new ListEnum();
                     lE.myChampions = true;
-                    TargetInfo tI = new TargetInfo(lE, randomChamp);
-                    RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tI);
-                    request.whichPlayer = ClientConnection.Instance.playerId;
-                    request.targetToSwitch = tI;
-                    if (card == null)
-                        request.championDied = true;
-                    ClientConnection.Instance.AddRequest(request, RequestEmpty);
+                    Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+
                 }
 
                 break; 

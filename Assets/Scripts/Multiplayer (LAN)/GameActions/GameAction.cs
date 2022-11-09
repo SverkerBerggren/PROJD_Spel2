@@ -76,6 +76,10 @@ public class GameAction : MBJson.JSONDeserializeable, MBJson.JSONTypeConverter
         {
             return typeof(GameActionGameSetup);
         }  
+        if (IntegerToConvert == 15)
+        {
+            return typeof(GameActionPassPriority);
+        }  
         return (typeof(GameAction));
     }
     public object Deserialize(MBJson.JSONObject ObjectToParse)

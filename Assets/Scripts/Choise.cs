@@ -45,9 +45,12 @@ public class Choise : MonoBehaviour
                 gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
 
                 buttonsToDestroy.Add(gO);
+              //  gameState.hasPriority = !gameState.hasPriority;
             }
         }
     }
+
+    
 
     public void AddTargetInfo(TargetInfo targetInfo)
     {
@@ -66,10 +69,11 @@ public class Choise : MonoBehaviour
                     break;
             }
         }
+
         ResetChoice();
     }
 
-    private void ResetChoice()
+    public void ResetChoice()
     {   
         amountOfTargets = 0;
         chosenTargets.Clear();
@@ -89,8 +93,16 @@ public class Choise : MonoBehaviour
         {
             RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(chosenTargets[0]);
             request.whichPlayer = ClientConnection.Instance.playerId;
+            request.championDied = died;
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+
+            if(died)
+            {
+                RequestPassPriority requestPassPriority = new RequestPassPriority();
+                requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
+                ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+            }
         }
     }
 
