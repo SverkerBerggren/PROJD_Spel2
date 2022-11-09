@@ -86,6 +86,10 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         {
             return (typeof(ClientRequestGameSetup));
         }
+        if (IntegerToConvert == 16)
+        {
+            return (typeof(RequestPassPriority));
+        }
 
         return (typeof(ClientRequest));
     }

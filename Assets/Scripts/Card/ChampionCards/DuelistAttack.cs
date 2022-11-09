@@ -12,7 +12,12 @@ public class DuelistAttack : Spells
         gameState = GameState.Instance;
 
         gameState.CalculateBonusDamage(damage, this);
-        gameState.SwapActiveChampion(this);
+
+        ListEnum lE = new ListEnum();
+        lE.opponentChampions = true;      
+
+        Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+
         gameState.CalculateBonusDamage(damage, this);
     }
 }

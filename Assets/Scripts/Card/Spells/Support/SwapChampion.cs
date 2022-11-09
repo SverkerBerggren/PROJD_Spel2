@@ -7,6 +7,8 @@ public class SwapChampion : Spells
 {
     public override void PlaySpell()
     {
-        GameState.Instance.SwapActiveChampion(this);
+        ListEnum listEnum = new ListEnum();
+        listEnum.myChampions = true;
+        Choise.Instance.ShowChoiceMenu(listEnum, 1, WhichMethod.switchChampion);
     }
 }

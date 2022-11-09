@@ -31,6 +31,6 @@ public class DuelistSupport : Spells
 
         TargetInfo tI = new TargetInfo(lE, index);
 
-        GameState.Instance.SwapActiveChampionEnemy(tI);
+        GameState.Instance.SwapChampionWithTargetInfo(tI, false);
     }
 }
