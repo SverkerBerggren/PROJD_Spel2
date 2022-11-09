@@ -55,7 +55,7 @@ public class AvailableChampion : MonoBehaviour
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
-        SetWichMeshToShowOnStart();
+        Invoke(nameof(SetWichMeshToShowOnStart),0.05f);
 
         if (transform.Find("TargetingEffect") != null)
         {
@@ -214,7 +214,6 @@ public class AvailableChampion : MonoBehaviour
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(true);
 				meshToShow = theOneDrawsMesh;
-                print("Hello00");
 				break;
 		}
     }
