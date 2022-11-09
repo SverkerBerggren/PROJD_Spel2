@@ -58,12 +58,13 @@ public class Deck : MonoBehaviour
         Shuffle(playerDeck);
         while (deckOfCardsPlayer.Count < 30)
         {
-            foreach (Card card in deckPlayer)
+            foreach (Card card in playerDeck)
             {
                 deckOfCardsPlayer.Push(card);
 
                 if(deckOfCardsPlayer.Count >= 30) break;               
             }
+            if (deckOfCardsPlayer.Count >= 30) break;
         }
         Shuffle(deckOpponent);
         while (deckOfCardsOpponent.Count < 30)
@@ -71,8 +72,9 @@ public class Deck : MonoBehaviour
             foreach (Card card in deckOpponent)
             {
                 deckOfCardsOpponent.Push(card);
-                if (deckOfCardsPlayer.Count >= 30) break;
+                if (deckOfCardsOpponent.Count >= 30) break;
             }
+             if(deckOfCardsOpponent.Count >= 30) break;
         }
 
         UpdateDecks();
