@@ -681,10 +681,6 @@ public class GameState : MonoBehaviour
         }
     }
 
-    private void Delay()
-    {
-        playerChampion.champion.WhenCurrentChampion();
-    }
 
     public void SwitchMyChampions(TargetInfo targetInfo)
     {
@@ -693,7 +689,6 @@ public class GameState : MonoBehaviour
             print("Hallo");
             playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
-            Invoke(nameof(Delay), 0.01f);
         }
         else if(targetInfo.whichList.opponentChampions)
         {

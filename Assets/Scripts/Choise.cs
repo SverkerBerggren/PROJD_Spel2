@@ -147,6 +147,7 @@ public class Choise : MonoBehaviour
                 ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
             }
         }
+        gameState.playerChampion.champion.WhenCurrentChampion();
     }
 
 
