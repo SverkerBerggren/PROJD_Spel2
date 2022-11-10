@@ -15,12 +15,6 @@ public class Shanker : Champion
 		cardsToDraw = c.cardsToDraw;
 	}
 
-	public override void AmountOfCardsPlayed(Card card)
-	{
-		base.AmountOfCardsPlayed(card);
-		passiveEffect = gameState.attacksPlayedThisTurn + "/" + attackCardsToPlay + " attacks";
-	}
-
 	public override void EndStep()
 	{
 		base.EndStep();
@@ -29,4 +23,9 @@ public class Shanker : Champion
 			gameState.DrawCard(cardsToDraw, null);
 		}
 	}
+
+	public override void UpdatePassive()
+	{
+        passiveEffect = gameState.attacksPlayedThisTurn + "/" + attackCardsToPlay + " attacks";
+    }
 }

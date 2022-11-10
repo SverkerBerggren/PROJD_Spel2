@@ -20,8 +20,9 @@ public class Cultist : Champion
 	public override void Awake()
 	{
 		base.Awake();
-		passiveEffect = currentBonusDamage + "+";
-	}
+		UpdatePassive();
+
+    }
 
 	public override int DealDamageAttack(int damage)
 	{
@@ -44,6 +45,11 @@ public class Cultist : Champion
 	{
 		int difference = (maxHealth - health) / perMissingHP;
 		currentBonusDamage = damagePerMissingHP * difference;
-		passiveEffect = currentBonusDamage + "+ extra damage";
+		
 	}
+
+	public override void UpdatePassive()
+	{
+        passiveEffect = currentBonusDamage + "+ extra damage";
+    }
 }

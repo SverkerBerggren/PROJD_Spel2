@@ -73,7 +73,7 @@ public class Builder : Champion
 			ResetLandmarkCost();
 	}
 
-	private void UpdatePassive()
+	public override void UpdatePassive()
 	{
 		passiveEffect = landmarkCount + "/" + landmarkNeeded + "  landmarks";
 	}

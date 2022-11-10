@@ -158,8 +158,11 @@ public class AvailableChampion : MonoBehaviour
         {
             //armorEffect.DamageArmor(10);
         }
-            
-		UpdateTextOnCard();
+
+
+        champion.UpdatePassive();
+   
+        UpdateTextOnCard();
 
         SwapMesh();
 

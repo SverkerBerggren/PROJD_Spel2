@@ -103,6 +103,8 @@ public abstract class Champion : ScriptableObject
 
     public virtual void WhenLandmarksDie() {}
 
+    public virtual void UpdatePassive() {}
+
     public virtual void Death()
     {
 

@@ -83,6 +83,8 @@ public class GameState : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+
+
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;
