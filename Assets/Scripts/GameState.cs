@@ -716,11 +716,10 @@ public class GameState : MonoBehaviour
             Swap(opponentChampions, 0, targetInfo.index);
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
-            opponentChampion.champion.WhenCurrentChampion();
         }
     }
 
-    public void SwapActiveChampionEnemy(TargetInfo targetInfo)
+    public void SwapActiveChampionEnemy()
     {
 
         if (!isOnline)
@@ -883,7 +882,7 @@ public class GameState : MonoBehaviour
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          
-            SwapActiveChampionEnemy(null);
+            SwapActiveChampionEnemy();
         }
 
 		if (isOnline && opponentChampion.champion == deadChampion)
