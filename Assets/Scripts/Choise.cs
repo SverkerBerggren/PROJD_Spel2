@@ -142,7 +142,7 @@ public class Choise : MonoBehaviour
             {
                 gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
                 print("kommer till choise delen");
-                RequestPassPriority requestPassPriority = new RequestPassPriority();
+                RequestPassPriority requestPassPriority = new RequestPassPriority(true);
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
             }

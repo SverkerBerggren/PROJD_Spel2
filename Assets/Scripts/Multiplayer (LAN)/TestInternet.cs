@@ -335,9 +335,10 @@ public class TestInternet : MonoBehaviour
             }
             if (action is GameActionPassPriority)
             {
+                GameActionPassPriority castedAction = (GameActionPassPriority)action;
                 print("skickar den en gameAction pass priority");
 
-                GameState.Instance.hasPriority = !GameState.Instance.hasPriority;
+                GameState.Instance.hasPriority = castedAction.priority;
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;

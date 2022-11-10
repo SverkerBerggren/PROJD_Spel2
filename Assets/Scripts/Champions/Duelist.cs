@@ -18,7 +18,7 @@ public class Duelist : Champion
 
 		if (gameState.isOnline)
 		{
-            RequestPassPriority requestPassPriority = new RequestPassPriority();
+            RequestPassPriority requestPassPriority = new RequestPassPriority(false);
             requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
         }
