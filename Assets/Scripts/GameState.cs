@@ -282,8 +282,6 @@ public class GameState : MonoBehaviour
         }
         tI = new TargetInfo(listEnum, index);
         tAA = new TargetAndAmount(tI, amount);
-
-        healEffect.SetActive(true);
         Invoke(nameof(TakeAwayHealEffect), 3f);
         HealTarget(tAA);
     }
