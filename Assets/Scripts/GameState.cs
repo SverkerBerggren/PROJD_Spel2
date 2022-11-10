@@ -710,12 +710,15 @@ public class GameState : MonoBehaviour
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
     {
-
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
+        }
+        if (targetInfo.whichList.opponentChampions == true)
+        {
+            Swap(playerChampions, 0, targetInfo.index);
         }
     }
 
