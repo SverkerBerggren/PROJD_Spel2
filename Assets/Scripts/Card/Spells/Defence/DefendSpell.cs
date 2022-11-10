@@ -20,6 +20,7 @@ public class DefendSpell : Spells
         }
         else
         {
+            Target = GameState.Instance.playerChampion.champion;
             GameState.Instance.CalculateShield(defence,this);
         }       
     }

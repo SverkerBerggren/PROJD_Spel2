@@ -157,7 +157,6 @@ public class AvailableChampion : MonoBehaviour
         if (champion.destroyShield)
         {
             //armorEffect.DamageArmor(10);
-            print("RUns");
         }
             
 		UpdateTextOnCard();
