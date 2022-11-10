@@ -693,6 +693,7 @@ public class GameState : MonoBehaviour
         {
 			Swap(opponentChampions, 0, targetInfo.index);
             hasPriority = true;
+            print("HALLO");
             if (isOnline)
             {
                 RequestPassPriority requestPassPriority = new RequestPassPriority(false);
