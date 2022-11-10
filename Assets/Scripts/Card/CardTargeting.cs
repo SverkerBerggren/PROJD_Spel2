@@ -66,8 +66,10 @@ public class CardTargeting : MonoBehaviour
 
             if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
+                if (TauntCard()) break;
+                
                 if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
-                    PlayedATargetableCard();
+                     PlayedATargetableCard();
             }           
             else if (!card.targetable && gameObjectHit.CompareTag("NonTargetCollider"))
             {
@@ -76,6 +78,28 @@ public class CardTargeting : MonoBehaviour
             }   
         }
         CardGoBackToStartingPosition();
+    }
+
+    private bool TauntCard()
+    {
+        // Should indicate the TauntLandmark so its more obvious
+        foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
+        {
+            if (landmarkDisplay.card == null) continue;
+
+            if (landmarkDisplay.tag.Equals("TauntLandmark") && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
+            {
+                card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
+                card.PlayCard();
+                gameState.ShowPlayedCard(card);
+                graveyard.AddCardToGraveyard(card);
+                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+                return true;
+            }
+            
+        }
+        CardGoBackToStartingPosition();
+        return false;
     }
 
     private void PlayedAnUntargetableCard()
@@ -113,40 +137,7 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
-        int amountOfEmptyLandmarks= 0;
-        // Should indicate the TauntLandmark so its more obvious
-        foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
-        {
-            if (amountOfEmptyLandmarks == 4) break;
-            if (landmarkDisplay.card == null)
-            {
-                amountOfEmptyLandmarks++;
-                continue;
-            }
 
-            if (landmarkDisplay.card.tag.Equals("TauntLandmark"))
-            {
-                if (gameObjectHit.GetComponent<LandmarkDisplay>() == null || gameObjectHit.GetComponent<LandmarkDisplay>().card == null)
-                {
-                    CardGoBackToStartingPosition();
-                    return;
-                }
-
-                if (gameObjectHit.GetComponent<LandmarkDisplay>().card.tag.Equals("TauntLandmark"))
-                {
-                    card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
-                    card.PlayCard();
-                    gameState.ShowPlayedCard(card);
-                    graveyard.AddCardToGraveyard(card);
-                    gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-                }
-                else
-                {
-                    CardGoBackToStartingPosition();
-                    return;
-                }
-            }
-        }
 
 
         if (gameObjectHit.CompareTag("Champion"))
