@@ -102,7 +102,7 @@ public class CardTargeting : MonoBehaviour
             }
         }
 
-        else if (card.typeOfCard == CardType.Spell)
+        else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
