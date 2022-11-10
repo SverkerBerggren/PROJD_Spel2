@@ -337,7 +337,7 @@ public class TestInternet : MonoBehaviour
             {
                 GameActionPassPriority castedAction = (GameActionPassPriority)action;
                 print("skickar den en gameAction pass priority");
-
+                print(castedAction.priority);
                 GameState.Instance.hasPriority = castedAction.priority;
 
 
