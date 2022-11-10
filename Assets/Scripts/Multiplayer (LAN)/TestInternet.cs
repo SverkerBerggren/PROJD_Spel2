@@ -248,8 +248,7 @@ public class TestInternet : MonoBehaviour
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
-                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
-                actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());                
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
