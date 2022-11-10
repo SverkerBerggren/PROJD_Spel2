@@ -141,7 +141,6 @@ public class Choise : MonoBehaviour
             if(died)
             {
                 gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
-                print("kommer till choise delen");
                 RequestPassPriority requestPassPriority = null;
                 if (gameState.playerChampion.name.Equals("Duelist"))
                     requestPassPriority = new RequestPassPriority(false);

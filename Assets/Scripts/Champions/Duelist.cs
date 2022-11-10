@@ -9,12 +9,11 @@ public class Duelist : Champion
 
 	public override void WhenCurrentChampion()
 	{
-		Debug.Log("desad");
 		base.WhenCurrentChampion();
 		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
 
-        //gameState.hasPriority = true;
+        gameState.hasPriority = true;
         if (gameState.isOnline)
         {
             RequestPassPriority requestPassPriority = new RequestPassPriority(false);

@@ -686,7 +686,6 @@ public class GameState : MonoBehaviour
     {
         if (targetInfo.whichList.myChampions)
         {
-            print("Hallo");
             playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
 
@@ -695,7 +694,6 @@ public class GameState : MonoBehaviour
         {
 			Swap(opponentChampions, 0, targetInfo.index);
             hasPriority = false;
-            print("HALLO");
             if (isOnline)
             {
                 RequestPassPriority requestPassPriority = new RequestPassPriority(true);
