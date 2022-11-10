@@ -59,9 +59,9 @@ public class AttackSpell : Spells
         if (amountOfLandmarksAlreadyInUse == 0) return;
 
         LandmarkDisplay landmarkDisplay = null;
-        int random = Random.Range(0, 4);
         for (int i = 0; i < 25; i++)
         {
+            int random = Random.Range(0, 4);
             if (gameState.opponentLandmarks[random].card != null)
             {
                 landmarkDisplay = gameState.opponentLandmarks[random];
