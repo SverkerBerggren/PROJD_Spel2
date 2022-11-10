@@ -112,7 +112,7 @@ public class GameState : MonoBehaviour
         {
             List<string> ha = new List<string>();
             ha.Add("Builder");
-            ha.Add("Cultist");
+            ha.Add("Duelist");
             ha.Add("Graverobber");
             AddChampions(ha);
             AddChampionsOpponent(ha);
@@ -685,29 +685,29 @@ public class GameState : MonoBehaviour
 
     public void SwitchMyChampions(TargetInfo targetInfo)
     {
-        Swap(playerChampions, 0, targetInfo.index);
-        playerChampion.champion.WhenCurrentChampion();
+        if (targetInfo.whichList.myChampions)
+        {
+            playerChampion.champion.WhenInactiveChampion();
+            Swap(playerChampions, 0, targetInfo.index);
+            playerChampion.champion.WhenCurrentChampion();
+        }
+        else if(targetInfo.whichList.opponentChampions)
+        {
+			opponentChampion.champion.WhenInactiveChampion();
+			Swap(opponentChampions, 0, targetInfo.index);
+			opponentChampion.champion.WhenCurrentChampion();
+		}
+
     }
 
     public void SwapActiveChampion(Card card)
     {   
-
-        for (int i = 0; i < 25; i++)
+        if (isOnline)
         {
-            int randomChamp = UnityEngine.Random.Range(0, playerChampions.Count);
-            if (playerChampion != playerChampions[randomChamp])
-            {
-                if (isOnline)
-                {
-                    //Den måste berätta att championen har dött genom requesten, kanske genom att göra en variant alternativt göra en ny request
-                    ListEnum lE = new ListEnum();
-                    lE.myChampions = true;
-                    Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
-                }                    
-                break; 
-            }
-        }
-        //playerChampion.champion = playerChampions[randomChamp].champion; 
+            ListEnum lE = new ListEnum();
+            lE.myChampions = true;
+            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
+        }                    
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
@@ -881,7 +881,6 @@ public class GameState : MonoBehaviour
         if (playerChampion.champion == deadChampion)
         {
             hasPriority = true;
-            //Choise.Instance.ShowChoiceMenu();
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)

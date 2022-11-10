@@ -26,8 +26,9 @@ public class Choise : MonoBehaviour
 
     public static Choise Instance { get { return instance; } set { instance = value; } }
 
-    public void ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod)
+    private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, float delay)
     {
+        yield return new WaitForSeconds(delay);
         transform.GetChild(0).gameObject.SetActive(true);
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
@@ -39,16 +40,24 @@ public class Choise : MonoBehaviour
                 if (champ == gameState.playerChampion) continue;
 
                 GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-
                 gO.GetComponent<Image>().sprite = champ.champion.artwork;
-
                 gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
-
                 buttonsToDestroy.Add(gO);
-              //  gameState.hasPriority = !gameState.hasPriority;
             }
         }
-    }
+
+		if (listEnum.opponentChampions)
+		{
+			for (int i = 0; i < gameState.opponentChampions.Count; i++)
+			{
+				AvailableChampion champ = gameState.opponentChampions[i];
+                GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
+                gO.GetComponent<Image>().sprite = champ.champion.artwork;
+                gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
+				buttonsToDestroy.Add(gO);
+			}
+		}
+	}
 
     
 
@@ -87,20 +96,7 @@ public class Choise : MonoBehaviour
 
     private void SwitchChamp(bool died)
     {
-        Champion champion = null;
-        print(chosenTargets[0].index);
-        if (chosenTargets[0].whichList.myChampions)
-        {
-            champion = gameState.playerChampions[chosenTargets[0].index].champion;
-        }
-        else
-        {
-            champion = gameState.opponentChampions[chosenTargets[0].index].champion;
-        }
-
-        champion.WhenInactiveChampion();
         gameState.SwitchMyChampions(chosenTargets[0]);
-        champion.WhenCurrentChampion();
 
         if (gameState.isOnline)
         {
@@ -146,6 +142,12 @@ public class Choise : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod)
+    {
+        IEnumerator enumerator = ShowChoiceMenu(listEnum, amountToTarget, theMethod, 0.01f);
+        StartCoroutine(enumerator);
     }
 }
 

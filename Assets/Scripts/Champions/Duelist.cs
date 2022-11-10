@@ -9,8 +9,11 @@ public class Duelist : Champion
 
 	public override void WhenCurrentChampion()
 	{
+		Debug.Log("desad");
 		base.WhenCurrentChampion();
-		gameState.SwapActiveChampionEnemy(null);
+		ListEnum lE = new ListEnum();
+		lE.opponentChampions = true;
+		Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
 		//Choose Opponent champion
 	}
 }
