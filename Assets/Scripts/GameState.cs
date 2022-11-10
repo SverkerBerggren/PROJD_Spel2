@@ -897,6 +897,7 @@ public class GameState : MonoBehaviour
 
 		if (isOnline && opponentChampion.champion == deadChampion)
 		{
+            print("Wrong");
             hasPriority = false;
 		}
 	}
