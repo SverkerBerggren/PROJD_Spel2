@@ -685,6 +685,7 @@ public class GameState : MonoBehaviour
     {
         if (targetInfo.whichList.myChampions)
         {
+            print("Hallo");
             playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
             playerChampion.champion.WhenCurrentChampion();
