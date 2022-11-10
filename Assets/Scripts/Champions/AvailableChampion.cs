@@ -134,9 +134,22 @@ public class AvailableChampion : MonoBehaviour
         health = champion.health;
         maxHealth = champion.maxHealth;
         shield = champion.shield;
-        passiveEffect.text = champion.passiveEffect;
+
+        if (passiveEffect.text != null)
+            passiveEffect.text = champion.passiveEffect;
+
         healthText.text = health + "/" + maxHealth;
-        //shieldText.text = shield + "";
+        if (shieldText != null)
+        {
+            if (shield > 0)
+            {
+                shieldText.text = "Shield: " + shield;
+            }
+            else
+            {
+                shieldText.text = "";
+            }
+        }
 	}
 
     public void FixedUpdate()

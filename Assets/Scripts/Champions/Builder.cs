@@ -75,7 +75,7 @@ public class Builder : Champion
 
 	private void UpdatePassive()
 	{
-		passiveEffect = landmarkCount + "/" + landmarkNeeded;	
+		passiveEffect = landmarkCount + "/" + landmarkNeeded + "  landmarks";
 	}
 
 	private void ReduceLandmarksInHand()

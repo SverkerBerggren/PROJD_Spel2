@@ -44,7 +44,6 @@ public class Cultist : Champion
 	{
 		int difference = (maxHealth - health) / perMissingHP;
 		currentBonusDamage = damagePerMissingHP * difference;
-		passiveEffect = currentBonusDamage + "+";
-		
+		passiveEffect = currentBonusDamage + "+ extra damage";
 	}
 }
