@@ -142,7 +142,7 @@ public class Choise : MonoBehaviour
             {
                 gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
                 RequestPassPriority requestPassPriority = null;
-                if (gameState.playerChampion.name.Equals("Duelist"))
+                if (gameState.playerChampion.name.Equals("Duelist") || gameState.isItMyTurn)
                     requestPassPriority = new RequestPassPriority(false);
                 else
                     requestPassPriority = new RequestPassPriority(true);
