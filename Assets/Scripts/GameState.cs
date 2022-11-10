@@ -282,8 +282,6 @@ public class GameState : MonoBehaviour
         }
         tI = new TargetInfo(listEnum, index);
         tAA = new TargetAndAmount(tI, amount);
-
-        healEffect.SetActive(true);
         Invoke(nameof(TakeAwayHealEffect), 3f);
         HealTarget(tAA);
     }
@@ -693,10 +691,7 @@ public class GameState : MonoBehaviour
         }
         else if(targetInfo.whichList.opponentChampions)
         {
-			opponentChampion.champion.WhenInactiveChampion();
 			Swap(opponentChampions, 0, targetInfo.index);
-            if (opponentChampion.champion.name.Equals("Duelist")) return;
-			opponentChampion.champion.WhenCurrentChampion();
 		}
 
     }
@@ -713,17 +708,19 @@ public class GameState : MonoBehaviour
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
     {
-
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
-            opponentChampion.champion.WhenCurrentChampion();
+        }
+        if (targetInfo.whichList.opponentChampions == true)
+        {
+            Swap(playerChampions, 0, targetInfo.index);
         }
     }
 
-    public void SwapActiveChampionEnemy(TargetInfo targetInfo)
+    public void SwapActiveChampionEnemy()
     {
 
         if (!isOnline)
@@ -886,7 +883,7 @@ public class GameState : MonoBehaviour
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          
-            SwapActiveChampionEnemy(null);
+            SwapActiveChampionEnemy();
         }
 
 		if (isOnline && opponentChampion.champion == deadChampion)

@@ -61,13 +61,12 @@ public class CardTargeting : MonoBehaviour
 
             if (gameObjectHit == null || gameObjectHit.CompareTag("DeckAndGraveyard")) break;
             
-
-            
-
             if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
+                if (TauntCard()) break;
+                
                 if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
-                    PlayedATargetableCard();
+                     PlayedATargetableCard();
             }           
             else if (!card.targetable && gameObjectHit.CompareTag("NonTargetCollider"))
             {
@@ -76,6 +75,30 @@ public class CardTargeting : MonoBehaviour
             }   
         }
         CardGoBackToStartingPosition();
+    }
+
+    private bool TauntCard()
+    {
+        // Should indicate the TauntLandmark so its more obvious
+        foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
+        {
+            if (landmarkDisplay.card == null) continue;
+
+            if (landmarkDisplay.card.tag.Equals("TauntLandmark") && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
+            {
+                print("LandmarkTAUNT");
+                card.Target = null;
+                card.LandmarkTarget = landmarkDisplay;
+                card.PlayCard();
+                gameState.ShowPlayedCard(card);
+                graveyard.AddCardToGraveyard(card);
+                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+                return true;
+            }
+            
+        }
+        CardGoBackToStartingPosition();
+        return false;
     }
 
     private void PlayedAnUntargetableCard()
@@ -113,20 +136,8 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
-        // Should indicate the TauntLandmark so its more obvious
-        if (actionOfPlayer.tauntPlaced > 0)
-        {
-            if (gameObjectHit.CompareTag("TauntCard"))
-            {
-                card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
-                card.PlayCard();
-                gameState.ShowPlayedCard(card);
-                graveyard.AddCardToGraveyard(card);
-                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-            }
-            CardGoBackToStartingPosition();
-            return;
-        }
+
+
 
         if (gameObjectHit.CompareTag("Champion"))
         {
