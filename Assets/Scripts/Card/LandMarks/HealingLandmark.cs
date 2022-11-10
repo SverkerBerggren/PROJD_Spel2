@@ -28,26 +28,11 @@ public class HealingLandmark : Landmarks
     public override void PlaceLandmark()
     {
         base.PlaceLandmark();
-        if (doubleHealingEffect)
-        {
-            foreach (AvailableChampion champ in gameState.playerChampions)
-            {
-                gameState.landmarkEffect *= 2;
-            }
-        }
     }
 
     public override void LandmarkEffectTakeBack()
     {
         base.LandmarkEffectTakeBack();
-
-        if (doubleHealingEffect)
-        {
-            foreach (AvailableChampion champ in gameState.playerChampions)
-            {
-                gameState.landmarkEffect /= 2;
-            }
-        }
     }
 
     public override int HealingEffect(int healing)
