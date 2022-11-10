@@ -25,6 +25,7 @@ public class LandmarkDisplay : MonoBehaviour
     public bool opponentLandmarks = false;
 
     private GameObject previewLandmark;
+    private LandmarkDisplay previewLandmarkDisplay;
 
     private void Start()
     {
@@ -32,6 +33,7 @@ public class LandmarkDisplay : MonoBehaviour
         graveyard = Graveyard.Instance;
 
         previewLandmark = transform.parent.GetChild(4).gameObject;
+        previewLandmarkDisplay = previewLandmark.GetComponent<LandmarkDisplay>();
     }
 
     private void UpdateTextOnCard()
@@ -111,7 +113,9 @@ public class LandmarkDisplay : MonoBehaviour
     {
         print("SHOWLANDMARKDESC");
         previewLandmark.SetActive(true);
-        previewLandmark.GetComponent<LandmarkDisplay>().card = card;
+        previewLandmarkDisplay.card = card;
+        previewLandmarkDisplay.manaCost = manaCost;
+        previewLandmarkDisplay.health = health;
     }
 
     private void OnMouseExit()
