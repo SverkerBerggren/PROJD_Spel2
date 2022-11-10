@@ -61,9 +61,6 @@ public class CardTargeting : MonoBehaviour
 
             if (gameObjectHit == null || gameObjectHit.CompareTag("DeckAndGraveyard")) break;
             
-
-            
-
             if (card.targetable && (gameObjectHit.CompareTag("Champion") || gameObjectHit.CompareTag("LandmarkSlot")))
             {
                 if (TauntCard()) break;
@@ -90,7 +87,7 @@ public class CardTargeting : MonoBehaviour
             if (landmarkDisplay.card.tag.Equals("TauntLandmark") && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
             {
                 print("LandmarkTAUNT");
-                card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
+                card.LandmarkTarget = landmarkDisplay;
                 card.PlayCard();
                 gameState.ShowPlayedCard(card);
                 graveyard.AddCardToGraveyard(card);
