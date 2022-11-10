@@ -111,7 +111,7 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        print("SHOWLANDMARKDESC");
+        if (card == null) return;
         previewLandmark.SetActive(true);
         previewLandmarkDisplay.card = card;
         previewLandmarkDisplay.manaCost = manaCost;
@@ -120,9 +120,9 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void OnMouseExit()
     {
-        print("HIDELANDMARKDESC");
+        if (card == null) return;
         previewLandmark.SetActive(false);
-        previewLandmark.GetComponent<LandmarkDisplay>().card = null;
+        previewLandmarkDisplay.card = null;
     }
 
     private void FixedUpdate()
