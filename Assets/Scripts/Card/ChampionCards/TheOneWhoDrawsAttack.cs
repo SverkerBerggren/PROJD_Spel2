@@ -10,6 +10,8 @@ public class TheOneWhoDrawsAttack : Spells
     {
         int damageBoost = ActionOfPlayer.Instance.handPlayer.cardsInHand.Count;
         //OSäker på uträkningen här
-        damage *= damageBoost;
+        damage *= damageBoost - 10;
+        if (damage < 0)       
+            damage = 0;
     }
 }
