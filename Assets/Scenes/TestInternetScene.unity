@@ -1029,7 +1029,17 @@ MonoBehaviour:
   - Builder
   - Graverobber
   opponentChampions: []
-  playerDeckList: []
+  playerDeckList:
+  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
+  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
+  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
+  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
+  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
+  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
+  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
+  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
+  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
+  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
 --- !u!4 &432332336
 Transform:
   m_ObjectHideFlags: 0
@@ -2218,7 +2228,7 @@ GameObject:
   - component: {fileID: 797587030}
   - component: {fileID: 797587033}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Kontroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3638,7 +3648,7 @@ GameObject:
   - component: {fileID: 1756219167}
   - component: {fileID: 1756219166}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Aggresiv lista
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3682,9 +3692,7 @@ MonoBehaviour:
   - Shanker
   - Duelist
   cards:
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
+  - {fileID: 0}
 --- !u!114 &1756219167
 MonoBehaviour:
   m_ObjectHideFlags: 0

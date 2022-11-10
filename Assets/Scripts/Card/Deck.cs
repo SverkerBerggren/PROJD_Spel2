@@ -56,25 +56,25 @@ public class Deck : MonoBehaviour
         deckPlayer.Clear();
 
         Shuffle(playerDeck);
-        while (deckOfCardsPlayer.Count < 30)
+        while (deckOfCardsPlayer.Count < 40)
         {
             foreach (Card card in playerDeck)
             {
                 deckOfCardsPlayer.Push(card);
 
-                if(deckOfCardsPlayer.Count >= 30) break;               
+                if(deckOfCardsPlayer.Count >= 40) break;               
             }
-            if (deckOfCardsPlayer.Count >= 30) break;
+            if (deckOfCardsPlayer.Count >= 40) break;
         }
         Shuffle(deckOpponent);
-        while (deckOfCardsOpponent.Count < 30)
+        while (deckOfCardsOpponent.Count < 40)
         {
             foreach (Card card in deckOpponent)
             {
                 deckOfCardsOpponent.Push(card);
-                if (deckOfCardsOpponent.Count >= 30) break;
+                if (deckOfCardsOpponent.Count >= 40) break;
             }
-             if(deckOfCardsOpponent.Count >= 30) break;
+             if(deckOfCardsOpponent.Count >= 40) break;
         }
 
         UpdateDecks();
@@ -114,7 +114,7 @@ public class Deck : MonoBehaviour
             return c;
         }
 
-        GameState.Instance.Defeat();
+        //GameState.Instance.Defeat();
         return null;
     }
 
@@ -127,7 +127,7 @@ public class Deck : MonoBehaviour
             return c;
         }
 
-        GameState.Instance.Victory();
+        //GameState.Instance.Victory();
         return null;
     }
 
