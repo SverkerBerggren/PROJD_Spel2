@@ -50,6 +50,6 @@ public class Cultist : Champion
 
 	public override void UpdatePassive()
 	{
-        passiveEffect = currentBonusDamage + "+ extra damage";
+        passiveEffect = currentBonusDamage + "+ Extra damage";
     }
 }
