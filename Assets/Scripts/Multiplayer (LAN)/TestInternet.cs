@@ -99,7 +99,6 @@ public class TestInternet : MonoBehaviour
                     if (card.Equals("")) // Fixing later
                     {
                         Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                        ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
                     }
 
                 }
