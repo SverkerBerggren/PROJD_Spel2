@@ -29,39 +29,47 @@ public class AttackSpell : Spells
         
         if (destroyLandmark)
         {
-            int amountOfLandmarksAlreadyInUse = 0;
-            foreach (LandmarkDisplay lDisplay in gameState.opponentLandmarks)
-            {
-                if (lDisplay.card != null)
-                    amountOfLandmarksAlreadyInUse++;
-            }
-            if (amountOfLandmarksAlreadyInUse == 0) return;
-
-            LandmarkDisplay landmarkDisplay = null;
-            int random = Random.Range(0, 4);
-            for (int i = 0; i < 25; i++)
-            {
-                if (gameState.opponentLandmarks[random].card != null)
-                {
-                    landmarkDisplay = gameState.opponentLandmarks[random]; 
-                    break;
-                }
-                    
-            }
-            landmarkDisplay.DestroyLandmark();
+            DestroyLandmark();
         }
 
         if (damageToBothActiveChampions)
-        { 
-            if (Target == gameState.playerChampion.champion)
-                Target = gameState.opponentChampion.champion;
-            else if (Target == gameState.opponentChampion.champion)
-                Target = gameState.playerChampion.champion;
-
-            gameState.CalculateBonusDamage(damage, this);
+        {
+            DamageToBothActiveChampions();
         }
-            
+    }
 
+    private void DamageToBothActiveChampions()
+    {
+        Target = gameState.opponentChampion.champion;
+        gameState.CalculateBonusDamage(damage, this);
+        Target = gameState.playerChampion.champion;
+        gameState.CalculateBonusDamage(damage, this);
+    }
+
+    private void DestroyLandmark()
+    {
+        int amountOfLandmarksAlreadyInUse = 0;
+
+        foreach (LandmarkDisplay lDisplay in gameState.opponentLandmarks)
+        {
+            if (lDisplay.card != null)
+                amountOfLandmarksAlreadyInUse++;
+        }
+
+        if (amountOfLandmarksAlreadyInUse == 0) return;
+
+        LandmarkDisplay landmarkDisplay = null;
+        int random = Random.Range(0, 4);
+        for (int i = 0; i < 25; i++)
+        {
+            if (gameState.opponentLandmarks[random].card != null)
+            {
+                landmarkDisplay = gameState.opponentLandmarks[random];
+                break;
+            }
+
+        }
+        landmarkDisplay.DestroyLandmark();
     }
 
     private void DamageAsYourChampionHP()
