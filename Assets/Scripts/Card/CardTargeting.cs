@@ -113,9 +113,17 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
+        int amountOfEmptyLandmarks= 0;
         // Should indicate the TauntLandmark so its more obvious
         foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
         {
+            if (amountOfEmptyLandmarks == 4) break;
+            if (landmarkDisplay.card == null)
+            {
+                amountOfEmptyLandmarks++;
+                continue;
+            }
+
             if (landmarkDisplay.card.tag.Equals("TauntLandmark"))
             {
                 if (gameObjectHit.GetComponent<LandmarkDisplay>() == null || gameObjectHit.GetComponent<LandmarkDisplay>().card == null)
