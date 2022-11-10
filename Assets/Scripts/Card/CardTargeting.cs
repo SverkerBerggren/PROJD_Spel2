@@ -113,30 +113,41 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
+        int amountOfEmptyLandmarks= 0;
         // Should indicate the TauntLandmark so its more obvious
-        if (actionOfPlayer.tauntPlaced > 0)
+        foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
         {
-            if (gameObjectHit.GetComponent<LandmarkDisplay>() == null || gameObjectHit.GetComponent<LandmarkDisplay>().card == null)
+            if (amountOfEmptyLandmarks == 4) break;
+            if (landmarkDisplay.card == null)
             {
-                CardGoBackToStartingPosition();
-                return;
+                amountOfEmptyLandmarks++;
+                continue;
             }
 
-            if (gameObjectHit.GetComponent<LandmarkDisplay>().card.tag.Equals("TauntLandmark"))
+            if (landmarkDisplay.card.tag.Equals("TauntLandmark"))
             {
-                card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
-                card.PlayCard();
-                gameState.ShowPlayedCard(card);
-                graveyard.AddCardToGraveyard(card);
-                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-            }
-            else
-            {
-                CardGoBackToStartingPosition();
-                return;
-            }
+                if (gameObjectHit.GetComponent<LandmarkDisplay>() == null || gameObjectHit.GetComponent<LandmarkDisplay>().card == null)
+                {
+                    CardGoBackToStartingPosition();
+                    return;
+                }
 
+                if (gameObjectHit.GetComponent<LandmarkDisplay>().card.tag.Equals("TauntLandmark"))
+                {
+                    card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
+                    card.PlayCard();
+                    gameState.ShowPlayedCard(card);
+                    graveyard.AddCardToGraveyard(card);
+                    gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+                }
+                else
+                {
+                    CardGoBackToStartingPosition();
+                    return;
+                }
+            }
         }
+
 
         if (gameObjectHit.CompareTag("Champion"))
         {
