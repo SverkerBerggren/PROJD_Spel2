@@ -871,7 +871,7 @@ MonoBehaviour:
   champCard: {fileID: 1156412987}
   healthText: {fileID: 2033468273}
   shieldText: {fileID: 1105119588}
-  passiveEffect: {fileID: 1116077890}
+  passiveEffect: {fileID: 1862957796}
 --- !u!1 &52379193
 GameObject:
   m_ObjectHideFlags: 0
@@ -22962,7 +22962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577, y: 489.9}
+  m_AnchoredPosition: {x: 179, y: -122}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720108238
@@ -22985,7 +22985,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP/MAXHP
+  m_text: 'Passive
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22994,8 +22996,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255388
-  m_fontColor: {r: 0.10893273, g: 1, b: 0, a: 1}
+    rgba: 4290258896
+  m_fontColor: {r: 0.81568635, g: 0.15294118, b: 0.72156864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -25396,7 +25398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577, y: 489.9}
+  m_AnchoredPosition: {x: -176, y: 90.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862957796
@@ -25419,7 +25421,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP/MAXHP
+  m_text: 'Passive
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -25428,8 +25432,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255388
-  m_fontColor: {r: 0.10893273, g: 1, b: 0, a: 1}
+    rgba: 4293072895
+  m_fontColor: {r: 1, g: 0.08962262, b: 0.89036936, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -26870,7 +26874,7 @@ MonoBehaviour:
   champCard: {fileID: 1955778092}
   healthText: {fileID: 1824264812}
   shieldText: {fileID: 784799633}
-  passiveEffect: {fileID: 265458291}
+  passiveEffect: {fileID: 1720108238}
 --- !u!1 &2016389650
 GameObject:
   m_ObjectHideFlags: 0
