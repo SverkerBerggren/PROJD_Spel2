@@ -275,11 +275,11 @@ public class Server
     }
     private ServerResponse HandlePassPriority(RequestPassPriority requestToHandle)
     {
-        ServerResponse response = new ServerResponse();
+        ResponsePassPriority response = new ResponsePassPriority(requestToHandle.priority);
         
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionPassPriority gameAction = new GameActionPassPriority();
+        GameActionPassPriority gameAction = new GameActionPassPriority(requestToHandle.priority);
         
         AddGameAction(response, gameAction);
         return response;
