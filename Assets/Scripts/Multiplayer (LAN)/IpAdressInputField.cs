@@ -13,6 +13,7 @@ public class IpAdressInputField : MonoBehaviour
     ClientConnection clientConnection;
 
     TestInternet testInternet;
+    private string ip;
 
  //   public  inputFieldText; 
 
@@ -36,18 +37,23 @@ public class IpAdressInputField : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
+            ip = GetComponent<TMP_InputField>().text;
             Thread messageThread = new Thread(this.ConnectToServer);
             messageThread.Start();
-
-
         }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            ip = "127.0.0.1";
+			Thread messageThread = new Thread(this.ConnectToServer);
+			messageThread.Start();
+		}
     }
 
     public void ConnectToServer()
     {
-        clientConnection.ConnectToServer("193.10.9.112", 63000);
+        clientConnection.ConnectToServer(ip, 63000);
 
         if (clientConnection.isHost)
         {  

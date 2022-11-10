@@ -42,9 +42,9 @@ public class ClientConnection : MonoBehaviour
         messageThread.Start();
     }
 
-    public void ConnectToServer(string Adress, int port)
+    public void ConnectToServer(string ip, int port)
     {
-        m_TCPClient.Connect("193.10.9.112", port);
+        m_TCPClient.Connect(ip, port);
         print("lyckas den connecta");
     }
     private void messageLoop()

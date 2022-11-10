@@ -9,12 +9,24 @@ public class Duelist : Champion
 
 	public override void WhenCurrentChampion()
 	{
-		Debug.Log("desad");
 		base.WhenCurrentChampion();
 		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
-		Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
-		gameState.hasPriority = true;
+
+        gameState.hasPriority = true;
+        if (gameState.isOnline)
+        {
+            RequestPassPriority requestPassPriority = new RequestPassPriority(false);
+            requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
+        }
+
+        Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+		
+
+
+
+
 		//Choose Opponent champion
 	}
 }

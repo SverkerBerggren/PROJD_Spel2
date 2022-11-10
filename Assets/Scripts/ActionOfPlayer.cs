@@ -111,7 +111,6 @@ public class ActionOfPlayer : MonoBehaviour
         cardDisplay.card = null;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
-            print("Runs");
             if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
             {
                 if (i - 1 < 0) continue;

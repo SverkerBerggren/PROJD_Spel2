@@ -24,12 +24,16 @@ public class LandmarkDisplay : MonoBehaviour
     public int index;
     public bool opponentLandmarks = false;
 
-
+    private GameObject previewLandmark;
+    private LandmarkDisplay previewLandmarkDisplay;
 
     private void Start()
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
+
+        previewLandmark = transform.parent.GetChild(4).gameObject;
+        previewLandmarkDisplay = previewLandmark.GetComponent<LandmarkDisplay>();
     }
 
     private void UpdateTextOnCard()
@@ -103,6 +107,22 @@ public class LandmarkDisplay : MonoBehaviour
         {
             LandmarkDead();                     
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        print("SHOWLANDMARKDESC");
+        previewLandmark.SetActive(true);
+        previewLandmarkDisplay.card = card;
+        previewLandmarkDisplay.manaCost = manaCost;
+        previewLandmarkDisplay.health = health;
+    }
+
+    private void OnMouseExit()
+    {
+        print("HIDELANDMARKDESC");
+        previewLandmark.SetActive(false);
+        previewLandmark.GetComponent<LandmarkDisplay>().card = null;
     }
 
     private void FixedUpdate()
