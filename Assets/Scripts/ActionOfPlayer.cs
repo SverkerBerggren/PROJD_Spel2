@@ -13,7 +13,7 @@ public class ActionOfPlayer : MonoBehaviour
 
     [SerializeField] private TMP_Text manaText;
 
-    public GameObject choice;
+    public Choise choice;
 
     private int cardCost;
     public int playerMana = 0;
@@ -22,7 +22,6 @@ public class ActionOfPlayer : MonoBehaviour
     public bool selectCardOption = false;
 
     private GameState gameState;
-
     private static ActionOfPlayer instance;
 
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
@@ -39,6 +38,7 @@ public class ActionOfPlayer : MonoBehaviour
         }
 
         gameState = GameState.Instance;
+        choice = Choise.Instance;
     }
 
 
@@ -57,8 +57,17 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (!gameState.hasPriority && gameState.isItMyTurn)
+            choice.ShowOpponentThinking();
+        else
+            choice.HideOpponentThinking();
         manaText.text = "Mana: " + currentMana.ToString();
     }
 
@@ -102,7 +111,6 @@ public class ActionOfPlayer : MonoBehaviour
         cardDisplay.card = null;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
-            print("Runs");
             if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
             {
                 if (i - 1 < 0) continue;

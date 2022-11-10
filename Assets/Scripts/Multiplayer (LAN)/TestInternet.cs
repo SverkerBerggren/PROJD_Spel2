@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 using UnityEngine.SceneManagement;
 
 public class TestInternet : MonoBehaviour
@@ -95,8 +96,11 @@ public class TestInternet : MonoBehaviour
 
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                    ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                    if (card.Equals("")) // Fixing later
+                    {
+                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                        ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                    }
 
                 }
 
@@ -331,9 +335,10 @@ public class TestInternet : MonoBehaviour
             }
             if (action is GameActionPassPriority)
             {
+                GameActionPassPriority castedAction = (GameActionPassPriority)action;
                 print("skickar den en gameAction pass priority");
-
-                GameState.Instance.hasPriority = true;
+                print(castedAction.priority);
+                GameState.Instance.hasPriority = castedAction.priority;
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
