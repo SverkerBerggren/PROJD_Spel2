@@ -87,7 +87,7 @@ public class CardTargeting : MonoBehaviour
         {
             if (landmarkDisplay.card == null) continue;
 
-            if (landmarkDisplay.tag.Equals("TauntLandmark") && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
+            if (landmarkDisplay.card.tag.Equals("TauntLandmark") && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
             {
                 print("LandmarkTAUNT");
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
