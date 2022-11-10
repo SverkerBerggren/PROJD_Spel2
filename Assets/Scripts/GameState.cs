@@ -111,7 +111,7 @@ public class GameState : MonoBehaviour
         else
         {
             List<string> ha = new List<string>();
-            ha.Add("Builder");
+            ha.Add("Cultist");
             ha.Add("Duelist");
             ha.Add("Graverobber");
             AddChampions(ha);
