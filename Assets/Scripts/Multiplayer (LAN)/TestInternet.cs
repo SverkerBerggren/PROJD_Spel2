@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 using UnityEngine.SceneManagement;
 
 public class TestInternet : MonoBehaviour
@@ -336,7 +337,7 @@ public class TestInternet : MonoBehaviour
             {
                 print("skickar den en gameAction pass priority");
 
-                GameState.Instance.hasPriority = true;
+                GameState.Instance.hasPriority = !GameState.Instance.hasPriority;
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;

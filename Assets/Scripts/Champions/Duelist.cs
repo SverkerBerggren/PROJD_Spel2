@@ -15,6 +15,15 @@ public class Duelist : Champion
 		lE.opponentChampions = true;
 		Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
 		gameState.hasPriority = true;
+
+		if (gameState.isOnline)
+		{
+            RequestPassPriority requestPassPriority = new RequestPassPriority();
+            requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
+        }
+
+
 		//Choose Opponent champion
 	}
 }
