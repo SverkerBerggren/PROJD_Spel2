@@ -856,7 +856,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             TriggerUpKeep();
         }
-
+        attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
     }

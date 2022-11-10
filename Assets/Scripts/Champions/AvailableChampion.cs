@@ -22,6 +22,11 @@ public class AvailableChampion : MonoBehaviour
     private GameObject theOneDrawsMesh;
     private GameObject shankerMesh;
     private GameObject duelistMesh;
+
+    private GameObject passiveTextPlayer;
+    private GameObject passiveTextOpponent;
+
+
 	private bool wantToSeInfoOnChamp = false;
 
     private float timer = 0f;
@@ -63,6 +68,10 @@ public class AvailableChampion : MonoBehaviour
             targetingEffect.SetActive(false);
             GameState.Instance.targetingEffect = targetingEffect;
         }
+
+        passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
+        passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
+        
 
         GetAllMeshes();
     }
@@ -116,11 +125,21 @@ public class AvailableChampion : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (GameState.Instance.playerChampion == champion || GameState.Instance.opponentChampion == champion)
+        {
+            passiveTextOpponent.SetActive(false);
+            passiveTextPlayer.SetActive(false);
+        }
         wantToSeInfoOnChamp = true;
     }
 
     private void OnMouseExit()
     {
+        if (GameState.Instance.playerChampion == champion || GameState.Instance.opponentChampion == champion)
+        {
+            passiveTextOpponent.SetActive(true);
+            passiveTextPlayer.SetActive(true);
+        }
         wantToSeInfoOnChamp = false;
         champCard.sprite = null;
         timer = 0f;
