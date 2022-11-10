@@ -279,7 +279,7 @@ public class Server
         
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionPassPriority gameAction = new GameActionPassPriority(response.priority);
+        GameActionPassPriority gameAction = new GameActionPassPriority(requestToHandle.priority);
         
         AddGameAction(response, gameAction);
         return response;
