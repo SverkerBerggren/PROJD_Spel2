@@ -693,7 +693,7 @@ public class GameState : MonoBehaviour
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            hasPriority = false;
+            //hasPriority = false;
 /*            print("HALLO");
             if (isOnline)
             {
