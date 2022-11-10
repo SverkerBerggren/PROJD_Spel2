@@ -95,8 +95,11 @@ public class TestInternet : MonoBehaviour
 
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                    ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                    if (card.Equals("")) // Fixing later
+                    {
+                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                        ActionOfPlayer.Instance.handOpponent.cardsInHand[0].GetComponent<CardDisplay>().card = null;
+                    }
 
                 }
 

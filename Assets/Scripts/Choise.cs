@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using Unity.VisualScripting;
 
 public class Choise : MonoBehaviour
 {
@@ -22,14 +22,46 @@ public class Choise : MonoBehaviour
 
     private static Choise instance;
 
+    private GameObject choiceMenu;
+    private GameObject choiceOpponentMenu;
+
     public List<GameObject> buttonsToDestroy = new List<GameObject>();
 
     public static Choise Instance { get { return instance; } set { instance = value; } }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        gameState = GameState.Instance;
+        choiceMenu = transform.GetChild(0).gameObject;
+        choiceOpponentMenu = transform.GetChild(1).gameObject;
+    }
+
+    public void ShowOpponentThinking()
+    {
+        choiceOpponentMenu.SetActive(true);
+    }
+    public void HideOpponentThinking()
+    {
+        choiceOpponentMenu.SetActive(false);
+    }
+
     private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, float delay)
     {
         yield return new WaitForSeconds(delay);
-        transform.GetChild(0).gameObject.SetActive(true);
+        //yield return new WaitUntil(() => gameState.hasPriority && gameState.isItMyTurn);
+
+        choiceMenu.SetActive(true);
+
+        
+
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
         if (listEnum.myChampions)
@@ -120,23 +152,7 @@ public class Choise : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        gameState = GameState.Instance;
-    }
 
     // Update is called once per frame
     void Update()
