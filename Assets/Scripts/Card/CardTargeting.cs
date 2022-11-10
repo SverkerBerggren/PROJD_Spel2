@@ -116,7 +116,13 @@ public class CardTargeting : MonoBehaviour
         // Should indicate the TauntLandmark so its more obvious
         if (actionOfPlayer.tauntPlaced > 0)
         {
-            if (gameObjectHit.CompareTag("TauntCard"))
+            if (gameObjectHit.GetComponent<LandmarkDisplay>() == null || gameObjectHit.GetComponent<LandmarkDisplay>().card == null)
+            {
+                CardGoBackToStartingPosition();
+                return;
+            }
+
+            if (gameObjectHit.GetComponent<LandmarkDisplay>().card.tag.Equals("TauntLandmark"))
             {
                 card.LandmarkTarget = gameObjectHit.GetComponent<LandmarkDisplay>();
                 card.PlayCard();
@@ -124,8 +130,12 @@ public class CardTargeting : MonoBehaviour
                 graveyard.AddCardToGraveyard(card);
                 gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
             }
-            CardGoBackToStartingPosition();
-            return;
+            else
+            {
+                CardGoBackToStartingPosition();
+                return;
+            }
+
         }
 
         if (gameObjectHit.CompareTag("Champion"))
