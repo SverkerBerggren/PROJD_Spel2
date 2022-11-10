@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RequestPassPriority : ClientRequest
 {
-    public bool priority = false;
+    public bool priority;
 
     public RequestPassPriority()
     {
