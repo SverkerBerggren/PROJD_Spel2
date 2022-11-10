@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
@@ -25,8 +26,31 @@ public class AttackSpell : Spells
         if (Target != null || LandmarkTarget)
             gameState.CalculateBonusDamage(damage, this);
 
+        
         if (destroyLandmark)
-            LandmarkTarget.DestroyLandmark();
+        {
+            int amountOfLandmarksAlreadyInUse = 0;
+            foreach (LandmarkDisplay lDisplay in gameState.opponentLandmarks)
+            {
+                if (lDisplay.card != null)
+                    amountOfLandmarksAlreadyInUse++;
+            }
+            if (amountOfLandmarksAlreadyInUse == 0) return;
+
+            LandmarkDisplay landmarkDisplay = null;
+            int random = Random.Range(0, 4);
+            for (int i = 0; i < 25; i++)
+            {
+                if (gameState.opponentLandmarks[random].card != null)
+                {
+                    landmarkDisplay = gameState.opponentLandmarks[random]; 
+                    break;
+                }
+                    
+            }
+            landmarkDisplay.DestroyLandmark();
+        }
+
         if (damageToBothActiveChampions)
         { 
             if (Target == gameState.playerChampion.champion)

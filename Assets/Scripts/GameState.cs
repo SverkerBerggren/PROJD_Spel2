@@ -695,6 +695,7 @@ public class GameState : MonoBehaviour
         {
 			opponentChampion.champion.WhenInactiveChampion();
 			Swap(opponentChampions, 0, targetInfo.index);
+            if (opponentChampion.champion.name.Equals("Duelist")) return;
 			opponentChampion.champion.WhenCurrentChampion();
 		}
 
