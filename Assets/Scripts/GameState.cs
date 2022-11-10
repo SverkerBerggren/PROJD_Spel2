@@ -689,19 +689,19 @@ public class GameState : MonoBehaviour
             print("Hallo");
             playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
-            playerChampion.champion.WhenCurrentChampion();
+
         }
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            //hasPriority = false;
-/*            print("HALLO");
+            hasPriority = false;
+            print("HALLO");
             if (isOnline)
             {
                 RequestPassPriority requestPassPriority = new RequestPassPriority(true);
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
-            }*/
+            }
 
         }
 

@@ -151,6 +151,7 @@ public class Choise : MonoBehaviour
                 ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
             }
         }
+        print(gameState.hasPriority);
         if (chosenTargets[0].whichList.myChampions && gameState.hasPriority)
             gameState.playerChampion.champion.WhenCurrentChampion();
 
