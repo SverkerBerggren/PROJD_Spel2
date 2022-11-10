@@ -694,13 +694,13 @@ public class GameState : MonoBehaviour
         {
 			Swap(opponentChampions, 0, targetInfo.index);
             hasPriority = false;
-            print("HALLO");
+/*            print("HALLO");
             if (isOnline)
             {
                 RequestPassPriority requestPassPriority = new RequestPassPriority(true);
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
-            }
+            }*/
 
         }
 
