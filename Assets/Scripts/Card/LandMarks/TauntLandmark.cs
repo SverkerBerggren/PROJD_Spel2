@@ -15,12 +15,12 @@ public class TauntLandmark : Landmarks
     public override void PlaceLandmark()
     {
         base.PlaceLandmark();
-        ActionOfPlayer.Instance.tauntPlaced++;
+
     }
 
     public override void LandmarkEffectTakeBack()
     {
         base.LandmarkEffectTakeBack();
-        ActionOfPlayer.Instance.tauntPlaced--;
+
     }
 }
