@@ -478,8 +478,9 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = landmark;
         cardDisp.manaCost = landmark.maxManaCost;
-        
-        Invoke(nameof(HideLandmarkPlayed), 3f);
+
+        StopCoroutine(HideLandmarkPlayed());
+        StartCoroutine(HideLandmarkPlayed());
     }
 
     public void ShowPlayedCard(Card card)
@@ -488,16 +489,20 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
-        Invoke(nameof(HideCardPlayed), 3f);
+
+        StopCoroutine(HideLandmarkPlayed());
+        StartCoroutine(HideCardPlayed());
     }
-    private void HideCardPlayed()
+    private IEnumerator HideCardPlayed()
     {
+        yield return new WaitForSeconds(3f);
         playedCardGO.GetComponent<CardDisplay>().card = null;
         playedCardGO.SetActive(false);
     }
 
-    private void HideLandmarkPlayed()
+    private IEnumerator HideLandmarkPlayed()
     {
+        yield return new WaitForSeconds(3f);
         playedCardGO.GetComponent<CardDisplay>().card = null;
         playedCardGO.SetActive(false);
     }
