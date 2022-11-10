@@ -16,7 +16,7 @@ public class DuelistAttack : Spells
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
 
-        Choise.Instance.ShowChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+        Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
 
         gameState.CalculateBonusDamage(damage, this);
     }
