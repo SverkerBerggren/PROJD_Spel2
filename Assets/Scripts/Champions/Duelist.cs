@@ -14,6 +14,7 @@ public class Duelist : Champion
 		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
 		Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+		gameState.hasPriority = true;
 		//Choose Opponent champion
 	}
 }
