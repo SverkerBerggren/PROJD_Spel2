@@ -57,8 +57,10 @@ public class LandmarkDisplay : MonoBehaviour
         else
             Graveyard.Instance.AddCardToGraveyard(card);
         card = null;
+        card.LandmarkEffectTakeBack();
+        card.WhenLandmarksDie();
 
-		if (gameState.isOnline)
+        if (gameState.isOnline)
 		{
 			TargetInfo targetInfo = new TargetInfo();
 			ListEnum listEnum = new ListEnum();
