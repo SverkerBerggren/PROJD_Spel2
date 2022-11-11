@@ -853,6 +853,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            hasPriority = true;
             isItMyTurn = true;
             TriggerUpKeep();
         }
