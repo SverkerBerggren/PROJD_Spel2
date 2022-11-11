@@ -84,6 +84,14 @@ public class GameState : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+       if(Input.GetKeyDown(KeyCode.P))
+        {
+            hasPriority = true;
+        }
+    }
+
 
     void Start()
     {
