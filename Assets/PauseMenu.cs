@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public bool isPauseMenuActive;
     [SerializeField] private GameObject pauseMenuObjectToEnable;
     [SerializeField] private ReturnButton returnButton;
+    [SerializeField] private GameObject settingsButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +18,11 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !isPauseMenuActive)
+        if (!isPauseMenuActive)
+            settingsButton.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPauseMenuActive)
         {
-            isPauseMenuActive = true;
-            pauseMenuObjectToEnable.SetActive(true); 
+            ShowPauseMenu();
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && isPauseMenuActive)
         {
@@ -29,6 +31,14 @@ public class PauseMenu : MonoBehaviour
 
         
     }
+
+    public void ShowPauseMenu()
+    {
+        settingsButton.SetActive(false);
+        isPauseMenuActive = true;
+        pauseMenuObjectToEnable.SetActive(true);
+    }
+
 
     public void setIsPauseMenuActive(bool value)
     {
