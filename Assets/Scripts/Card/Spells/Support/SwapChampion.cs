@@ -10,7 +10,7 @@ public class SwapChampion : Spells
         ListEnum listEnum = new ListEnum();
         listEnum.myChampions = true;
 
-        if(GameState.Instance.playerChampions.Count > 1)
+       
             Choise.Instance.ChoiceMenu(listEnum, 1, WhichMethod.switchChampion);
     }
 }
