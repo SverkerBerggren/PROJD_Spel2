@@ -80,6 +80,8 @@ public class CardTargeting : MonoBehaviour
     private bool TauntCard()
     {
         // Should indicate the TauntLandmark so its more obvious
+        if (card.typeOfCard == CardType.Attack) return false;
+
         foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
         {
             if (landmarkDisplay.card == null) continue;

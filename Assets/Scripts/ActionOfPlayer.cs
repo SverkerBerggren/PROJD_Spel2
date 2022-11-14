@@ -119,6 +119,11 @@ public class ActionOfPlayer : MonoBehaviour
                 hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
                 hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
                 hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card = null;
+                
+                if (hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>())
+                {
+                    hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>().health = hand.cardSlotsInHand[i].GetComponent<LandmarkDisplay>().health;
+                }
             }
         }
     }
