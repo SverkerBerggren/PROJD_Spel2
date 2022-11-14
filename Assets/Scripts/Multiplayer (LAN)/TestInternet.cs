@@ -89,9 +89,12 @@ public class TestInternet : MonoBehaviour
 
                 print("asdsad");
 
-                foreach(string card in theAction.listOfCardsDiscarded)
+                for (int i = 0; i < theAction.listOfCardsDiscarded.Count; i++)
                 {
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    string card = theAction.listOfCardsDiscarded[i];
+                    //Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.cardName];
+                    Card theCard = register.cardRegister[card];
+                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[theCard.cardName]);
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
                 }
