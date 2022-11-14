@@ -94,9 +94,8 @@ public class TestInternet : MonoBehaviour
                     if (card.Equals("")) // Fixing later
                     {
                         Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                //        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                //
-                //        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+                        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
                     }
 
                 }
