@@ -45,7 +45,6 @@ public abstract class Card : ScriptableObject
         
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
-        placement.index = 100;
 
         if (typeOfCard != CardType.Landmark)
         {
