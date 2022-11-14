@@ -680,7 +680,7 @@ public class GameState : MonoBehaviour
                     cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
 
                 }
-                if (cardDisplay.card.name != "")
+                if (cardDisplay.card.name != null)
                 {
                     print(cardDisplay.card.name);
                 }
