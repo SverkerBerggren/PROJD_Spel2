@@ -310,13 +310,18 @@ public class GameState : MonoBehaviour
         if(lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            //Jiang: instansiera healing prefab
+            EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
+
         }
-        if(lE.opponentChampions)
+        if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            //Jiang: instansiera healing prefab
+            EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
-                
-        if(isOnline)
+
+        if (isOnline)
         {
             List<TargetAndAmount> list = new List<TargetAndAmount>();
             list.Add(targetAndAmount);
