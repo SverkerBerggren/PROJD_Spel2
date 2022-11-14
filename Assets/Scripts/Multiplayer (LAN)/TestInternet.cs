@@ -81,20 +81,11 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDiscardCard)
             {
               
-
-
-
-
                 GameActionDiscardCard theAction = (GameActionDiscardCard)action;
 
-                print("asdsad");
-
-                for (int i = 0; i < theAction.listOfCardsDiscarded.Count; i++)
+                foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    string card = theAction.listOfCardsDiscarded[i];
-                    //Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.cardName];
-                    Card theCard = register.cardRegister[card];
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[theCard.cardName]);
+                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
                 }

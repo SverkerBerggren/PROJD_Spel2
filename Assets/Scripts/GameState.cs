@@ -560,9 +560,9 @@ public class GameState : MonoBehaviour
     {
         string discardedCard = "";
         if (yourself)
-            discardedCard = actionOfPlayer.handPlayer.DiscardRandomCardInHand().name;
+            discardedCard = actionOfPlayer.handPlayer.DiscardRandomCardInHand().cardName;
         else
-            discardedCard = actionOfPlayer.handOpponent.DiscardRandomCardInHand().name;
+            discardedCard = actionOfPlayer.handOpponent.DiscardRandomCardInHand().cardName;
         return discardedCard;
     }
 
