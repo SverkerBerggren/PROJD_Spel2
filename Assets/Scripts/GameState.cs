@@ -641,7 +641,7 @@ public class GameState : MonoBehaviour
                     drawnCards++;
                     playerChampion.champion.DrawCard(cardDisplay);
                 }
-                else
+                else if(actionOfPlayer.handPlayer.deck.deckOfCardsPlayer.Count <= 0)
                 {
                     Defeat();
                     break;
