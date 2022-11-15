@@ -174,6 +174,7 @@ public class Choise : MonoBehaviour
 
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod)
     {
+        //Måste lägga in om choicen failar checkifchoice att den ska passa priority om den ska göra det
         if (CheckIfChoice(theMethod, list))
         {
             IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
