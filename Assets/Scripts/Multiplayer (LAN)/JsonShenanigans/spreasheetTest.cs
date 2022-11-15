@@ -53,6 +53,7 @@ public class spreasheetTest : EditorWindow
             Task theTask =  ProcessRepositoriesAsync(clienten);
         }
     }
+    
 
     public async Task ProcessRepositoriesAsync(HttpClient client)
     {
@@ -68,7 +69,7 @@ public class spreasheetTest : EditorWindow
 
             spreadsheetGrej = JsonConvert.DeserializeObject<googlespreasheetObject>(json);
            
-
+            
         }
         catch(Exception ex)
         {
@@ -108,7 +109,7 @@ public class spreasheetTest : EditorWindow
                         {
                           //  print("kommer den hit");
                             scriptableObject.description = currentCard[3];
-                            
+                            EditorUtility.SetDirty( scriptableObject);
                             amountOfCardsChanged += 1;
                         }
 
@@ -119,6 +120,7 @@ public class spreasheetTest : EditorWindow
             }
             if (amountOfCardsChanged != 0)
             {
+                    
                     Debug.Log(amountOfCardsChanged + " cards was changed");
             }
         }
