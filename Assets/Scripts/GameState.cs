@@ -634,10 +634,18 @@ public class GameState : MonoBehaviour
                 else
                     cardDisplay.card = specificCard;
 
-                cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-                cardSlot.SetActive(true);
-                drawnCards++;
-                playerChampion.champion.DrawCard(cardDisplay);
+                if (cardDisplay.card != null)
+                {
+                    cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+                    cardSlot.SetActive(true);
+                    drawnCards++;
+                    playerChampion.champion.DrawCard(cardDisplay);
+                }
+                else
+                {
+                    Defeat();
+                    break;
+                }
             }
         }
 
@@ -675,7 +683,6 @@ public class GameState : MonoBehaviour
                     cardDisplay.card = specificCard;
                     cardDisplay.opponentCard = true;
                     cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
-
                 }
 
                 cardSlot.SetActive(true);
