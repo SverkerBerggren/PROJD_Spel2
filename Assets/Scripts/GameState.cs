@@ -715,13 +715,19 @@ public class GameState : MonoBehaviour
     }
 
     public void SwapActiveChampion(Card card)
-    {   
+    {
+        ListEnum lE = new ListEnum();
+        lE.myChampions = true;
         if (isOnline)
+            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+        else
         {
-            ListEnum lE = new ListEnum();
-            lE.myChampions = true;
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
-        }                    
+            if(card)
+                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            else
+                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+
+        }
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)

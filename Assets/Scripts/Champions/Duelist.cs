@@ -13,9 +13,9 @@ public class Duelist : Champion
 		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
 
-        gameState.hasPriority = true;
         if (gameState.isOnline)
         {
+            gameState.hasPriority = true;
             RequestPassPriority requestPassPriority = new RequestPassPriority(false);
             requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
