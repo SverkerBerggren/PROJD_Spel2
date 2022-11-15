@@ -30,7 +30,7 @@ public class Deck : MonoBehaviour
         if(!GameState.Instance.isOnline)
         {
             Shuffle(deckPlayer);
-            while (deckOfCardsPlayer.Count < 30)
+            while (deckOfCardsPlayer.Count < 40)
             {
                 foreach (Card card in deckPlayer)
                 {
@@ -39,7 +39,7 @@ public class Deck : MonoBehaviour
             }
 
             Shuffle(deckOpponent);
-            while (deckOfCardsOpponent.Count < 30)
+            while (deckOfCardsOpponent.Count < 40)
             {
                 foreach (Card card in deckOpponent)
                 {
