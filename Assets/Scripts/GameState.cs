@@ -908,6 +908,7 @@ public class GameState : MonoBehaviour
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          
             SwapActiveChampionEnemy();
+            RemoveChampion(deadChampion);
         }
 
 		if (isOnline && opponentChampion.champion == deadChampion)
