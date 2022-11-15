@@ -706,10 +706,10 @@ public class GameState : MonoBehaviour
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            if (!isItMyTurn && isOnline)
-                hasPriority = false;
             if (isOnline)
             {
+                if (!isItMyTurn)
+                    hasPriority = false;
                 RequestPassPriority requestPassPriority = new RequestPassPriority(true);
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
