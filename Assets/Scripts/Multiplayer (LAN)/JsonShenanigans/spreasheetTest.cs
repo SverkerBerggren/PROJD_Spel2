@@ -81,18 +81,22 @@ public class spreasheetTest : MonoBehaviour
             int amountOfCardsChanged = 0;
             for (int i = 0; i < spreadsheetGrej.valueRanges.Count; i++)
             {   
-                List<string> currentCard = spreadsheetGrej.valueRanges[0].values[i];
-                AttackSpell scriptableObject;
-                print("kommer den hit");    
-                if ((scriptableObject = findAttackCardFromName(attackSpellsObjectList, currentCard[0])) != null)
+                for(int z = 0; z < spreadsheetGrej.valueRanges[0].values.Count; z++)
                 {
-                    if (scriptableObject.description.Equals(currentCard[3]))
+                    List<string> currentCard = spreadsheetGrej.valueRanges[0].values[z];
+                    AttackSpell scriptableObject;
+                    if ((scriptableObject = findAttackCardFromName(attackSpellsObjectList, currentCard[0])) != null)
                     {
-                        scriptableObject.description = currentCard[3];
-                        amountOfCardsChanged += 1;
-                    }
+                        if (!scriptableObject.description.Equals(currentCard[3]))
+                        {
+                            print("kommer den hit");
+                            scriptableObject.description = currentCard[3];
+                            amountOfCardsChanged += 1;
+                        }
 
+                    }
                 }
+              
 
             }
             if (amountOfCardsChanged != 0)
@@ -113,7 +117,7 @@ public class spreasheetTest : MonoBehaviour
 
         foreach(AttackSpell spell in listToSearch)
         {
-            if(spell.cardName == name)
+            if(spell.cardName.Equals(name))
             {
                 return spell;
             }
