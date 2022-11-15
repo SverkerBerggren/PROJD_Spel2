@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UnityEditor.PackageManager;
 using System.Linq;
 
+
 //using HttpClient clienten = new();
 
 //await ProcessRepositoriesAsync(clienten);
@@ -32,9 +33,9 @@ public class spreasheetTest : MonoBehaviour
         print("hej fast metoden innan wait");
         var json = await client.GetStringAsync(
             "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww?key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k ");
-
+        //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
         print(json);
-        print( json.Count());
+     //   print( json);
 
         print("hej fast metoden efter wait");
 
