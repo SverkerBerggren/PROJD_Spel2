@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using MBJson;
 using static googlespreasheetObject;
 using Unity.VisualScripting;
+using UnityEditor;
 
 
 
@@ -21,7 +22,7 @@ using Unity.VisualScripting;
 
 
 
-public class spreasheetTest : MonoBehaviour
+public class spreasheetTest : EditorWindow
 {
     public AttackSpell[] attackSpellsObjectArray;
     public List<AttackSpell> attackSpellsObjectList;
@@ -32,20 +33,35 @@ public class spreasheetTest : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            print("hej");
+            
             Task hej = ProcessRepositoriesAsync(clienten);
         }
     }
 
+    [MenuItem("Tools/spreadsheet updater")]
+    public static void ShowWindow()
+    {
+        GetWindow(typeof(spreasheetTest));
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.Label("Update from spreadsheet",EditorStyles.boldLabel);
+
+        if(GUILayout.Button("Update cards"))
+        {
+            Task theTask =  ProcessRepositoriesAsync(clienten);
+        }
+    }
 
     public async Task ProcessRepositoriesAsync(HttpClient client)
     {
-        print("hej fast metoden innan wait");
+       
         var json = await client.GetStringAsync(
             "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A1:H33&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
         //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
-           
-           print( json);
+
+        Debug.Log("hej ");
         spreadsheetGrej = new googlespreasheetObject();
         try
         {
@@ -56,7 +72,7 @@ public class spreasheetTest : MonoBehaviour
         }
         catch(Exception ex)
         {
-            print(ex.Message.ToString());
+       //     Debug.Log(ex.Message.ToString());
         }
         // print("hej fast metoden efter wait " + spreadsheetGrej.spreadsheetId ); 
 
@@ -66,17 +82,18 @@ public class spreasheetTest : MonoBehaviour
 
             attackSpellsObjectArray = Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks");
         //    attackSpellsObject = AssetBundle.LoadFromFile("Assets/ScriptableObjects/Cards/Spells/Attacks").GetComponents<AttackSpell>();
-            print(attackSpellsObjectArray.Length);
+        //    print(attackSpellsObjectArray.Length);
           //  print("attackspells object " + attackSpellsObject[0].cardName);
 
 
         }
         catch (Exception ex)
         {
-            print(ex.Message.ToString());
+                Debug.Log(ex.Message.ToString());
         }
         try
         {
+            attackSpellsObjectList = new List<AttackSpell>();
             attackSpellsObjectList.AddRange(attackSpellsObjectArray);
             int amountOfCardsChanged = 0;
             for (int i = 0; i < spreadsheetGrej.valueRanges.Count; i++)
@@ -89,8 +106,9 @@ public class spreasheetTest : MonoBehaviour
                     {
                         if (!scriptableObject.description.Equals(currentCard[3]))
                         {
-                            print("kommer den hit");
+                          //  print("kommer den hit");
                             scriptableObject.description = currentCard[3];
+                            
                             amountOfCardsChanged += 1;
                         }
 
@@ -101,12 +119,12 @@ public class spreasheetTest : MonoBehaviour
             }
             if (amountOfCardsChanged != 0)
             {
-                print(amountOfCardsChanged + " cards was changed");
+                    Debug.Log(amountOfCardsChanged + " cards was changed");
             }
         }
         catch(Exception ex)
         {
-            print(ex.Message.ToString());
+            Debug.Log(ex.Message.ToString());
         }
 
     }
