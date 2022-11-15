@@ -641,8 +641,9 @@ public class GameState : MonoBehaviour
                     drawnCards++;
                     playerChampion.champion.DrawCard(cardDisplay);
                 }
-                else if(actionOfPlayer.handPlayer.deck.deckOfCardsPlayer.Count <= 0)
+                else
                 {
+                    print("Deck is empty or the drawn card is null!!!");
                     Defeat();
                     break;
                 }
