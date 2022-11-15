@@ -6,6 +6,12 @@ using UnityEngine;
 public class BuilderCard : Spells
 {
     public int damage = 0;
+
+    public BuilderCard()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Builder;
+    }
     public override void PlaySpell()
     {
         GameState gameState = GameState.Instance;

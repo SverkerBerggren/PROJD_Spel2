@@ -8,7 +8,11 @@ public class BuilderLandmark : Landmarks
     public int damagePerLandmark = 10;
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) { }
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) 
+    { 
+        championCard = true;
+        championCardType = ChampionCardType.Builder;
+    }
 
     public override void PlaceLandmark()
     {

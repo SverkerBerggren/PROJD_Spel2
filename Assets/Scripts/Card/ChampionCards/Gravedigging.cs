@@ -8,6 +8,12 @@ public class Gravedigging : Spells
     public int amountOfCardsToReturn;
     public int topCardsInGraveyard = 0;
 
+    public Gravedigging()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Graverobber;
+    }
+
     public override void PlaySpell()
     {
         Graveyard graveyard = Graveyard.Instance;

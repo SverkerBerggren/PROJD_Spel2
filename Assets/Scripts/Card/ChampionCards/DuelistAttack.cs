@@ -7,6 +7,13 @@ public class DuelistAttack : Spells
 {
     public int damage = 30;
     private GameState gameState;
+
+    public DuelistAttack()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Duelist;
+    }
+
     public override void PlaySpell()
     {
         gameState = GameState.Instance;

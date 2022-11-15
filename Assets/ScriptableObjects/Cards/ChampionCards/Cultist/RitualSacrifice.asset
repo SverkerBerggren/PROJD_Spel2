@@ -16,13 +16,14 @@ MonoBehaviour:
   typeOfCard: 0
   description: Your active champion takes 20 damage and you draw 3 cards
   artwork: {fileID: 21300000, guid: 258e213eca7c82d42a58f18132ee702e, type: 3}
-  manaCost: 2
   maxManaCost: 2
   tag: Spell
   amountOfCardsToDraw: 2
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 0
+  championCard: 1
+  championCardType: 3
   selfInflictDamage: 20
   damageToAllOpponentCards: 0
   damageToDealToAllOpponent: 0

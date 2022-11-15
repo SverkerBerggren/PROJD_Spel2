@@ -7,7 +7,8 @@ public class TheOneWhoDrawsLandmark : Landmarks
 {
     public TheOneWhoDrawsLandmark(TheOneWhoDrawsLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
     {
-
+        championCard = true;
+        championCardType = ChampionCardType.TheOneWhoDraws;
     }
 
     public override void PlaceLandmark()

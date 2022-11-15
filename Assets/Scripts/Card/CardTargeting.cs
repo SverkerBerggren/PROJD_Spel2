@@ -32,6 +32,33 @@ public class CardTargeting : MonoBehaviour
         }
     }
 
+    private ChampionCardType WhichChampionIsActive()
+    {
+        ChampionCardType champCard = ChampionCardType.None;
+        switch (gameState.playerChampion.name)
+        {
+            case "Builder":
+                champCard = ChampionCardType.Builder;
+                break;
+            case "Duelist":
+                champCard = ChampionCardType.Duelist;
+                break;
+            case "Cultist":
+                champCard = ChampionCardType.Cultist;
+                break;
+            case "Graverobber":
+                champCard = ChampionCardType.Graverobber;
+                break;
+            case "TheOneWhoDraws":
+                champCard = ChampionCardType.TheOneWhoDraws;
+                break;
+            case "Shanker":
+                champCard = ChampionCardType.Shanker;
+                break;
+        }
+        return champCard;
+    }
+
     private void OnMouseUp()
     {
         cardMovement = GetComponent<CardMovement>();
@@ -50,6 +77,18 @@ public class CardTargeting : MonoBehaviour
         }
 
         if (cardDisplay.opponentCard == true) return;
+
+        // Checking if the card used is a champion chard
+        if (card.championCard)
+        {
+            ChampionCardType champCardType = WhichChampionIsActive();
+            if (champCardType != card.championCardType)
+            {
+                CardGoBackToStartingPosition();
+                return;
+            }          
+        }
+
 
         RaycastHit[] hitEnemy;
         hitEnemy = Physics.RaycastAll(mousePosition, Vector3.forward * 100 + Vector3.down * 55, 200f);

@@ -6,6 +6,12 @@ using UnityEngine;
 public class TheOneWhoDrawsAttack : Spells
 {
     public int damage = 10;
+
+    public TheOneWhoDrawsAttack()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.TheOneWhoDraws;
+    }
     public override void PlaySpell()
     {
         int damageBoost = ActionOfPlayer.Instance.handPlayer.cardsInHand.Count;

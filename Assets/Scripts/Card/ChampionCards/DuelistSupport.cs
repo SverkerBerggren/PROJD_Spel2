@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/DuelistSupport")]
 public class DuelistSupport : Spells
 {
+    public DuelistSupport()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Duelist;
+    }
     public override void PlaySpell()
     {      
         List<AvailableChampion> enemyChamps = GameState.Instance.opponentChampions;

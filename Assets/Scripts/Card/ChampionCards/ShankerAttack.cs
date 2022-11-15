@@ -6,6 +6,12 @@ using UnityEngine;
 public class ShankerAttack : Spells
 {
     public int damage = 0;
+
+    public ShankerAttack()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Shanker;
+    }
     public override void PlaySpell()
     {
         //Damage Equals amount of cards discarded

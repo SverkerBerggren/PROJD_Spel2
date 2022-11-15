@@ -7,7 +7,8 @@ public class DuelistLandmark : Landmarks
 {
     public DuelistLandmark(DuelistLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
     {
-
+        championCard = true;
+        championCardType = ChampionCardType.Duelist;
     }
 
     public override void PlaceLandmark()
