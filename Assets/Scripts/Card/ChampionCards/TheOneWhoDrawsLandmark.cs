@@ -11,9 +11,10 @@ public class TheOneWhoDrawsLandmark : Landmarks
         championCardType = ChampionCardType.TheOneWhoDraws;
     }
 
-    public override void PlaceLandmark()
+    public override void UpKeep()
     {
-        base.PlaceLandmark();
-        GameState.Instance.SwapActiveChampion(this);
+        base.UpKeep();
+
+
     }
 }

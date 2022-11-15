@@ -19,7 +19,8 @@ public enum ChampionCardType
     Cultist,
     TheOneWhoDraws,
     Shanker,
-    Graverobber
+    Graverobber,
+    All
 };
 
 public abstract class Card : ScriptableObject
