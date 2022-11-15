@@ -12,22 +12,18 @@ public class Duelist : Champion
 		base.WhenCurrentChampion();
 		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
-
         if (gameState.isOnline)
         {
             gameState.hasPriority = true;
             RequestPassPriority requestPassPriority = new RequestPassPriority(false);
             requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
-        }
-        else if (gameState.opponentChampion == this)
-        {
-            gameState.SwapActiveChampionEnemy();
+            return;
         }
         else
         {
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            if (gameState.opponentChampion != this)
+                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
 	}
 }

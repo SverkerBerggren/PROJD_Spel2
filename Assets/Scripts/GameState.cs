@@ -706,7 +706,7 @@ public class GameState : MonoBehaviour
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            if (!isItMyTurn)
+            if (!isItMyTurn && isOnline)
                 hasPriority = false;
             if (isOnline)
             {
@@ -865,7 +865,8 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            hasPriority = true;
+            if(isOnline)
+                hasPriority = true;
             isItMyTurn = true;
             TriggerUpKeep();
         }
@@ -889,19 +890,17 @@ public class GameState : MonoBehaviour
 
     public void ChampionDeath(Champion deadChampion)
     {
-        if (playerChampions.Count == 1)
+        SearchDeadChampion(deadChampion);
+        if (playerChampions.Count == 0)
         {
             Defeat();
             return;
         }
-        else if (opponentChampions.Count == 1)
+        else if (opponentChampions.Count == 0)
         {
             Victory();
             return;
         }
-        SearchDeadChampion(deadChampion);
-
-
     }
 
     private void SearchDeadChampion(Champion deadChampion)
