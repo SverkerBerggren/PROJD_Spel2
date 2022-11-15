@@ -500,7 +500,7 @@ public class GameState : MonoBehaviour
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
 
-        StopCoroutine(HideLandmarkPlayed());
+        StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
     }
     private IEnumerator HideCardPlayed()
