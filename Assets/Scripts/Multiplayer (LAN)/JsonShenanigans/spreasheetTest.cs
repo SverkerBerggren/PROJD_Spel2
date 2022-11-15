@@ -12,6 +12,8 @@ using MBJson;
 using static googlespreasheetObject;
 using Unity.VisualScripting;
 using UnityEditor;
+using System.Transactions;
+using System.IO;
 
 
 
@@ -57,23 +59,43 @@ public class spreasheetTest : EditorWindow
 
     public async Task ProcessRepositoriesAsync(HttpClient client)
     {
-       
+        var jsonHowBigSpreadsheet = await client.GetStringAsync(
+            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=K2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+
+        string stringToAppend = ""; 
+        try
+        {
+            googlespreasheetObject parseJsonHowBigSpreadsheet = JsonConvert.DeserializeObject<googlespreasheetObject>(jsonHowBigSpreadsheet);
+
+            stringToAppend = parseJsonHowBigSpreadsheet.valueRanges[0].values[0][0].ToString();
+            Debug.Log(stringToAppend);
+            Debug.Log(jsonHowBigSpreadsheet);
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex.Message.ToString());
+
+            
+        }
+        string key = "&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k";
+
         var json = await client.GetStringAsync(
-            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A1:H33&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:H" + stringToAppend + key);
         //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
 
-        Debug.Log("hej ");
+        
         spreadsheetGrej = new googlespreasheetObject();
+        Debug.Log(json);
         try
         {
 
             spreadsheetGrej = JsonConvert.DeserializeObject<googlespreasheetObject>(json);
-           
-            
+
+            Debug.Log(spreadsheetGrej.valueRanges[0].values.Count);
         }
         catch(Exception ex)
         {
-       //     Debug.Log(ex.Message.ToString());
+            Debug.Log(ex.Message.ToString());
         }
         // print("hej fast metoden efter wait " + spreadsheetGrej.spreadsheetId ); 
 
@@ -104,15 +126,33 @@ public class spreasheetTest : EditorWindow
                     List<string> currentCard = spreadsheetGrej.valueRanges[0].values[z];
                     AttackSpell scriptableObject;
                     if ((scriptableObject = findAttackCardFromName(attackSpellsObjectList, currentCard[0])) != null)
-                    {
-                        if (!scriptableObject.description.Equals(currentCard[3]))
+                    {   
+                        bool isDamageChanged = false;
+                        if (!currentCard[5].Equals("-"))
+                        {
+                            isDamageChanged = System.Convert.ToInt32(currentCard[5]) != scriptableObject.damage ;
+                        }
+                        if (!scriptableObject.description.Equals(currentCard[3]) || isDamageChanged)
                         {
                           //  print("kommer den hit");
                             scriptableObject.description = currentCard[3];
+                            
+                            scriptableObject.damage = System.Convert.ToInt32( currentCard[5]);
+
                             EditorUtility.SetDirty( scriptableObject);
                             amountOfCardsChanged += 1;
                         }
 
+
+
+                    }
+                    else
+                    {
+                        //StreamWriter writer = new StreamWriter("Assets/Resources/ScriptableObjects/UnimplementedCards");
+                          StreamWriter temp =  File.CreateText("D:\\Bullshitmapp");
+                            temp.WriteLine("hej hej");
+                      //  System.IO.File.WriteAllText("Assets/All unimplemented cards", currentCard[0]);
+                        
                     }
                 }
               
