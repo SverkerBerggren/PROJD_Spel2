@@ -541,7 +541,7 @@ public class GameState : MonoBehaviour
     }
     public void DestroyLandmark(TargetInfo targetInfo)
     {
-        if (targetInfo.whichList.myLandmarks)
+        if (targetInfo.whichList.opponentLandmarks)
         {
             Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
             opponentLandmarks[targetInfo.index].card = null;
@@ -551,7 +551,6 @@ public class GameState : MonoBehaviour
         {
             Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
             playerLandmarks[targetInfo.index].card = null;
-            opponentChampion.champion.WhenLandmarksDie();
         }
     }
 
