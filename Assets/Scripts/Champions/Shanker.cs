@@ -26,9 +26,7 @@ public class Shanker : Champion
 
 	public override void UpdatePassive()
 	{
-		if (gameState.isItMyTurn)
-		{
+		if(gameState.opponentChampion.champion != this)
 			passiveEffect = gameState.attacksPlayedThisTurn + "/" + attackCardsToPlay + " attacks";
-		}
     }
 }

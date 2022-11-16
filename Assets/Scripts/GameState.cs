@@ -310,13 +310,18 @@ public class GameState : MonoBehaviour
         if(lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            //Jiang: instansiera healing prefab
+            EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
+
         }
-        if(lE.opponentChampions)
+        if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            //Jiang: instansiera healing prefab
+            EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
-                
-        if(isOnline)
+
+        if (isOnline)
         {
             List<TargetAndAmount> list = new List<TargetAndAmount>();
             list.Add(targetAndAmount);
@@ -489,8 +494,8 @@ public class GameState : MonoBehaviour
         cardDisp.card = landmark;
         cardDisp.manaCost = landmark.maxManaCost;
 
-        StopCoroutine(HideLandmarkPlayed());
-        StartCoroutine(HideLandmarkPlayed());
+        StopCoroutine(HideCardPlayed());
+        StartCoroutine(HideCardPlayed());
     }
 
     public void ShowPlayedCard(Card card)
@@ -500,7 +505,7 @@ public class GameState : MonoBehaviour
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
 
-        StopCoroutine(HideLandmarkPlayed());
+        StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
     }
     private IEnumerator HideCardPlayed()
@@ -509,14 +514,6 @@ public class GameState : MonoBehaviour
         playedCardGO.GetComponent<CardDisplay>().card = null;
         playedCardGO.SetActive(false);
     }
-
-    private IEnumerator HideLandmarkPlayed()
-    {
-        yield return new WaitForSeconds(3f);
-        playedCardGO.GetComponent<CardDisplay>().card = null;
-        playedCardGO.SetActive(false);
-    }
-
 
     public void DestroyLandmark()
     {
@@ -560,9 +557,9 @@ public class GameState : MonoBehaviour
     {
         string discardedCard = "";
         if (yourself)
-            discardedCard = actionOfPlayer.handPlayer.DiscardRandomCardInHand().name;
+            discardedCard = actionOfPlayer.handPlayer.DiscardRandomCardInHand().cardName;
         else
-            discardedCard = actionOfPlayer.handOpponent.DiscardRandomCardInHand().name;
+            discardedCard = actionOfPlayer.handOpponent.DiscardRandomCardInHand().cardName;
         return discardedCard;
     }
 
@@ -637,10 +634,19 @@ public class GameState : MonoBehaviour
                 else
                     cardDisplay.card = specificCard;
 
-                cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-                cardSlot.SetActive(true);
-                drawnCards++;
-                playerChampion.champion.DrawCard(cardDisplay);
+                if (cardDisplay.card != null)
+                {
+                    cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+                    cardSlot.SetActive(true);
+                    drawnCards++;
+                    playerChampion.champion.DrawCard(cardDisplay);
+                }
+                else
+                {
+                    print("Deck is empty or the drawn card is null!!!");
+                    Defeat();
+                    break;
+                }
             }
         }
 
@@ -678,8 +684,8 @@ public class GameState : MonoBehaviour
                     cardDisplay.card = specificCard;
                     cardDisplay.opponentCard = true;
                     cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
-
                 }
+
                 cardSlot.SetActive(true);
                 drawnCards++;
                 opponentChampion.champion.DrawCard(cardDisplay);
@@ -708,10 +714,10 @@ public class GameState : MonoBehaviour
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            if (!isItMyTurn)
-                hasPriority = false;
             if (isOnline)
             {
+                if (!isItMyTurn)
+                    hasPriority = false;
                 RequestPassPriority requestPassPriority = new RequestPassPriority(true);
                 requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
                 ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
@@ -722,13 +728,19 @@ public class GameState : MonoBehaviour
     }
 
     public void SwapActiveChampion(Card card)
-    {   
+    {
+        ListEnum lE = new ListEnum();
+        lE.myChampions = true;
         if (isOnline)
+            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+        else
         {
-            ListEnum lE = new ListEnum();
-            lE.myChampions = true;
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);                    
-        }                    
+            if(card)
+                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            else
+                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+
+        }
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
@@ -861,7 +873,8 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            hasPriority = true;
+            if(isOnline)
+                hasPriority = true;
             isItMyTurn = true;
             TriggerUpKeep();
         }
@@ -885,19 +898,17 @@ public class GameState : MonoBehaviour
 
     public void ChampionDeath(Champion deadChampion)
     {
-        if (playerChampions.Count == 1)
+        SearchDeadChampion(deadChampion);
+        if (playerChampions.Count == 0)
         {
             Defeat();
             return;
         }
-        else if (opponentChampions.Count == 1)
+        else if (opponentChampions.Count == 0)
         {
             Victory();
             return;
         }
-        SearchDeadChampion(deadChampion);
-
-
     }
 
     private void SearchDeadChampion(Champion deadChampion)
@@ -910,6 +921,7 @@ public class GameState : MonoBehaviour
         else if (!isOnline && opponentChampion.champion == deadChampion)
         {          
             SwapActiveChampionEnemy();
+            RemoveChampion(deadChampion);
         }
 
 		if (isOnline && opponentChampion.champion == deadChampion)

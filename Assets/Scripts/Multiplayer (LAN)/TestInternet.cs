@@ -51,12 +51,7 @@ public class TestInternet : MonoBehaviour
         foreach (GameAction action in response.OpponentActions)
         {
             
-            if(action.cardPlayed)
-            {
-                PlayCard(action.cardId);
 
-                Destroy(GameObject.Find("Card (1)"));
-            }
 
             print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
@@ -86,21 +81,13 @@ public class TestInternet : MonoBehaviour
             if (action is GameActionDiscardCard)
             {
               
-
-
-
-
                 GameActionDiscardCard theAction = (GameActionDiscardCard)action;
-
-
 
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    if (card.Equals("")) // Fixing later
-                    {
-                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
-                    }
-
+                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+                    actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
                 }
 
             }

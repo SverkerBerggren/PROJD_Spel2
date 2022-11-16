@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -8,6 +9,17 @@ public enum CardType
     Spell,
     Landmark,
     Attack
+};
+
+public enum ChampionCardType
+{
+    None,
+    Duelist,
+    Builder,
+    Cultist,
+    TheOneWhoDraws,
+    Shanker,
+    Graverobber
 };
 
 public abstract class Card : ScriptableObject
@@ -19,7 +31,7 @@ public abstract class Card : ScriptableObject
     public Sprite artwork;
     public int maxManaCost;
 
-    public string tag;   
+    public string tag;
 
     private Champion target;
     private LandmarkDisplay landmarkTarget;
@@ -28,6 +40,9 @@ public abstract class Card : ScriptableObject
     public int amountOfCardsToDiscard = 0;
     public bool discardCardsYourself = true;
     public bool targetable = false;
+
+    public bool championCard = false;
+    public ChampionCardType championCardType = ChampionCardType.None;
 
   
     public Champion Target { get { return target; } set { target = value; } }
@@ -45,7 +60,6 @@ public abstract class Card : ScriptableObject
         
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
-        placement.index = 100;
 
         if (typeOfCard != CardType.Landmark)
         {

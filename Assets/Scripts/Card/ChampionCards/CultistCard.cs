@@ -10,6 +10,12 @@ public class CultistCard : Spells
     [Header("Deluge")]
     public bool damageToAllOpponentCards;
     public int damageToDealToAllOpponent = 0;
+
+    public CultistCard()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Cultist;
+    }
     public override void PlaySpell()
     {
         GameState gameState = GameState.Instance;

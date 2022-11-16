@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
 using TMPro;
+using System.Linq;
 
 public class ActionOfPlayer : MonoBehaviour
 {
@@ -117,11 +118,13 @@ public class ActionOfPlayer : MonoBehaviour
 
                 hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
                 hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
-                hand.cardsInHand.Add(hand.cardSlotsInHand[index]);
                 hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card = null;
-                hand.cardsInHand.Remove(hand.cardSlotsInHand[i]);
+                
+                if (hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>())
+                {
+                    hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>().health = hand.cardSlotsInHand[i].GetComponent<LandmarkDisplay>().health;
+                }
             }
         }
-
     }
 }

@@ -23,6 +23,13 @@ public class AttackSpell : Spells
         gameState = GameState.Instance;
         if (damageEqualsToYourChampionHP)
             DamageAsYourChampionHP();
+
+        if (damageToBothActiveChampions)
+        {
+            DamageToBothActiveChampions();
+            return;
+        }
+
         if (Target != null || LandmarkTarget)
             gameState.CalculateBonusDamage(damage, this);
 
@@ -32,16 +39,13 @@ public class AttackSpell : Spells
             DestroyLandmark();
         }
 
-        if (damageToBothActiveChampions)
-        {
-            DamageToBothActiveChampions();
-        }
     }
 
     private void DamageToBothActiveChampions()
     {
         Target = gameState.opponentChampion.champion;
         gameState.CalculateBonusDamage(damage, this);
+
         Target = gameState.playerChampion.champion;
         gameState.CalculateBonusDamage(damage, this);
     }

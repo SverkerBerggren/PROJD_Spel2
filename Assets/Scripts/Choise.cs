@@ -7,8 +7,6 @@ using Unity.VisualScripting;
 
 public class Choise : MonoBehaviour
 {
-    public ListEnum listEnum;
-
     public List<TargetInfo> chosenTargets = new List<TargetInfo>();
     public int amountOfTargets = 0;
     public GameObject choiceButtonPrefab;
@@ -60,7 +58,6 @@ public class Choise : MonoBehaviour
 
         choiceMenu.SetActive(true);
 
-        
 
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
@@ -129,6 +126,8 @@ public class Choise : MonoBehaviour
     private void SwitchChamp(bool died)
     {
         gameState.SwitchMyChampions(chosenTargets[0]);
+        if(died)
+            gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
 
         if (gameState.isOnline)
         {
@@ -140,7 +139,6 @@ public class Choise : MonoBehaviour
 
             if(died)
             {
-                gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
                 RequestPassPriority requestPassPriority = null;
                 if (gameState.playerChampion.name.Equals("Duelist") || gameState.isItMyTurn)
                     requestPassPriority = new RequestPassPriority(false);
@@ -156,21 +154,32 @@ public class Choise : MonoBehaviour
 
     }
 
-
-
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
-    void Update()
+    private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
     {
-        
+        switch (theMethod)
+        {
+            case WhichMethod.switchChampion:
+                if (list.myChampions == true && gameState.playerChampions.Count <= 1)
+                {
+                    return false;
+                }
+                else if (list.opponentChampions == true && gameState.opponentChampions.Count <= 1)
+                {
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 
-    public void ChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod)
+    public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod)
     {
-        IEnumerator enumerator = ShowChoiceMenu(listEnum, amountToTarget, theMethod, 0.01f);
-        StartCoroutine(enumerator);
+        //Måste lägga in om choicen failar checkifchoice att den ska passa priority om den ska göra det
+        if (CheckIfChoice(theMethod, list))
+        {
+            IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
+            StartCoroutine(enumerator);
+        }
     }
 }
 

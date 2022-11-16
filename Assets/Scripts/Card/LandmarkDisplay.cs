@@ -52,12 +52,7 @@ public class LandmarkDisplay : MonoBehaviour
 
     public void DestroyLandmark()
     {
-        if (opponentLandmarks)
-            Graveyard.Instance.AddCardToGraveyardOpponent(card);
-        else
-            Graveyard.Instance.AddCardToGraveyard(card);
-        card = null;
-
+        LandmarkDead();
 
         if (gameState.isOnline)
 		{
