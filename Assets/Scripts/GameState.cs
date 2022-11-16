@@ -545,11 +545,13 @@ public class GameState : MonoBehaviour
         {
             Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
             opponentLandmarks[targetInfo.index].card = null;
+            playerChampion.champion.WhenLandmarksDie();
         }
         else
         {
             Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
-            playerLandmarks[targetInfo.index].card = null; 
+            playerLandmarks[targetInfo.index].card = null;
+            opponentChampion.champion.WhenLandmarksDie();
         }
     }
 
