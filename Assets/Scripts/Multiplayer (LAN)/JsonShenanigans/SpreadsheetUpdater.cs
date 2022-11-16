@@ -44,7 +44,7 @@ public class SpreadsheetUpdater : EditorWindow
     private int attackIndex = 5;
 
     private int amountOfCardsChanged = 0;
-    private bool unimplementedCards = false;
+    private bool updatedFiles = false;
 
     private void Update()
     {
@@ -74,6 +74,7 @@ public class SpreadsheetUpdater : EditorWindow
 
     public async Task ProcessRepositoriesAsync(HttpClient client)
     {   
+        Debug.ClearDeveloperConsole();
         var jsonHowBigSpreadsheet = await client.GetStringAsync(
             "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=K2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
 
@@ -83,8 +84,6 @@ public class SpreadsheetUpdater : EditorWindow
             SpreadsheetData parseJsonHowBigSpreadsheet = JsonConvert.DeserializeObject<SpreadsheetData>(jsonHowBigSpreadsheet);
 
             stringToAppend = parseJsonHowBigSpreadsheet.valueRanges[0].values[0][0].ToString();
-            Debug.Log(stringToAppend);
-            Debug.Log(jsonHowBigSpreadsheet);
             string key = "&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k";
 
             var json = await client.GetStringAsync(
@@ -93,7 +92,6 @@ public class SpreadsheetUpdater : EditorWindow
 
 
             spreadsheetData = new SpreadsheetData();
-            Debug.Log(json);
             spreadsheetData = JsonConvert.DeserializeObject<SpreadsheetData>(json);
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
@@ -154,8 +152,8 @@ public class SpreadsheetUpdater : EditorWindow
 
         amountOfCardsChanged = 0; 
 
-        if (unimplementedCards)
-            Debug.Log("Tab in and out to see the unimplemented cards!");
+        if (updatedFiles)
+            Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
     }
 
     private void ChangeAttackCards(List<string> currentCard)
@@ -171,6 +169,7 @@ public class SpreadsheetUpdater : EditorWindow
             }
             if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || isDamageChanged || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
+                updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
                 scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
@@ -186,7 +185,7 @@ public class SpreadsheetUpdater : EditorWindow
         }
         else
         {
-            unimplementedCards = true;
+            updatedFiles = true;
             StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
             temp.Close();
         }
@@ -198,8 +197,9 @@ public class SpreadsheetUpdater : EditorWindow
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
-            if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[healthIndex])) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
+            if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.minionHealth.Equals(Convert.ToInt32(currentCard[healthIndex])) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
+                updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
                 scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);    
@@ -212,7 +212,7 @@ public class SpreadsheetUpdater : EditorWindow
         }
         else
         {
-            unimplementedCards = true;
+            updatedFiles = true;
             StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
             temp.Close();
         }
