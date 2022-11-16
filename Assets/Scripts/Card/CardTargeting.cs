@@ -79,7 +79,7 @@ public class CardTargeting : MonoBehaviour
         if (cardDisplay.opponentCard == true) return;
 
         // Checking if the card used is a champion chard
-        if (card.championCard)
+        if (card.championCardType != ChampionCardType.All && card.championCard)
         {
             ChampionCardType champCardType = WhichChampionIsActive();
             if (champCardType != card.championCardType)
@@ -177,9 +177,6 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
-
-
-
         if (gameObjectHit.CompareTag("Champion"))
         {
             card.Target = gameObjectHit.GetComponent<AvailableChampion>().champion;

@@ -9,7 +9,7 @@ public class CardMovement : MonoBehaviour
     [System.NonSerialized] public Vector3 mousePosition;
     private CardDisplay cardDisplay;
 
-    private bool clickedOnCard;
+    [System.NonSerialized] public bool clickedOnCard;
 
     private 
 
