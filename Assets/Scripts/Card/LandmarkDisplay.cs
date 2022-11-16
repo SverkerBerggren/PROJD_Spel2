@@ -90,9 +90,10 @@ public class LandmarkDisplay : MonoBehaviour
             gameState.playerChampion.champion.WhenLandmarksDie();
             graveyard.AddCardToGraveyard(card);
         }
+        if (!opponentLandmarks)
+            gameState.playerChampion.champion.WhenLandmarksDie();
         card.LandmarkEffectTakeBack();
         card.WhenLandmarksDie();
-        gameState.playerChampion.champion.WhenLandmarksDie();
         card = null;
     }
 
