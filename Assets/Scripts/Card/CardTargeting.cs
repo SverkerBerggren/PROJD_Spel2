@@ -177,9 +177,6 @@ public class CardTargeting : MonoBehaviour
 
     private void PlayedATargetableCard()
     {
-
-
-
         if (gameObjectHit.CompareTag("Champion"))
         {
             card.Target = gameObjectHit.GetComponent<AvailableChampion>().champion;
