@@ -35,8 +35,6 @@ public class AvailableChampion : MonoBehaviour
     public SpriteRenderer champCard;
     //private ArmorEffect armorEffect;
 
-    private GameObject prevGO = null; 
-
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text passiveEffect;
@@ -52,7 +50,6 @@ public class AvailableChampion : MonoBehaviour
         passiveEffect.text = champion.passiveEffect;
         health = champion.health;
         maxHealth = champion.maxHealth;
-		//InvokeRepeating(nameof(Deal5Damage), 5, 2);
 	}
 
 	private void Start()
