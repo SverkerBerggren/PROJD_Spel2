@@ -198,10 +198,11 @@ public class SpreadsheetUpdater : EditorWindow
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
-            if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[healthIndex])))
+            if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[healthIndex])) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
+                scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);    
                 EditorUtility.SetDirty(scriptableObject);
                 amountOfCardsChanged += 1;
 
