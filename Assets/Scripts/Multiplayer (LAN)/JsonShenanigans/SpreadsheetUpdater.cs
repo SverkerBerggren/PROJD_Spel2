@@ -107,7 +107,7 @@ public class SpreadsheetUpdater : EditorWindow
         }
         catch(Exception ex)
         {
-            Debug.Log(ex.Message.ToString());   
+            Debug.LogError(ex.Message.ToString());   
         }
     }
 
@@ -172,13 +172,15 @@ public class SpreadsheetUpdater : EditorWindow
             if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || isDamageChanged || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
                 scriptableObject.description = currentCard[descriptionIndex];
-                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
-                scriptableObject.damage = Convert.ToInt32(currentCard[descriptionIndex]);
+                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
+                scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
+        
 
                 EditorUtility.SetDirty(scriptableObject);
                 amountOfCardsChanged += 1;
 
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+                Debug.Log("kommer den hit 4");
                 temp.Close();
             }
         }
@@ -192,7 +194,7 @@ public class SpreadsheetUpdater : EditorWindow
     
     private void ChangeLandmarkCards(List<string> currentCard)
     {
-        Landmarks scriptableObject = (Landmarks)FindCardFromName(attackSpellsObjects.Cast<Card>().ToList(), currentCard[0]);
+        Landmarks scriptableObject = (Landmarks)FindCardFromName(landmarkObjects.Cast<Card>().ToList(), currentCard[0]);
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
