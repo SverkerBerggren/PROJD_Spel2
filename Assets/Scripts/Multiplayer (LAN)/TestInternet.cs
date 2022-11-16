@@ -338,7 +338,7 @@ public class TestInternet : MonoBehaviour
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
 
                 GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-
+                GameState.Instance.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
 				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;

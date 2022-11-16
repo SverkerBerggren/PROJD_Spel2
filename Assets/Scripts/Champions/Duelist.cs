@@ -18,6 +18,7 @@ public class Duelist : Champion
             RequestPassPriority requestPassPriority = new RequestPassPriority(false);
             requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
+            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
             return;
         }
         else
