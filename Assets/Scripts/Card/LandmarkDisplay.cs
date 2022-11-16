@@ -92,6 +92,7 @@ public class LandmarkDisplay : MonoBehaviour
         }
         card.LandmarkEffectTakeBack();
         card.WhenLandmarksDie();
+        gameState.playerChampion.champion.WhenLandmarksDie();
         card = null;
     }
 
