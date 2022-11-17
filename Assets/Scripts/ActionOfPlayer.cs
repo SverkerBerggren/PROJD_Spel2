@@ -197,12 +197,13 @@ public class ActionOfPlayer : MonoBehaviour
         if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
-            if (hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card != null)
+            cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
+            if (cardDisplayToSwapFrom.card != null)
             {
                 if (i - 1 < 0) continue;
 
                 cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
-                cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
+                
 
                 if (isPlayer)
                 {
