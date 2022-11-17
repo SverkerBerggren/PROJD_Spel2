@@ -66,10 +66,10 @@ public class TestInternet : MonoBehaviour
             
                 GameActionDrawCard theAction = (GameActionDrawCard)action;
                 
-                if(theAction.amountToDrawOpponent > 0)
+/*                if(theAction.amountToDrawOpponent > 0)
                 {
                     gameState.DrawCard(theAction.amountToDrawOpponent, null); 
-                }
+                }*/
                 if(theAction.amountToDraw > 0)
                 {
 					ActionOfPlayer.Instance.DrawCardPlayer(theAction.amountToDraw, null, false);
