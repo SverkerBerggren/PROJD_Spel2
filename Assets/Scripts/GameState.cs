@@ -681,5 +681,8 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         calculations.CalculateHandManaCost();
+
+        playerChampion.UpdateTextOnCard();
+        opponentChampion.UpdateTextOnCard();
     }
 }

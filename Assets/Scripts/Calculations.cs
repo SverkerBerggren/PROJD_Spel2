@@ -63,17 +63,22 @@ public class Calculations : MonoBehaviour
 		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
 		{
 			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
-			int manaCost = cardDisplay.card.maxManaCost;
-			manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
+			cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+            cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
 			
             foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 			{
 				if (landmarkDisplay.card == null) continue;
-				manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
+                cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
 				
 			}
+
 			//ContinousEffects
-			cardDisplay.manaCost = manaCost;
+
+			if (cardDisplay.manaCost <= 0)
+				cardDisplay.manaCost = 0;
+			else if (cardDisplay.manaCost > 10)
+				cardDisplay.manaCost = 10;
         }
 	}
 

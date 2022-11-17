@@ -137,7 +137,7 @@ public class AvailableChampion : MonoBehaviour
         timer = 0f;
     }
 
-    private void UpdateTextOnCard()
+    public void UpdateTextOnCard()
     {
         if (champion == null) return;
 
@@ -146,6 +146,7 @@ public class AvailableChampion : MonoBehaviour
         maxHealth = champion.maxHealth;
         shield = champion.shield;
 
+        champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
 
@@ -161,6 +162,7 @@ public class AvailableChampion : MonoBehaviour
                 shieldText.text = "";
             }
         }
+
 	}
 
     public void FixedUpdate()
@@ -169,11 +171,6 @@ public class AvailableChampion : MonoBehaviour
         {
             //armorEffect.DamageArmor(10);
         }
-
-
-        champion.UpdatePassive();
-   
-        UpdateTextOnCard();
 
         SwapMesh();
 
