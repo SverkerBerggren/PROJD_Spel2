@@ -236,6 +236,7 @@ public class TestInternet : MonoBehaviour
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                 IEnumerator enumerator = actionOfPlayer.InvokeChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+                print(actionOfPlayer.handOpponent.cardsInHand.Count - 1);
                 //actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());                
                 StartCoroutine(enumerator);
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
