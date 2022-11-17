@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking.Types;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class TestInternet : MonoBehaviour
 {
@@ -40,11 +41,6 @@ public class TestInternet : MonoBehaviour
 
         clientConnection = ClientConnection.Instance;
         
-    }
-
-    private void ChangeCardOrderInvoke()
-    {
-        ActionOfPlayer.Instance.ChangeCardOrder(false, ActionOfPlayer.Instance.handOpponent.cardsInHand[ActionOfPlayer.Instance.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
     }
 
     public void PerformOpponentsActions(ServerResponse response)
@@ -102,12 +98,12 @@ public class TestInternet : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        GameState.Instance.playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        GameState.Instance.opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
                     }
                 }
                 print("hur mycket skulle healen heala " + castedAction.targetsToHeal[0].amount);
@@ -121,23 +117,23 @@ public class TestInternet : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        GameState.Instance.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, GameState.Instance.playerChampion.gameObject);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, gameState.playerChampion.gameObject);
                     }
                     if (targetAndAmount.targetInfo.whichList.opponentLandmarks)
                     {
-                        GameState.Instance.playerLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
+                        gameState.playerLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        GameState.Instance.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, GameState.Instance.opponentChampion.gameObject);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, gameState.opponentChampion.gameObject);
                     }
                     if (targetAndAmount.targetInfo.whichList.myLandmarks)
                     {
-                        GameState.Instance.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
+                        gameState.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                 }
-                if (GameState.Instance.opponentChampion.animator != null)
-                    GameState.Instance.opponentChampion.animator.SetTrigger("Attack");
+                if (gameState.opponentChampion.animator != null)
+                    gameState.opponentChampion.animator.SetTrigger("Attack");
 
                 //GameActionDamage theAction = (GameActionDamage)action;
 
@@ -154,12 +150,12 @@ public class TestInternet : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        GameState.Instance.playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        GameState.Instance.opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
                     }
                 }
 
@@ -171,7 +167,7 @@ public class TestInternet : MonoBehaviour
 
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
-                GameState.Instance.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
+                gameState.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
 
 
                 
@@ -186,7 +182,7 @@ public class TestInternet : MonoBehaviour
                 for (int i = 0; i < theAction.landmarksToDestroy.Count; i++)
                 {   
                     TargetInfo targetInfo = theAction.landmarksToDestroy[i];
-                    GameState.Instance.DestroyLandmark(targetInfo);
+                    gameState.DestroyLandmark(targetInfo);
                 }
 
                 //Draw card opponents
@@ -234,23 +230,24 @@ public class TestInternet : MonoBehaviour
                 Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
                 if (cardPlayed.typeOfCard == CardType.Landmark)
-                    GameState.Instance.ShowPlayedCardLandmark((Landmarks)cardPlayed);
+                    gameState.ShowPlayedCardLandmark((Landmarks)cardPlayed);
                 else
-                    GameState.Instance.ShowPlayedCard(cardPlayed);
-
+                    gameState.ShowPlayedCard(cardPlayed);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                Invoke(nameof(ChangeCardOrderInvoke),0.05f);
-                //;                
-                
-                //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
+
+                actionOfPlayer.handOpponent.FixCardOrderInHand();
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+            
+
+            //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
 
-                //print("tog den bort kort fran handen " + test);
-                //GameActionPlayCard theAction = (GameActionPlayCard)action;
+            //print("tog den bort kort fran handen " + test);
+            //GameActionPlayCard theAction = (GameActionPlayCard)action;
 
-                //Draw card opponents
+            //Draw card opponents
 
-            }    
+        }    
             if (action  is GameActionOpponentDiscardCard)
             {   
 
@@ -326,7 +323,7 @@ public class TestInternet : MonoBehaviour
                 GameActionPassPriority castedAction = (GameActionPassPriority)action;
                 print("skickar den en gameAction pass priority");
                 print(castedAction.priority);
-                GameState.Instance.hasPriority = castedAction.priority;
+                gameState.hasPriority = castedAction.priority;
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
@@ -339,8 +336,8 @@ public class TestInternet : MonoBehaviour
                 print("spelar den en landmark");
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
 
-                GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-                GameState.Instance.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
+                gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
+                gameState.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
@@ -350,8 +347,8 @@ public class TestInternet : MonoBehaviour
 
             
 
-
-
+            if (gameState != null)
+                gameState.Refresh();
 
 
 

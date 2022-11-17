@@ -19,7 +19,9 @@ public class Landmarks : Card
 
     public override void PlayCard()
     {
+        base.PlayCard();
         PlaceLandmark();
+        GameState.Instance.Refresh();
     }
 
     public void TakeDamage(int damageToTake)
@@ -48,6 +50,8 @@ public class Landmarks : Card
     public virtual void WhenCurrentChampion() { }
 
     public virtual void WhenLandmarksDie() { }
+
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
 
 
     public override string WriteOutCardInfo()

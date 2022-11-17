@@ -104,6 +104,8 @@ public abstract class Champion : ScriptableObject
 
     public virtual void UpdatePassive() {}
 
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
+
     public virtual void Death()
     {
 

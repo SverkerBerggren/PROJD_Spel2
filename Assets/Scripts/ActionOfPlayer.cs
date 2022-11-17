@@ -182,37 +182,33 @@ public class ActionOfPlayer : MonoBehaviour
 		return discardedCard;
 	}
 
-    public IEnumerator InvokeChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
-    {
-        yield return new WaitForSeconds(0.1f);
-        ChangeCardOrder(isPlayer, cardDisplay);
-    }
-
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
-        Hand hand;
         if (isPlayer)
-            hand = handPlayer;
+        {
+            handPlayer.FixCardOrderInHand();
+        }
         else
         {
             cardDisplay.card = null;
+            handOpponent.FixCardOrderInHand();
             return;
         }
             
 
-        int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
         CardDisplay cardDisplayToSwapTo;
         CardDisplay cardDisplayToSwapFrom = null;
         cardDisplay.card = null;
         if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
-        for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
+        for (int i = index + 1; i < handPlayer.cardSlotsInHand.Count; i++)
         {
-            cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
+            cardDisplayToSwapFrom = handPlayer.cardSlotsInHand[i].GetComponent<CardDisplay>();
             if (cardDisplayToSwapFrom.card != null)
             {
                 if (i - 1 < 0) continue;
 
-                cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
+                cardDisplayToSwapTo = handPlayer.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
                 
 
                 if (isPlayer)
@@ -226,7 +222,9 @@ public class ActionOfPlayer : MonoBehaviour
                 }
 
                 cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+                cardDisplayToSwapFrom.card = null;
             }
         }
+        handPlayer.FixCardOrderInHand();
     }
 }
