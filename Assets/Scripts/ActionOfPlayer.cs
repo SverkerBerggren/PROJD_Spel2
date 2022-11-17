@@ -191,6 +191,8 @@ public class ActionOfPlayer : MonoBehaviour
             hand = handOpponent;
 
         int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        CardDisplay cardDisplayToSwapTo;
+        CardDisplay cardDisplayToSwapFrom = null;
         //cardDisplay.card = null;
         if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
@@ -199,8 +201,8 @@ public class ActionOfPlayer : MonoBehaviour
             {
                 if (i - 1 < 0) continue;
 
-                CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
-                CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
+                cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
+                cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
                 if (isPlayer)
                 {
@@ -213,8 +215,10 @@ public class ActionOfPlayer : MonoBehaviour
                 }
 
                 cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
-                cardDisplayToSwapFrom.card = null;
+                
             }
         }
+        if (cardDisplayToSwapFrom != null)
+            cardDisplayToSwapFrom.card = null;
     }
 }
