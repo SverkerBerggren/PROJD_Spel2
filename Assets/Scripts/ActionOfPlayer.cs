@@ -182,6 +182,12 @@ public class ActionOfPlayer : MonoBehaviour
 		return discardedCard;
 	}
 
+    public IEnumerator InvokeChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
+    {
+        yield return new WaitForSeconds(0.02f);
+        ChangeCardOrder(isPlayer, cardDisplay);
+    }
+
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
         Hand hand;
