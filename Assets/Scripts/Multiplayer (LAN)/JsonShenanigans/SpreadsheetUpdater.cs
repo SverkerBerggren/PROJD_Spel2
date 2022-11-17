@@ -158,6 +158,8 @@ public class SpreadsheetUpdater : EditorWindow
 
     private void ChangeAttackCards(List<string> currentCard)
     {
+        List<string> oldCard;
+        
         AttackSpell scriptableObject = (AttackSpell)FindCardFromName(attackSpellsObjects.Cast<Card>().ToList(), currentCard[0]);
         string textName = currentCard[ cardNameIndex] + ".txt";
         if (scriptableObject != null)
@@ -169,6 +171,12 @@ public class SpreadsheetUpdater : EditorWindow
             }
             if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || isDamageChanged || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
+                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+                temp.WriteLine("Old Card");
+                
+                temp.WriteLine( scriptableObject.ToString());
+
+
                 updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
@@ -177,10 +185,11 @@ public class SpreadsheetUpdater : EditorWindow
 
                 EditorUtility.SetDirty(scriptableObject);
                 amountOfCardsChanged += 1;
+                temp.WriteLine("\nNew Card");
+				
+                temp.Write(scriptableObject.ToString());
 
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-                Debug.Log("kommer den hit 4");
-                temp.Close();
+				temp.Close();
             }
         }
         else
