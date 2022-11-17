@@ -50,9 +50,9 @@ public class Landmarks : Card
     public virtual void WhenLandmarksDie() { }
 
 
-    public override string ToString()
+    public override string WriteOutCardInfo()
     {
-        string lineToWriteOut = base.ToString();
+        string lineToWriteOut = base.WriteOutCardInfo();
         lineToWriteOut = "\nMinionHealth: " + minionHealth;
         return lineToWriteOut;
     }

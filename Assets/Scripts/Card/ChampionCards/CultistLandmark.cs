@@ -18,9 +18,9 @@ public class CultistLandmark : Landmarks
         return damage + GameState.Instance.attacksPlayedThisTurn * this.damage;
     }
 
-    public override string ToString()
+    public override string WriteOutCardInfo()
     {
-        string lineToWriteOut = base.ToString();
+        string lineToWriteOut = base.WriteOutCardInfo();
         lineToWriteOut = "\nDamage: " + damage;
         return lineToWriteOut;
     }

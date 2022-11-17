@@ -90,7 +90,7 @@ public abstract class Card : ScriptableObject
         GameState.Instance.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    
-    public override string ToString()
+    public virtual string WriteOutCardInfo()
     {
         string lineToWriteOut = null;
         lineToWriteOut = "Cardname: " +cardName + "\nDescription:  " + description + "\nTypeOfCard: " + typeOfCard + "\nMaxMana: " + maxManaCost + 
@@ -98,4 +98,6 @@ public abstract class Card : ScriptableObject
             "\nTargetable: " + targetable + "\nChampionCard: " + championCard + "\nChampionCardType: " + championCardType;
         return lineToWriteOut; 
     }
+
+
 }

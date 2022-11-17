@@ -20,9 +20,9 @@ public class TheOneWhoDrawsAttack : Spells
         if (damage < 0)       
             damage = 0;
     }
-    public override string ToString()
+    public override string WriteOutCardInfo()
     {
-        string lineToWriteOut = base.ToString();
+        string lineToWriteOut = base.WriteOutCardInfo();
         lineToWriteOut = "\nDamage: " + damage;
         return lineToWriteOut;
     }
