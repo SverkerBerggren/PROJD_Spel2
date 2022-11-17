@@ -236,7 +236,7 @@ public class TestInternet : MonoBehaviour
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
-                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());                
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());                
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
@@ -338,7 +338,6 @@ public class TestInternet : MonoBehaviour
                 GameState.Instance.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
                 GameState.Instance.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
 				//GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;
 
 				//Draw card opponents
