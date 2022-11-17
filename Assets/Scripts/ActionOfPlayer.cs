@@ -182,12 +182,6 @@ public class ActionOfPlayer : MonoBehaviour
 		return discardedCard;
 	}
 
-    public IEnumerator InvokeChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
-    {
-        yield return new WaitForSeconds(0.1f);
-        ChangeCardOrder(isPlayer, cardDisplay);
-    }
-
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
         
@@ -197,11 +191,8 @@ public class ActionOfPlayer : MonoBehaviour
             hand = handPlayer;
             hand.FixCardOrderInHand();
         }
-
         else
         {
-            hand = handOpponent;
-            hand.FixCardOrderInHand();
             cardDisplay.card = null;
             return;
         }

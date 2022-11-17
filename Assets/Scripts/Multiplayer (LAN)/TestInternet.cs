@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking.Types;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class TestInternet : MonoBehaviour
 {
@@ -234,6 +235,7 @@ public class TestInternet : MonoBehaviour
                     GameState.Instance.ShowPlayedCard(cardPlayed);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
+                actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             
 
