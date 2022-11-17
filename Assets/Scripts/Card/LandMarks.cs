@@ -52,8 +52,7 @@ public class Landmarks : Card
 
     public override string ToString()
     {
-        base.ToString();
-        string lineToWriteOut = null;
+        string lineToWriteOut = base.ToString();
         lineToWriteOut = "\nMinionHealth: " + minionHealth;
         return lineToWriteOut;
     }

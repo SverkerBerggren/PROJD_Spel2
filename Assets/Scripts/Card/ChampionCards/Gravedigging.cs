@@ -42,8 +42,7 @@ public class Gravedigging : Spells
 
     public override string ToString()
     {
-        base.ToString();
-        string lineToWriteOut = null;
+        string lineToWriteOut = base.ToString();
         lineToWriteOut = "\nAmountOfCardsToReturn: " + amountOfCardsToReturn + "\nTopCardInGraveyard: " + topCardsInGraveyard;
         return lineToWriteOut;
     }
