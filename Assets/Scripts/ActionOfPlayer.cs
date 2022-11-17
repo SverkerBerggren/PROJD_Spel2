@@ -184,7 +184,6 @@ public class ActionOfPlayer : MonoBehaviour
 
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
-
         Hand hand;
         if (isPlayer)
             hand = handPlayer;
@@ -203,13 +202,13 @@ public class ActionOfPlayer : MonoBehaviour
                 CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
                 CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
-                if (cardDisplayToSwapTo.card.typeOfCard == CardType.Landmark)
+                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+                cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
+
+                if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
                 {
                     cardDisplayToSwapTo.hpText.text = cardDisplayToSwapFrom.hpText.text;
                 }
-
-                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
-                cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
 
                 cardDisplayToSwapFrom.card = null;
             }
