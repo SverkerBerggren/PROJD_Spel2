@@ -227,5 +227,6 @@ public class ActionOfPlayer : MonoBehaviour
                 cardDisplayToSwapFrom.card = null;
             }
         }
+        hand.FixCardOrderInHand();
     }
 }
