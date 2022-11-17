@@ -202,9 +202,10 @@ public class ActionOfPlayer : MonoBehaviour
                 CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
                 CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
+                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+
                 if (isPlayer)
                 {
-                    cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
                     cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
 
                     if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
