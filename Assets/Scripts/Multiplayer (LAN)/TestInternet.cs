@@ -42,6 +42,10 @@ public class TestInternet : MonoBehaviour
         
     }
 
+    private void ChangeCardOrderInvoke()
+    {
+        ActionOfPlayer.Instance.ChangeCardOrder(false, ActionOfPlayer.Instance.handOpponent.cardsInHand[ActionOfPlayer.Instance.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+    }
 
     public void PerformOpponentsActions(ServerResponse response)
     {   
@@ -235,10 +239,9 @@ public class TestInternet : MonoBehaviour
                     GameState.Instance.ShowPlayedCard(cardPlayed);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                IEnumerator enumerator = actionOfPlayer.InvokeChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
-                print(actionOfPlayer.handOpponent.cardsInHand.Count - 1);
-                //actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());                
-                StartCoroutine(enumerator);
+                Invoke(nameof(ChangeCardOrderInvoke),0.05f);
+                //;                
+                
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
 

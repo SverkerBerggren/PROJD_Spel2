@@ -185,7 +185,6 @@ public class ActionOfPlayer : MonoBehaviour
     public IEnumerator InvokeChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
         yield return new WaitForSeconds(0.1f);
-        print(handOpponent.cardsInHand.Count - 1);
         ChangeCardOrder(isPlayer, cardDisplay);
     }
 
