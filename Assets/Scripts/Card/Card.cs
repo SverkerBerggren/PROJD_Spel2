@@ -53,8 +53,6 @@ public abstract class Card : ScriptableObject
 
     public virtual void PlayCard()
     {
-        
-
         CardAndPlacement cardPlacement = new CardAndPlacement();
         cardPlacement.cardName = cardName;
     
