@@ -17,4 +17,12 @@ public class CultistLandmark : Landmarks
     {
         return damage + GameState.Instance.attacksPlayedThisTurn * this.damage;
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage;
+        return lineToWriteOut;
+    }
 }

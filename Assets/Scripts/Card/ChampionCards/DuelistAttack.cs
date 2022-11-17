@@ -27,4 +27,12 @@ public class DuelistAttack : Spells
 
         gameState.CalculateBonusDamage(damage, this);
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage;
+        return lineToWriteOut;
+    }
 }

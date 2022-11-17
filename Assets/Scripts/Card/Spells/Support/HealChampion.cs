@@ -22,4 +22,12 @@ public class HealChampion : Spells
             GameState.Instance.CalculateHealing(amountToHeal, this);
         }
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nAmountToHeal: " + amountToHeal;
+        return lineToWriteOut;
+    }
 }

@@ -36,4 +36,12 @@ public class BuilderLandmark : Landmarks
 
         return base.DealDamageAttack(damage) ;
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamagePerLandmark: " + damagePerLandmark;
+        return lineToWriteOut;
+    }
 }

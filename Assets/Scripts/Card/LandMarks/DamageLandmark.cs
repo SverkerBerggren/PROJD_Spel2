@@ -31,4 +31,12 @@ public class DamageLandmark : Landmarks
 
         GameState.Instance.DealDamage(taa);
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage; 
+        return lineToWriteOut;
+    }
 }

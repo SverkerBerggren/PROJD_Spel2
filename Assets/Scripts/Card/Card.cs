@@ -89,4 +89,13 @@ public abstract class Card : ScriptableObject
         }
         GameState.Instance.playerChampion.champion.AmountOfCardsPlayed(this);
     }
+
+    public virtual string ToString()
+    {
+        string lineToWriteOut = null;
+        lineToWriteOut = "Cardname: " +cardName + "\nDescription:  " + description + "\nTypeOfCard: " + typeOfCard + "\nMaxMana: " + maxManaCost + 
+            "\nTag: " + tag + "\nAmountOfCardsToDraw: " + amountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + amountOfCardsToDiscard + "\nDiscardCardsYourself: " + discardCardsYourself + 
+            "\nTargetable: " + targetable + "\nChampionCard: " + championCard + "\nChampionCardType: " + championCardType;
+        return lineToWriteOut; 
+    }
 }

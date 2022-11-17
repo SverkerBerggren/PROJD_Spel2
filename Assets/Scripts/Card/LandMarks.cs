@@ -48,4 +48,13 @@ public class Landmarks : Card
     public virtual void WhenCurrentChampion() { }
 
     public virtual void WhenLandmarksDie() { }
+
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nMinionHealth: " + minionHealth;
+        return lineToWriteOut;
+    }
 }

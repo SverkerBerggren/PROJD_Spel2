@@ -16,4 +16,11 @@ public class ShankerAttack : Spells
     {
         //Damage Equals amount of cards discarded
     }
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage;
+        return lineToWriteOut;
+    }
 }

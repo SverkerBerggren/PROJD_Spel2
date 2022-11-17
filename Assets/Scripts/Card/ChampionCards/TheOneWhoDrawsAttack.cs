@@ -20,4 +20,11 @@ public class TheOneWhoDrawsAttack : Spells
         if (damage < 0)       
             damage = 0;
     }
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage;
+        return lineToWriteOut;
+    }
 }

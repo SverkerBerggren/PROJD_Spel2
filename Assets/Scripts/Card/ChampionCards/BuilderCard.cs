@@ -26,4 +26,12 @@ public class BuilderCard : Spells
         if (LandmarkTarget != null)
             LandmarkTarget.TakeDamage(damage);       
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDamage: " + damage;
+        return lineToWriteOut;
+    }
 }

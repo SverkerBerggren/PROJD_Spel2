@@ -24,4 +24,12 @@ public class DefendSpell : Spells
             GameState.Instance.CalculateShield(defence,this);
         }       
     }
+
+    public override string ToString()
+    {
+        base.ToString();
+        string lineToWriteOut = null;
+        lineToWriteOut = "\nDefence: " + defence;
+        return lineToWriteOut;
+    }
 }
