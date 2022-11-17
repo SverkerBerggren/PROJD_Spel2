@@ -83,16 +83,6 @@ public class GameState : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-
-    private void Update()
-    {
-       if(Input.GetKeyDown(KeyCode.P))
-        {
-            hasPriority = true;
-        }
-    }
-
-
     void Start()
     {
         actionOfPlayer = ActionOfPlayer.Instance;

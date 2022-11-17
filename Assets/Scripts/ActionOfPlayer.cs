@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.XR;
 using TMPro;
 using System.Linq;
+using UnityEngine.Networking.Types;
 
 public class ActionOfPlayer : MonoBehaviour
 {
@@ -59,6 +60,10 @@ public class ActionOfPlayer : MonoBehaviour
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
             choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            gameState.hasPriority = true;
         }
 
     }
