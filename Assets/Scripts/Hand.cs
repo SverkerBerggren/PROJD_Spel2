@@ -11,6 +11,11 @@ public class Hand : MonoBehaviour
     private void FixedUpdate()
     {
 
+
+    }
+
+    public void FixCardOrderInHand()
+    {
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
@@ -25,7 +30,7 @@ public class Hand : MonoBehaviour
                 if (cardsInHand.Contains(cardSlot))
                     cardsInHand.Remove(cardSlot);
             }
-            
+
         }
     }
 

@@ -42,11 +42,6 @@ public class TestInternet : MonoBehaviour
         
     }
 
-    private void ChangeCardOrderInvoke()
-    {
-        ActionOfPlayer.Instance.ChangeCardOrder(false, ActionOfPlayer.Instance.handOpponent.cardsInHand[ActionOfPlayer.Instance.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
-    }
-
     public void PerformOpponentsActions(ServerResponse response)
     {   
         gameState = GameState.Instance;
@@ -237,20 +232,20 @@ public class TestInternet : MonoBehaviour
                     GameState.Instance.ShowPlayedCardLandmark((Landmarks)cardPlayed);
                 else
                     GameState.Instance.ShowPlayedCard(cardPlayed);
-
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                Invoke(nameof(ChangeCardOrderInvoke),0.05f);
-                //;                
-                
-                //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
+
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+            
+
+            //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
 
-                //print("tog den bort kort fran handen " + test);
-                //GameActionPlayCard theAction = (GameActionPlayCard)action;
+            //print("tog den bort kort fran handen " + test);
+            //GameActionPlayCard theAction = (GameActionPlayCard)action;
 
-                //Draw card opponents
+            //Draw card opponents
 
-            }    
+        }    
             if (action  is GameActionOpponentDiscardCard)
             {   
 
