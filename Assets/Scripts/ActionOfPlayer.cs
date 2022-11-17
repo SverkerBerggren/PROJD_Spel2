@@ -202,8 +202,6 @@ public class ActionOfPlayer : MonoBehaviour
                 CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
                 CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
-                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
-
                 if (isPlayer)
                 {
                     cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
@@ -213,7 +211,8 @@ public class ActionOfPlayer : MonoBehaviour
                         cardDisplayToSwapTo.hpText.text = cardDisplayToSwapFrom.hpText.text;
                     }
                 }
-                
+
+                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
                 cardDisplayToSwapFrom.card = null;
             }
         }
