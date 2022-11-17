@@ -5,6 +5,7 @@ using UnityEngine;
 public class Calculations : MonoBehaviour
 {
 	private GameState gameState;
+	private ActionOfPlayer actionOfPlayer;
 	private static Calculations instance;
 	public static Calculations Instance { get; set; }
 	private void Awake()
@@ -22,7 +23,9 @@ public class Calculations : MonoBehaviour
 	private void Start()
 	{
 		gameState = GameState.Instance;
-	}
+		actionOfPlayer = ActionOfPlayer.Instance;
+
+    }
 
 	public int CalculateDamage(int baseDamage)
 	{
@@ -53,6 +56,25 @@ public class Calculations : MonoBehaviour
 			amount = landmark.card.ShieldingEffect(amount);
 		}
 		return amount;
+	}
+
+	public void CalculateHandManaCost()
+	{		
+		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
+		{
+			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			int manaCost = cardDisplay.card.maxManaCost;
+			manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
+			
+            foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+			{
+				if (landmarkDisplay.card == null) continue;
+				manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
+				
+			}
+			//ContinousEffects
+			cardDisplay.manaCost = manaCost;
+        }
 	}
 
 	public TargetAndAmount TargetAndAmountFromCard(Card cardUsed, int amount)

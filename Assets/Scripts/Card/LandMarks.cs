@@ -49,6 +49,8 @@ public class Landmarks : Card
 
     public virtual void WhenLandmarksDie() { }
 
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
+
 
     public override string WriteOutCardInfo()
     {

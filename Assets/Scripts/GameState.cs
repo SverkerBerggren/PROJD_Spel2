@@ -582,6 +582,8 @@ public class GameState : MonoBehaviour
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
+
+        Refresh();
     }
 
     public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
@@ -674,5 +676,10 @@ public class GameState : MonoBehaviour
         Champion temp = list[i].champion;
         list[i].champion = list[j].champion;
         list[j].champion = temp;
+    }
+
+    public void Refresh()
+    {
+        calculations.CalculateHandManaCost();
     }
 }

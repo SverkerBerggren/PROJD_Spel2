@@ -55,7 +55,7 @@ public abstract class Card : ScriptableObject
     {
         CardAndPlacement cardPlacement = new CardAndPlacement();
         cardPlacement.cardName = cardName;
-    
+        GameState gameState = GameState.Instance;
         
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
@@ -68,22 +68,24 @@ public abstract class Card : ScriptableObject
             placement.index = 100;
         }
 
-        if (GameState.Instance.isOnline)
+        if (gameState.isOnline)
         {
             RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement);
             playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(playCardRequest, GameState.Instance.RequestEmpty);
+            ClientConnection.Instance.AddRequest(playCardRequest, gameState.RequestEmpty);
         }
         
         if (amountOfCardsToDraw != 0)
         {
-            GameState.Instance.DrawCard(amountOfCardsToDraw, null);
+            gameState.DrawCard(amountOfCardsToDraw, null);
         }
         if (amountOfCardsToDiscard != 0)
         {
-            GameState.Instance.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
+            gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
         }
-        GameState.Instance.playerChampion.champion.AmountOfCardsPlayed(this);
+        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
+
+        gameState.Refresh();
     }
    
     public virtual string WriteOutCardInfo()

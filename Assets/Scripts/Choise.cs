@@ -109,6 +109,7 @@ public class Choise : MonoBehaviour
         }
 
         ResetChoice();
+        gameState.Refresh();
     }
 
     public void ResetChoice()
