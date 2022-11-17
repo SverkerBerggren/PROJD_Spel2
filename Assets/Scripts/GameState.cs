@@ -88,7 +88,7 @@ public class GameState : MonoBehaviour
     {
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
-
+        print(calculations + " haha");
         if (isOnline)
         {
             if (ClientConnection.Instance.playerId == 0)
