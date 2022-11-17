@@ -27,8 +27,7 @@ public class DefendSpell : Spells
 
     public override string ToString()
     {
-        base.ToString();
-        string lineToWriteOut = null;
+        string lineToWriteOut = base.ToString();
         lineToWriteOut = "\nDefence: " + defence;
         return lineToWriteOut;
     }
