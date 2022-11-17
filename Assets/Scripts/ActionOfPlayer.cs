@@ -203,13 +203,13 @@ public class ActionOfPlayer : MonoBehaviour
                 CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
                 CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
-                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
-                cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
-                
                 if (cardDisplayToSwapTo.card.typeOfCard == CardType.Landmark)
                 {
-                    hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>().health = hand.cardSlotsInHand[i].GetComponent<LandmarkDisplay>().health;
+                    cardDisplayToSwapTo.hpText.text = cardDisplayToSwapFrom.hpText.text;
                 }
+
+                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+                cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
 
                 cardDisplayToSwapFrom.card = null;
             }
