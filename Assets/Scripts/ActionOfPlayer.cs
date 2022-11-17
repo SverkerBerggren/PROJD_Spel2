@@ -192,7 +192,7 @@ public class ActionOfPlayer : MonoBehaviour
             hand = handOpponent;
 
         int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
-        cardDisplay.card = null;
+        //cardDisplay.card = null;
         if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
         for (int i = index + 1; i < hand.cardSlotsInHand.Count; i++)
         {
