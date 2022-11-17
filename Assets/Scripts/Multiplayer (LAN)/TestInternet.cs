@@ -347,8 +347,8 @@ public class TestInternet : MonoBehaviour
 
             
 
-
-            gameState.Refresh();
+            if (gameState != null)
+                gameState.Refresh();
 
 
 
