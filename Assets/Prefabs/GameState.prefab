@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3291878523879393670}
   - component: {fileID: 3291878523879393657}
+  - component: {fileID: 4022584311768125514}
   - component: {fileID: 4853047340930969290}
   m_Layer: 0
   m_Name: GameState
@@ -45,19 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaed5eae6e9bbd44aaffe2d7492d2c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayerID: 0
-  hasPriority: 1
-  isItMyTurn: 0
-  didIStart: 0
-  amountOfTurns: 0
-  lostScreen: {fileID: 0}
-  wonScreen: {fileID: 0}
-  healEffect: {fileID: 0}
-  actionOfPlayer: {fileID: 0}
-  currentMana: 0
-  playedCardSpriteRenderer: {fileID: 0}
-  backfaceCard: {fileID: 0}
-  EndTurnButton: {fileID: 0}
   playerChampion: {fileID: 0}
   opponentChampion: {fileID: 0}
   playerChampions:
@@ -68,10 +56,37 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerLandmarks: []
-  opponentLandmarks: []
+  playerLandmarks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  opponentLandmarks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isOnline: 0
   cardsPlayedThisTurn: []
-  isOnline: 1
+  lostScreen: {fileID: 0}
+  wonScreen: {fileID: 0}
+  healEffect: {fileID: 0}
+  playedCardGO: {fileID: 0}
+  endTurnBttn: {fileID: 0}
+  hasPriority: 1
+  amountOfTurns: 0
+--- !u!114 &4022584311768125514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3291878523879393656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b4b9897726c4e4eb6a03dced39140b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4853047340930969290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +102,6 @@ MonoBehaviour:
   cards:
   - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
   - {fileID: 11400000, guid: cf4b25fc0f7f1c248a462ba53001fb23, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
   - {fileID: 11400000, guid: b2643ed4ecb82b54ba433a6514c27c8e, type: 2}
   - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
   - {fileID: 11400000, guid: 6025628fbc5217742a490a2ad097945f, type: 2}
@@ -97,9 +111,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0077bc1a262d824ab327f813c7e6524, type: 2}
   - {fileID: 11400000, guid: 1eb3b25ea1dbed0488b10e027b23c66f, type: 2}
   - {fileID: 11400000, guid: fe2e9c357dba8b2479899b98c221bc29, type: 2}
-  - {fileID: 11400000, guid: 39e6a98067f213542ba6291b354f93b3, type: 2}
-  - {fileID: 11400000, guid: b5e5f3a4252fc654c8d44b307fbf810f, type: 2}
-  - {fileID: 11400000, guid: 5f9d69447087e324881d7a586c75da19, type: 2}
   - {fileID: 11400000, guid: 0182cc3c5f43792458a7009438b9a47f, type: 2}
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
@@ -114,16 +125,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da194dbd2ebd2c249b56e20d07c57a3f, type: 2}
   - {fileID: 11400000, guid: fd7d49e86d345ea44b367bbb19fd1827, type: 2}
   - {fileID: 11400000, guid: 623d850f1d4f36a4487ce9084ebcb3b2, type: 2}
-  - {fileID: 11400000, guid: 8812173bdd6c8834c8853ae38a1bd38b, type: 2}
+  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
   - {fileID: 11400000, guid: 1a99ad388b4589d4d8151aa9d5f56e45, type: 2}
   - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
   - {fileID: 11400000, guid: 9bc17fe12ea18194ab79964a5eea317a, type: 2}
   - {fileID: 11400000, guid: fb214ca893c696c4db7094731be1d915, type: 2}
   - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
+  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
   champions:
   - {fileID: 11400000, guid: 79dc933db5193344d82e1df0654f32c8, type: 2}
   - {fileID: 11400000, guid: a320bb6d4064fcb47b7c74848a43bac2, type: 2}
   - {fileID: 11400000, guid: 7063f1f7341533d4b91b372d62269698, type: 2}
-  - {fileID: 11400000, guid: 129231e8214ccb1429653ab87e0edd82, type: 2}
+  - {fileID: 11400000, guid: 231c26b2d1af8bf48a24686214313641, type: 2}
   - {fileID: 11400000, guid: 4660b01868ff88541964f8117d530e82, type: 2}
   - {fileID: 11400000, guid: 71f4e33a083fa3649896310249374f97, type: 2}
