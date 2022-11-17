@@ -74,10 +74,8 @@ public abstract class Card : ScriptableObject
         {
             RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement);
             playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(playCardRequest, GameState.Instance.RequestPlayCard);
+            ClientConnection.Instance.AddRequest(playCardRequest, GameState.Instance.RequestEmpty);
         }
-
-
         
         if (amountOfCardsToDraw != 0)
         {
