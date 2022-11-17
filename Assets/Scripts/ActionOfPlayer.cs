@@ -224,6 +224,7 @@ public class ActionOfPlayer : MonoBehaviour
                 }
 
                 cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+                cardDisplayToSwapFrom.card = null;
             }
         }
     }
