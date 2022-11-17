@@ -175,19 +175,22 @@ public class SpreadsheetUpdater : EditorWindow
                 temp.WriteLine("Old Card");
                 
                 temp.WriteLine( scriptableObject.WriteOutCardInfo());
+				string oldString = scriptableObject.WriteOutCardInfo();
 
-
-                updatedFiles = true;
+				updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
                 scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
-        
+				string newString = scriptableObject.WriteOutCardInfo();
 
-                EditorUtility.SetDirty(scriptableObject);
+				EditorUtility.SetDirty(scriptableObject);
                 amountOfCardsChanged += 1;
                 temp.WriteLine("\nNew Card");
-				
-                temp.Write(scriptableObject.WriteOutCardInfo());
+
+				foreach (string s in CompareStringChanges(oldString, newString))
+				{
+					temp.Write(s);
+				}
 
 				temp.Close();
             }
@@ -211,15 +214,25 @@ public class SpreadsheetUpdater : EditorWindow
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
 				temp.WriteLine("Old Card");
                 temp.WriteLine(scriptableObject.WriteOutCardInfo());
+
+                string oldString = scriptableObject.WriteOutCardInfo();
+
 				updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
                 scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);    
                 EditorUtility.SetDirty(scriptableObject);
-                amountOfCardsChanged += 1;
+
+				string newString = scriptableObject.WriteOutCardInfo();
+               
+
+				amountOfCardsChanged += 1;
 				temp.WriteLine("\nNew Card");
 
-				temp.Write(scriptableObject.WriteOutCardInfo());
+                foreach (string s in CompareStringChanges(oldString, newString))
+                {
+				    temp.Write(s);
+                }
 				temp.Close();
             }
         }
@@ -230,5 +243,20 @@ public class SpreadsheetUpdater : EditorWindow
             temp.Close();
         }
     }
+
+    private string[] CompareStringChanges(string old, string newS)
+    {
+		string[] oldStringSplit = old.Split("\n");
+		string[] newStringSplit = newS.Split("\n");
+
+		for (int i = 0; i < oldStringSplit.Length; i++)
+		{
+			if (!oldStringSplit[i].Equals(newStringSplit[i]))
+			{
+				newStringSplit[i] = "\t " + newStringSplit[i];
+			}
+		}
+        return newStringSplit;
+	}
 }
 
