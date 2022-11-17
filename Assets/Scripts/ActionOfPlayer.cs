@@ -184,8 +184,6 @@ public class ActionOfPlayer : MonoBehaviour
 
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
-        
-        Hand hand;
         if (isPlayer)
         {
             handPlayer.FixCardOrderInHand();
