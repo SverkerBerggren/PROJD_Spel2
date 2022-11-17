@@ -188,7 +188,11 @@ public class ActionOfPlayer : MonoBehaviour
         if (isPlayer)
             hand = handPlayer;
         else
-            hand = handOpponent;
+        {
+            cardDisplay.card = null;
+            return;
+        }
+            
 
         int index = hand.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
         CardDisplay cardDisplayToSwapTo;
