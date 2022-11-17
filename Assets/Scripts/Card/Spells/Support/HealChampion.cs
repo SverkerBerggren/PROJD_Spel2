@@ -23,9 +23,9 @@ public class HealChampion : Spells
         }
     }
 
-    public override string ToString()
+    public override string WriteOutCardInfo()
     {
-        string lineToWriteOut = base.ToString();
+        string lineToWriteOut = base.WriteOutCardInfo();
         lineToWriteOut = "\nAmountToHeal: " + amountToHeal;
         return lineToWriteOut;
     }

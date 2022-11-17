@@ -81,9 +81,9 @@ public class AttackSpell : Spells
         damage = GameState.Instance.playerChampion.health;
     }
 
-    public override string ToString()
+    public override string WriteOutCardInfo()
     {
-        string lineToWriteOut = base.ToString();
+        string lineToWriteOut = base.WriteOutCardInfo();
         lineToWriteOut = "\nDamage: " + damage;
         return lineToWriteOut;
     }
