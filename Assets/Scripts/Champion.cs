@@ -18,7 +18,6 @@ public abstract class Champion : ScriptableObject
     public Sprite artwork;
     public string passiveEffect;
     public bool healEachRound = false;
-    public Animator animator;
     public bool destroyShield = false;
     
 

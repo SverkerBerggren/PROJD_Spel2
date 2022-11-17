@@ -14,8 +14,9 @@ public class ActionOfPlayer : MonoBehaviour
     public Hand handOpponent;
 
     [SerializeField] private TMP_Text manaText;
+	public Sprite backfaceCard;
 
-    public Choise choice;
+	public Choise choice;
 
     private int cardCost;
     public int playerMana = 0;
@@ -24,6 +25,7 @@ public class ActionOfPlayer : MonoBehaviour
     public bool selectCardOption = false;
 
     private GameState gameState;
+    private Graveyard graveyard;
     private static ActionOfPlayer instance;
 
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
@@ -38,14 +40,19 @@ public class ActionOfPlayer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+	private void Start()
+	{
 
         gameState = GameState.Instance;
         choice = Choise.Instance;
-    }
+		graveyard = Graveyard.Instance;
+	}
 
 
 
-    private void Update()
+	private void Update()
     {
         if (Input.GetKey(KeyCode.M))
         {
@@ -96,7 +103,68 @@ public class ActionOfPlayer : MonoBehaviour
         }
     }
 
-    public void IncreaseMana()
+	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
+	{
+		int drawnCards = 0;
+		Hand hand;
+		if (isPlayer)
+			hand = handPlayer;
+		else
+			hand = handOpponent;
+
+		foreach (GameObject cardSlot in hand.cardSlotsInHand)
+		{
+			CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
+			if (cardDisplay.card != null) continue;
+
+			if (!cardSlot.activeSelf)
+			{
+				if (drawnCards >= amountToDraw) break;
+
+				if (!isPlayer)
+				{
+					cardDisplay.opponentCard = true;
+					cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+				}
+
+				if (specificCard == null)
+					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
+				else
+					cardDisplay.card = specificCard;
+
+				if (cardDisplay.card != null)
+				{
+					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+					cardSlot.SetActive(true);
+					drawnCards++;
+
+					if (isPlayer)
+						gameState.playerChampion.champion.DrawCard(cardDisplay);
+				}
+				else
+				{
+					print("Deck is empty or the drawn card is null!!!");
+					gameState.Defeat();
+					break;
+				}
+			}
+		}
+
+		if (drawnCards < amountToDraw)
+		{
+			for (; drawnCards < amountToDraw; drawnCards++)
+			{
+				Card c = hand.deck.WhichCardToDrawPlayer();
+				if (isPlayer)
+					graveyard.AddCardToGraveyard(c);
+				else
+					graveyard.AddCardToGraveyardOpponent(c);
+			}
+		}
+
+	}
+
+	public void IncreaseMana()
     {
         if(playerMana < maxMana)
             playerMana++;
@@ -104,7 +172,17 @@ public class ActionOfPlayer : MonoBehaviour
         currentMana = playerMana;
     }
 
-    public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
+	public string DiscardWhichCard(bool yourself)
+	{
+		string discardedCard = "";
+		if (yourself)
+			discardedCard = handPlayer.DiscardRandomCardInHand().cardName;
+		else
+			discardedCard = handOpponent.DiscardRandomCardInHand().cardName;
+		return discardedCard;
+	}
+
+	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
     {
 
         Hand hand;

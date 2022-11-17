@@ -72,10 +72,8 @@ public class TestInternet : MonoBehaviour
                 }
                 if(theAction.amountToDraw > 0)
                 {
-                    gameState.DrawCardOpponent(theAction.amountToDraw,null);
-
+					ActionOfPlayer.Instance.DrawCardPlayer(theAction.amountToDraw, null, false);
                 }
-                //Draw card opponents
 
             }
             if (action is GameActionDiscardCard)
@@ -134,8 +132,8 @@ public class TestInternet : MonoBehaviour
                         GameState.Instance.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                 }
-                if (GameState.Instance.opponentChampion.champion.animator != null)
-                    GameState.Instance.opponentChampion.champion.animator.SetTrigger("Attack");
+                if (GameState.Instance.opponentChampion.animator != null)
+                    GameState.Instance.opponentChampion.animator.SetTrigger("Attack");
 
                 //GameActionDamage theAction = (GameActionDamage)action;
 
@@ -260,14 +258,14 @@ public class TestInternet : MonoBehaviour
                 {
                     if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
                     {
-                        discardedCards.Add(gameState.DiscardWhichCard(true));
+                        discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
                     }
                 }
 
                 RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
                 discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
                 print("vad ar which player " + discardCardRequest.whichPlayer);
-                ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestDiscardCard);
+                ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 
@@ -311,7 +309,7 @@ public class TestInternet : MonoBehaviour
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
                 ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
-                GameState.Instance.DrawCardOpponent(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+				ActionOfPlayer.Instance.DrawCardPlayer(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd], false);
 
 
                // GameActionAddSpecificCardToHand theAction = (GameActionAddSpecificCardToHand)action;

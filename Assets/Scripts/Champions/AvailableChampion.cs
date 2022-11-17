@@ -26,11 +26,13 @@ public class AvailableChampion : MonoBehaviour
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
 
+	public Animator animator;
 
 	private bool wantToSeInfoOnChamp = false;
 
     private float timer = 0f;
     private float timeBeforeShowing = 0.5f;
+
 
     public SpriteRenderer champCard;
     //private ArmorEffect armorEffect;
@@ -88,37 +90,30 @@ public class AvailableChampion : MonoBehaviour
         {
             case "Builder":
                 builderMesh.SetActive(true);
-                champion.animator = builderMesh.GetComponentInChildren<Animator>();
+                animator = builderMesh.GetComponentInChildren<Animator>();
                 break;
             case "Cultist":
                 cultistMesh.SetActive(true);
-                champion.animator = cultistMesh.GetComponentInChildren<Animator>();
+                animator = cultistMesh.GetComponentInChildren<Animator>();
                 break;
             case "Graverobber":
                 graverobberMesh.SetActive(true);
-                champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
+                animator = graverobberMesh.GetComponentInChildren<Animator>();
                 break;
             case "Duelist":
                 duelistMesh.SetActive(true);
+                animator = null;
                 break;
 			case "TheOneWhoDraws":
 				theOneDrawsMesh.SetActive(true);
+				animator = null;
 				break;
 			case "Shanker":
 				shankerMesh.SetActive(true);
+				animator = null;
 				break;
 		}
     }
-
-    /*
-    public void ChangeChampion(Champion champion, int currentHealth, int currentShield)
-    {
-        this.champion = champion;
-        Awake();
-        health = currentHealth;
-        shield = currentShield;
-    }
-    */
 
     private void OnMouseEnter()
     {
@@ -201,7 +196,7 @@ public class AvailableChampion : MonoBehaviour
                 duelistMesh.SetActive(false);
                 shankerMesh.SetActive(false);
                 theOneDrawsMesh.SetActive(false);
-                champion.animator = builderMesh.GetComponentInChildren<Animator>();
+                animator = builderMesh.GetComponentInChildren<Animator>();
                 meshToShow = builderMesh;
                 break;
 
@@ -212,7 +207,7 @@ public class AvailableChampion : MonoBehaviour
 				duelistMesh.SetActive(false);
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(false);
-				champion.animator = cultistMesh.GetComponentInChildren<Animator>();
+				animator = cultistMesh.GetComponentInChildren<Animator>();
                 meshToShow = cultistMesh;
                 break;
 
@@ -223,7 +218,7 @@ public class AvailableChampion : MonoBehaviour
 				duelistMesh.SetActive(false);
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(false);
-				champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
+				animator = graverobberMesh.GetComponentInChildren<Animator>();
                 meshToShow = graverobberMesh;
                 break;
 
@@ -235,6 +230,7 @@ public class AvailableChampion : MonoBehaviour
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(false);
 				meshToShow = duelistMesh;
+				animator = null;
 				break;
 
 			case "Shanker":
@@ -245,6 +241,7 @@ public class AvailableChampion : MonoBehaviour
 				shankerMesh.SetActive(true);
 				theOneDrawsMesh.SetActive(false);
 				meshToShow = shankerMesh;
+				animator = null;
 				break;
 
 			case "TheOneWhoDraws":
@@ -255,6 +252,7 @@ public class AvailableChampion : MonoBehaviour
 				shankerMesh.SetActive(false);
 				theOneDrawsMesh.SetActive(true);
 				meshToShow = theOneDrawsMesh;
+				animator = null;
 				break;
 		}
     }
