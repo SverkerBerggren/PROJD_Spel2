@@ -137,9 +137,9 @@ public class ActionOfPlayer : MonoBehaviour
 					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
 					cardSlot.SetActive(true);
 					drawnCards++;
-
-					if (isPlayer)
-						gameState.playerChampion.champion.DrawCard(cardDisplay);
+                    print(gameState);
+					//if (isPlayer)
+						//gameState.playerChampion.champion.DrawCard(cardDisplay);
 				}
 				else
 				{
