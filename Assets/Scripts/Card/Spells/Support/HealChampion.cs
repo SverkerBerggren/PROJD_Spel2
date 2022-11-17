@@ -14,12 +14,12 @@ public class HealChampion : Spells
             foreach (AvailableChampion champ in GameState.Instance.playerChampions)
             {
                 Target = champ.champion;
-                GameState.Instance.CalculateHealing(amountToHeal, this);
+                GameState.Instance.CalculateAndHeal(amountToHeal, this);
             }
         }
         else
         {
-            GameState.Instance.CalculateHealing(amountToHeal, this);
+            GameState.Instance.CalculateAndHeal(amountToHeal, this);
         }
     }
 

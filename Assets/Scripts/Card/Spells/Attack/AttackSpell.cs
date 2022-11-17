@@ -31,7 +31,7 @@ public class AttackSpell : Spells
         }
 
         if (Target != null || LandmarkTarget)
-            gameState.CalculateBonusDamage(damage, this);
+            gameState.CalculateAndDealDamage(damage, this);
 
         
         if (destroyLandmark)
@@ -44,10 +44,10 @@ public class AttackSpell : Spells
     private void DamageToBothActiveChampions()
     {
         Target = gameState.opponentChampion.champion;
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
 
         Target = gameState.playerChampion.champion;
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
     }
 
     private void DestroyLandmark()

@@ -20,17 +20,17 @@ public class CultistCard : Spells
     {
         GameState gameState = GameState.Instance;
         Target = gameState.playerChampion.champion;
-        gameState.CalculateBonusDamage(selfInflictDamage, this);
+        gameState.CalculateAndDealDamage(selfInflictDamage, this);
 
         if (damageToAllOpponentCards)
         {
             Target = gameState.opponentChampion.champion;
-            gameState.CalculateBonusDamage(damageToDealToAllOpponent, this);
+            gameState.CalculateAndDealDamage(damageToDealToAllOpponent, this);
 
             /* MÅste fixa så att den targetar landmarks */
             foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
             {
-                gameState.CalculateBonusDamage(damageToDealToAllOpponent, this);
+                gameState.CalculateAndDealDamage(damageToDealToAllOpponent, this);
             }           
         }
     }

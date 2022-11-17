@@ -35,7 +35,7 @@ public class Gravedigging : Spells
                 }
             }
 
-            GameState.Instance.CalculateBonusDamage(damage, this);
+            GameState.Instance.CalculateAndDealDamage(damage, this);
         }
 
     }

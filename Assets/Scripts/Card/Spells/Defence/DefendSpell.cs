@@ -15,13 +15,13 @@ public class DefendSpell : Spells
             foreach (AvailableChampion champ in GameState.Instance.playerChampions)
             {
                 Target = champ.champion;
-                GameState.Instance.CalculateShield(defence, this);
+                GameState.Instance.CalculateAndShield(defence, this);
             }
         }
         else
         {
             Target = GameState.Instance.playerChampion.champion;
-            GameState.Instance.CalculateShield(defence,this);
+            GameState.Instance.CalculateAndShield(defence,this);
         }       
     }
 

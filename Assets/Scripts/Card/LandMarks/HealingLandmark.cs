@@ -57,7 +57,7 @@ public class HealingLandmark : Landmarks
             for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
                 Target = gameState.playerChampions[i].champion;
-                gameState.CalculateHealing(10, this);
+                gameState.CalculateAndHeal(10, this);
             }
             
         }

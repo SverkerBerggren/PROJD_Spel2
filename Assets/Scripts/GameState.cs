@@ -152,55 +152,64 @@ public class GameState : MonoBehaviour
         EndTurn();
     }
 
-    public void CalculateBonusDamage(int damage, Card cardUsed)
+    public void CalculateAndDealDamage(int damage, Card cardUsed)
     {
-        
-        damage = playerChampion.champion.DealDamageAttack(damage);
+        damage = CalculateDamage(damage);
+        DealDamage(TargetAndAmountFromCard(cardUsed, damage));
 
-        foreach (LandmarkDisplay landmark in playerLandmarks)
-        {
-            if(landmark.card != null)
-            damage = landmark.card.DealDamageAttack(damage);
-        }
-
-        TargetAndAmount tAA = null;
-        TargetInfo tI = null;
-        ListEnum listEnum = new ListEnum();
-         int index = 0;
-        // WIP
-        if (cardUsed.Target != null)
-        {                 
-            index = LookForChampionIndex(cardUsed, opponentChampions);
-            if (index == -1)
-            {
-                index = LookForChampionIndex(cardUsed, playerChampions);
-                listEnum.myChampions = true;                 
-            }               
-            else
-            {
-                listEnum.opponentChampions = true;                   
-            }
-        }
-        else if (cardUsed.LandmarkTarget != null)
-        {
-            index = LookForLandmarkIndex(cardUsed, opponentLandmarks);
-            if (index == -1)
-            {
-                index = LookForLandmarkIndex(cardUsed, playerLandmarks);
-                listEnum.myLandmarks = true;
-            }
-            else
-            {
-                listEnum.opponentLandmarks = true;
-            }
-        }
-        tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, damage);
-        DealDamage(tAA);
         if (playerChampion.champion.animator != null)
         {
             playerChampion.champion.animator.SetTrigger("Attack");
         }
+    }
+
+    private int CalculateDamage(int baseDamage)
+    {
+		baseDamage = playerChampion.champion.DealDamageAttack(baseDamage);
+		foreach (LandmarkDisplay landmark in playerLandmarks)
+		{
+			if (landmark.card != null)
+				baseDamage = landmark.card.DealDamageAttack(baseDamage);
+		}
+        return baseDamage;
+	}
+
+    private TargetAndAmount TargetAndAmountFromCard(Card cardUsed, int amount)
+    {
+		TargetAndAmount tAA = null;
+		TargetInfo tI = null;
+		ListEnum listEnum = new ListEnum();
+		int index = 0;
+		// WIP
+		if (cardUsed.Target != null)
+		{
+			index = LookForChampionIndex(cardUsed, opponentChampions);
+			if (index == -1)
+			{
+				index = LookForChampionIndex(cardUsed, playerChampions);
+				listEnum.myChampions = true;
+			}
+			else
+			{
+				listEnum.opponentChampions = true;
+			}
+		}
+		else if (cardUsed.LandmarkTarget != null)
+		{
+			index = LookForLandmarkIndex(cardUsed, opponentLandmarks);
+			if (index == -1)
+			{
+				index = LookForLandmarkIndex(cardUsed, playerLandmarks);
+				listEnum.myLandmarks = true;
+			}
+			else
+			{
+				listEnum.opponentLandmarks = true;
+			}
+		}
+		tI = new TargetInfo(listEnum, index);
+		tAA = new TargetAndAmount(tI, amount);
+        return tAA;
     }
 
     public int LookForChampionIndex(Card cardUsed, List<AvailableChampion> champ )
@@ -263,38 +272,22 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void CalculateHealing(int amount, Card cardUsed)
+    public void CalculateAndHeal(int amount, Card cardUsed)
     {
-
-        TargetAndAmount tAA = null;
-        TargetInfo tI = null;
-        ListEnum listEnum = new ListEnum();
-        int index = 0;
-        foreach (LandmarkDisplay landmark in playerLandmarks)
-        {
-            if (landmark.card == null) continue;
-            amount = landmark.card.HealingEffect(amount);
-        }
-
-        // WIP
-        if (cardUsed.Target != null)
-        {
-            index = LookForChampionIndex(cardUsed, opponentChampions);
-            if (index == -1)
-            {
-                index = LookForChampionIndex(cardUsed, playerChampions);
-                listEnum.myChampions = true;
-            }
-            else
-            {
-                listEnum.opponentChampions = true;
-            }
-        }
-        tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, amount);
+        amount = CalculateHealing(amount);
         Invoke(nameof(TakeAwayHealEffect), 3f);
-        HealTarget(tAA);
+        HealTarget(TargetAndAmountFromCard(cardUsed, amount));
     }
+
+    private int CalculateHealing(int amount)
+    {
+		foreach (LandmarkDisplay landmark in playerLandmarks)
+		{
+			if (landmark.card == null) continue;
+			amount = landmark.card.HealingEffect(amount);
+		}
+        return amount;
+	}
 
     private void TakeAwayHealEffect()
     {
@@ -332,37 +325,22 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void CalculateShield(int amount, Card cardUsed)
+    public void CalculateAndShield(int amount, Card cardUsed)
     {
-        foreach (LandmarkDisplay landmark in playerLandmarks)
-        {
-            if (landmark.card == null) continue;
-            amount = landmark.card.ShieldingEffect(amount);
-        }
-        TargetAndAmount tAA = null;
-        TargetInfo tI = null;
-        ListEnum listEnum = new ListEnum();
-        int index = 0;
-        // WIP
-        if (cardUsed.Target != null)
-        {
-            index = LookForChampionIndex(cardUsed, opponentChampions);
-            if (index == -1)
-            {
-                index = LookForChampionIndex(cardUsed, playerChampions);
-                listEnum.myChampions = true;
-            }
-            else
-            {
-                listEnum.opponentChampions = true;
-            }
-        }
-
-        tI = new TargetInfo(listEnum, index);
-        tAA = new TargetAndAmount(tI, amount);
-
-        ShieldTarget(tAA);
+        amount = CalculateShield(amount);
+        ShieldTarget(TargetAndAmountFromCard(cardUsed, amount));
     }
+
+    private int CalculateShield(int amount)
+    {
+		foreach (LandmarkDisplay landmark in playerLandmarks)
+		{
+			if (landmark.card == null) continue;
+			amount = landmark.card.ShieldingEffect(amount);
+		}
+        return amount;
+	}
+
 
     public void ShieldTarget(TargetAndAmount targetAndAmount) // TargetAndAmount
     {

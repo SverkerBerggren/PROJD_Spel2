@@ -18,14 +18,14 @@ public class DuelistAttack : Spells
     {
         gameState = GameState.Instance;
 
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
 
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
 
         Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
 
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
     }
 
     public override string WriteOutCardInfo()
