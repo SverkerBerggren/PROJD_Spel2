@@ -174,7 +174,7 @@ public class SpreadsheetUpdater : EditorWindow
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
                 
-                temp.WriteLine( scriptableObject.ToString());
+                temp.WriteLine( scriptableObject.WriteOutCardInfo());
 
 
                 updatedFiles = true;
@@ -187,7 +187,7 @@ public class SpreadsheetUpdater : EditorWindow
                 amountOfCardsChanged += 1;
                 temp.WriteLine("\nNew Card");
 				
-                temp.Write(scriptableObject.ToString());
+                temp.Write(scriptableObject.WriteOutCardInfo());
 
 				temp.Close();
             }
@@ -208,15 +208,19 @@ public class SpreadsheetUpdater : EditorWindow
         {
             if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.minionHealth.Equals(Convert.ToInt32(currentCard[healthIndex])) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             {
-                updatedFiles = true;
+                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+				temp.WriteLine("Old Card");
+                temp.WriteLine(scriptableObject.WriteOutCardInfo());
+				updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
                 scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);    
                 EditorUtility.SetDirty(scriptableObject);
                 amountOfCardsChanged += 1;
+				temp.WriteLine("\nNew Card");
 
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-                temp.Close();
+				temp.Write(scriptableObject.WriteOutCardInfo());
+				temp.Close();
             }
         }
         else
