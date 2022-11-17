@@ -189,7 +189,7 @@ public class SpreadsheetUpdater : EditorWindow
 
 				foreach (string s in CompareStringChanges(oldString, newString))
 				{
-					temp.Write(s);
+					temp.WriteLine(s);
 				}
 
 				temp.Close();
@@ -231,7 +231,7 @@ public class SpreadsheetUpdater : EditorWindow
 
                 foreach (string s in CompareStringChanges(oldString, newString))
                 {
-				    temp.Write(s);
+				    temp.WriteLine(s);
                 }
 				temp.Close();
             }
@@ -253,7 +253,7 @@ public class SpreadsheetUpdater : EditorWindow
 		{
 			if (!oldStringSplit[i].Equals(newStringSplit[i]))
 			{
-				newStringSplit[i] = "\t " + newStringSplit[i];
+				newStringSplit[i] = "--->\t" + newStringSplit[i];
 			}
 		}
         return newStringSplit;
