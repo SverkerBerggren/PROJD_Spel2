@@ -40,7 +40,7 @@ public class BuilderLandmark : Landmarks
     public override string WriteOutCardInfo()
     {
         string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut = "\nDamagePerLandmark: " + damagePerLandmark;
+        lineToWriteOut += "\nDamagePerLandmark: " + damagePerLandmark;
         return lineToWriteOut;
     }
 }

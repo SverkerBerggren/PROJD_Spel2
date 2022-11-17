@@ -28,7 +28,7 @@ public class DefendSpell : Spells
     public override string WriteOutCardInfo()
     {
         string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut = "\nDefence: " + defence;
+        lineToWriteOut += "\nDefence: " + defence;
         return lineToWriteOut;
     }
 }

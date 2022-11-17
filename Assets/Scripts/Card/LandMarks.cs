@@ -53,7 +53,7 @@ public class Landmarks : Card
     public override string WriteOutCardInfo()
     {
         string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut = "\nMinionHealth: " + minionHealth;
+        lineToWriteOut += "\nMinionHealth: " + minionHealth;
         return lineToWriteOut;
     }
 }

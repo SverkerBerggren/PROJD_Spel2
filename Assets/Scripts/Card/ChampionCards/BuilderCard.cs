@@ -30,7 +30,7 @@ public class BuilderCard : Spells
     public override string WriteOutCardInfo()
     {
         string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut = "\nDamage: " + damage;
+        lineToWriteOut += "\nDamage: " + damage;
         return lineToWriteOut;
     }
 }
