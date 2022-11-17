@@ -117,11 +117,15 @@ public class ActionOfPlayer : MonoBehaviour
             {
                 if (i - 1 < 0) continue;
 
-                hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().card = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card;
-                hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>().manaCost = hand.cardSlotsInHand[i].GetComponent<CardDisplay>().manaCost;
-                hand.cardSlotsInHand[i].GetComponent<CardDisplay>().card = null;
+                CardDisplay cardDisplayToSwapTo = hand.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
+                CardDisplay cardDisplayToSwapFrom = hand.cardSlotsInHand[i].GetComponent<CardDisplay>();
+
+                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
+                cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
+
+                cardDisplayToSwapFrom.card = null;
                 
-                if (hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>())
+                if (cardDisplayToSwapTo.card.typeOfCard == CardType.Landmark)
                 {
                     hand.cardSlotsInHand[i - 1].GetComponent<LandmarkDisplay>().health = hand.cardSlotsInHand[i].GetComponent<LandmarkDisplay>().health;
                 }
