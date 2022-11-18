@@ -401,7 +401,13 @@ public class GameState : MonoBehaviour
 
     private void DrawStartingCards()
     {
-        DrawCard(amountOfCardsToStartWith, null);
+        if (isOnline)
+            DrawCard(amountOfCardsToStartWith, null);
+        else
+        {
+            actionOfPlayer.DrawCardPlayer(amountOfCardsToStartWith, null, true);
+            actionOfPlayer.DrawCardPlayer(amountOfCardsToStartWith, null, false);
+        }
 		//actionOfPlayer.DrawCardPlayer(amountOfCardsToStartWith, null, false);
     }
 

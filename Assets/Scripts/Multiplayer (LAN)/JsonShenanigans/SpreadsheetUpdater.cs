@@ -30,6 +30,7 @@ public class SpreadsheetUpdater : EditorWindow
     private List<AttackSpell> attackSpellsObjects;
     private List<Landmarks> landmarkObjects;
     private List<HealAndShieldChampion> healAndShieldSpellsObjects;
+    private List<Spells> spellObjects;
     private List<List<string>> cardData;
     private HttpClient client = new HttpClient();
     private SpreadsheetData spreadsheetData;
@@ -97,7 +98,8 @@ public class SpreadsheetUpdater : EditorWindow
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
             healAndShieldSpellsObjects = new List<HealAndShieldChampion>(Resources.LoadAll<HealAndShieldChampion>("ScriptableObjects/Cards/Spells/Support"));
-        //    attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
+            spellObjects = new List<Spells>(Resources.LoadAll<Spells>("ScriptableObjects/Cards/Spells/Support"));
+            //    attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
 
 
             CheckCardList();
@@ -167,6 +169,58 @@ public class SpreadsheetUpdater : EditorWindow
     }
 
     private void ChangeSupportSpells(List<string> currentCard)
+    {
+        List<string> oldCard;
+
+        spellObjects.RemoveAll(spell => spell is HealAndShieldChampion);
+
+        Spells scriptableObject = (Spells)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);
+
+        
+
+        string textName = currentCard[cardNameIndex] + ".txt";
+        if (scriptableObject != null)
+        {
+            if (scriptableObject is HealAndShieldChampion)
+            {
+                ChangeHealingAndShieldingSpells(currentCard);
+                return;
+            }
+
+            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard, false))
+            {
+                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+                temp.WriteLine("Old Card");
+
+                temp.WriteLine(scriptableObject.WriteOutCardInfo());
+                string oldString = scriptableObject.WriteOutCardInfo();
+
+                updatedFiles = true;
+                scriptableObject.description = currentCard[descriptionIndex];
+                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
+                string newString = scriptableObject.WriteOutCardInfo();
+
+                EditorUtility.SetDirty(scriptableObject);
+                amountOfCardsChanged += 1;
+                temp.WriteLine("\nNew Card");
+
+                foreach (string s in CompareStringChanges(oldString, newString))
+                {
+                    temp.WriteLine(s);
+                }
+
+                temp.Close();
+            }
+        }
+        else
+        {
+            updatedFiles = true;
+            StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
+            temp.Close();
+        }
+    }
+
+    private void ChangeHealingAndShieldingSpells(List<string> currentCard)
     {
         List<string> oldCard;
 
