@@ -63,6 +63,8 @@ public class Calculations : MonoBehaviour
 		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
 		{
 			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
+			if (cardDisplay.card == null) continue;
+
 			cardDisplay.manaCost = cardDisplay.card.maxManaCost;
             cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
 			
