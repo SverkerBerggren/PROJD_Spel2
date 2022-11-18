@@ -10,8 +10,10 @@ public class ListEnum
     public bool opponentGraveyard = false; 
     public bool myLandmarks = false; 
     public bool opponentLandmarks = false; 
-    public bool myChampions = false; 
     public bool opponentChampions = false;
+    public bool myChampions = false;
+    public bool myHand = false; 
+
 
 
 

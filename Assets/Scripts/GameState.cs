@@ -361,16 +361,9 @@ public class GameState : MonoBehaviour
         {
             if (discardCardsYourself)
             {
-                RequestDiscardCard request = new RequestDiscardCard();
-                request.whichPlayer = ClientConnection.Instance.playerId;
-                List<string> cardsDiscarded = new List<string>();
-                for (int i = 0; i < amountToDiscard; i++)
-                {
-                    cardsDiscarded.Add(actionOfPlayer.DiscardWhichCard(discardCardsYourself));
-                }
-                request.listOfCardsDiscarded = cardsDiscarded;
-
-                ClientConnection.Instance.AddRequest(request, RequestEmpty);
+                ListEnum listEnum = null;
+                listEnum.myHand = true;
+                Choise.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard);
             }
             else
             {

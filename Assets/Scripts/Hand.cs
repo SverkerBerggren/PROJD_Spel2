@@ -16,6 +16,7 @@ public class Hand : MonoBehaviour
 
     public void FixCardOrderInHand()
     {
+        cardsInHand.Clear();
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
@@ -36,21 +37,22 @@ public class Hand : MonoBehaviour
 
     public Card DiscardRandomCardInHand()
     {
-        
         int cardIndex = Random.Range(0, cardsInHand.Count);
         CardDisplay cardDisplay = cardsInHand[cardIndex].GetComponent<CardDisplay>();
+        return CardToDiscard(cardDisplay);
+    }
+
+    public string DiscardSpecificCardWithIndex(int index)
+    {
+        CardDisplay cardDisplay = cardsInHand[index].GetComponent<CardDisplay>();
+        return CardToDiscard(cardDisplay).name;
+    }
+
+    private Card CardToDiscard(CardDisplay cardDisplay)
+    {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
         Card c = cardDisplay.card;
         cardDisplay.card = null;
         return c;
-    }
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -17,6 +17,8 @@ public class Choise : MonoBehaviour
 
     private GameState gameState;
 
+    private ActionOfPlayer actionOfPlayer;
+
     public WhichMethod whichMethod;
 
     private static Choise instance;
@@ -27,6 +29,7 @@ public class Choise : MonoBehaviour
     public List<GameObject> buttonsToDestroy = new List<GameObject>();
 
     private bool isChoiceActive = false; 
+
 
     public static Choise Instance { get { return instance; } set { instance = value; } }
 
@@ -40,7 +43,12 @@ public class Choise : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+    }
+    private void Start()
+    {
         gameState = GameState.Instance;
+        actionOfPlayer = ActionOfPlayer.Instance;
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
     }
@@ -50,7 +58,6 @@ public class Choise : MonoBehaviour
                 ShowOpponentThinking();
         else
                 HideOpponentThinking();
-
 
         if (!gameState.hasPriority && isChoiceActive)
         {
@@ -75,11 +82,9 @@ public class Choise : MonoBehaviour
     private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, float delay)
     {
         yield return new WaitForSeconds(delay);
-        //yield return new WaitUntil(() => gameState.hasPriority && gameState.isItMyTurn);
 
         choiceMenu.SetActive(true);
         isChoiceActive = true;
-
 
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
@@ -89,11 +94,8 @@ public class Choise : MonoBehaviour
             {
                 AvailableChampion champ = gameState.playerChampions[i];
                 if (champ == gameState.playerChampion) continue;
-                
-                GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-                gO.GetComponent<Image>().sprite = champ.champion.artwork;
-                gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
-                buttonsToDestroy.Add(gO);
+
+                MakeButtons(champ.champion.artwork, listEnum, i);
             }
         }
 
@@ -102,13 +104,30 @@ public class Choise : MonoBehaviour
 			for (int i = 0; i < gameState.opponentChampions.Count; i++)
 			{
 				AvailableChampion champ = gameState.opponentChampions[i];
-                GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-                gO.GetComponent<Image>().sprite = champ.champion.artwork;
-                gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
-				buttonsToDestroy.Add(gO);
-			}
+
+                MakeButtons(champ.champion.artwork, listEnum, i);
+            }
 		}
+
+        if(listEnum.myHand)
+        {
+            for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
+            {
+                GameObject card = actionOfPlayer.handPlayer.cardsInHand[i];
+                CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+
+                MakeButtons(cardDisplay.card.artwork, listEnum, i);
+            }
+        }
 	}
+
+    private void MakeButtons(Sprite artwork, ListEnum listEnum, int index)
+    {
+        GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
+        gO.GetComponent<Image>().sprite = artwork;
+        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
+        buttonsToDestroy.Add(gO);
+    }
 
     
 
@@ -126,6 +145,10 @@ public class Choise : MonoBehaviour
 
                 case WhichMethod.switchChampionDied:
                     SwitchChamp(true);                    
+                    break;
+
+                case WhichMethod.discardCard:
+                    DiscardCard();
                     break;
             }
         }
@@ -189,16 +212,31 @@ public class Choise : MonoBehaviour
         if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.name.Equals("Duelist"))
         {
             gameState.PassPriority();
+        }   
+    }
+
+    private void DiscardCard()
+    {
+        List<string> cards = new List<string>();
+        for (int i = 0; i < chosenTargets.Count; i++)
+        {
+            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
+            cards.Add(card);
         }
 
+        if (gameState.isOnline)
+        {
+            RequestDiscardCard request = new RequestDiscardCard(cards);
+            request.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+        }
 
-     
-        
+        if (!gameState.isItMyTurn)
+            gameState.PassPriority();
     }
 
     private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
     {
-
         switch (theMethod)
         {
             case WhichMethod.switchChampion:
@@ -210,6 +248,11 @@ public class Choise : MonoBehaviour
                 {
                     return false;
                 }
+                break;
+
+            case WhichMethod.discardCard:
+                if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
+                    return false;
                 break;
         }
         return true;
@@ -228,5 +271,8 @@ public class Choise : MonoBehaviour
 
 public enum WhichMethod
 {
-    switchChampion, switchChampionDied
+    switchChampion, 
+    switchChampionDied, 
+    switchChampionDiedDiedDied, 
+    discardCard
 }
