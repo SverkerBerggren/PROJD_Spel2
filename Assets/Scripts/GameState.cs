@@ -631,7 +631,6 @@ public class GameState : MonoBehaviour
     {
         if (playerChampion.champion == deadChampion)
         {
-            hasPriority = true;
             SwapActiveChampion(null);
         }
         else if (!isOnline && opponentChampion.champion == deadChampion)
@@ -642,7 +641,7 @@ public class GameState : MonoBehaviour
 
 		if (isOnline && opponentChampion.champion == deadChampion)
 		{
-            hasPriority = false;
+            PassPriority();
 		}
 	}
 
