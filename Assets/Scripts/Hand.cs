@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             if (cardDisplay.card != null)
             {
+                print("hej");
                 if (!cardsInHand.Contains(cardSlot))
                     cardsInHand.Add(cardSlot);
             }
