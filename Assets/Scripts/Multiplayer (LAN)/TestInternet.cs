@@ -270,17 +270,20 @@ public class TestInternet : MonoBehaviour
                             discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
                         }
                     }
+
+                    RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
+                    discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
+                    print("vad ar which player " + discardCardRequest.whichPlayer);
+                    ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
                 }
                 else
-                {
-                   // Choise.Instance.ChoiceMenu()
+                {   
+                    ListEnum listEnum = new ListEnum();
+                    listEnum.myHand = true;
+                    Choise.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard);
                 }
                 
-                
-                RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
-                discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-                print("vad ar which player " + discardCardRequest.whichPlayer);
-                ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
+
 
                 //bool test =  gameState.actionOfPlayer.handOpponent.cardsInHand.Remove(gameState.actionOfPlayer.handOpponent.cardsInHand[0]);
 

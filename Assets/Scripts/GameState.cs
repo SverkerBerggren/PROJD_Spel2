@@ -371,7 +371,12 @@ public class GameState : MonoBehaviour
                 RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
                 requesten.amountOfCardsToDiscard = amountToDiscard;
+                requesten.isRandom = false;
                 ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
+
+
+                PassPriority();
+                
 
             }
         }
