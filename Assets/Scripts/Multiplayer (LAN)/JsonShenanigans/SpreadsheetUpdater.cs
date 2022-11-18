@@ -48,6 +48,8 @@ public class SpreadsheetUpdater : EditorWindow
     private int amountOfCardsChanged = 0;
     private bool updatedFiles = false;
 
+
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.J))
@@ -71,8 +73,50 @@ public class SpreadsheetUpdater : EditorWindow
         {
             Task theTask =  ProcessRepositoriesAsync(client);
         }
+        if (GUILayout.Button("Clear TextFiles"))
+        {
+            ClearFiles();
+        }
     }
-    
+
+
+    private void ClearFiles()
+    {
+
+        
+        try
+        {          
+            object[] filesToClearUnimplemented = Resources.LoadAll("UnimplementedCards");
+            object[] filesToClearChangd = Resources.LoadAll("ChangedCards");
+            
+            for (int i = 0; i < filesToClearUnimplemented.Length; i++)
+            {                             
+                string fileToDelete = filesToClearUnimplemented[i].ToSafeString();
+
+                File.Delete(Application.dataPath + "/Resources/UnimplementedCards/" + fileToDelete + ".meta");
+                File.Delete(Application.dataPath + "/Resources/UnimplementedCards/" + fileToDelete + ".txt");
+            }
+            for (int i = 0; i < filesToClearChangd.Length; i++)
+            {               
+                string fileToDelete = filesToClearChangd[i].ToSafeString();
+
+                File.Delete(Application.dataPath + "/Resources/ChangedCards/" + fileToDelete + ".meta");
+                File.Delete(Application.dataPath + "/Resources/ChangedCards/" + fileToDelete + ".txt");
+            }
+
+            Debug.ClearDeveloperConsole();
+            Debug.Log("Cleared files, tab to see it ");
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError(ex.Message.ToString());  
+        }
+
+ 
+
+      //  File.Delete(Application.dataPath + "/Resources/UnimplementedCards/");
+
+    }
 
     public async Task ProcessRepositoriesAsync(HttpClient client)
     {   
@@ -97,7 +141,6 @@ public class SpreadsheetUpdater : EditorWindow
             spreadsheetData = JsonConvert.DeserializeObject<SpreadsheetData>(json);
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
-            healAndShieldSpellsObjects = new List<HealAndShieldChampion>(Resources.LoadAll<HealAndShieldChampion>("ScriptableObjects/Cards/Spells/Support"));
             spellObjects = new List<Spells>(Resources.LoadAll<Spells>("ScriptableObjects/Cards/Spells/Support"));
             //    attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
 
@@ -160,9 +203,9 @@ public class SpreadsheetUpdater : EditorWindow
             Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
     }
 
-    private bool CheckIfDefaultCardInfoChanged(Card scriptableObject, List<string> currentCard, bool aChange)
+    private bool CheckIfDefaultCardInfoChanged(Card scriptableObject, List<string> currentCard)
     {
-        if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || aChange || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
+        if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
             return true;
         else
             return false;
@@ -171,23 +214,19 @@ public class SpreadsheetUpdater : EditorWindow
     private void ChangeSupportSpells(List<string> currentCard)
     {
         List<string> oldCard;
-
-        spellObjects.RemoveAll(spell => spell is HealAndShieldChampion);
-
-        Spells scriptableObject = (Spells)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);
-
-        
+        Spells scriptableObject = (Spells)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);       
 
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
             if (scriptableObject is HealAndShieldChampion)
             {
+                Debug.Log("Comes in here");
                 ChangeHealingAndShieldingSpells(currentCard);
                 return;
             }
 
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard, false))
+            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard))
             {
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
@@ -224,22 +263,27 @@ public class SpreadsheetUpdater : EditorWindow
     {
         List<string> oldCard;
 
-        HealAndShieldChampion scriptableObject = (HealAndShieldChampion)FindCardFromName(healAndShieldSpellsObjects.Cast<Card>().ToList(), currentCard[0]);
+        HealAndShieldChampion scriptableObject = (HealAndShieldChampion)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
-            bool aChange = false;
+            Debug.Log("1");
+            bool shieldChange = false;
+            bool healChange = false;
 
             if (!currentCard[shieldIndex].Equals("-"))
             {
-                aChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToDefence;
+                shieldChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToDefence;
+                Debug.Log("2 shield");
             }
             if (!currentCard[healIndex].Equals("-"))
             {
-                aChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountToHeal;
+                healChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountToHeal;
+                Debug.Log("2 heal");
             }
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard, aChange) || !scriptableObject.amountToDefence.Equals(Convert.ToInt32(currentCard[shieldIndex])) || !scriptableObject.amountToHeal.Equals(Convert.ToInt32(currentCard[healIndex])))
+            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || shieldChange || healChange)
             {
+                Debug.Log("3");
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
 
@@ -249,8 +293,10 @@ public class SpreadsheetUpdater : EditorWindow
                 updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
-                scriptableObject.amountToDefence = Convert.ToInt32(currentCard[shieldIndex]);
-                scriptableObject.amountToHeal = Convert.ToInt32(currentCard[healIndex]);
+                if (shieldChange)
+                    scriptableObject.amountToDefence = Convert.ToInt32(currentCard[shieldIndex]);
+                if (healChange)
+                    scriptableObject.amountToHeal = Convert.ToInt32(currentCard[healIndex]);
                 string newString = scriptableObject.WriteOutCardInfo();
 
                 EditorUtility.SetDirty(scriptableObject);
@@ -261,12 +307,13 @@ public class SpreadsheetUpdater : EditorWindow
                 {
                     temp.WriteLine(s);
                 }
-
+                Debug.Log("4");
                 temp.Close();
             }
         }
         else
         {
+            Debug.Log("Mr.Else");
             updatedFiles = true;
             StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
             temp.Close();
@@ -286,7 +333,7 @@ public class SpreadsheetUpdater : EditorWindow
             {
                 isDamageChanged = System.Convert.ToInt32(currentCard[attackIndex]) != scriptableObject.damage;
             }
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard, isDamageChanged))
+            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || isDamageChanged)
             {
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
@@ -326,7 +373,7 @@ public class SpreadsheetUpdater : EditorWindow
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard, false) || !scriptableObject.minionHealth.Equals(Convert.ToInt32(currentCard[healthIndex])))
+            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || !scriptableObject.minionHealth.Equals(Convert.ToInt32(currentCard[healthIndex])))
             {
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
 				temp.WriteLine("Old Card");

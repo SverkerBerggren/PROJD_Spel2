@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c95b3c776c0a394b892ed1a7a5a4e37, type: 3}
-  m_Name: Rain Of Life
+  m_Name: Rain of Life
   m_EditorClassIdentifier: 
-  cardName: Rain Of Life
+  cardName: Rain of Life
   typeOfCard: 0
   description: Heals all champions 20
   artwork: {fileID: 21300000, guid: f8b1cd0f70ec8e04cb65f0cec489827e, type: 3}
-  manaCost: 5
   maxManaCost: 5
   tag: Spell
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 0
+  championCard: 0
+  championCardType: 0
   amountToHeal: 20
+  amountToDefence: 0
   allChampions: 1
