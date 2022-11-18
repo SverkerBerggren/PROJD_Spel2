@@ -139,13 +139,13 @@ public class Choise : MonoBehaviour
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
 
-        CheckIfDuelistSwap();
+        PriorityForSwap();
         
         if (chosenTargets[0].whichList.myChampions)
             gameState.playerChampion.champion.WhenCurrentChampion();        
     }
 
-    private void CheckIfDuelistSwap()
+    private void PriorityForSwap()
     {
         if (!gameState.isItMyTurn)
         {
@@ -154,6 +154,8 @@ public class Choise : MonoBehaviour
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
             }
+            if (gameState.hasPriority && chosenTargets[0].whichList.opponentChampions)
+                gameState.PassPriority();
         }
 
         if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.name.Equals("Duelist"))
