@@ -138,6 +138,7 @@ public class Choise : MonoBehaviour
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
 
+            print(chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist") );
             if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist") && !gameState.isItMyTurn)
             {
                 print("Den passar priority via choice memyn");
@@ -151,6 +152,7 @@ public class Choise : MonoBehaviour
 
     private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
     {
+
         switch (theMethod)
         {
             case WhichMethod.switchChampion:
