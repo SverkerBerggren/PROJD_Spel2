@@ -361,7 +361,7 @@ public class GameState : MonoBehaviour
         {
             if (discardCardsYourself)
             {
-                ListEnum listEnum = null;
+                ListEnum listEnum = new ListEnum();
                 listEnum.myHand = true;
                 Choise.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard);
             }
