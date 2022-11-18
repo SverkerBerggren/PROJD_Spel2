@@ -221,7 +221,6 @@ public class SpreadsheetUpdater : EditorWindow
         {
             if (scriptableObject is HealAndShieldChampion)
             {
-                Debug.Log("Comes in here");
                 ChangeHealingAndShieldingSpells(currentCard);
                 return;
             }
@@ -267,23 +266,19 @@ public class SpreadsheetUpdater : EditorWindow
         string textName = currentCard[cardNameIndex] + ".txt";
         if (scriptableObject != null)
         {
-            Debug.Log("1");
             bool shieldChange = false;
             bool healChange = false;
 
             if (!currentCard[shieldIndex].Equals("-"))
             {
                 shieldChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToDefence;
-                Debug.Log("2 shield");
             }
             if (!currentCard[healIndex].Equals("-"))
             {
                 healChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountToHeal;
-                Debug.Log("2 heal");
             }
             if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || shieldChange || healChange)
             {
-                Debug.Log("3");
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
 
@@ -307,13 +302,11 @@ public class SpreadsheetUpdater : EditorWindow
                 {
                     temp.WriteLine(s);
                 }
-                Debug.Log("4");
                 temp.Close();
             }
         }
         else
         {
-            Debug.Log("Mr.Else");
             updatedFiles = true;
             StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
             temp.Close();
