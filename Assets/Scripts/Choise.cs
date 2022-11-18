@@ -88,6 +88,8 @@ public class Choise : MonoBehaviour
 
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
+
+
         if (listEnum.myChampions)
         {
             for (int i = 0; i < gameState.playerChampions.Count; i++)
@@ -111,6 +113,7 @@ public class Choise : MonoBehaviour
 
         if(listEnum.myHand)
         {
+            print("kommer den till discard delen");
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
                 GameObject card = actionOfPlayer.handPlayer.cardsInHand[i];
