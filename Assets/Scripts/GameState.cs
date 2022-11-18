@@ -120,7 +120,7 @@ public class GameState : MonoBehaviour
         opponentChampion = opponentChampions[0];
 
         DrawStartingCards();
-        Refresh();
+        //Refresh();
     }
 
     private void ChangeInteractabiltyEndTurn()

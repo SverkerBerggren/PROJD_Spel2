@@ -8,6 +8,11 @@ public class Hand : MonoBehaviour
     public Deck deck;
     public List<GameObject> cardsInHand = new List<GameObject>();
 
+    private void Start()
+    {
+        GameState.Instance.Refresh();
+    }
+
     private void FixedUpdate()
     {
 
