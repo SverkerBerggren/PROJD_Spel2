@@ -254,6 +254,7 @@ public class Choise : MonoBehaviour
                 break;
 
             case WhichMethod.discardCard:
+                print("den här går in här ");
                 if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
@@ -264,6 +265,7 @@ public class Choise : MonoBehaviour
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod)
     {
         //Måste lägga in om choicen failar checkifchoice att den ska passa priority om den ska göra det
+        print("vad blir checken " + CheckIfChoice(theMethod, list));
         if (CheckIfChoice(theMethod, list))
         {
             IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
