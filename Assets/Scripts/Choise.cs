@@ -180,11 +180,19 @@ public class Choise : MonoBehaviour
             if (gameState.hasPriority && chosenTargets[0].whichList.opponentChampions)
                 gameState.PassPriority();
         }
+        else
+        {
+            if (gameState.opponentChampion.health <= 0)
+                gameState.PassPriority();
+        }
 
         if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.name.Equals("Duelist"))
         {
             gameState.PassPriority();
         }
+
+
+     
         
     }
 
