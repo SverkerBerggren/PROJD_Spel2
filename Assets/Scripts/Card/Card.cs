@@ -78,14 +78,15 @@ public abstract class Card : ScriptableObject
         if (amountOfCardsToDraw != 0)
         {
             gameState.DrawCard(amountOfCardsToDraw, null);
+            gameState.Refresh();
         }
         if (amountOfCardsToDiscard != 0)
         {
             gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
+            gameState.Refresh();
         }
         gameState.playerChampion.champion.AmountOfCardsPlayed(this);
 
-        gameState.Refresh();
     }
    
     public virtual string WriteOutCardInfo()
