@@ -114,6 +114,7 @@ public class Choise : MonoBehaviour
         if(listEnum.myHand)
         {
             print("kommer den till discard delen");
+            descriptionText.text = "Choose a card to discard";
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
                 GameObject card = actionOfPlayer.handPlayer.cardsInHand[i];
