@@ -59,7 +59,7 @@ public class Calculations : MonoBehaviour
 	}
 
 	public void CalculateHandManaCost()
-	{		
+	{
 		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
 		{
 			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
