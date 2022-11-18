@@ -171,8 +171,10 @@ public class TestInternet : MonoBehaviour
 
                 gameState.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
 
-                if (castedAction.targetToSwitch.whichList.opponentChampions)
+                if (castedAction.targetToSwitch.whichList.opponentChampions)               
                     gameState.playerChampion.champion.WhenCurrentChampion();
+
+                
                 
                 //Draw card opponents
 

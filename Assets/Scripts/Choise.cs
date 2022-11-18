@@ -137,16 +137,30 @@ public class Choise : MonoBehaviour
             request.championDied = died;
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+        }
 
-            if ((chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.name.Equals("Duelist") || chosenTargets[0].whichList.opponentChampions && !gameState.opponentChampion.champion.name.Equals("Duelist")) && !gameState.isItMyTurn)
+        CheckIfDuelistSwap();
+        
+        if (chosenTargets[0].whichList.myChampions)
+            gameState.playerChampion.champion.WhenCurrentChampion();        
+    }
+
+    private void CheckIfDuelistSwap()
+    {
+        if (!gameState.isItMyTurn)
+        {
+            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.name.Equals("Duelist"))
             {
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
             }
         }
+
+        if (chosenTargets[0].whichList.opponentChampions && !gameState.opponentChampion.champion.name.Equals("Duelist"))
+        {
+            gameState.PassPriority();
+        }
         
-        if (chosenTargets[0].whichList.myChampions)
-            gameState.playerChampion.champion.WhenCurrentChampion();
     }
 
     private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
