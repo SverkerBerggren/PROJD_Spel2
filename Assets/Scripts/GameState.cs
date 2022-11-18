@@ -138,6 +138,8 @@ public class GameState : MonoBehaviour
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
 
+        PassPriority();
+
         EndTurn();
     }
 
@@ -429,17 +431,23 @@ public class GameState : MonoBehaviour
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
-            if (isOnline)
-            {
-                if (!isItMyTurn)
-                    hasPriority = false;
-                RequestPassPriority requestPassPriority = new RequestPassPriority(true);
-                requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
-                ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
-            }
+            
+            PassPriority();
+            
 
         }
 
+    }
+
+    public void PassPriority()
+    {
+        if(hasPriority && isOnline)
+        {
+            hasPriority = false;
+            RequestPassPriority requestPassPriority = new RequestPassPriority(true);
+            requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(requestPassPriority, RequestEmpty);
+        }
     }
 
     public void SwapActiveChampion(Card card)
@@ -580,8 +588,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            if(isOnline)
-                hasPriority = true;
+
             isItMyTurn = true;
             TriggerUpKeep();
         }

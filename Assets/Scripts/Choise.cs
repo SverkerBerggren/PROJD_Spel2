@@ -138,21 +138,12 @@ public class Choise : MonoBehaviour
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
 
-            if(died)
-            {
-                RequestPassPriority requestPassPriority = null;
-                if (gameState.playerChampion.name.Equals("Duelist") || gameState.isItMyTurn)
-                    requestPassPriority = new RequestPassPriority(false);
-                else
-                    requestPassPriority = new RequestPassPriority(true);
-                requestPassPriority.whichPlayer = ClientConnection.Instance.playerId;
-                ClientConnection.Instance.AddRequest(requestPassPriority, gameState.RequestEmpty);
-            }
+            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist"))
+                gameState.PassPriority();
         }
-        print(gameState.hasPriority);
-        if (chosenTargets[0].whichList.myChampions && gameState.hasPriority)
+        
+        if (chosenTargets[0].whichList.myChampions)
             gameState.playerChampion.champion.WhenCurrentChampion();
-
     }
 
     private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
