@@ -77,10 +77,6 @@ public class ActionOfPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!gameState.hasPriority && gameState.isItMyTurn)
-            choice.ShowOpponentThinking();
-        else
-            choice.HideOpponentThinking();
         manaText.text = "Mana: " + currentMana.ToString();
     }
 

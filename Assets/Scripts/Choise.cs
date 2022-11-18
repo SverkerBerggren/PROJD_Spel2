@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.ShortcutManagement;
 
 public class Choise : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Choise : MonoBehaviour
 
     public List<GameObject> buttonsToDestroy = new List<GameObject>();
 
+    private bool isChoiceActive = false; 
+
     public static Choise Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()
@@ -40,6 +43,24 @@ public class Choise : MonoBehaviour
         gameState = GameState.Instance;
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
+    }
+    private void FixedUpdate()
+    {
+        if (!gameState.hasPriority && gameState.isItMyTurn)
+                ShowOpponentThinking();
+        else
+                HideOpponentThinking();
+
+
+        if (!gameState.hasPriority && isChoiceActive)
+        {
+
+            choiceMenu.SetActive(false);
+        }
+        else if(isChoiceActive)
+        {
+            choiceMenu.SetActive(true); 
+        }
     }
 
     public void ShowOpponentThinking()
@@ -57,6 +78,7 @@ public class Choise : MonoBehaviour
         //yield return new WaitUntil(() => gameState.hasPriority && gameState.isItMyTurn);
 
         choiceMenu.SetActive(true);
+        isChoiceActive = true;
 
 
         whichMethod = theMethod;
@@ -67,7 +89,7 @@ public class Choise : MonoBehaviour
             {
                 AvailableChampion champ = gameState.playerChampions[i];
                 if (champ == gameState.playerChampion) continue;
-
+                
                 GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
                 gO.GetComponent<Image>().sprite = champ.champion.artwork;
                 gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, i);
@@ -113,7 +135,8 @@ public class Choise : MonoBehaviour
     }
 
     public void ResetChoice()
-    {   
+    {
+        isChoiceActive = false;
         amountOfTargets = 0;
         chosenTargets.Clear();
         foreach(GameObject obj in buttonsToDestroy)
