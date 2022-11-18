@@ -33,6 +33,7 @@ public class Hand : MonoBehaviour
             }
             else
             {
+                print("anti hej");
                 cardSlot.SetActive(false);
                 if (cardsInHand.Contains(cardSlot))
                     cardsInHand.Remove(cardSlot);
