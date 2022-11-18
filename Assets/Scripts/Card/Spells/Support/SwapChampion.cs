@@ -11,6 +11,6 @@ public class SwapChampion : Spells
         listEnum.myChampions = true;
 
        
-            Choise.Instance.ChoiceMenu(listEnum, 1, WhichMethod.switchChampion);
+        Choise.Instance.ChoiceMenu(listEnum, 1, WhichMethod.switchChampion);
     }
 }

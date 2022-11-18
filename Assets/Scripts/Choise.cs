@@ -138,7 +138,7 @@ public class Choise : MonoBehaviour
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
 
-            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist"))
+            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist") && !gameState.isItMyTurn)
                 gameState.PassPriority();
         }
         
