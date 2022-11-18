@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ResponseOpponentDiscardCard : ServerResponse
 {
-    int amountOfCardsToDiscard = 0; 
+    public int amountOfCardsToDiscard = 0;
+
+
+    public bool isRandom = false;
 
     public ResponseOpponentDiscardCard()
     {

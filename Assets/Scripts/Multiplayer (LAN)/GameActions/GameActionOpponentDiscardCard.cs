@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEditor.XR;
 
 public class GameActionOpponentDiscardCard : GameAction
 {
     public int amountOfCardsToDiscard = 0;
+
+    public bool isRandom = false;
 
     public GameActionOpponentDiscardCard()
     {

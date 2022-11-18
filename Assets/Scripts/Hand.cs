@@ -27,13 +27,11 @@ public class Hand : MonoBehaviour
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             if (cardDisplay.card != null)
             {
-                print("hej");
                 if (!cardsInHand.Contains(cardSlot))
                     cardsInHand.Add(cardSlot);
             }
             else
             {
-                print("anti hej");
                 cardSlot.SetActive(false);
                 if (cardsInHand.Contains(cardSlot))
                     cardsInHand.Remove(cardSlot);

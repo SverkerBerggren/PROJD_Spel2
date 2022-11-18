@@ -260,14 +260,23 @@ public class TestInternet : MonoBehaviour
 
                 GameActionOpponentDiscardCard castedAction = (GameActionOpponentDiscardCard)action;
                 List<string> discardedCards = new List<string>();
-                for(int i = 0; i < castedAction.amountOfCardsToDiscard; i++)
+                if(castedAction.isRandom)
                 {
-                    if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
+                    for (int i = 0; i < castedAction.amountOfCardsToDiscard; i++)
                     {
-                        discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                        if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
+                        {
+
+                            discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                        }
                     }
                 }
-
+                else
+                {
+                   // Choise.Instance.ChoiceMenu()
+                }
+                
+                
                 RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
                 discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
                 print("vad ar which player " + discardCardRequest.whichPlayer);

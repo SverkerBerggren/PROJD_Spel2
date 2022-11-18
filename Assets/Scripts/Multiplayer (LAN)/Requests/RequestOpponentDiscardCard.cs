@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class RequestOpponentDiscardCard : ClientRequest
 {
-    public  int amountOfCardsToDiscard = 0; 
+    public  int amountOfCardsToDiscard = 0;
+
+    public bool isRandom = false;
 
     public RequestOpponentDiscardCard()
     {

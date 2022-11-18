@@ -302,7 +302,7 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
         GameActionOpponentDiscardCard gameAction = new GameActionOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard);
-        
+        gameAction.isRandom = requestToHandle.isRandom;
         AddGameAction(response, gameAction);
         return response;
     }
