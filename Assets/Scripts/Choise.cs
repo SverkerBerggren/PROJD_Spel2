@@ -139,7 +139,10 @@ public class Choise : MonoBehaviour
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
 
             if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.name.Equals("Duelist") && !gameState.isItMyTurn)
+            {
+                print("Den passar priority via choice memyn");
                 gameState.PassPriority();
+            }
         }
         
         if (chosenTargets[0].whichList.myChampions)
