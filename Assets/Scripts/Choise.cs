@@ -156,7 +156,7 @@ public class Choise : MonoBehaviour
             }
         }
 
-        if (chosenTargets[0].whichList.opponentChampions && !gameState.opponentChampion.champion.name.Equals("Duelist"))
+        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.name.Equals("Duelist"))
         {
             gameState.PassPriority();
         }
