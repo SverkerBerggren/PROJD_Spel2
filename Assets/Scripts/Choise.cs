@@ -13,11 +13,12 @@ public class Choise : MonoBehaviour
     public GameObject choiceButtonPrefab;
 
     public TMP_Text descriptionText;
+    [SerializeField] private GameObject closeMenuButton;
     public GameObject buttonHolder;
 
     private GameState gameState;
-
     private ActionOfPlayer actionOfPlayer;
+    private Graveyard graveyard;
 
     public WhichMethod whichMethod;
 
@@ -49,6 +50,8 @@ public class Choise : MonoBehaviour
     {
         gameState = GameState.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
+        graveyard = Graveyard.Instance;
+
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
     }
@@ -105,9 +108,9 @@ public class Choise : MonoBehaviour
 		{
 			for (int i = 0; i < gameState.opponentChampions.Count; i++)
 			{
-				AvailableChampion champ = gameState.opponentChampions[i];
+				Sprite champSprite = gameState.opponentChampions[i].champion.artwork;
 
-                MakeButtons(champ.champion.artwork, listEnum, i);
+                MakeButtons(champSprite, listEnum, i);
             }
 		}
 
@@ -117,13 +120,32 @@ public class Choise : MonoBehaviour
             descriptionText.text = "Choose a card to discard";
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
-                GameObject card = actionOfPlayer.handPlayer.cardsInHand[i];
-                CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i].GetComponent<CardDisplay>();
 
                 MakeButtons(cardDisplay.card.artwork, listEnum, i);
             }
         }
-	}
+        if (listEnum.myGraveyard)
+        {
+            descriptionText.text = "Show graveyard";
+            for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
+            {
+                Sprite cardSprite = graveyard.graveyardPlayer[i].artwork;
+                MakeButtons(cardSprite, listEnum, i);
+                closeMenuButton.SetActive(true);
+            }
+        }
+        if (listEnum.myDeck)
+        {
+            descriptionText.text = "Show graveyard";
+            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
+            {
+                Sprite cardSprite = actionOfPlayer.handPlayer.deck.deckPlayer[i].artwork;
+                MakeButtons(cardSprite, listEnum, i);
+                closeMenuButton.SetActive(true);
+            }
+        }
+    }
 
     private void MakeButtons(Sprite artwork, ListEnum listEnum, int index)
     {
@@ -154,6 +176,12 @@ public class Choise : MonoBehaviour
                 case WhichMethod.discardCard:
                     DiscardCard();
                     break;
+                case WhichMethod.ShowGraveyard:
+
+                    break;
+                case WhichMethod.ShowDeck:
+
+                    break;
             }
         }
 
@@ -164,6 +192,7 @@ public class Choise : MonoBehaviour
     public void ResetChoice()
     {
         isChoiceActive = false;
+        closeMenuButton.SetActive(false);
         amountOfTargets = 0;
         chosenTargets.Clear();
         foreach(GameObject obj in buttonsToDestroy)
@@ -259,16 +288,32 @@ public class Choise : MonoBehaviour
                 if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
+
+            case WhichMethod.ShowGraveyard:
+                if (graveyard.graveyardPlayer.Count <= 0)
+                    return false;
+                break;
+            case WhichMethod.ShowDeck:
+                if (actionOfPlayer.handPlayer.deck.deckPlayer.Count <= 0)
+                    return false;
+                break;
         }
         return true;
     }
 
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod)
     {
+        
         //Måste lägga in om choicen failar checkifchoice att den ska passa priority om den ska göra det
         print("vad blir checken " + CheckIfChoice(theMethod, list));
         if (CheckIfChoice(theMethod, list))
         {
+            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+            ResetChoice();
+            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+
             IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
             StartCoroutine(enumerator);
         }
@@ -280,5 +325,7 @@ public enum WhichMethod
     switchChampion, 
     switchChampionDied, 
     switchChampionDiedDiedDied, 
-    discardCard
+    discardCard,
+    ShowGraveyard,
+    ShowDeck
 }

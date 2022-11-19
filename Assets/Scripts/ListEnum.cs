@@ -12,8 +12,8 @@ public class ListEnum
     public bool opponentLandmarks = false; 
     public bool opponentChampions = false;
     public bool myChampions = false;
-    public bool myHand = false; 
-
+    public bool myHand = false;
+    public bool myDeck = false;
 
 
 
