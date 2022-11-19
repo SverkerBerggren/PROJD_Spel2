@@ -153,6 +153,8 @@ public class Choise : MonoBehaviour
         gO.GetComponent<Image>().sprite = artwork;
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
+        if (amountOfTargets == 0)
+            gO.GetComponent<Button>().interactable = false;
     }
 
     
