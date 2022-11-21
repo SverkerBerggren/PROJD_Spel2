@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 public class SpreadsheetUpdater : EditorWindow
 {
     private List<AttackSpell> attackSpellsObjects;
@@ -370,4 +371,4 @@ public class SpreadsheetUpdater : EditorWindow
         return newStringSplit;
 	}
 }
-
+#endif
