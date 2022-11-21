@@ -5,16 +5,9 @@ using System;
 public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
 {
     public  int Type = 0;
-  
     public  int whichPlayer = 100;
-
-    public bool cardPlayed = false;
-
     public List<GameAction> OpponentActions = new List<GameAction>();
-
     public string message = "";
-
-    public int cardId  = 0; 
 
     public Type GetType(int IntegerToConvert)
     {   if(IntegerToConvert == 0)

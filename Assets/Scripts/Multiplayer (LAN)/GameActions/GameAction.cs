@@ -4,13 +4,7 @@ using System;
 
 public class GameAction : MBJson.JSONDeserializeable, MBJson.JSONTypeConverter
 {
-
-   public int Type = 0;
-   
-   public int cardId = 0;
-   
-   public bool cardPlayed = false;
-
+    public int Type = 0;
     public string errorMessage = "";
     
     public GameAction() { }// denna far inte tas bort, kravs for parsingen 
