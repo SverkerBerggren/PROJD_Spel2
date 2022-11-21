@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Assasinate
   typeOfCard: 2
-  description: Deal 90 damage
+  description: Deal *Damage* damage
   artwork: {fileID: 21300000, guid: 6a04690bd32d9474a8c2b74584271f9a, type: 3}
   maxManaCost: 8
   tag: AttackSpell
@@ -22,6 +22,8 @@ MonoBehaviour:
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 1
+  championCard: 0
+  championCardType: 0
   damage: 90
   destroyLandmark: 0
   damageEqualsToYourChampionHP: 0

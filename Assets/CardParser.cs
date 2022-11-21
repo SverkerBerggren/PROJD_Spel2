@@ -47,15 +47,16 @@ public class CardParser : MonoBehaviour
                 s[i] = actions[s[i]](card);
             }
             returnString += s[i];
-            returnString += " ";
+            if(i + 1 != s.Length)
+                returnString += " ";
         }
-        returnString += "\b";
+        
         card.description.text = returnString;
     }
 
     public string Attack(CardDisplay cardDisplay)
     {
         AttackSpell card = (AttackSpell)cardDisplay.card;
-        return card.damage.ToString();
+        return (card.damage).ToString();
     }
 }
