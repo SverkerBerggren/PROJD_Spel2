@@ -7,18 +7,6 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
     public  int Type = 0; 
     public  int whichPlayer = 1000;
 
-    public bool createScene = false;
-
-    public bool isPolling = false;
-
-    public bool hasPlayedCard = false;
-
-   
-
-
-    public int cardId  = 0; 
-
-
     public ClientRequest() { } //Denna far inte tas bort kravs for parsingen 
 
     public Type GetType(int IntegerToConvert)
@@ -84,7 +72,7 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         }
         if (IntegerToConvert == 15)
         {
-            return (typeof(ClientRequestGameSetup));
+            return (typeof(RequestGameSetup));
         }
         if (IntegerToConvert == 16)
         {

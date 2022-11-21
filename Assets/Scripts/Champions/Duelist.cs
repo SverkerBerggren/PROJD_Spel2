@@ -14,12 +14,12 @@ public class Duelist : Champion
 		lE.opponentChampions = true;
         if (gameState.isOnline)
         {
-            Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
         else
         {
             if (gameState.opponentChampion != this)
-                Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
         }
 	}
 }
