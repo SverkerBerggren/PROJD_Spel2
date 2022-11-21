@@ -54,6 +54,8 @@ public class CardDisplay : MonoBehaviour
             manaText.text = manaCost.ToString();
             description.text = card.description;
 
+            CardParser.Instance.CheckKeyword(this);
+
             if (cardPlayableEffect != null)
             {
                 if (ActionOfPlayer.Instance.currentMana >= manaCost && GameState.Instance.isItMyTurn)
