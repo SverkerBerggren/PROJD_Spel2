@@ -47,7 +47,7 @@ public class CardParser : MonoBehaviour
                 s[i] = actions[s[i]](card);
             }
             returnString += s[i];
-            if(i != s.Length)
+            if(i + 1 != s.Length)
                 returnString += " ";
         }
         
