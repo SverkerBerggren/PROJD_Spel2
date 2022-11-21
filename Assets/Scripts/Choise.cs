@@ -9,7 +9,7 @@ using UnityEditor.ShortcutManagement;
 public class Choise : MonoBehaviour
 {
     public List<TargetInfo> chosenTargets = new List<TargetInfo>();
-    public int amountOfTargets = 0;
+    private int amountOfTargets = 0;
     public GameObject choiceButtonPrefab;
 
     public TMP_Text descriptionText;
@@ -20,14 +20,14 @@ public class Choise : MonoBehaviour
     private ActionOfPlayer actionOfPlayer;
     private Graveyard graveyard;
 
-    public WhichMethod whichMethod;
+    private WhichMethod whichMethod;
 
     private static Choise instance;
 
     private GameObject choiceMenu;
     private GameObject choiceOpponentMenu;
 
-    public List<GameObject> buttonsToDestroy = new List<GameObject>();
+    private List<GameObject> buttonsToDestroy = new List<GameObject>();
 
     private bool isChoiceActive = false; 
 

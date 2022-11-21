@@ -109,7 +109,7 @@ public class GameState : MonoBehaviour
         {
             List<string> ha = new List<string>
             {
-                "Builder",
+                "Shanker",
                 "Duelist",
                 "Graverobber"
             };
