@@ -9,15 +9,15 @@ using Unity.VisualScripting;
 using UnityEditor;
 using System.IO;
 
-#if UNITY_EDITOR
-public class SpreadsheetUpdater : EditorWindow
+
+public class SpreadsheetUpdater 
 {
     private List<AttackSpell> attackSpellsObjects;
     private List<Landmarks> landmarkObjects;
     private List<HealAndShieldChampion> healAndShieldSpellsObjects;
     private List<Spells> spellObjects;
     private List<List<string>> cardData;
-    private HttpClient client = new HttpClient();
+    public HttpClient client = new HttpClient();
     private SpreadsheetData spreadsheetData;
 
     //Values from spreadsheet
@@ -33,27 +33,7 @@ public class SpreadsheetUpdater : EditorWindow
     private int amountOfCardsChanged = 0;
     private bool updatedFiles = false;
 
-    [MenuItem("Tools/spreadsheet updater")]
-    public static void ShowWindow()
-    {
-        GetWindow(typeof(SpreadsheetUpdater));
-    }
-
-    private void OnGUI()
-    {
-        GUILayout.Label("Update from spreadsheet",EditorStyles.boldLabel);
-
-        if(GUILayout.Button("Update cards"))
-        {
-            Task theTask =  ProcessRepositoriesAsync(client);
-        }
-        if (GUILayout.Button("Clear TextFiles"))
-        {
-            ClearFiles();
-        }
-    }
-
-    private void ClearFiles()
+    public void ClearFiles()
     {
         try
         {          
@@ -197,7 +177,7 @@ public class SpreadsheetUpdater : EditorWindow
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
                 string newString = scriptableObject.WriteOutCardInfo();
 
-                EditorUtility.SetDirty(scriptableObject);
+                MakeDirty(scriptableObject);
                 amountOfCardsChanged += 1;
                 temp.WriteLine("\nNew Card");
 
@@ -251,7 +231,7 @@ public class SpreadsheetUpdater : EditorWindow
                     scriptableObject.amountToHeal = Convert.ToInt32(currentCard[healIndex]);
                 string newString = scriptableObject.WriteOutCardInfo();
 
-                EditorUtility.SetDirty(scriptableObject);
+                MakeDirty(scriptableObject);
                 amountOfCardsChanged += 1;
                 temp.WriteLine("\nNew Card");
 
@@ -295,7 +275,7 @@ public class SpreadsheetUpdater : EditorWindow
                 scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
 				string newString = scriptableObject.WriteOutCardInfo();
 
-				EditorUtility.SetDirty(scriptableObject);
+                MakeDirty(scriptableObject);
                 amountOfCardsChanged += 1;
                 temp.WriteLine("\nNew Card");
 
@@ -332,13 +312,12 @@ public class SpreadsheetUpdater : EditorWindow
 				updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
-                scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);    
-                EditorUtility.SetDirty(scriptableObject);
+                scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);
 
 				string newString = scriptableObject.WriteOutCardInfo();
-               
 
-				amountOfCardsChanged += 1;
+                MakeDirty(scriptableObject);
+                amountOfCardsChanged += 1;
 				temp.WriteLine("\nNew Card");
 
                 foreach (string s in CompareStringChanges(oldString, newString))
@@ -370,5 +349,39 @@ public class SpreadsheetUpdater : EditorWindow
 		}
         return newStringSplit;
 	}
+
+    private void MakeDirty(Card scriptableObject)
+    {
+        #if UNITY_EDITOR
+        EditorUtility.SetDirty(scriptableObject);
+        #endif
+    }
+}
+
+
+
+#if UNITY_EDITOR
+public class SpreadSheetUpdatetWindow : EditorWindow
+{   private SpreadsheetUpdater spreadsheetUpdater = new SpreadsheetUpdater();
+    [MenuItem("Tools/spreadsheet updater")]
+    public static void ShowWindow()
+    {
+        GetWindow(typeof(SpreadSheetUpdatetWindow));
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.Label("Update from spreadsheet", EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Update cards"))
+        {
+            Task theTask = spreadsheetUpdater.ProcessRepositoriesAsync(spreadsheetUpdater.client);
+        }
+        if (GUILayout.Button("Clear TextFiles"))
+        {
+            spreadsheetUpdater.ClearFiles();
+        }
+    }
+
 }
 #endif
