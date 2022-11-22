@@ -136,8 +136,8 @@ public class Choice : MonoBehaviour
         }
         if (listEnum.myDeck)
         {
-            descriptionText.text = "Show graveyard";
-            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
+            descriptionText.text = "Show Deck";
+            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckOfCardsPlayer.Count; i++)
             {
                 Sprite cardSprite = actionOfPlayer.handPlayer.deck.deckPlayer[i].artwork;
                 MakeButtons(cardSprite, listEnum, i);
