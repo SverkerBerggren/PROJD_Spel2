@@ -77,7 +77,7 @@ public class CardParser : MonoBehaviour
     public string Attack(CardDisplay cardDisplay)
     {
         AttackSpell card = (AttackSpell)cardDisplay.card;
-        return "deal" + (card.damage).ToString() + " damage";
+        return "Deal " + (card.damage).ToString() + " damage";
     }
 
     public string Shield(CardDisplay cardDisplay)
@@ -89,7 +89,7 @@ public class CardParser : MonoBehaviour
     public string Heal(CardDisplay cardDisplay)
     {
         HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return "heal" + (card.amountToHeal).ToString();
+        return "Heal" + (card.amountToHeal).ToString();
     }
 
     public string Draw(CardDisplay cardDisplay)
@@ -97,9 +97,9 @@ public class CardParser : MonoBehaviour
         Card card = cardDisplay.card;
         if (card.amountOfCardsToDraw == 1)
         {
-            return "a card";
+            return "Draw a card";
         }
-        return (card.amountOfCardsToDraw).ToString() + " cards";
+        return ("Draw " + card.amountOfCardsToDraw).ToString() + " cards";
     }
 
     public string Discard(CardDisplay cardDisplay)
@@ -107,8 +107,8 @@ public class CardParser : MonoBehaviour
         Card card = cardDisplay.card;
         if (card.amountOfCardsToDiscard == 1)
         {
-            return "a card";
+            return "Draw a card";
         }
-        return (card.amountOfCardsToDiscard).ToString() + " cards";
+        return ("Draw " + card.amountOfCardsToDiscard).ToString() + " cards";
     }
 }
