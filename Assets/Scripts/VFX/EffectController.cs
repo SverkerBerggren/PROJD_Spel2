@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EffectController : MonoBehaviour
@@ -31,13 +32,36 @@ public class EffectController : MonoBehaviour
         }
 
         shields = new Dictionary<string, GameObject>();
-
+        InvokeRepeating(nameof(ShieldPosition), 0.05f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void ShieldPosition()
+    {
+        if (shields == null) return;
+
+        List<string> champName = shields.Keys.ToList();
+        List<GameObject> champs = shields.Values.ToList();
+
+        for (int i = 0; i < shields.Count; i++)
+        {
+            if (GameState.Instance.playerChampion.champion.name.Equals(champName[i])) continue;
+            
+            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            {
+                if (champ.champion.name.Equals(champName[i]))
+                {
+                    print("Runs 2");
+                    champs[i].transform.position = champ.transform.position;
+                }
+            }
+            
+        }        
     }
 
     //two parameters, which champion should have shiled and how much  
@@ -50,12 +74,14 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-       
-        if (!shields.ContainsKey(champions.name))
+        string champName = champions.GetComponent<AvailableChampion>().champion.name;
+
+
+        if (!shields.ContainsKey(champName))
         {
-            Vector3 shiledPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
-            GameObject toStore = Instantiate(shieldPrefab, shiledPos, Quaternion.identity); //the GO should have Shieldeffect script
-            shields.Add(champions.name, toStore);
+            Vector3 shieldPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
+            GameObject toStore = Instantiate(shieldPrefab, shieldPos, Quaternion.identity); //the GO should have Shieldeffect script
+            shields.Add(champName, toStore);            
         }
             
         //champions.shield = shiledAmount;
