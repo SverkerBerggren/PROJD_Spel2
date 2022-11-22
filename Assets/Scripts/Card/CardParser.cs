@@ -77,7 +77,7 @@ public class CardParser : MonoBehaviour
     public string Attack(CardDisplay cardDisplay)
     {
         AttackSpell card = (AttackSpell)cardDisplay.card;
-        return "deal" + (card.damage).ToString();
+        return "deal" + (card.damage).ToString() + " damage";
     }
 
     public string Shield(CardDisplay cardDisplay)
