@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class CardParser : MonoBehaviour
 {
@@ -76,20 +77,17 @@ public class CardParser : MonoBehaviour
 
     public string Attack(CardDisplay cardDisplay)
     {
-        AttackSpell card = (AttackSpell)cardDisplay.card;
-        return "Deal " + (card.damage).ToString() + " damage";
+		return "Deal " + cardDisplay.card.damage.ToString() + " damage";
     }
 
     public string Shield(CardDisplay cardDisplay)
     {
-        HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return (card.amountToShield).ToString() + " shield";
+		return cardDisplay.card.amountToShield.ToString() + " shield";
     }
 
     public string Heal(CardDisplay cardDisplay)
     {
-        HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return "Heal " + (card.amountToHeal).ToString();
+        return "Heal " + (cardDisplay.card.amountToHeal).ToString();
     }
 
     public string Draw(CardDisplay cardDisplay)
