@@ -32,6 +32,8 @@ public class SpreadsheetUpdater
 	private const int drawIndex = 8;
 	private const int discardIndex = 9;
 
+    private List<Card> cards;
+
 	private int amountOfCardsChanged = 0;
     private bool updatedFiles = false;
 
@@ -70,7 +72,7 @@ public class SpreadsheetUpdater
     {   
         Debug.ClearDeveloperConsole();
         var jsonHowBigSpreadsheet = await client.GetStringAsync(
-            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=K2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=M2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
 
         string stringToAppend = ""; 
         try
@@ -81,7 +83,7 @@ public class SpreadsheetUpdater
             string key = "&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k";
 
             var json = await client.GetStringAsync(
-                "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:H" + stringToAppend + key);
+                "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:J" + stringToAppend + key);
             //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
 
             spreadsheetData = new SpreadsheetData();
@@ -89,7 +91,14 @@ public class SpreadsheetUpdater
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
             spellObjects = new List<Spells>(Resources.LoadAll<Spells>("ScriptableObjects/Cards/Spells/Support"));
-            CheckCardList();
+            //CheckCardList();
+
+            cards = new List<Card>(attackSpellsObjects);
+            cards.AddRange(landmarkObjects);
+            cards.AddRange(spellObjects);
+
+            CheckCardListNy();
+
         }
         catch(Exception ex)
         {
@@ -145,6 +154,74 @@ public class SpreadsheetUpdater
             Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
     }
 
+    private void CheckCardListNy()
+    {
+        
+		for (int i = 0; i < spreadsheetData.valueRanges.Count; i++)
+		{
+			for (int z = 0; z < spreadsheetData.valueRanges[0].values.Count; z++)
+			{
+				List<string> currentCard = spreadsheetData.valueRanges[0].values[z];
+				
+                ChangeCards(currentCard);
+			}
+		}
+
+		if (amountOfCardsChanged != 0)
+			Debug.Log(amountOfCardsChanged + " cards was changed");
+
+		amountOfCardsChanged = 0;
+
+		if (updatedFiles)
+			Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
+	}
+
+    private void ChangeCards(List<string> currentCard)
+    {       
+		Card scriptableObject = (Card)FindCardFromName(cards.Cast<Card>().ToList(), currentCard[0]);
+		string textName = currentCard[cardNameIndex] + ".txt";
+		
+		if (scriptableObject != null)
+		{
+
+                string oldString = scriptableObject.WriteOutCardInfo();
+			
+			List<int> indexChanges = ChangeVariables(scriptableObject, currentCard);
+			
+			string newString = scriptableObject.WriteOutCardInfo();
+
+            if (indexChanges.Count <= 0) return;
+            
+
+			StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+			temp.WriteLine("Old Card");
+
+			temp.WriteLine(scriptableObject.WriteOutCardInfo());
+			
+
+			
+			MakeDirty(scriptableObject);
+			amountOfCardsChanged += 1;
+			temp.WriteLine("\nNew Card");
+
+			foreach (string s in CompareStringChanges(oldString, newString))
+			{
+				temp.WriteLine(s);
+			}
+
+			temp.Close();
+			
+		}
+		else
+		{
+			updatedFiles = true;
+			StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
+			temp.Close();
+		}
+	}
+
+
+
     private bool CheckIfDefaultCardInfoChanged(Card scriptableObject, List<string> currentCard)
     {
         if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
@@ -152,6 +229,8 @@ public class SpreadsheetUpdater
         else
             return false;
     }
+
+
 
     private void ChangeSupportSpells(List<string> currentCard)
     {
@@ -165,18 +244,6 @@ public class SpreadsheetUpdater
                 ChangeHealingAndShieldingSpells(currentCard);
                 return;
             }
-			bool drawChange = false;
-			bool discardChange = false;
-
-			if (!currentCard[healIndex].Equals("-"))
-			{
-				drawChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountOfCardsToDraw;
-			}
-
-			if (!currentCard[healIndex].Equals("-"))
-			{
-				discardChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountOfCardsToDiscard;
-			}
 
 			if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard))
             {
@@ -364,7 +431,7 @@ public class SpreadsheetUpdater
         return newStringSplit;
 	}
 
-    private List<int> ChangedVariable(Card cardObject, List<string> currentCard)
+    private List<int> ChangeVariables(Card cardObject, List<string> currentCard)
     {
         List<int> changed = new List<int>();
         for (int i = 0; i < currentCard.Count; i++)
@@ -377,7 +444,7 @@ public class SpreadsheetUpdater
                     if (cardObject is Landmarks)
                     {
                         Landmarks l = (Landmarks)cardObject;
-                        if (Convert.ToInt32(currentCard[i]) == l.minionHealth)
+                        if (Convert.ToInt32(currentCard[i]) != l.minionHealth)
                         {
                             l.minionHealth = Convert.ToInt32(currentCard[i]);
 				    	    changed.Add(i);
@@ -386,27 +453,56 @@ public class SpreadsheetUpdater
                     break;
 
                 case healIndex:
-					changed.Add(i);
+                    if (cardObject.amountToHeal != Convert.ToInt32(currentCard[i]))
+                    {
+                        cardObject.amountToHeal = Convert.ToInt32(currentCard[i]);
+					    changed.Add(i);
+                    }
 					break;
 
 			    case damageIndex:
-					changed.Add(i);
+					if (cardObject.damage != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.damage = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
 					break;
 
 			    case shieldIndex:
-					changed.Add(i);
+					if (cardObject.amountToShield != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountToShield = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
 					break;
 
 			    case drawIndex:
-					changed.Add(i);
+					if (cardObject.amountOfCardsToDraw != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountOfCardsToDraw = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
 					break;
 
 			    case discardIndex:
-					changed.Add(i);
+					if (cardObject.amountOfCardsToDiscard != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountOfCardsToDiscard = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
+                    break;
+			    case descriptionIndex:
+					if (!cardObject.description.Equals(currentCard[descriptionIndex]))
+					{
+						cardObject.description = currentCard[i];
+						changed.Add(i);
+					}
 					break;
 		    }
             
         }
+        Debug.Log("ar changed andrad " + changed.Count);
+        
         return changed;
     }
 
