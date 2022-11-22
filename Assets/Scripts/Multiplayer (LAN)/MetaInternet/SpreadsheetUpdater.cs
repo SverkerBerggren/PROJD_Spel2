@@ -364,42 +364,50 @@ public class SpreadsheetUpdater
         return newStringSplit;
 	}
 
-    private bool ChangedVariable(Card cardObject, List<string> currentCard, int index)
+    private bool ChangedVariable(Card cardObject, List<string> currentCard)
     {
+        bool changed = false;
         for (int i = 0; i < currentCard.Count; i++)
         {
             if (currentCard[i].Equals("-")) continue;
 
-            switch (index)
+            switch (i)
             {
                 case healthIndex:
-
-                break;
+                    if (cardObject is Landmarks)
+                    {
+                        Landmarks l = (Landmarks)cardObject;
+                        if (Convert.ToInt32(currentCard[i]) == l.minionHealth)
+                        {
+                            l.minionHealth = Convert.ToInt32(currentCard[i]);
+				    	    changed = true;
+				    	}
+                    }
+                    break;
 
                 case healIndex:
-
-                break;
+					changed = true;
+					break;
 
 			    case damageIndex:
-
-		        break;
+					changed = true;
+					break;
 
 			    case shieldIndex:
-
-			    break;
+					changed = true;
+					break;
 
 			    case drawIndex:
-
-			    break;
+					changed = true;
+					break;
 
 			    case discardIndex:
-
-			    break;
+					changed = true;
+					break;
 		    }
             
         }
-
-        return false;
+        return changed;
     }
 
     private void MakeDirty(Card scriptableObject)
