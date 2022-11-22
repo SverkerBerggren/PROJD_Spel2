@@ -33,7 +33,7 @@ public class CardParser : MonoBehaviour
 			Func<CardDisplay, string> action = null;
 			switch (keyword)
 			{
-				case "*Attack*":
+				case "*Damage*":
 					action = Attack;
 					break;
 
