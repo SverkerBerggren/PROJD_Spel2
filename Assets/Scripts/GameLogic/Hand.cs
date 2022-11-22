@@ -59,7 +59,7 @@ public class Hand : MonoBehaviour
     public string DiscardSpecificCardWithIndex(int index)
     {
         CardDisplay cardDisplay = cardsInHand[index].GetComponent<CardDisplay>();
-        return CardToDiscard(cardDisplay).name;
+        return CardToDiscard(cardDisplay).cardName;
     }
 
     private Card CardToDiscard(CardDisplay cardDisplay)
