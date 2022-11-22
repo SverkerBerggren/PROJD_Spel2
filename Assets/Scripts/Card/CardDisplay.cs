@@ -100,7 +100,7 @@ public class CardDisplay : MonoBehaviour
 
     private void UpdateVariables()
     {
-        calculations.CalculateHandManaCost(this);
+        Calculations.Instance.CalculateHandManaCost(this);
 
         if (card.damage != 0)
             damageShow = calculations.CalculateDamage(card.damage);
