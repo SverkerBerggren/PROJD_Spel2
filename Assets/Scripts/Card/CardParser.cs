@@ -64,6 +64,7 @@ public class CardParser : MonoBehaviour
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
         {
+            print(i);
             if (actions.Keys.Contains(s[i]))
             {   
                 s[i] = actions[s[i]](cardDisplay);
