@@ -45,9 +45,14 @@ public class CardDisplay : MonoBehaviour
     [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
 
 
-    
+  
 
-    private void Start()
+    private void Awake()
+    {
+        Invoke(nameof(LoadInvoke), 0.01f);
+    }
+    
+    private void LoadInvoke()
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
@@ -100,7 +105,7 @@ public class CardDisplay : MonoBehaviour
 
     private void UpdateVariables()
     {
-        Calculations.Instance.CalculateHandManaCost(this);
+        calculations.CalculateHandManaCost(this);
 
         if (card.damage != 0)
             damageShow = calculations.CalculateDamage(card.damage);
