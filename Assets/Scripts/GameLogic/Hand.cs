@@ -10,8 +10,15 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
+        // Anledningen är load order
+        Invoke(nameof(InvokeRefresh), 0.1f);
+    }
+    
+    private void InvokeRefresh()
+    {
         GameState.Instance.Refresh();
     }
+
 
     private void FixedUpdate()
     {
@@ -25,6 +32,8 @@ public class Hand : MonoBehaviour
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
+            cardDisplay.UpdateTextOnCard();
+
             if (cardDisplay.card != null)
             {
                 if (!cardsInHand.Contains(cardSlot))

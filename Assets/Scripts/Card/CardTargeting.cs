@@ -32,7 +32,7 @@ public class CardTargeting : MonoBehaviour
         }
     }
 
-    private ChampionCardType WhichChampionIsActive()
+    public ChampionCardType WhichChampionIsActive()
     {
         ChampionCardType champCard = ChampionCardType.None;
         switch (gameState.playerChampion.name)

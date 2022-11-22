@@ -35,13 +35,16 @@ public class CardDisplay : MonoBehaviour
     public bool alreadyBig = false;
     public Vector3 originalSize;
 
+    private CardTargeting cardTargeting;
+
 
     private void Start()
     {
         originalSize = transform.localScale;
+        cardTargeting = GetComponent<CardTargeting>();
     }
 
-    private void UpdateTextOnCard()
+    public void UpdateTextOnCard()
     {
         if (card == null) return;
         
@@ -58,6 +61,17 @@ public class CardDisplay : MonoBehaviour
 
             if (cardPlayableEffect != null)
             {
+                bool isTheRightChampionCard = true;
+                if (card.championCard)
+                {
+                    if (card.championCardType != cardTargeting.WhichChampionIsActive())
+                    {
+                        isTheRightChampionCard = false;
+                    }
+                }
+
+                if (!isTheRightChampionCard) return;
+                
                 if (ActionOfPlayer.Instance.currentMana >= manaCost && GameState.Instance.isItMyTurn)
                     cardPlayableEffect.SetActive(true);
                 else
@@ -94,13 +108,6 @@ public class CardDisplay : MonoBehaviour
                 break;
 
         }
-    }
-
-
-    private void FixedUpdate()
-    {
-        UpdateTextOnCard();    
-        
     }
 
     public void ResetSize()
