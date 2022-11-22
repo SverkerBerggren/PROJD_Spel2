@@ -105,8 +105,8 @@ public class CardParser : MonoBehaviour
         Card card = cardDisplay.card;
         if (card.amountOfCardsToDiscard == 1)
         {
-            return "Draw a card";
+            return "Discard a card";
         }
-        return ("Draw " + card.amountOfCardsToDiscard).ToString() + " cards";
+        return ("Discard " + card.amountOfCardsToDiscard).ToString() + " cards";
     }
 }
