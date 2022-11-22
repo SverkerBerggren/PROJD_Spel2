@@ -77,17 +77,17 @@ public class CardParser : MonoBehaviour
 
     public string Attack(CardDisplay cardDisplay)
     {
-		return "Deal " + cardDisplay.damageShow.ToString() + " damage";
+		return "Deal <b><color=#2564FF>" + cardDisplay.damageShow.ToString() + "</color></b> damage";
     }
 
     public string Shield(CardDisplay cardDisplay)
     {
-		return cardDisplay.amountToShieldShow.ToString() + " shield";
+		return "<b><color=#2564FF>" + cardDisplay.amountToShieldShow.ToString() + "</color></b> shield";
     }
 
     public string Heal(CardDisplay cardDisplay)
     {
-        return "Heal " + cardDisplay.amountToHealShow.ToString();
+        return "Heal <b><color=#2564FF>" + cardDisplay.amountToHealShow.ToString() + "</color></b>";
     }
 
     public string Draw(CardDisplay cardDisplay)
@@ -97,7 +97,7 @@ public class CardParser : MonoBehaviour
         {
             return "Draw a card";
         }
-        return "Draw " + amountOfCardsToDraw.ToString() + " cards";
+        return "Draw <b><color=#2564FF>" + amountOfCardsToDraw.ToString() + "</color></b> cards";
     }
 
     public string Discard(CardDisplay cardDisplay)
@@ -107,6 +107,6 @@ public class CardParser : MonoBehaviour
         {
             return "Discard a card";
         }
-        return "Discard " + amountOfCardsToDiscard.ToString() + " cards";
+        return "Discard <b><color=#2564FF>" + amountOfCardsToDiscard.ToString() + "</color></b> cards";
     }
 }
