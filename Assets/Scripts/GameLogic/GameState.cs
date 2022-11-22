@@ -325,6 +325,7 @@ public class GameState : MonoBehaviour
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        cardDisp.UpdateTextOnCard();
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
 
