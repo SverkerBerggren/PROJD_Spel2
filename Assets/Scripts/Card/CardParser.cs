@@ -87,7 +87,7 @@ public class CardParser : MonoBehaviour
 
     public string Heal(CardDisplay cardDisplay)
     {
-        return "Heal " + (cardDisplay.card.amountToHeal).ToString();
+        return "Heal " + cardDisplay.card.amountToHeal.ToString();
     }
 
     public string Draw(CardDisplay cardDisplay)
