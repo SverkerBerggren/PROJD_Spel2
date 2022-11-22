@@ -316,6 +316,7 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = landmark;
         cardDisp.manaCost = landmark.maxManaCost;
+        cardDisp.UpdateTextOnCard();
 
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
@@ -325,9 +326,9 @@ public class GameState : MonoBehaviour
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
-        cardDisp.UpdateTextOnCard();
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
+        cardDisp.UpdateTextOnCard();
 
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
