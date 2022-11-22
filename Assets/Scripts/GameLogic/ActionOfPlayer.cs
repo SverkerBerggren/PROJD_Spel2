@@ -139,7 +139,7 @@ public class ActionOfPlayer : MonoBehaviour
 				else
 				{
 					print("Deck is empty or the drawn card is null!!!");
-					gameState.Defeat();
+					//gameState.Defeat();
 					break;
 				}
 			}
