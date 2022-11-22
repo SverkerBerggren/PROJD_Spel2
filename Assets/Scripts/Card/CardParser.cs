@@ -57,23 +57,23 @@ public class CardParser : MonoBehaviour
         }
     }
 
-    public void CheckKeyword(CardDisplay card)
+    public void CheckKeyword(CardDisplay cardDisplay)
     {
-        if (card.opponentCard) return;
+        if (cardDisplay.opponentCard || cardDisplay.card != null) return;
 
-        string[] s = card.description.text.Split(" ");
+        string[] s = cardDisplay.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
         {
             if (actions.Keys.Contains(s[i]))
             {   
-                s[i] = actions[s[i]](card);
+                s[i] = actions[s[i]](cardDisplay);
             }
             returnString += s[i];
             if(i + 1 != s.Length)
                 returnString += " ";
         }
-        card.description.text = returnString;
+        cardDisplay.description.text = returnString;
     }
 
     public string Attack(CardDisplay cardDisplay)
