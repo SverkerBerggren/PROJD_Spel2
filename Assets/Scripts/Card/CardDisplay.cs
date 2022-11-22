@@ -56,7 +56,7 @@ public class CardDisplay : MonoBehaviour
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-        calculations = Calculations.Instance;
+        
     }
 
     public void UpdateTextOnCard()
@@ -105,6 +105,7 @@ public class CardDisplay : MonoBehaviour
 
     private void UpdateVariables()
     {
+        calculations = Calculations.Instance;
         calculations.CalculateHandManaCost(this);
 
         if (card.damage != 0)
