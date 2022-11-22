@@ -35,7 +35,10 @@ public class AttackSpell : Spells
         
         if (destroyLandmark)
         {
-            DestroyLandmark();
+            ListEnum lE = new ListEnum();
+            lE.myLandmarks = true;
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks);
+            //DestroyLandmark();
         }
 
     }

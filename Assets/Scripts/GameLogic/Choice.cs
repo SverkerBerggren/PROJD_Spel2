@@ -144,6 +144,16 @@ public class Choice : MonoBehaviour
                 closeMenuButton.SetActive(true);
             }
         }
+        if (listEnum.myLandmarks)
+        {
+            descriptionText.text = "Show landmarks";
+            for (int i = 0; i < gameState.playerLandmarks.Count; i++)
+            {
+                Sprite cardSprite = gameState.playerLandmarks[i].card.artwork;
+                MakeButtons(cardSprite, listEnum, i);
+                closeMenuButton.SetActive(true);
+            }
+        }
     }
 
     private void MakeButtons(Sprite artwork, ListEnum listEnum, int index)
@@ -182,6 +192,10 @@ public class Choice : MonoBehaviour
                     break;
                 case WhichMethod.ShowDeck:
 
+                    break;
+                case WhichMethod.ShowLandmarks:
+                    
+                    gameState.DestroyLandmark(chosenTargets[0]);
                     break;
             }
         }
@@ -298,6 +312,16 @@ public class Choice : MonoBehaviour
                 if (actionOfPlayer.handPlayer.deck.deckPlayer.Count <= 0)
                     return false;
                 break;
+            case WhichMethod.ShowLandmarks:
+                bool checkIfLandmarkPlaced = false;
+                foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks)
+                {
+                    if (landmarks.card != null)
+                        checkIfLandmarkPlaced = true;
+                }
+                if (!checkIfLandmarkPlaced)
+                    return false;
+                break;
         }
         return true;
     }
@@ -328,5 +352,6 @@ public enum WhichMethod
     switchChampionDiedDiedDied, 
     discardCard,
     ShowGraveyard,
-    ShowDeck
+    ShowDeck,
+    ShowLandmarks
 }
