@@ -261,6 +261,7 @@ public class SpreadsheetUpdater
 						changed.Add(i);
 					}
                     break;
+
 			    case descriptionIndex:
 					if (!cardObject.description.Equals(currentCard[descriptionIndex]))
 					{
@@ -274,7 +275,7 @@ public class SpreadsheetUpdater
         return changed;
     }
 
-    private void MakeDirty(Card scriptableObject)
+    private static void MakeDirty(Card scriptableObject)
     {
         #if UNITY_EDITOR
         EditorUtility.SetDirty(scriptableObject);
