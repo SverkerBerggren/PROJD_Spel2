@@ -59,7 +59,6 @@ public class CardParser : MonoBehaviour
 
     public void CheckKeyword(CardDisplay cardDisplay)
     {
-        print(cardDisplay.card + "fasdfasd");
         string[] s = cardDisplay.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
