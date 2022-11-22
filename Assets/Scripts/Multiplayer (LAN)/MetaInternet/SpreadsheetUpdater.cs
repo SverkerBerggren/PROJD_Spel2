@@ -364,9 +364,9 @@ public class SpreadsheetUpdater
         return newStringSplit;
 	}
 
-    private bool ChangedVariable(Card cardObject, List<string> currentCard)
+    private List<int> ChangedVariable(Card cardObject, List<string> currentCard)
     {
-        bool changed = false;
+        List<int> changed = new List<int>();
         for (int i = 0; i < currentCard.Count; i++)
         {
             if (currentCard[i].Equals("-")) continue;
@@ -380,29 +380,29 @@ public class SpreadsheetUpdater
                         if (Convert.ToInt32(currentCard[i]) == l.minionHealth)
                         {
                             l.minionHealth = Convert.ToInt32(currentCard[i]);
-				    	    changed = true;
+				    	    changed.Add(i);
 				    	}
                     }
                     break;
 
                 case healIndex:
-					changed = true;
+					changed.Add(i);
 					break;
 
 			    case damageIndex:
-					changed = true;
+					changed.Add(i);
 					break;
 
 			    case shieldIndex:
-					changed = true;
+					changed.Add(i);
 					break;
 
 			    case drawIndex:
-					changed = true;
+					changed.Add(i);
 					break;
 
 			    case discardIndex:
-					changed = true;
+					changed.Add(i);
 					break;
 		    }
             
