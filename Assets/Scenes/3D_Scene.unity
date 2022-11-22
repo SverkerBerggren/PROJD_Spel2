@@ -21856,7 +21856,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8537393b1009c4a8fa3bc721455607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keywords: []
+  keywords:
+  - '*Damage*'
+  - '*Draw*'
+  - '*Discard*'
+  - '*Heal*'
+  - '*Shield*'
 --- !u!1 &1647205449
 GameObject:
   m_ObjectHideFlags: 0
