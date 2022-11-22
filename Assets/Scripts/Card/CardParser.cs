@@ -64,10 +64,7 @@ public class CardParser : MonoBehaviour
         for (int i = 0; i < s.Length; i++)
         {
             if (actions.Keys.Contains(s[i]))
-            {
-                if ((s[i] == "*Draw*" || s[i] == "*Discard*") && Convert.ToInt32(s[i + 1]) > 1)
-                    s[i + 1] = "cards";
-                
+            {   
                 s[i] = actions[s[i]](card);
             }
             returnString += s[i];
@@ -100,9 +97,9 @@ public class CardParser : MonoBehaviour
         Card card = cardDisplay.card;
         if (card.amountOfCardsToDraw == 1)
         {
-            return "a";
+            return "a card";
         }
-        return (card.amountOfCardsToDraw).ToString();
+        return (card.amountOfCardsToDraw).ToString() + " cards";
     }
 
     public string Discard(CardDisplay cardDisplay)
@@ -110,8 +107,8 @@ public class CardParser : MonoBehaviour
         Card card = cardDisplay.card;
         if (card.amountOfCardsToDiscard == 1)
         {
-            return "a";
+            return "a card";
         }
-        return (card.amountOfCardsToDiscard).ToString();
+        return (card.amountOfCardsToDiscard).ToString() + " cards";
     }
 }
