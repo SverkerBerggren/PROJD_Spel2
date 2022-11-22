@@ -83,7 +83,7 @@ public class CardParser : MonoBehaviour
     public string Shield(CardDisplay cardDisplay)
     {
         HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return (card.amountToDefence).ToString() + " shield";
+        return (card.amountToShield).ToString() + " shield";
     }
 
     public string Heal(CardDisplay cardDisplay)
