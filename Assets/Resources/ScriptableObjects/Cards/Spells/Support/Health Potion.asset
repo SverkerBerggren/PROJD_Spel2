@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Health Potion
   typeOfCard: 0
-  description: '-'
+  description: '*Heal*'
   artwork: {fileID: 21300000, guid: b0e62d79637a6c24284433734bb2d775, type: 3}
   maxManaCost: 2
   tag: Spell
+  damage: 0
+  amountToHeal: 30
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 1
   championCard: 0
   championCardType: 0
-  amountToHeal: 30
-  amountToDefence: 0
   allChampions: 0
