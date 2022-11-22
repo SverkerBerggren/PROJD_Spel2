@@ -37,6 +37,7 @@ public class CardDisplay : MonoBehaviour
 
     private CardTargeting cardTargeting;
 
+    
 
     private void Start()
     {
