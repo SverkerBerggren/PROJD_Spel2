@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Builder")]
 public class BuilderCard : Spells
 {
-    public int damage = 0;
-
     public BuilderCard()
     {
         championCard = true;

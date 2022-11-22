@@ -37,8 +37,13 @@ public abstract class Card : ScriptableObject
     private Champion target;
     private LandmarkDisplay landmarkTarget;
 
+    [Header("Atributes")]
+    public int damage = 0;
+    public int amountToHeal = 0;
+    public int amountToShield = 0;
     public int amountOfCardsToDraw = 0;
     public int amountOfCardsToDiscard = 0;
+
     public bool discardCardsYourself = true;
     public bool targetable = false;
 

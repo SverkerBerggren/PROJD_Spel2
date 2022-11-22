@@ -222,7 +222,7 @@ public class SpreadsheetUpdater
 
             if (!currentCard[shieldIndex].Equals("-"))
             {
-                shieldChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToDefence;
+                shieldChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToShield;
             }
             if (!currentCard[healIndex].Equals("-"))
             {
@@ -240,7 +240,7 @@ public class SpreadsheetUpdater
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
                 if (shieldChange)
-                    scriptableObject.amountToDefence = Convert.ToInt32(currentCard[shieldIndex]);
+                    scriptableObject.amountToShield = Convert.ToInt32(currentCard[shieldIndex]);
                 if (healChange)
                     scriptableObject.amountToHeal = Convert.ToInt32(currentCard[healIndex]);
                 string newString = scriptableObject.WriteOutCardInfo();

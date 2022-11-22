@@ -11,11 +11,9 @@ public class HealingLandmark : Landmarks
     public bool doubleHealingEffect = false;
     public bool healEachRound = false;
 
-    public int amountToHeal = 10;
-
     private GameState gameState;
 
-    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.tag)
+    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield)
     {
         doubleHealingEffect = card.doubleHealingEffect;
         healEachRound = card.healEachRound;

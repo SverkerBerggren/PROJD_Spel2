@@ -6,15 +6,18 @@ public class Landmarks : Card
 {
     public int minionHealth;
 
-    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, string tag) : base()
+    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, string tag, int damage, int amountToHeal, int amountToShield) : base()
     {
-        this.minionHealth = mH;
-        this.cardName = name;
-        this.description = desc;
-        this.artwork = art;
-        this.tag = tag;
-        this.typeOfCard = CardType.Landmark;
+        minionHealth = mH;
+        cardName = name;
+        description = desc;
+        artwork = art;
+        typeOfCard = CardType.Landmark;
         maxManaCost = maxMana;
+        this.tag = tag;
+        this.amountToHeal = amountToHeal;
+        this.amountToShield = amountToShield;
+        this.damage = damage;
     }
 
     public override void PlayCard()

@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
 public class AttackSpell : Spells
 {
-    public int damage = 10;
     public bool destroyLandmark = false;
     public bool damageEqualsToYourChampionHP = false;
     public bool damageToBothActiveChampions = false;

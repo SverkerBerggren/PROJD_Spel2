@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/ShankerAttack")]
 public class ShankerAttack : Spells
 {
-    public int damage = 0;
-
     public ShankerAttack()
     {
         championCard = true;

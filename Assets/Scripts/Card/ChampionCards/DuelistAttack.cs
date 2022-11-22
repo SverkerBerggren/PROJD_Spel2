@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/DuelistAttack")]
 public class DuelistAttack : Spells
 {
-    public int damage = 30;
     private GameState gameState;
 
     public DuelistAttack()
