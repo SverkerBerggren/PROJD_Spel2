@@ -58,30 +58,25 @@ public class Calculations : MonoBehaviour
 		return amount;
 	}
 
-	public void CalculateHandManaCost()
+	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
-		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
-		{
-			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
-			if (cardDisplay.card == null) continue;
-
-			cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-            cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
+		cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+        cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
 			
-            foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
-			{
-				if (landmarkDisplay.card == null) continue;
-                cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
+        foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+		{
+			if (landmarkDisplay.card == null) continue;
+            cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
 				
-			}
+		}
 
-			//ContinousEffects
+		//ContinousEffects
 
-			if (cardDisplay.manaCost <= 0)
-				cardDisplay.manaCost = 0;
-			else if (cardDisplay.manaCost > 10)
-				cardDisplay.manaCost = 10;
-        }
+		if (cardDisplay.manaCost <= 0)
+			cardDisplay.manaCost = 0;
+		else if (cardDisplay.manaCost > 10)
+			cardDisplay.manaCost = 10;
+        
 	}
 
 	public TargetAndAmount TargetAndAmountFromCard(Card cardUsed, int amount)
