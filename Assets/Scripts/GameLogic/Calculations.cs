@@ -7,7 +7,7 @@ public class Calculations : MonoBehaviour
 	private GameState gameState;
 	private ActionOfPlayer actionOfPlayer;
 	private static Calculations instance;
-	public static Calculations Instance { get; set; }
+	public static Calculations Instance { get { return instance; } set { instance = value; } }
 	private void Awake()
 	{
 		if (Instance == null)
