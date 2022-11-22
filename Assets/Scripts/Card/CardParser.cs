@@ -77,36 +77,36 @@ public class CardParser : MonoBehaviour
 
     public string Attack(CardDisplay cardDisplay)
     {
-		return "Deal " + cardDisplay.card.damage.ToString() + " damage";
+		return "Deal " + cardDisplay.damageShow.ToString() + " damage";
     }
 
     public string Shield(CardDisplay cardDisplay)
     {
-		return cardDisplay.card.amountToShield.ToString() + " shield";
+		return cardDisplay.amountToShieldShow.ToString() + " shield";
     }
 
     public string Heal(CardDisplay cardDisplay)
     {
-        return "Heal " + cardDisplay.card.amountToHeal.ToString();
+        return "Heal " + cardDisplay.amountToHealShow.ToString();
     }
 
     public string Draw(CardDisplay cardDisplay)
     {
-        Card card = cardDisplay.card;
-        if (card.amountOfCardsToDraw == 1)
+        int amountOfCardsToDraw = cardDisplay.amountOfCardsToDrawShow;
+        if (amountOfCardsToDraw == 1)
         {
             return "Draw a card";
         }
-        return ("Draw " + card.amountOfCardsToDraw).ToString() + " cards";
+        return "Draw " + amountOfCardsToDraw.ToString() + " cards";
     }
 
     public string Discard(CardDisplay cardDisplay)
     {
-        Card card = cardDisplay.card;
-        if (card.amountOfCardsToDiscard == 1)
+        int amountOfCardsToDiscard = cardDisplay.amountOfCardsToDiscardShow;
+        if (amountOfCardsToDiscard == 1)
         {
             return "Discard a card";
         }
-        return ("Discard " + card.amountOfCardsToDiscard).ToString() + " cards";
+        return "Discard " + amountOfCardsToDiscard.ToString() + " cards";
     }
 }
