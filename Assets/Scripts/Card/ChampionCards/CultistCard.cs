@@ -32,11 +32,4 @@ public class CultistCard : Spells
             }           
         }
     }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nSelfInflictDamage: " + damage + "\nDamageToDealToAllOpponents: " + damageToAllOpponentCards + " " + damage;
-        return lineToWriteOut;
-    }
 }

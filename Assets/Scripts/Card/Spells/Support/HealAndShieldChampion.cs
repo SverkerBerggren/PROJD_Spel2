@@ -45,11 +45,4 @@ public class HealAndShieldChampion : Spells
             GameState.Instance.CalculateAndShield(amountToShield, this);
         }
     }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nAmountToHeal: " + amountToHeal + "\nDefence: " + amountToShield;
-        return lineToWriteOut;
-    }
 }
