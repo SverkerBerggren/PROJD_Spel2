@@ -23,39 +23,39 @@ public class CardParser : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        AddKeywords();
     }
 
-    private void Start()
+    private void AddKeywords()
     {
-        foreach (string keyword in keywords)
-        {
-            Func<CardDisplay, string> action = null;
-            switch (keyword)
-            {
-                case "*Attack*":
-                action = Attack;
-                break;
+		foreach (string keyword in keywords)
+		{
+			Func<CardDisplay, string> action = null;
+			switch (keyword)
+			{
+				case "*Attack*":
+					action = Attack;
+					break;
 
-                case "*Heal*":
-                action = Heal;
-                break;
+				case "*Heal*":
+					action = Heal;
+					break;
 
-                case "*Shield*":
-                action = Shield;
-                break;
+				case "*Shield*":
+					action = Shield;
+					break;
 
-                case "*Draw*":
-                action = Draw;
-                break;
+				case "*Draw*":
+					action = Draw;
+					break;
 
-                case "*Discard*":
-                action = Discard;
-                break;
-            }
-            actions.Add(keyword, action);
-        }
-    }
+				case "*Discard*":
+					action = Discard;
+					break;
+			}
+			actions.Add(keyword, action);
+		}
+	}
 
     public void CheckKeyword(CardDisplay cardDisplay)
     {
