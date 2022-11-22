@@ -77,19 +77,19 @@ public class CardParser : MonoBehaviour
     public string Attack(CardDisplay cardDisplay)
     {
         AttackSpell card = (AttackSpell)cardDisplay.card;
-        return (card.damage).ToString();
+        return "deal" + (card.damage).ToString();
     }
 
     public string Shield(CardDisplay cardDisplay)
     {
         HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return (card.amountToDefence).ToString();
+        return (card.amountToDefence).ToString() + " shield";
     }
 
     public string Heal(CardDisplay cardDisplay)
     {
         HealAndShieldChampion card = (HealAndShieldChampion)cardDisplay.card;
-        return (card.amountToHeal).ToString();
+        return "heal" + (card.amountToHeal).ToString();
     }
 
     public string Draw(CardDisplay cardDisplay)

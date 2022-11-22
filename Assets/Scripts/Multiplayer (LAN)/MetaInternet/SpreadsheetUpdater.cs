@@ -21,16 +21,18 @@ public class SpreadsheetUpdater
     private SpreadsheetData spreadsheetData;
 
     //Values from spreadsheet
-    private int cardNameIndex = 0;
-    private int cardTypeIndex = 1;
-    private int manaIndex = 2;
-    private int descriptionIndex = 3;
-    private int healthIndex = 4;
-    private int attackIndex = 5;
-    private int shieldIndex = 6;
-    private int healIndex = 7;
+    private const int cardNameIndex = 0;
+    private const int cardTypeIndex = 1;
+    private const int manaIndex = 2;
+    private const int descriptionIndex = 3;
+    private const int healthIndex = 4;
+    private const int damageIndex = 5;
+    private const int shieldIndex = 6;
+    private const int healIndex = 7;
+	private const int drawIndex = 8;
+	private const int discardIndex = 9;
 
-    private int amountOfCardsChanged = 0;
+	private int amountOfCardsChanged = 0;
     private bool updatedFiles = false;
 
     public void ClearFiles()
@@ -163,8 +165,20 @@ public class SpreadsheetUpdater
                 ChangeHealingAndShieldingSpells(currentCard);
                 return;
             }
+			bool drawChange = false;
+			bool discardChange = false;
 
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard))
+			if (!currentCard[healIndex].Equals("-"))
+			{
+				drawChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountOfCardsToDraw;
+			}
+
+			if (!currentCard[healIndex].Equals("-"))
+			{
+				discardChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountOfCardsToDiscard;
+			}
+
+			if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard))
             {
                 StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
                 temp.WriteLine("Old Card");
@@ -257,9 +271,9 @@ public class SpreadsheetUpdater
         if (scriptableObject != null)
         {
             bool isDamageChanged = false;
-            if (!currentCard[attackIndex].Equals("-"))
+            if (!currentCard[damageIndex].Equals("-"))
             {
-                isDamageChanged = System.Convert.ToInt32(currentCard[attackIndex]) != scriptableObject.damage;
+                isDamageChanged = Convert.ToInt32(currentCard[damageIndex]) != scriptableObject.damage;
             }
             if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || isDamageChanged)
             {
@@ -272,7 +286,7 @@ public class SpreadsheetUpdater
 				updatedFiles = true;
                 scriptableObject.description = currentCard[descriptionIndex];
                 scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
-                scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
+                scriptableObject.damage = Convert.ToInt32(currentCard[damageIndex]);
 				string newString = scriptableObject.WriteOutCardInfo();
 
                 MakeDirty(scriptableObject);
@@ -349,6 +363,44 @@ public class SpreadsheetUpdater
 		}
         return newStringSplit;
 	}
+
+    private bool ChangedVariable(Card cardObject, List<string> currentCard, int index)
+    {
+        for (int i = 0; i < currentCard.Count; i++)
+        {
+            if (currentCard[i].Equals("-")) continue;
+
+            switch (index)
+            {
+                case healthIndex:
+
+                break;
+
+                case healIndex:
+
+                break;
+
+			    case damageIndex:
+
+		        break;
+
+			    case shieldIndex:
+
+			    break;
+
+			    case drawIndex:
+
+			    break;
+
+			    case discardIndex:
+
+			    break;
+		    }
+            
+        }
+
+        return false;
+    }
 
     private void MakeDirty(Card scriptableObject)
     {
