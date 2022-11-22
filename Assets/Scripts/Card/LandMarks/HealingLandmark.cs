@@ -11,6 +11,8 @@ public class HealingLandmark : Landmarks
     public bool doubleHealingEffect = false;
     public bool healEachRound = false;
 
+    public int amountToHeal = 10;
+
     private GameState gameState;
 
     public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.tag)
@@ -57,7 +59,7 @@ public class HealingLandmark : Landmarks
             for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
                 Target = gameState.playerChampions[i].champion;
-                gameState.CalculateAndHeal(10, this);
+                gameState.CalculateAndHeal(amountToHeal, this);
             }
             
         }
