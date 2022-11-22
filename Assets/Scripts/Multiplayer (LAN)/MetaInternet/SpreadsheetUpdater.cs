@@ -271,8 +271,6 @@ public class SpreadsheetUpdater
 		    }
             
         }
-        Debug.Log("ar changed andrad " + changed.Count);
-        
         return changed;
     }
 
