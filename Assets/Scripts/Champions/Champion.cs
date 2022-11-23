@@ -7,8 +7,6 @@ using TMPro;
 
 public abstract class Champion : ScriptableObject
 {
-    private AvailableChampion aC;
-
     protected GameState gameState;
 
     public string championName;
@@ -47,7 +45,8 @@ public abstract class Champion : ScriptableObject
                 int differenceAfterShieldDamage = damage - shield;
                 shield = 0;
                 destroyShield = true;
-                EffectController.Instance.DestroyShield(this);
+                ShieldEffectDestroy();
+
                 health -= differenceAfterShieldDamage;
             }
             else
@@ -60,6 +59,33 @@ public abstract class Champion : ScriptableObject
         {
             Death();
         }
+    }
+
+    private void ShieldEffectDestroy()
+    {
+        bool isPlayer = true;
+
+
+        foreach (AvailableChampion ac in GameState.Instance.opponentChampions)
+        {
+            if (ac.champion.championName.Equals(championName))
+            {
+
+                isPlayer = false;
+            }
+
+        }
+        foreach (AvailableChampion ac in GameState.Instance.playerChampions)
+        {
+            if (ac.champion.championName.Equals(championName))
+            {
+                isPlayer = true;
+            }
+        }
+
+        Tuple<string, bool> tuple = new Tuple<string, bool>(championName, isPlayer);
+
+        EffectController.Instance.DestroyShield(tuple);
     }
 
     public virtual void HealChampion(int amountToHeal)

@@ -252,12 +252,14 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            EffectController.Instance.ActiveShield(playerChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+            EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            EffectController.Instance.ActiveShield(opponentChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+            EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
         if (isOnline)
