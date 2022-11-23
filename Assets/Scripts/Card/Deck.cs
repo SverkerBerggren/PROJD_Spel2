@@ -6,9 +6,6 @@ public class Deck : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] public Stack<Card> deckOfCardsPlayer = new Stack<Card>();
-    [SerializeField] public Stack<Card> deckOfCardsOpponent = new Stack<Card>();
-
     public List<Card> deckPlayer = new List<Card>();
     public List<Card> deckOpponent = new List<Card>();
 
@@ -29,57 +26,40 @@ public class Deck : MonoBehaviour
 
         if(!GameState.Instance.isOnline)
         {
+            List<Card> copy = new List<Card>();
+            copy.AddRange(deckPlayer);
+            while (deckPlayer.Count < 40)
+            {
+                foreach (Card card in copy)
+                {
+                    deckPlayer.Add(card);
+                    if (deckPlayer.Count >= 40) break;
+                }
+            }
             Shuffle(deckPlayer);
-            while (deckOfCardsPlayer.Count < 40)
-            {
-                foreach (Card card in deckPlayer)
-                {
-                    deckOfCardsPlayer.Push(card);
-                }
-            }
-
-            Shuffle(deckOpponent);
-            while (deckOfCardsOpponent.Count < 40)
-            {
-                foreach (Card card in deckOpponent)
-                {
-                    deckOfCardsOpponent.Push(card);
-                }
-            }
-            UpdateDecks();
+            deckOpponent.Clear();
+            deckOpponent.AddRange(deckPlayer);
         }        
     }
 
-    public void CreateDecks(List<Card> playerDeck)
+    public void CreateDecks(List<Card> importedDeck)
     {
-        deckOfCardsPlayer.Clear();
         deckPlayer.Clear();
-
-        Shuffle(playerDeck);
-        while (deckOfCardsPlayer.Count < 40)
+        while (importedDeck.Count < 40)
         {
-            foreach (Card card in playerDeck)
+            foreach (Card card in importedDeck)
             {
-                deckOfCardsPlayer.Push(card);
+                importedDeck.Add(card);
 
-                if(deckOfCardsPlayer.Count >= 40) break;               
+                if(importedDeck.Count >= 40) break;               
             }
-            if (deckOfCardsPlayer.Count >= 40) break;
         }
-        Shuffle(deckOpponent);
-        while (deckOfCardsOpponent.Count < 40)
-        {
-            foreach (Card card in deckOpponent)
-            {
-                deckOfCardsOpponent.Push(card);
-                if (deckOfCardsOpponent.Count >= 40) break;
-            }
-             if(deckOfCardsOpponent.Count >= 40) break;
-        }
+        deckPlayer.AddRange(importedDeck);
+        Shuffle(deckPlayer);
 
-        UpdateDecks();
+        deckOpponent.Clear();
+        deckOpponent.AddRange(importedDeck);
     }
-
 
 
 	private static void Shuffle(List<Card> list)
@@ -95,23 +75,21 @@ public class Deck : MonoBehaviour
 
     public void AddCardToDeckPlayer(Card cardToAdd)
     {
-        deckOfCardsPlayer.Push(cardToAdd);
         deckPlayer.Add(cardToAdd);
     }
 
     public void AddCardToDeckOpponent(Card cardToAdd)
     {
-        deckOfCardsOpponent.Push(cardToAdd);
         deckOpponent.Add(cardToAdd);
     }
 
     public Card WhichCardToDrawPlayer()
     {
-        if (deckOfCardsPlayer.Count > 0)
+        if (deckPlayer.Count > 0)
         {
-            Card c = deckOfCardsPlayer.Pop();
-            deckOpponent.Remove(c);
-            return c;
+            Card card = deckPlayer[0];
+            deckPlayer.RemoveAt(0);
+            return card;
         }
 
         //GameState.Instance.Defeat();
@@ -120,29 +98,14 @@ public class Deck : MonoBehaviour
 
     public Card WhichCardToDrawOpponent()
     {
-        if (deckOfCardsOpponent.Count > 0)
+        if (deckOpponent.Count > 0)
         {
-            Card c = deckOfCardsOpponent.Pop();
-            deckPlayer.Remove(c);
-            return c;
+            Card card = deckOpponent[0];
+            deckOpponent.RemoveAt(0);
+            return card;
         }
 
         //GameState.Instance.Victory();
         return null;
-    }
-
-    private void UpdateDecks()
-    {
-        deckPlayer.Clear();
-        foreach (Card c in deckOfCardsPlayer)
-        {
-            deckPlayer.Add(c);
-        }
-
-        deckOpponent.Clear();
-        foreach (Card c in deckOfCardsOpponent)
-        {
-            deckOpponent.Add(c);
-        }
     }
 }

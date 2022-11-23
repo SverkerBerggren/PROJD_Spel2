@@ -50,11 +50,11 @@ public class EffectController : MonoBehaviour
 
         for (int i = 0; i < shields.Count; i++)
         {
-            if (GameState.Instance.playerChampion.champion.name.Equals(champName[i])) continue;
+            if (GameState.Instance.playerChampion.champion.championName.Equals(champName[i])) continue;
             
             foreach (AvailableChampion champ in GameState.Instance.playerChampions)
             {
-                if (champ.champion.name.Equals(champName[i]))
+                if (champ.champion.championName.Equals(champName[i]))
                 {
                     print("Runs 2");
                     champs[i].transform.position = champ.transform.position;
@@ -74,7 +74,7 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-        string champName = champions.GetComponent<AvailableChampion>().champion.name;
+        string champName = champions.GetComponent<AvailableChampion>().champion.championName;
 
 
         if (!shields.ContainsKey(champName))

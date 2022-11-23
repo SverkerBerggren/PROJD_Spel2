@@ -11,7 +11,7 @@ public abstract class Champion : ScriptableObject
 
     protected GameState gameState;
 
-    public new string name;
+    public string championName;
     public int health = 100;
     public int maxHealth;
     public int shield = 0;
@@ -21,10 +21,10 @@ public abstract class Champion : ScriptableObject
     public bool destroyShield = false;
     
 
-    public Champion(string name, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
+    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
     {
         gameState = GameState.Instance;
-        this.name = name;
+        this.championName = championName;
         this.health = health;
         this.maxHealth = maxHealth;
         this.shield = shield;
@@ -98,18 +98,12 @@ public abstract class Champion : ScriptableObject
 
     public virtual void WhenCurrentChampion() {}
 
-    public virtual void WhenInactiveChampion() {}
-
-    public virtual void WhenLandmarksDie() {}
-
     public virtual void UpdatePassive() {}
 
     public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
 
     public virtual void Death()
     {
-
-        //CancelInvoke();
         gameState.ChampionDeath(this);
     }
 

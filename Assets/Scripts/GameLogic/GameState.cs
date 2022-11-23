@@ -24,6 +24,8 @@ public class GameState : MonoBehaviour
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
+    public List<Card> playerEffects = new List<Card>();
+
     [Header("Have Friends?")]
     public bool isOnline = false;
 
@@ -343,19 +345,12 @@ public class GameState : MonoBehaviour
     public void DestroyLandmark(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.opponentLandmarks)
-        {
             Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
-            playerLandmarks[targetInfo.index].card = null;
-            playerChampion.champion.WhenLandmarksDie();
-        }
         else
-        {
             Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
-            playerLandmarks[targetInfo.index].card = null;
-        }
+
+        playerLandmarks[targetInfo.index].card = null;
     }
-
-
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
     {
@@ -376,10 +371,7 @@ public class GameState : MonoBehaviour
                 requesten.isRandom = false;
                 ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
 
-
                 PassPriority();
-                
-
             }
         }
         else
@@ -420,20 +412,16 @@ public class GameState : MonoBehaviour
 		actionOfPlayer.DrawCardPlayer(amountOfCards, info.Item1, true);
 	}
 
-
 	public void SwitchMyChampions(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.myChampions)
         {
-            playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
-
         }
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
         }
-
     }
 
     public void PassPriority()
@@ -486,7 +474,6 @@ public class GameState : MonoBehaviour
                 int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
-                    opponentChampion.champion.WhenInactiveChampion();
                     Swap(opponentChampions, 0, randomChamp);
                     opponentChampion.champion.WhenCurrentChampion();
                     break;
@@ -553,7 +540,11 @@ public class GameState : MonoBehaviour
             if (landmark.card != null)
                 landmark.card.UpKeep();
             //Trigger landmark endstep
-        }       
+        }
+        foreach (Card effect in playerEffects)
+        {
+            //effect.Upkeep();
+        }
     }
 
     public void TriggerEndStep()
@@ -564,6 +555,10 @@ public class GameState : MonoBehaviour
             if(landmark.card != null)
             landmark.card.EndStep();
             //Trigger landmark endstep
+        }
+        foreach (Card effect in playerEffects)
+        {
+            //effect.Endstep();
         }
     }
 
@@ -662,10 +657,17 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void RequestEmpty(ServerResponse response)
+    public void AddEffect(Card effect)
     {
-
+        playerEffects.Add(effect);
     }
+
+    public void RemoveEffect(Card effect)
+    {
+        playerEffects.Remove(effect);
+    }
+
+    public void RequestEmpty(ServerResponse response) {}
 
     //Victory and defeat should be in another script
     public void Victory()

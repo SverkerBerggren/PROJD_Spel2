@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Duelist", menuName = "Champion/Duelist", order = 1)]
 public class Duelist : Champion
 {
-	public Duelist(Duelist c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
+	public Duelist(Duelist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
 
 	public override void WhenCurrentChampion()
 	{

@@ -35,6 +35,7 @@ public class Calculations : MonoBehaviour
 			if (landmark.card != null)
 				baseDamage = landmark.card.DealDamageAttack(baseDamage);
 		}
+
 		return baseDamage;
 	}
 
@@ -70,7 +71,10 @@ public class Calculations : MonoBehaviour
 				
 		}
 
-		//ContinousEffects
+		foreach (Card effect in gameState.playerEffects)
+		{
+			//cardDisplay.manaCost = effect.CalculateManaCost(cardDisplay);
+		}
 
 		if (cardDisplay.manaCost <= 0)
 			cardDisplay.manaCost = 0;
@@ -85,7 +89,6 @@ public class Calculations : MonoBehaviour
 		TargetInfo tI = null;
 		ListEnum listEnum = new ListEnum();
 		int index = 0;
-		// WIP
 		if (cardUsed.Target != null)
 		{
 			index = LookForChampionIndex(cardUsed, gameState.opponentChampions);

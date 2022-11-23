@@ -137,7 +137,7 @@ public class Choice : MonoBehaviour
         if (listEnum.myDeck)
         {
             descriptionText.text = "Show Deck";
-            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckOfCardsPlayer.Count; i++)
+            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
             {
                 Sprite cardSprite = actionOfPlayer.handPlayer.deck.deckPlayer[i].artwork;
                 MakeButtons(cardSprite, listEnum, i);
@@ -243,7 +243,7 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.isItMyTurn)
         {
-            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.name.Equals("Duelist"))
+            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.championName.Equals("Duelist"))
             {
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
@@ -257,7 +257,7 @@ public class Choice : MonoBehaviour
                 gameState.PassPriority();
         }
 
-        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.name.Equals("Duelist"))
+        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.championName.Equals("Duelist"))
         {
             gameState.PassPriority();
         }   
