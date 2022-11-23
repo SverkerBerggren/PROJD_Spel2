@@ -45,8 +45,9 @@ public class Hand : MonoBehaviour
                 if (cardsInHand.Contains(cardSlot))
                     cardsInHand.Remove(cardSlot);
             }
+	
+		}
 
-        }
     }
 
     public Card DiscardRandomCardInHand()

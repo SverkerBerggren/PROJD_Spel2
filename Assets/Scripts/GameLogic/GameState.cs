@@ -567,7 +567,8 @@ public class GameState : MonoBehaviour
         {
             TriggerEndStep();
             TriggerUpKeep();
-            return;
+			Refresh();
+			return;
         }
 
         if (isItMyTurn)
