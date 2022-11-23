@@ -120,18 +120,6 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameState.amountOfTurns == 10)
-        {
-            if (card != null)
-            {
-                if (card.cardName.Equals("Mysterious Forest"))
-                {
-                    DestroyLandmark();
-                    gameState.DrawCard(5, null);
-                }
-            }
-            
-        }
         UpdateTextOnCard();
     }
 }

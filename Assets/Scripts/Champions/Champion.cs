@@ -17,7 +17,6 @@ public abstract class Champion : ScriptableObject
     public int shield = 0;
     public Sprite artwork;
     public string passiveEffect;
-    public bool healEachRound = false;
     public bool destroyShield = false;
     
 
@@ -63,14 +62,6 @@ public abstract class Champion : ScriptableObject
         }
     }
 
-    public void HealEachRound()
-    {
-        if (healEachRound)
-        {
-            HealChampion(10);
-        }
-    }
-
     public virtual void HealChampion(int amountToHeal)
     {
         health += amountToHeal;
@@ -92,7 +83,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual int DealDamageAttack(int damage) { return damage; }
 
-    public virtual void UpKeep() { HealEachRound(); } // Osäker på om jag gjort rätt när jag la in den här
+    public virtual void UpKeep() {}
 
     public virtual void EndStep() { }
 
