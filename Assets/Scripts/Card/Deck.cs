@@ -45,9 +45,11 @@ public class Deck : MonoBehaviour
     public void CreateDecks(List<Card> importedDeck)
     {
         deckPlayer.Clear();
+        List<Card> copy = new List<Card>();
+        copy.AddRange(importedDeck);
         while (importedDeck.Count < 40)
         {
-            foreach (Card card in importedDeck)
+            foreach (Card card in copy)
             {
                 importedDeck.Add(card);
 
