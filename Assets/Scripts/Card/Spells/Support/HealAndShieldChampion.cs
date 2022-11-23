@@ -6,6 +6,7 @@ using UnityEngine;
 public class HealAndShieldChampion : Spells
 {
     public bool allChampions;
+
     public override void PlaySpell()
     {
         if (amountToHeal > 0)

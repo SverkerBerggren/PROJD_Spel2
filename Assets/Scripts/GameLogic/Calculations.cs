@@ -35,7 +35,10 @@ public class Calculations : MonoBehaviour
 			if (landmark.card != null)
 				baseDamage = landmark.card.DealDamageAttack(baseDamage);
 		}
-
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			baseDamage = effect.DealDamageAttack(baseDamage);
+		}
 		return baseDamage;
 	}
 
@@ -46,6 +49,10 @@ public class Calculations : MonoBehaviour
 			if (landmark.card == null) continue;
 			amount = landmark.card.HealingEffect(amount);
 		}
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			amount = effect.HealingEffect(amount);
+		}
 		return amount;
 	}
 
@@ -55,6 +62,10 @@ public class Calculations : MonoBehaviour
 		{
 			if (landmark.card == null) continue;
 			amount = landmark.card.ShieldingEffect(amount);
+		}
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			amount = effect.ShieldingEffect(amount);
 		}
 		return amount;
 	}
@@ -68,12 +79,11 @@ public class Calculations : MonoBehaviour
 		{
 			if (landmarkDisplay.card == null) continue;
             cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
-				
 		}
 
-		foreach (Card effect in gameState.playerEffects)
+		foreach (Effects effect in gameState.playerEffects)
 		{
-			//cardDisplay.manaCost = effect.CalculateManaCost(cardDisplay);
+			cardDisplay.manaCost = effect.CalculateManaCost(cardDisplay);
 		}
 
 		if (cardDisplay.manaCost <= 0)
