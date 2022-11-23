@@ -6,38 +6,21 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    public SpriteRenderer artworkSpriteRenderer;
-
-    public Card card;  
-
-    [Header("CardAtributes")]
-    public TMP_Text cardName;
-    public TMP_Text description;
-    public TMP_Text manaText;
+    public Card card;
     public int manaCost;
 
-    [Header("CardMaterial")]
-    public MeshRenderer artworkMeshRenderer;
-
-    public Material attackCardMaterial;
-    public Material spellCardMaterial;
-    public Material landmarkCardMaterial;
-
-    public GameObject cardPlayableEffect;
-
-    public GameObject nameBackground;
-    public GameObject hpGameObject;
-    public TMP_Text hpText;
-
-    public GameObject border;
-    [System.NonSerialized] public bool opponentCard;
-    public bool mouseDown = false;
-    public bool alreadyBig = false;
-    public Vector3 originalSize;
-
-    private CardTargeting cardTargeting;
     private Calculations calculations;
 
+    private bool alreadyBig = false;
+    private Vector3 originalSize;
+
+    [System.NonSerialized] public CardTargeting cardTargeting;
+    [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+    [System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
+
+    
+    [System.NonSerialized] public bool opponentCard;
+    [System.NonSerialized] public bool mouseDown = false;
     [System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
     [System.NonSerialized] public int amountToShieldShow = 0;
@@ -45,11 +28,10 @@ public class CardDisplay : MonoBehaviour
     [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
 
 
-  
-
     private void Awake()
     {
         Invoke(nameof(LoadInvoke), 0.01f);
+        
     }
     
     private void LoadInvoke()
@@ -59,51 +41,21 @@ public class CardDisplay : MonoBehaviour
         
     }
 
-    public void UpdateTextOnCard()
+    public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
-        if (card == null) return;
-        
-        
-        if (!opponentCard)
-        {
-            UpdateMaterialOnCard();
-
-            cardName.text = card.cardName;
-            manaText.text = manaCost.ToString();
-            description.text = card.description;
-
-            
-            UpdateVariables();
-            CardParser.Instance.CheckKeyword(this);
-
-
-            if (cardPlayableEffect != null)
-            {
-                bool isTheRightChampionCard = true;
-                if (card.championCard)
-                {
-                    if (card.championCardType != cardTargeting.WhichChampionIsActive())
-                    {
-                        isTheRightChampionCard = false;
-                    }
-                }
-
-                if (!isTheRightChampionCard) return;
-                
-                if (ActionOfPlayer.Instance.currentMana >= manaCost && GameState.Instance.isItMyTurn)
-                    cardPlayableEffect.SetActive(true);
-                else
-                    cardPlayableEffect.SetActive(false);
-            }
-        }
-            
-
-        
-       
-        //manaText.text = card.manaCost.ToString();
+        opponentCard = true;
+        artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        artworkSpriteRenderer.sprite = backfaceCard;
     }
 
-    private void UpdateVariables()
+    public void UpdateTextOnCard()
+    {
+        if (cardDisplayAtributes == null)
+            cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
+        cardDisplayAtributes.UpdateTextOnCard(this);
+    }
+
+    public void UpdateVariables()
     {
         calculations = Calculations.Instance;
         calculations.CalculateHandManaCost(this);
@@ -120,30 +72,7 @@ public class CardDisplay : MonoBehaviour
             amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;
     }
 
-    private void UpdateMaterialOnCard()
-    {
-        switch (card.typeOfCard)
-        {
-            case CardType.Attack:
-                nameBackground.SetActive(false);
-                hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = attackCardMaterial;
-                break;
-            case CardType.Spell:
-                nameBackground.SetActive(false);
-                hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = spellCardMaterial;
-                break;
-            case CardType.Landmark:
-                nameBackground.SetActive(true);
-                hpGameObject.SetActive(true);
-                Landmarks landmarkCard = (Landmarks)card;
-                hpText.text = landmarkCard.minionHealth.ToString();
-                artworkMeshRenderer.material = landmarkCardMaterial;
-                break;
 
-        }
-    }
 
     public void ResetSize()
     {

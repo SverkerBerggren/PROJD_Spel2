@@ -10,7 +10,7 @@ public class AvailableChampion : MonoBehaviour
 	// Start is called before the first frame update
 	public Champion champion;
 
-	public new string name;
+	public string nameOfChampion;
     public int health;
 	public int maxHealth;
     public int shield;
@@ -47,7 +47,7 @@ public class AvailableChampion : MonoBehaviour
 
     private void Awake()
 	{
-        name = champion.championName;
+        nameOfChampion = champion.championName;
         //artwork.sprite = champion.artwork;
         passiveEffect.text = champion.passiveEffect;
         health = champion.health;
@@ -141,7 +141,7 @@ public class AvailableChampion : MonoBehaviour
     {
         if (champion == null) return;
 
-        name = champion.championName;
+        nameOfChampion = champion.championName;
         health = champion.health;
         maxHealth = champion.maxHealth;
         shield = champion.shield;

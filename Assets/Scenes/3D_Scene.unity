@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: 231c26b2d1af8bf48a24686214313641, type: 2}
-  name: efq
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -1275,24 +1275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 1407132546}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1870180671}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &92863037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1317,11 +1301,6 @@ RectTransform:
   m_AnchoredPosition: {x: 4.552186, y: 14.292572}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &97933062 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &98418164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1455,17 +1434,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
---- !u!114 &105542039 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &109852614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1827,17 +1795,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
---- !u!114 &172337448 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &206519145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2299,24 +2256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 358482546}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1176724350}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &221342490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2487,70 +2428,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &225130323 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &225130324 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 225130322}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &225130325 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &225130326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &225130327 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &225130328 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &225130329 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &225130330 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &232757173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26efc1afecb8477499fea49283b311a8, type: 3}
@@ -3046,81 +2928,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &281875067 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &281875068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 281875066}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &281875069 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &281875070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &281875071 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &281875072 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &281875073 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &281875074 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &287946013 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &300142094
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,24 +3228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 1913058793}
-  description: {fileID: 886680774}
-  manaText: {fileID: 105542039}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 1053805462}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 829067339}
-  nameBackground: {fileID: 1693309972}
-  hpGameObject: {fileID: 830393726}
-  hpText: {fileID: 1101116562}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &341116896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3821,22 +3617,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1941473548}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &362157126 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &365702834 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &380708506
 GameObject:
   m_ObjectHideFlags: 0
@@ -3972,17 +3752,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380708506}
   m_CullTransparentMesh: 1
---- !u!114 &399765531 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &410259772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6799688443403251393, guid: d8620c6ba1f3f9f459bee305a0a76b86, type: 3}
@@ -4361,24 +4130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 281875074}
-  description: {fileID: 281875073}
-  manaText: {fileID: 281875072}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 281875071}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1884975807}
-  nameBackground: {fileID: 281875070}
-  hpGameObject: {fileID: 281875069}
-  hpText: {fileID: 281875067}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &463547334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4541,22 +4294,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8896733249099630344, guid: 1512f61a5e5058545978004d64d653f8, type: 3}
   m_PrefabInstance: {fileID: 216552133}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &478263324 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &482006898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &526628701
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,24 +4534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 602465834}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 13785876}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &546713600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5075,24 +4796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 1752447240}
-  description: {fileID: 365702834}
-  manaText: {fileID: 614160879}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 1613715006}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1320532889}
-  nameBackground: {fileID: 593892010}
-  hpGameObject: {fileID: 1573680326}
-  hpText: {fileID: 399765531}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &550721940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5289,24 +4994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 865636978}
-  description: {fileID: 865636977}
-  manaText: {fileID: 865636976}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 865636975}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 784394599}
-  nameBackground: {fileID: 865636974}
-  hpGameObject: {fileID: 865636973}
-  hpText: {fileID: 865636971}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &556912646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5815,24 +5504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 1725254617}
-  description: {fileID: 991954364}
-  manaText: {fileID: 898049976}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 973637858}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 916763134}
-  nameBackground: {fileID: 1036481019}
-  hpGameObject: {fileID: 829506287}
-  hpText: {fileID: 287946013}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &579991805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6006,18 +5679,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3.7975829
-      objectReference: {fileID: 0}
-    - target: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.051341683
-      objectReference: {fileID: 0}
-    - target: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -6057,80 +5718,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8403580490007689195, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &583967633 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &583967634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 583967632}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &583967635 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &583967636 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &583967637 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &583967638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &583967639 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &583967640 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &586601384
 GameObject:
   m_ObjectHideFlags: 0
@@ -6215,11 +5809,6 @@ Transform:
   m_Father: {fileID: 812522619}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &593892010 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &595233105
 GameObject:
   m_ObjectHideFlags: 0
@@ -6703,17 +6292,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7256646247773786264, guid: 92fda3ae6f479504c8239ea4afe5fb0e, type: 3}
   m_PrefabInstance: {fileID: 130444419911335084}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &614160879 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &624579868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
@@ -6930,17 +6508,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634122890}
   m_CullTransparentMesh: 1
---- !u!114 &640480417 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &644360207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b1d83a0be3c76a8429cfcf27c77d3fdd, type: 3}
@@ -7493,24 +7060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 1922596604}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1468661725}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &664275506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7936,24 +7487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 1524076342}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1862738144}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &706448669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8858,11 +8393,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778569115}
   m_CullTransparentMesh: 1
---- !u!1 &784394599 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &784799631
 GameObject:
   m_ObjectHideFlags: 0
@@ -9296,24 +8826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 586601385}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1010642178}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &812522619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9495,21 +9009,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7303253680366510607, guid: a96f0a9d8368ca042bbac57307d0da16, type: 3}
   m_PrefabInstance: {fileID: 824638070}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &829067339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &829506287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &830393726 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &833659045
 GameObject:
@@ -9861,24 +9360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 798672142}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1323835903}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &845847471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10057,7 +9540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: 79dc933db5193344d82e1df0654f32c8, type: 2}
-  name: Cultist
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -10350,70 +9833,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &865636971 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &865636972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 865636970}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &865636973 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &865636974 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &865636975 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &865636976 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &865636977 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &865636978 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 865636970}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &870839403
 GameObject:
   m_ObjectHideFlags: 0
@@ -10939,28 +10363,6 @@ Transform:
   m_Father: {fileID: 1098960965}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &886680774 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &898049976 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &900504690
 GameObject:
   m_ObjectHideFlags: 0
@@ -11662,11 +11064,6 @@ MonoBehaviour:
   occultGathering: 0
   index: 0
   opponentLandmarks: 1
---- !u!1 &916763134 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &923356252
 GameObject:
   m_ObjectHideFlags: 0
@@ -12039,70 +11436,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &935620177 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &935620178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 935620176}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &935620179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &935620180 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &935620181 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &935620182 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &935620183 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &935620184 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 935620176}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &942936062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2dd5b59a16273fa4fa8f8c33887e7655, type: 3}
@@ -12504,19 +11842,9 @@ Transform:
   m_Father: {fileID: 1692682887}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &965821189 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &973637855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &973637858 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1206107999}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &982132070 stripped
@@ -12524,17 +11852,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c5b9f1defa87ad40b33eee03bc62b9f, type: 3}
   m_PrefabInstance: {fileID: 130444420585574775}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &991954364 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &997731170
 GameObject:
   m_ObjectHideFlags: 0
@@ -13103,11 +12420,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1036481019 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1037898172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26efc1afecb8477499fea49283b311a8, type: 3}
@@ -13182,7 +12494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: a320bb6d4064fcb47b7c74848a43bac2, type: 2}
-  name: Cultist
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -13414,11 +12726,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1207450410}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1053805462 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1091419109
 GameObject:
   m_ObjectHideFlags: 0
@@ -13644,24 +12951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 225130330}
-  description: {fileID: 225130329}
-  manaText: {fileID: 225130328}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 225130327}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1434467923}
-  nameBackground: {fileID: 225130326}
-  hpGameObject: {fileID: 225130325}
-  hpText: {fileID: 225130323}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1098960965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13684,17 +12975,6 @@ RectTransform:
   m_AnchoredPosition: {x: 4.2797, y: 3.1093845}
   m_SizeDelta: {x: 77.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1101116562 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1104412226
 GameObject:
   m_ObjectHideFlags: 0
@@ -16169,11 +15449,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!1 &1210493464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 583967632}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1210825697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16251,70 +15526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &1210825698 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1210825699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1210825697}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1210825700 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1210825701 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1210825702 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1210825703 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1210825704 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1210825705 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1210825697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1214452974
 GameObject:
   m_ObjectHideFlags: 0
@@ -17747,24 +16963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 1546277708}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 595233106}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1312542813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17789,11 +16989,6 @@ RectTransform:
   m_AnchoredPosition: {x: -6.339275, y: 13.594616}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1320532889 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1323835902
 GameObject:
   m_ObjectHideFlags: 0
@@ -18629,7 +17824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: 71f4e33a083fa3649896310249374f97, type: 2}
-  name: 
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -19141,11 +18336,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429977871}
   m_CullTransparentMesh: 1
---- !u!1 &1434467923 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 225130322}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1441505061
 GameObject:
   m_ObjectHideFlags: 0
@@ -19590,11 +18780,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1449023485 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1941473548}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1451398703
 GameObject:
   m_ObjectHideFlags: 0
@@ -19685,24 +18870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 935620184}
-  description: {fileID: 935620183}
-  manaText: {fileID: 935620182}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 935620181}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 478263324}
-  nameBackground: {fileID: 935620180}
-  hpGameObject: {fileID: 935620179}
-  hpText: {fileID: 935620177}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1451398709
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20257,7 +19426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0, y: 450}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1474784035
@@ -20389,7 +19558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 295}
+  m_AnchoredPosition: {x: 0, y: 400}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1494451929
@@ -21166,11 +20335,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560276978}
   m_CullTransparentMesh: 1
---- !u!1 &1573680326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1574852709
 GameObject:
   m_ObjectHideFlags: 0
@@ -21597,7 +20761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: 4660b01868ff88541964f8117d530e82, type: 2}
-  name: 
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -21751,16 +20915,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1613715006 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1626673864 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1628359418 stripped
 Transform:
@@ -22438,24 +21592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 1210825705}
-  description: {fileID: 1210825704}
-  manaText: {fileID: 1210825703}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 1210825702}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 1210825701}
-  hpGameObject: {fileID: 1210825700}
-  hpText: {fileID: 1210825698}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!1 &1670523640
 GameObject:
   m_ObjectHideFlags: 0
@@ -22938,24 +22076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 964814316}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 658986333}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1692682887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22980,11 +22102,6 @@ RectTransform:
   m_AnchoredPosition: {x: -3.7134387, y: 14.533078}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1693309972 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1697068897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23442,7 +22559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 1500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721278807
@@ -23465,21 +22582,10 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 300}
-  m_Spacing: {x: 50, y: 15}
+  m_CellSize: {x: 150, y: 200}
+  m_Spacing: {x: 1, y: 1}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &1725254617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1206107999}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1734540234
 GameObject:
   m_ObjectHideFlags: 0
@@ -23705,24 +22811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 583967640}
-  description: {fileID: 583967639}
-  manaText: {fileID: 583967638}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 583967637}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1210493464}
-  nameBackground: {fileID: 583967636}
-  hpGameObject: {fileID: 583967635}
-  hpText: {fileID: 583967633}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1735191245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23822,70 +22912,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
---- !u!114 &1738404589 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640787948390, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1738404590 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262932640106156723, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
   m_PrefabInstance: {fileID: 1738404588}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1738404591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932640102151963, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1738404592 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3158684345394939300, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1738404593 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 262932640106156721, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1738404594 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932639375464013, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1738404595 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 262932640230691486, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1738404596 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1738404588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1739761102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24055,24 +23086,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 1300973203}
   card: {fileID: 0}
-  cardName: {fileID: 0}
-  description: {fileID: 0}
-  manaText: {fileID: 1387931874}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 0}
-  attackCardMaterial: {fileID: 0}
-  spellCardMaterial: {fileID: 0}
-  landmarkCardMaterial: {fileID: 0}
-  cardPlayableEffect: {fileID: 0}
-  nameBackground: {fileID: 0}
-  hpGameObject: {fileID: 0}
-  hpText: {fileID: 0}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1741744669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24232,17 +23247,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751679035}
   m_CullTransparentMesh: 1
---- !u!114 &1752447240 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1460996439}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1758655952
 GameObject:
   m_ObjectHideFlags: 0
@@ -24333,24 +23337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 1738404596}
-  description: {fileID: 1738404595}
-  manaText: {fileID: 1738404594}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 1738404593}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1626673864}
-  nameBackground: {fileID: 1738404592}
-  hpGameObject: {fileID: 1738404591}
-  hpText: {fileID: 1738404589}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1758655958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24589,24 +23577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artworkSpriteRenderer: {fileID: 0}
   card: {fileID: 0}
-  cardName: {fileID: 640480417}
-  description: {fileID: 172337448}
-  manaText: {fileID: 482006898}
   manaCost: 0
-  artworkMeshRenderer: {fileID: 362157126}
-  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
-  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
-  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 97933062}
-  nameBackground: {fileID: 1449023485}
-  hpGameObject: {fileID: 965821189}
-  hpText: {fileID: 172337448}
-  border: {fileID: 0}
-  mouseDown: 0
-  alreadyBig: 0
-  originalSize: {x: 0, y: 0, z: 0}
 --- !u!224 &1768091141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26160,11 +25132,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
   m_PrefabInstance: {fileID: 224365979}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1884975807 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 262932639736604462, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 281875066}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1893497667
 GameObject:
   m_ObjectHideFlags: 0
@@ -26364,17 +25331,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907014523}
   m_CullTransparentMesh: 1
---- !u!114 &1913058793 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 9f3589c611277e24ba47aaadafe260f4, type: 3}
-  m_PrefabInstance: {fileID: 1207450410}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1922596603
 GameObject:
   m_ObjectHideFlags: 0
@@ -27233,7 +26189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champion: {fileID: 11400000, guid: 7063f1f7341533d4b91b372d62269698, type: 2}
-  name: 
+  nameOfChampion: 
   health: 0
   maxHealth: 0
   shield: 0
@@ -40470,7 +39426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2550395327941794525, guid: 874b9bfb5d791914bb23d129c7015404, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 323998313671619866, guid: 874b9bfb5d791914bb23d129c7015404, type: 3}

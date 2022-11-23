@@ -119,8 +119,7 @@ public class ActionOfPlayer : MonoBehaviour
 
 				if (!isPlayer)
 				{
-					cardDisplay.opponentCard = true;
-					cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+                    cardDisplay.SetBackfaceOnOpponentCards(backfaceCard);
 				}
 
 				if (specificCard == null)
@@ -212,7 +211,7 @@ public class ActionOfPlayer : MonoBehaviour
 
                     if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
                     {
-                        cardDisplayToSwapTo.hpText.text = cardDisplayToSwapFrom.hpText.text;
+                        cardDisplayToSwapTo.cardDisplayAtributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAtributes.hpText.text;
                     }
                 }
 

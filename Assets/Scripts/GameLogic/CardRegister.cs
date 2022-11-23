@@ -33,7 +33,7 @@ public class CardRegister : MonoBehaviour
 
         foreach (Champion champion in champions)
         {
-            champRegister.Add(champion.name, champion);
+            champRegister.Add(champion.championName, champion);
         }
 
         DontDestroyOnLoad(this);

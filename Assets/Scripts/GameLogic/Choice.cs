@@ -159,7 +159,7 @@ public class Choice : MonoBehaviour
     private void MakeButtons(Sprite artwork, ListEnum listEnum, int index)
     {
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        gO.GetComponent<Image>().sprite = artwork;
+        //gO.GetComponent<Image>().sprite = artwork;
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
         if (amountOfTargets == 0)
