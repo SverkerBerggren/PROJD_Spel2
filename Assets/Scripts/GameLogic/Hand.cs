@@ -31,6 +31,8 @@ public class Hand : MonoBehaviour
         cardsInHand.Clear();
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
+            if (cardSlot.GetComponent<CardDisplay>().card == null) continue;
+
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             cardDisplay.UpdateTextOnCard();
 
