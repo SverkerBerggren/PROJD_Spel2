@@ -178,11 +178,11 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, playerChampion.gameObject);
+            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, opponentChampion.gameObject);
+            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
         }
         if (lE.myLandmarks)
         {

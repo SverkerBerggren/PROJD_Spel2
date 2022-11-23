@@ -33,7 +33,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
-    public virtual void TakeDamage(int damage, GameObject gO)
+    public virtual void TakeDamage(int damage)
     {
         
         if (shield == 0)
@@ -42,12 +42,12 @@ public abstract class Champion : ScriptableObject
         }
         else
         {
-            if (damage > shield)
+            if (damage >= shield)
             {
                 int differenceAfterShieldDamage = damage - shield;
                 shield = 0;
                 destroyShield = true;
-                EffectController.Instance.DestroyShield(gO);
+                EffectController.Instance.DestroyShield(this);
                 health -= differenceAfterShieldDamage;
             }
             else

@@ -7,7 +7,7 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
 
     public List<Card> deckPlayer = new List<Card>();
-    public List<Card> deckOpponent = new List<Card>();
+    private List<Card> deckOpponent = new List<Card>();
 
 
     private static Deck instance;

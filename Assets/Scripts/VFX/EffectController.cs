@@ -13,7 +13,7 @@ public class EffectController : MonoBehaviour
   
     
     private Dictionary<string, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
-    private GameObject shiledToGo;
+    private GameObject shieldToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
 
     private static EffectController instance;
@@ -37,8 +37,6 @@ public class EffectController : MonoBehaviour
 
     private void ShieldPosition()
     {
-        if (shields == null) return;
-
         List<string> champName = shields.Keys.ToList();
         List<GameObject> champs = shields.Values.ToList();
 
@@ -79,12 +77,13 @@ public class EffectController : MonoBehaviour
             
         //champions.shield = shiledAmount;
     }
-    public void DestroyShield(GameObject champion)
+    public void DestroyShield(Champion champion)
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
-        shiledToGo = shields[champion.name];
-        shiledToGo.GetComponent<Shieldeffect>().Disslove(); 
-        shields.Remove(champion.name);
+        
+        shieldToGo = shields[champion.championName];
+        shieldToGo.GetComponent<Shieldeffect>().Disslove(); 
+        shields.Remove(champion.championName);
         //apply the fade out effect
     }
 

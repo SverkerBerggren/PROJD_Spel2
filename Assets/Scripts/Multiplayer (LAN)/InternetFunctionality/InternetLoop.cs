@@ -91,7 +91,7 @@ public class InternetLoop : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, gameState.playerChampion.gameObject);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
                     }
                     if (targetAndAmount.targetInfo.whichList.opponentLandmarks)
                     {
@@ -99,7 +99,7 @@ public class InternetLoop : MonoBehaviour
                     }
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, gameState.opponentChampion.gameObject);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
                     }
                     if (targetAndAmount.targetInfo.whichList.myLandmarks)
                     {
