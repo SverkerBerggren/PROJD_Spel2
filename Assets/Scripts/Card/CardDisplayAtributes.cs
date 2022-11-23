@@ -26,6 +26,7 @@ public class CardDisplayAtributes : MonoBehaviour
     {
         if (cardDisplay.card == null) return;
 
+
         if (!cardDisplay.opponentCard)
         {
             UpdateMaterialOnCard(cardDisplay.card);
@@ -43,6 +44,10 @@ public class CardDisplayAtributes : MonoBehaviour
             {
                 ShowCardPlayableEffect(cardDisplay);
             }
+        }
+        else
+        {
+            cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
         }
     }
     public void UpdateTextOnCardWithCard(Card card)

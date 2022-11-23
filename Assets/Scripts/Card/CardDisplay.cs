@@ -19,7 +19,7 @@ public class CardDisplay : MonoBehaviour
     [System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
     
-    [System.NonSerialized] public bool opponentCard;
+    public bool opponentCard;
     [System.NonSerialized] public bool mouseDown = false;
     [System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
@@ -50,11 +50,8 @@ public class CardDisplay : MonoBehaviour
 
     public void UpdateTextOnCard()
     {
-        print("ar card display attribtues null " + cardDisplayAtributes + " ar opponent card " + opponentCard);
-        if (cardDisplayAtributes == null && !opponentCard)
-            cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
-
-            cardDisplayAtributes.UpdateTextOnCard(this);
+        cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
+        cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
     public void UpdateVariables()
