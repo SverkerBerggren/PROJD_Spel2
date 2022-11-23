@@ -46,6 +46,7 @@ public class CardDisplay : MonoBehaviour
         opponentCard = true;
         artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         artworkSpriteRenderer.sprite = backfaceCard;
+        transform.Find("Landmark_Prefab").gameObject.SetActive(false);
     }
 
     public void UpdateTextOnCard()
