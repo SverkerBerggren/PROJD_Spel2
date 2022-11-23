@@ -60,7 +60,7 @@ public class CardParser : MonoBehaviour
 
     public void CheckKeyword(CardDisplay cardDisplay)
     {
-        string[] s = cardDisplay.description.text.Split(" ");
+        string[] s = cardDisplay.cardDisplayAtributes.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
         {
@@ -72,7 +72,7 @@ public class CardParser : MonoBehaviour
             if(i + 1 != s.Length)
                 returnString += " ";
         }
-        cardDisplay.description.text = returnString;
+        cardDisplay.cardDisplayAtributes.description.text = returnString;
     }
 
     public string Attack(CardDisplay cardDisplay)

@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 262932639375464014}
   - component: {fileID: 262932639375464013}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ManaText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 262932640106156723}
   - component: {fileID: 262932640106156722}
   - component: {fileID: 262932640106156721}
+  - component: {fileID: 2835961768262231134}
   m_Layer: 0
   m_Name: Landmark_Prefab
   m_TagString: Untagged
@@ -512,8 +513,8 @@ Transform:
   m_GameObject: {fileID: 262932640106156719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.39079684, y: 0.59363335, z: 0.008025667}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.5, y: 3.7975829, z: 0.051341683}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 262932638914602546}
   - {fileID: 8251679934531321185}
@@ -570,6 +571,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2835961768262231134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262932640106156719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a15459b02caa3a41b142528761b20fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: {fileID: 3610504236449935156}
+  description: {fileID: 262932640230691486}
+  manaText: {fileID: 262932639375464013}
+  artworkMeshRenderer: {fileID: 262932640106156721}
+  attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
+  spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
+  landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
+  cardPlayableEffect: {fileID: 5774111163111633159}
+  nameBackground: {fileID: 3158684345394939300}
+  hpGameObject: {fileID: 262932640102151963}
+  hpText: {fileID: 262932640787948390}
 --- !u!1 &262932640230691484
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +862,7 @@ GameObject:
   - component: {fileID: 262932640787948391}
   - component: {fileID: 262932640787948390}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HPText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1276,6 +1300,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
+--- !u!1 &5774111163111633159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9036499239868703099, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
+  m_PrefabInstance: {fileID: 3263380940135911548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8251679934531321185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6902329940035890461, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
