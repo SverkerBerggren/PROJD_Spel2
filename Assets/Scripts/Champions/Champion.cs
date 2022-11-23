@@ -47,7 +47,7 @@ public abstract class Champion : ScriptableObject
                 int differenceAfterShieldDamage = damage - shield;
                 shield = 0;
                 destroyShield = true;
-                EffectController.Instance.DestoryShield(gO);
+                EffectController.Instance.DestroyShield(gO);
                 health -= differenceAfterShieldDamage;
             }
             else

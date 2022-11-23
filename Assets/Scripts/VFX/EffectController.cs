@@ -35,12 +35,6 @@ public class EffectController : MonoBehaviour
         InvokeRepeating(nameof(ShieldPosition), 0.05f, 1f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void ShieldPosition()
     {
         if (shields == null) return;
@@ -56,7 +50,6 @@ public class EffectController : MonoBehaviour
             {
                 if (champ.champion.championName.Equals(champName[i]))
                 {
-                    print("Runs 2");
                     champs[i].transform.position = champ.transform.position;
                 }
             }
@@ -86,7 +79,7 @@ public class EffectController : MonoBehaviour
             
         //champions.shield = shiledAmount;
     }
-    public void DestoryShield(GameObject champion)
+    public void DestroyShield(GameObject champion)
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
         shiledToGo = shields[champion.name];
