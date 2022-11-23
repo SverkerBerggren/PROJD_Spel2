@@ -24,7 +24,7 @@ public class GameState : MonoBehaviour
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
-    public List<Card> playerEffects = new List<Card>();
+    public List<Effects> playerEffects = new List<Effects>();
 
     [Header("Have Friends?")]
     public bool isOnline = false;
@@ -539,11 +539,10 @@ public class GameState : MonoBehaviour
         {
             if (landmark.card != null)
                 landmark.card.UpKeep();
-            //Trigger landmark endstep
-        }
-        foreach (Card effect in playerEffects)
+        } 
+        foreach (Effects effect in playerEffects)
         {
-            //effect.Upkeep();
+            effect.UpKeep();
         }
     }
 
@@ -554,11 +553,10 @@ public class GameState : MonoBehaviour
         {
             if(landmark.card != null)
             landmark.card.EndStep();
-            //Trigger landmark endstep
         }
-        foreach (Card effect in playerEffects)
+        foreach (Effects effect in playerEffects)
         {
-            //effect.Endstep();
+            effect.EndStep();
         }
     }
 
@@ -657,12 +655,12 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void AddEffect(Card effect)
+    public void AddEffect(Effects effect)
     {
         playerEffects.Add(effect);
     }
 
-    public void RemoveEffect(Card effect)
+    public void RemoveEffect(Effects effect)
     {
         playerEffects.Remove(effect);
     }
