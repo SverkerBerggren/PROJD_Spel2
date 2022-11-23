@@ -109,6 +109,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            isItMyTurn = true;
             List<string> ha = new List<string>
             {
                 "Shanker",

@@ -51,7 +51,7 @@ public class CardDisplayAtributes : MonoBehaviour
                 }
 
                 if (!isTheRightChampionCard) return;
-
+                
                 if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
                     cardPlayableEffect.SetActive(true);
                 else
