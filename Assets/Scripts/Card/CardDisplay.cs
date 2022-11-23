@@ -49,7 +49,8 @@ public class CardDisplay : MonoBehaviour
     }
 
     public void UpdateTextOnCard()
-    {   
+    {
+        print("ar card display attribtues null " + cardDisplayAtributes + " ar opponent card " + opponentCard);
         if (cardDisplayAtributes == null && !opponentCard)
             cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
 
