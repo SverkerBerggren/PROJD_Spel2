@@ -35,19 +35,10 @@ public class Hand : MonoBehaviour
 
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             cardDisplay.UpdateTextOnCard();
-
-            if (cardDisplay.card != null)
-            {
-                if (!cardsInHand.Contains(cardSlot))
-                    cardsInHand.Add(cardSlot);
-            }
-            else
-            {
-                cardSlot.SetActive(false);
-                if (cardsInHand.Contains(cardSlot))
-                    cardsInHand.Remove(cardSlot);
-            }
-	
+   
+            if (!cardsInHand.Contains(cardSlot))
+               cardsInHand.Add(cardSlot);
+            
 		}
 
     }
