@@ -42,7 +42,10 @@ public class EffectController : MonoBehaviour
 
         for (int i = 0; i < shields.Count; i++)
         {
-            if (GameState.Instance.playerChampion.champion.championName.Equals(champName[i])) continue;
+            if (GameState.Instance.playerChampion.champion.championName.Equals(champName[i]))
+            {
+                champs[i].transform.position = GameState.Instance.playerChampion.transform.position;
+            }
             
             foreach (AvailableChampion champ in GameState.Instance.playerChampions)
             {
