@@ -176,19 +176,25 @@ public class InternetLoop : MonoBehaviour
 
                 if (castedAction.cardAndPlacement.placement.whichList.myGraveyard)
                 {
+                    Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
+                }
+                else
+                {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
 
-                Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
-
+                print("kommer den hit  1");
                 if (cardPlayed.typeOfCard == CardType.Landmark)
                     gameState.ShowPlayedCardLandmark((Landmarks)cardPlayed);
                 else
                     gameState.ShowPlayedCard(cardPlayed);
+                print("kommer den hit  2");
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
                 actionOfPlayer.handOpponent.FixCardOrderInHand();
+                print("kommer den hit  3");
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+                print("kommer den hit  4");
 
             }    
             if (action  is GameActionOpponentDiscardCard)
