@@ -26,6 +26,7 @@ public class CardDisplayAtributes : MonoBehaviour
     {
         if (cardDisplay.card == null) return;
 
+
         if (!cardDisplay.opponentCard)
         {
             UpdateMaterialOnCard(cardDisplay.card);
@@ -41,24 +42,44 @@ public class CardDisplayAtributes : MonoBehaviour
 
             if (cardPlayableEffect != null)
             {
-                bool isTheRightChampionCard = true;
-                if (cardDisplay.card.championCard)
-                {
-                    if (cardDisplay.card.championCardType != cardDisplay.cardTargeting.WhichChampionIsActive())
-                    {
-                        isTheRightChampionCard = false;
-                    }
-                }
-
-                if (!isTheRightChampionCard) return;
-
-                if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
-                    cardPlayableEffect.SetActive(true);
-                else
-                    cardPlayableEffect.SetActive(false);
+                ShowCardPlayableEffect(cardDisplay);
             }
         }
+        else
+        {
+            cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
+        }
     }
+    public void UpdateTextOnCardWithCard(Card card)
+    {
+        if (card == null) return;
+
+        UpdateMaterialOnCard(card);
+
+        cardName.text = card.cardName;
+        manaText.text = card.maxManaCost.ToString();
+        description.text = card.description;      
+    }
+
+    private void ShowCardPlayableEffect(CardDisplay cardDisplay)
+    {
+        bool isTheRightChampionCard = true;
+        if (cardDisplay.card.championCard)
+        {
+            if (cardDisplay.card.championCardType != cardDisplay.cardTargeting.WhichChampionIsActive())
+            {
+                isTheRightChampionCard = false;
+            }
+        }
+
+        if (!isTheRightChampionCard) return;
+
+        if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
+            cardPlayableEffect.SetActive(true);
+        else
+            cardPlayableEffect.SetActive(false);
+    }
+
 
     private void UpdateMaterialOnCard(Card card)
     {

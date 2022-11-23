@@ -31,22 +31,16 @@ public class Hand : MonoBehaviour
         cardsInHand.Clear();
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
+            if (cardSlot.GetComponent<CardDisplay>().card == null) continue;
+
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             cardDisplay.UpdateTextOnCard();
+   
+            if (!cardsInHand.Contains(cardSlot))
+               cardsInHand.Add(cardSlot);
+            
+		}
 
-            if (cardDisplay.card != null)
-            {
-                if (!cardsInHand.Contains(cardSlot))
-                    cardsInHand.Add(cardSlot);
-            }
-            else
-            {
-                cardSlot.SetActive(false);
-                if (cardsInHand.Contains(cardSlot))
-                    cardsInHand.Remove(cardSlot);
-            }
-
-        }
     }
 
     public Card DiscardRandomCardInHand()

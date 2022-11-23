@@ -19,7 +19,7 @@ public class CardDisplay : MonoBehaviour
     [System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
     
-    [System.NonSerialized] public bool opponentCard;
+    public bool opponentCard;
     [System.NonSerialized] public bool mouseDown = false;
     [System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
@@ -46,12 +46,12 @@ public class CardDisplay : MonoBehaviour
         opponentCard = true;
         artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         artworkSpriteRenderer.sprite = backfaceCard;
+        transform.Find("Landmark_Prefab").gameObject.SetActive(false);
     }
 
     public void UpdateTextOnCard()
     {
-        if (cardDisplayAtributes == null)
-            cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
+        cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 

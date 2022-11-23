@@ -7,7 +7,7 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
 
     public List<Card> deckPlayer = new List<Card>();
-    public List<Card> deckOpponent = new List<Card>();
+    private List<Card> deckOpponent = new List<Card>();
 
 
     private static Deck instance;
@@ -45,9 +45,11 @@ public class Deck : MonoBehaviour
     public void CreateDecks(List<Card> importedDeck)
     {
         deckPlayer.Clear();
+        List<Card> copy = new List<Card>();
+        copy.AddRange(importedDeck);
         while (importedDeck.Count < 40)
         {
-            foreach (Card card in importedDeck)
+            foreach (Card card in copy)
             {
                 importedDeck.Add(card);
 

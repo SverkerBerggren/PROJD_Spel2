@@ -29,9 +29,9 @@ public class Cultist : Champion
 		return damage + currentBonusDamage;
 	}
 
-	public override void TakeDamage(int damage, GameObject gO)
+	public override void TakeDamage(int damage)
 	{
-		base.TakeDamage(damage, gO);
+		base.TakeDamage(damage);
 		ChangeBonusDamage();
 	}
 

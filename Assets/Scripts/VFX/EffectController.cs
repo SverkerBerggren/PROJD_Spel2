@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ public class EffectController : MonoBehaviour
     [SerializeField] private GameObject healingPrefab;
   
     
-    private Dictionary<string, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
-    private GameObject shiledToGo;
+    private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
+    private GameObject shieldToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
 
     private static EffectController instance;
@@ -31,35 +32,46 @@ public class EffectController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        shields = new Dictionary<string, GameObject>();
-        InvokeRepeating(nameof(ShieldPosition), 0.05f, 1f);
+        shields = new Dictionary<Tuple<string, bool>, GameObject>();
+    }
+
+    private void FixedUpdate()
+    {
+        ShieldPosition();   
     }
 
     private void ShieldPosition()
     {
-        if (shields == null) return;
-
-        List<string> champName = shields.Keys.ToList();
-        List<GameObject> champs = shields.Values.ToList();
-
-        for (int i = 0; i < shields.Count; i++)
+        foreach(Tuple<string,bool> availableChampion in shields.Keys)
         {
-            if (GameState.Instance.playerChampion.champion.championName.Equals(champName[i])) continue;
-            
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            if(availableChampion.Item2 == true)
             {
-                if (champ.champion.championName.Equals(champName[i]))
+                foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
-                    champs[i].transform.position = champ.transform.position;
+                    if(champOnField.champion.championName.Equals(availableChampion.Item1))  
+                    {
+                        print("kommer den in");
+                        print("champOnFields namn " + champOnField.champion.championName);
+                        shields[availableChampion].transform.position = champOnField.transform.position;
+                    }
                 }
             }
-            
-        }        
+            else
+            {
+                foreach(AvailableChampion champOnField in GameState.Instance.opponentChampions)
+                {
+                    if(champOnField.champion.championName.Equals(availableChampion.Item1))  
+                    {
+                        shields[availableChampion].transform.position = champOnField.transform.position;
+                    }
+                }
+            }
+        }      
     }
 
     //two parameters, which champion should have shiled and how much  
     //the shield shall only has tre state, on, half-on, and disappear
-    public void ActiveShield(GameObject champions, int shiledAmount)
+    public void ActiveShield(Tuple<string,bool> tupleShields, int shiledAmount, GameObject gameObject)
     {
         //shiled effect 100 procent
         //Set upp shield effect here at champions position 
@@ -67,24 +79,24 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-        string champName = champions.GetComponent<AvailableChampion>().champion.championName;
 
 
-        if (!shields.ContainsKey(champName))
+        if (!shields.ContainsKey(tupleShields))
         {
-            Vector3 shieldPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
+            Vector3 shieldPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 3, gameObject.transform.position.z);
             GameObject toStore = Instantiate(shieldPrefab, shieldPos, Quaternion.identity); //the GO should have Shieldeffect script
-            shields.Add(champName, toStore);            
+            shields.Add(tupleShields, toStore);            
         }
             
         //champions.shield = shiledAmount;
     }
-    public void DestroyShield(GameObject champion)
+    public void DestroyShield(Tuple<string,bool> champion)
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
-        shiledToGo = shields[champion.name];
-        shiledToGo.GetComponent<Shieldeffect>().Disslove(); 
-        shields.Remove(champion.name);
+        
+        shieldToGo = shields[champion];
+        shieldToGo.GetComponent<Shieldeffect>().Disslove(); 
+        shields.Remove(champion);
         //apply the fade out effect
     }
 
