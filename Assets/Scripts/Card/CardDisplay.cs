@@ -54,7 +54,6 @@ public class CardDisplay : MonoBehaviour
         if (cardDisplayAtributes == null && !opponentCard)
             cardDisplayAtributes = transform.GetComponentInChildren<CardDisplayAtributes>();
 
-        if(!opponentCard)
             cardDisplayAtributes.UpdateTextOnCard(this);
     }
 

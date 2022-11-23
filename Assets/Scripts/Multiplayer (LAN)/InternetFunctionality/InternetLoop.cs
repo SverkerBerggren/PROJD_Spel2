@@ -191,10 +191,10 @@ public class InternetLoop : MonoBehaviour
                 print("kommer den hit  2");
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
-                actionOfPlayer.handOpponent.FixCardOrderInHand();
                 print("kommer den hit  3");
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
                 print("kommer den hit  4");
+                actionOfPlayer.handOpponent.FixCardOrderInHand();
 
             }    
             if (action  is GameActionOpponentDiscardCard)
