@@ -28,8 +28,9 @@ public class Choice : MonoBehaviour
 
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
 
-    private bool isChoiceActive = false; 
+    private bool isChoiceActive = false;
 
+    private CardDisplayAtributes cardDisplayAtributes;
 
     public static Choice Instance { get { return instance; } set { instance = value; } }
 
@@ -50,6 +51,7 @@ public class Choice : MonoBehaviour
         gameState = GameState.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
         graveyard = Graveyard.Instance;
+        
 
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
@@ -99,7 +101,7 @@ public class Choice : MonoBehaviour
                 AvailableChampion champ = gameState.playerChampions[i];
                 if (champ == gameState.playerChampion) continue;
 
-                MakeButtons(champ.champion.artwork, listEnum, i);
+                MakeButtonsChampions(champ.champion.artwork, listEnum, i);
             }
         }
 
@@ -109,7 +111,7 @@ public class Choice : MonoBehaviour
 			{
 				Sprite champSprite = gameState.opponentChampions[i].champion.artwork;
 
-                MakeButtons(champSprite, listEnum, i);
+                MakeButtonsChampions(champSprite, listEnum, i);
             }
 		}
 
@@ -121,7 +123,7 @@ public class Choice : MonoBehaviour
             {
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i].GetComponent<CardDisplay>();
 
-                MakeButtons(cardDisplay.card.artwork, listEnum, i);
+                MakeButtonsCards(cardDisplay.card, listEnum, i);
             }
         }
         if (listEnum.myGraveyard)
@@ -129,8 +131,7 @@ public class Choice : MonoBehaviour
             descriptionText.text = "Show graveyard";
             for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
             {
-                Sprite cardSprite = graveyard.graveyardPlayer[i].artwork;
-                MakeButtons(cardSprite, listEnum, i);
+                MakeButtonsCards(graveyard.graveyardPlayer[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
@@ -139,8 +140,7 @@ public class Choice : MonoBehaviour
             descriptionText.text = "Show Deck";
             for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
             {
-                Sprite cardSprite = actionOfPlayer.handPlayer.deck.deckPlayer[i].artwork;
-                MakeButtons(cardSprite, listEnum, i);
+                MakeButtonsCards(actionOfPlayer.handPlayer.deck.deckPlayer[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
@@ -149,24 +149,37 @@ public class Choice : MonoBehaviour
             descriptionText.text = "Show landmarks";
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
-                Sprite cardSprite = gameState.playerLandmarks[i].card.artwork;
-                MakeButtons(cardSprite, listEnum, i);
+                MakeButtonsCards(gameState.playerLandmarks[i].card, listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
     }
 
-    private void MakeButtons(Sprite artwork, ListEnum listEnum, int index)
-    {
+    private void MakeButtonsCards(Card card, ListEnum listEnum, int index)
+    {      
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        //gO.GetComponent<Image>().sprite = artwork;
+        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
+        cardDisplayAtributes.UpdateTextOnCardWithCard(card);
+
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
-        /*if (amountOfTargets == 0)
-            gO.GetComponent<Button>().interactable = false;*/
+        if (amountOfTargets == 0)
+            gO.GetComponent<Button>().interactable = false;
     }
 
-    
+    private void MakeButtonsChampions(Sprite championSprite, ListEnum listEnum, int index)
+    {
+        GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);       
+        gO.GetComponent<Image>().enabled = true;
+        gO.GetComponent<Image>().sprite = championSprite;
+
+        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
+        buttonsToDestroy.Add(gO);
+        if (amountOfTargets == 0)
+            gO.GetComponent<Button>().interactable = false;
+    }
+
+
 
     public void AddTargetInfo(TargetInfo targetInfo)
     {
