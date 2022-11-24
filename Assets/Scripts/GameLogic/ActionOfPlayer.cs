@@ -16,7 +16,7 @@ public class ActionOfPlayer : MonoBehaviour
     [SerializeField] private TMP_Text manaText;
 	public Sprite backfaceCard;
 
-	public Choice choice;
+	private Choice choice;
 
     private int cardCost;
     public int playerMana = 0;
