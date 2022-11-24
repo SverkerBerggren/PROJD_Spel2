@@ -675,17 +675,22 @@ public class GameState : MonoBehaviour
 
     public void RemoveEffect(Effects effect)
     {
-        print("dwad");
         removeEffects.Add(effect);
     }
 
     public void ClearEffects()
     {
-        foreach (Effects effect in removeEffects)
+        /*
+        if (removeEffects.Count > 0)
         {
-            playerEffects.Remove(effect);
+            foreach (Effects effect in removeEffects)
+            {
+                print("kalle bralle");
+                playerEffects.Remove(effect);
+            }
+            removeEffects.Clear();
         }
-        removeEffects.Clear();
+        */
     }
 
     public void RequestEmpty(ServerResponse response) {}
