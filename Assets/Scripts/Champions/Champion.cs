@@ -33,7 +33,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual void TakeDamage(int damage)
     {
-        
+
         if (shield == 0)
         {
             health -= damage;

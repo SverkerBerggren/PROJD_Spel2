@@ -108,7 +108,6 @@ public class SpreadsheetUpdater
     
     private Card FindCardFromName(List<Card> listToSearch, string name)
     {
-
         foreach(Card spell in listToSearch)
         {
             if(spell.cardName.Equals(name))

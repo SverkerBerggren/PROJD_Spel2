@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -890,6 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &92863037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1043,6 +1044,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: cards.Array.size
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: effects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: cards.Array.data[33]
+      value: 
+      objectReference: {fileID: 11400000, guid: 41ff255202b0dcb4681b16fa8a2a6651, type: 2}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: cards.Array.data[34]
+      value: 
+      objectReference: {fileID: 11400000, guid: 59644cb68f4e6f646bbb737b258b9f16, type: 2}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: effects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ba9f0bffebd759c46b4019bbc71f8374, type: 2}
+    - target: {fileID: 4853047340930969290, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: effects.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a3b1cf46b8a983c44bc21f7b8c6072e7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
 --- !u!1001 &109852614
@@ -1629,6 +1654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &221342490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2427,6 +2453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &341116896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3230,6 +3257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &463547334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3629,6 +3657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &546713600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3889,6 +3918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &550721940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4087,6 +4117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &556912646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4597,6 +4628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &579991805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5876,6 +5908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &664275506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6301,6 +6334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &706448669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7638,6 +7672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &812522619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8232,6 +8267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &845847471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10882,6 +10918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1098960965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12510,10 +12547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPlayer:
-  - {fileID: 11400000, guid: da194dbd2ebd2c249b56e20d07c57a3f, type: 2}
+  - {fileID: 11400000, guid: 59644cb68f4e6f646bbb737b258b9f16, type: 2}
   - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
-  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
 --- !u!4 &1197088906
 Transform:
   m_ObjectHideFlags: 0
@@ -14011,6 +14046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1312542813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14790,7 +14826,7 @@ MonoBehaviour:
   choice: {fileID: 1448377065}
   playerMana: 1
   currentMana: 1
-  selectCardOption: 1
+  selectCardOption: 0
 --- !u!1 &1429977871
 GameObject:
   m_ObjectHideFlags: 0
@@ -15462,6 +15498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1451398709
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17425,6 +17462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!1 &1670523640
 GameObject:
   m_ObjectHideFlags: 0
@@ -17904,6 +17942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1692682887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18595,6 +18634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1735191245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18870,6 +18910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1741744669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19119,6 +19160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1758655958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19359,6 +19401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   manaCost: 0
+  opponentCard: 0
 --- !u!224 &1768091141
 RectTransform:
   m_ObjectHideFlags: 0

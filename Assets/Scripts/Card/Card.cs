@@ -44,6 +44,9 @@ public abstract class Card : ScriptableObject
     public int amountOfCardsToDraw = 0;
     public int amountOfCardsToDiscard = 0;
 
+    [Header("Effect")]
+    public Effects effect;
+
     public bool discardCardsYourself = true;
     public bool targetable = false;
 
@@ -85,13 +88,20 @@ public abstract class Card : ScriptableObject
             gameState.DrawCard(amountOfCardsToDraw, null);
             gameState.Refresh();
         }
+
         if (amountOfCardsToDiscard != 0)
         {
             gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
             gameState.Refresh();
         }
-        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
 
+        if (effect != null)
+        {
+            gameState.AddEffect(effect);
+            gameState.Refresh();
+        }
+
+        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    
     public virtual string WriteOutCardInfo()

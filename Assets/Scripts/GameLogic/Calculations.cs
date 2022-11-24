@@ -24,7 +24,6 @@ public class Calculations : MonoBehaviour
 	{
 		gameState = GameState.Instance;
 		actionOfPlayer = ActionOfPlayer.Instance;
-
     }
 
 	public int CalculateDamage(int baseDamage)
@@ -39,6 +38,7 @@ public class Calculations : MonoBehaviour
 		{
 			baseDamage = effect.DealDamageAttack(baseDamage);
 		}
+		gameState.ClearEffects();
 		return baseDamage;
 	}
 
@@ -53,6 +53,7 @@ public class Calculations : MonoBehaviour
 		{
 			amount = effect.HealingEffect(amount);
 		}
+		gameState.ClearEffects();
 		return amount;
 	}
 
@@ -67,6 +68,7 @@ public class Calculations : MonoBehaviour
 		{
 			amount = effect.ShieldingEffect(amount);
 		}
+		gameState.ClearEffects();
 		return amount;
 	}
 

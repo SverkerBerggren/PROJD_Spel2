@@ -78,7 +78,7 @@ public class CardTargeting : MonoBehaviour
 
         if (cardDisplay.opponentCard == true) return;
 
-        // Checking if the card used is a champion chard
+        // Checking if the card used is a champion card
         if (card.championCardType != ChampionCardType.All && card.championCard)
         {
             ChampionCardType champCardType = WhichChampionIsActive();

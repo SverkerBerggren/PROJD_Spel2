@@ -25,6 +25,8 @@ public class GameState : MonoBehaviour
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
     public List<Effects> playerEffects = new List<Effects>();
+    public List<Effects> opponentEffects = new List<Effects>();
+    public List<Effects> removeEffects = new List<Effects>();
 
     [Header("Have Friends?")]
     public bool isOnline = false;
@@ -180,6 +182,11 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            foreach (Effects effect in playerEffects)
+            {
+                effect.TakeDamage(targetAndAmount.amount);
+            }
+            playerEffects.Clear();
         }
         if (lE.opponentChampions)
         {
@@ -547,6 +554,7 @@ public class GameState : MonoBehaviour
         {
             effect.UpKeep();
         }
+        ClearEffects();
     }
 
     public void TriggerEndStep()
@@ -561,6 +569,7 @@ public class GameState : MonoBehaviour
         {
             effect.EndStep();
         }
+        ClearEffects();
     }
 
 
@@ -666,7 +675,17 @@ public class GameState : MonoBehaviour
 
     public void RemoveEffect(Effects effect)
     {
-        playerEffects.Remove(effect);
+        print("dwad");
+        removeEffects.Add(effect);
+    }
+
+    public void ClearEffects()
+    {
+        foreach (Effects effect in removeEffects)
+        {
+            playerEffects.Remove(effect);
+        }
+        removeEffects.Clear();
     }
 
     public void RequestEmpty(ServerResponse response) {}

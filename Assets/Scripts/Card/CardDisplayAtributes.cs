@@ -63,8 +63,9 @@ public class CardDisplayAtributes : MonoBehaviour
 
     private void ShowCardPlayableEffect(CardDisplay cardDisplay)
     {
+        /*
         bool isTheRightChampionCard = true;
-        if (cardDisplay.card.championCard)
+        if (cardDisplay.card.championCard && cardDisplay.cardTargeting != null)
         {
             if (cardDisplay.card.championCardType != cardDisplay.cardTargeting.WhichChampionIsActive())
             {
@@ -73,6 +74,7 @@ public class CardDisplayAtributes : MonoBehaviour
         }
 
         if (!isTheRightChampionCard) return;
+        */
 
         if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
             cardPlayableEffect.SetActive(true);

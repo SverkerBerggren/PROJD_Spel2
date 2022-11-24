@@ -92,6 +92,11 @@ public class InternetLoop : MonoBehaviour
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
                         gameState.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+                        foreach (Effects effect in gameState.playerEffects)
+                        {
+                            effect.TakeDamage(targetAndAmount.amount);
+                        }
+                        gameState.playerEffects.Clear();
                     }
                     if (targetAndAmount.targetInfo.whichList.opponentLandmarks)
                     {
