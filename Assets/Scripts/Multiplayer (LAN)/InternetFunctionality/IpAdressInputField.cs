@@ -65,6 +65,8 @@ public class IpAdressInputField : MonoBehaviour
         }
 
 
+        clientConnection.gameId = 0;
+
         testInternet.hasJoinedLobby = true;
 
 

@@ -4,7 +4,7 @@ using System;
 
 public class ResponseSwitchActiveChamp : ServerResponse
 {
-
+    
     public TargetInfo targetToSwitch = new TargetInfo();
 	public bool championDied = false;
 	public ResponseSwitchActiveChamp()

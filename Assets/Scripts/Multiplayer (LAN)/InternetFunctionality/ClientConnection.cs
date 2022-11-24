@@ -20,6 +20,8 @@ public class ClientConnection : MonoBehaviour
 
     public bool isHost = false;
 
+    public int gameId = 0; 
+
     public static ClientConnection Instance { get; set; }
 
     private void Awake()
@@ -85,7 +87,9 @@ public class ClientConnection : MonoBehaviour
     }
 
     public void AddRequest(ClientRequest request, Action<ServerResponse> action)
-    {
+    {   
+        request.gameId = gameId;
+
         lock (queuedRequests)
         {
             queuedRequests.Enqueue(new Tuple<ClientRequest, Action<ServerResponse>>(request, action));

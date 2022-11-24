@@ -44,6 +44,11 @@ public class HostButton : MonoBehaviour
         ipAdressText.gameObject.SetActive(true);
         ipAdressText.text = LocalIPAddress();
 
-        clientConnection.isHost = true; 
+
+        
+
+
+        clientConnection.isHost = true;
+        clientConnection.gameId = -1; 
     }
 }

@@ -302,7 +302,7 @@ public class InternetLoop : MonoBehaviour
 
         clientConnection.AddRequest(request, PerformOpponentsActions);
        
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(0.1f);
     }
 
     private void EmptyRequest(ServerResponse response) {}
