@@ -61,7 +61,7 @@ public class CardDisplayAtributes : MonoBehaviour
 
     private void ShowCardPlayableEffect(CardDisplay cardDisplay)
     {
-        /*
+
         bool isTheRightChampionCard = true;
         if (cardDisplay.card.championCard)
         {
@@ -72,7 +72,7 @@ public class CardDisplayAtributes : MonoBehaviour
         }
 
         if (!isTheRightChampionCard) return;
-        */
+
 
         if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
             cardPlayableEffect.SetActive(true);
@@ -102,8 +102,6 @@ public class CardDisplayAtributes : MonoBehaviour
                 hpText.text = landmarkCard.minionHealth.ToString();
                 artworkMeshRenderer.material = landmarkCardMaterial;
                 break;
-
         }
     }
-
 }

@@ -207,7 +207,7 @@ public class Choice : MonoBehaviour
 
                     break;
                 case WhichMethod.ShowDeck:
-
+                    print("Card 1: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[1].index]);
                     break;
                 case WhichMethod.ShowLandmarks:
                     
