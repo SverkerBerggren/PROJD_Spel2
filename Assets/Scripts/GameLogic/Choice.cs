@@ -175,6 +175,11 @@ public class Choice : MonoBehaviour
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);       
         gO.GetComponent<Image>().enabled = true;
         gO.GetComponent<Image>().sprite = championSprite;
+        gO.transform.localScale = new Vector3(1.3f, 1, 0.4f);
+
+        gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
+
+        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
