@@ -126,6 +126,7 @@ public class Choice : MonoBehaviour
                 MakeButtonsCards(cardDisplay.card, listEnum, i);
             }
         }
+
         if (listEnum.myGraveyard)
         {
             descriptionText.text = "Show graveyard";
@@ -135,6 +136,7 @@ public class Choice : MonoBehaviour
                 closeMenuButton.SetActive(true);
             }
         }
+
         if (listEnum.myDeck)
         {
             descriptionText.text = "Show Deck";
@@ -144,6 +146,7 @@ public class Choice : MonoBehaviour
                 closeMenuButton.SetActive(true);
             }
         }
+
         if (listEnum.myLandmarks)
         {
             descriptionText.text = "Show landmarks";
@@ -211,10 +214,10 @@ public class Choice : MonoBehaviour
                     gameState.DestroyLandmark(chosenTargets[0]);
                     break;
             }
+            ResetChoice();
+            gameState.Refresh();
         }
 
-        ResetChoice();
-        gameState.Refresh();
     }
 
     public void ResetChoice()
@@ -312,7 +315,6 @@ public class Choice : MonoBehaviour
                 break;
 
             case WhichMethod.discardCard:
-                print("den här går in här ");
                 if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
