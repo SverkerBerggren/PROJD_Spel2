@@ -37,10 +37,8 @@ public class Hand : MonoBehaviour
             cardDisplay.UpdateTextOnCard();
    
             if (!cardsInHand.Contains(cardSlot))
-               cardsInHand.Add(cardSlot);
-            
+               cardsInHand.Add(cardSlot);         
 		}
-
     }
 
     public Card DiscardRandomCardInHand()

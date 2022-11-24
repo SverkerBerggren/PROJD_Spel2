@@ -33,7 +33,13 @@ public class CardDisplay : MonoBehaviour
         Invoke(nameof(LoadInvoke), 0.01f);
         
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (card == null)
+            gameObject.SetActive(false);
+    }
+
     private void LoadInvoke()
     {
         originalSize = transform.localScale;
