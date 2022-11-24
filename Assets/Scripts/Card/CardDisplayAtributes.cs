@@ -31,12 +31,10 @@ public class CardDisplayAtributes : MonoBehaviour
         {
             UpdateMaterialOnCard(cardDisplay.card);
 
+            cardDisplay.UpdateVariables();
             cardName.text = cardDisplay.card.cardName;
             manaText.text = cardDisplay.manaCost.ToString();
             description.text = cardDisplay.card.description;
-
-
-            cardDisplay.UpdateVariables();
             CardParser.Instance.CheckKeyword(cardDisplay);
 
 

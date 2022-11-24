@@ -96,7 +96,7 @@ public class InternetLoop : MonoBehaviour
                         {
                             effect.TakeDamage(targetAndAmount.amount);
                         }
-                        gameState.playerEffects.Clear();
+                        gameState.ClearEffects();
                     }
                     if (targetAndAmount.targetInfo.whichList.opponentLandmarks)
                     {

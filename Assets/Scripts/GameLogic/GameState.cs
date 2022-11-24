@@ -186,7 +186,6 @@ public class GameState : MonoBehaviour
             {
                 effect.TakeDamage(targetAndAmount.amount);
             }
-            playerEffects.Clear();
         }
         if (lE.opponentChampions)
         {
@@ -554,7 +553,6 @@ public class GameState : MonoBehaviour
         {
             effect.UpKeep();
         }
-        ClearEffects();
     }
 
     public void TriggerEndStep()
@@ -569,7 +567,6 @@ public class GameState : MonoBehaviour
         {
             effect.EndStep();
         }
-        ClearEffects();
     }
 
 
@@ -680,17 +677,11 @@ public class GameState : MonoBehaviour
 
     public void ClearEffects()
     {
-        /*
-        if (removeEffects.Count > 0)
-        {
-            foreach (Effects effect in removeEffects)
-            {
-                print("kalle bralle");
-                playerEffects.Remove(effect);
-            }
-            removeEffects.Clear();
-        }
-        */
+       foreach (Effects effect in removeEffects)
+       {
+           playerEffects.Remove(effect);
+       }
+       removeEffects.Clear();
     }
 
     public void RequestEmpty(ServerResponse response) {}
@@ -716,7 +707,8 @@ public class GameState : MonoBehaviour
     }
 
     public void Refresh()
-    {       
+    {
+        ClearEffects();
         actionOfPlayer.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();
