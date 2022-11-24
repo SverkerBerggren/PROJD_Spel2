@@ -323,10 +323,12 @@ public class Choice : MonoBehaviour
                 if (graveyard.graveyardPlayer.Count <= 0)
                     return false;
                 break;
+
             case WhichMethod.ShowDeck:
                 if (actionOfPlayer.handPlayer.deck.deckPlayer.Count <= 0)
                     return false;
                 break;
+
             case WhichMethod.ShowLandmarks:
                 bool checkIfLandmarkPlaced = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks)
