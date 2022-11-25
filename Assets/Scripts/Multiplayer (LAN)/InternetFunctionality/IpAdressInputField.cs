@@ -69,6 +69,8 @@ public class IpAdressInputField : MonoBehaviour
 
         testInternet.hasJoinedLobby = true;
 
+        print("connectar den till servern?");
+
         enalbeUIButton.ClickEnableObjects();
 
 
