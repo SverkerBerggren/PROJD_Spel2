@@ -10,8 +10,15 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
+        // Anledningen är load order
+        Invoke(nameof(InvokeRefresh), 0.1f);
+    }
+    
+    private void InvokeRefresh()
+    {
         GameState.Instance.Refresh();
     }
+
 
     private void FixedUpdate()
     {
@@ -25,19 +32,13 @@ public class Hand : MonoBehaviour
         foreach (GameObject cardSlot in cardSlotsInHand)
         {
             CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
-            if (cardDisplay.card != null)
-            {
-                if (!cardsInHand.Contains(cardSlot))
-                    cardsInHand.Add(cardSlot);
-            }
-            else
-            {
-                cardSlot.SetActive(false);
-                if (cardsInHand.Contains(cardSlot))
-                    cardsInHand.Remove(cardSlot);
-            }
-
-        }
+            if (cardDisplay.card == null) continue;          
+   
+            if (!cardsInHand.Contains(cardSlot))
+               cardsInHand.Add(cardSlot);  
+            
+            cardDisplay.UpdateTextOnCard();
+		}
     }
 
     public Card DiscardRandomCardInHand()
@@ -50,7 +51,7 @@ public class Hand : MonoBehaviour
     public string DiscardSpecificCardWithIndex(int index)
     {
         CardDisplay cardDisplay = cardsInHand[index].GetComponent<CardDisplay>();
-        return CardToDiscard(cardDisplay).name;
+        return CardToDiscard(cardDisplay).cardName;
     }
 
     private Card CardToDiscard(CardDisplay cardDisplay)

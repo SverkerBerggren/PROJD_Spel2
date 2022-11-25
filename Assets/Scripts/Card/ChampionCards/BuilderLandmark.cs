@@ -5,10 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/BuilderLandmark")]
 public class BuilderLandmark : Landmarks
 {
-    public int damagePerLandmark = 10;
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) 
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield) 
     { 
         championCard = true;
         championCardType = ChampionCardType.Builder;
@@ -31,16 +30,9 @@ public class BuilderLandmark : Landmarks
     {
         if (slaughterhouse)
         {
-            return damage + damagePerLandmark;
+            return damage + this.damage;
         }
 
         return base.DealDamageAttack(damage) ;
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamagePerLandmark: " + damagePerLandmark;
-        return lineToWriteOut;
     }
 }

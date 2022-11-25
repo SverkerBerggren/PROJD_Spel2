@@ -16,7 +16,7 @@ public class ActionOfPlayer : MonoBehaviour
     [SerializeField] private TMP_Text manaText;
 	public Sprite backfaceCard;
 
-	public Choice choice;
+	private Choice choice;
 
     private int cardCost;
     public int playerMana = 0;
@@ -66,7 +66,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -119,8 +119,7 @@ public class ActionOfPlayer : MonoBehaviour
 
 				if (!isPlayer)
 				{
-					cardDisplay.opponentCard = true;
-					cardDisplay.artworkSpriteRenderer.sprite = backfaceCard;
+                    cardDisplay.SetBackfaceOnOpponentCards(backfaceCard);
 				}
 
 				if (specificCard == null)
@@ -139,7 +138,7 @@ public class ActionOfPlayer : MonoBehaviour
 				else
 				{
 					print("Deck is empty or the drawn card is null!!!");
-					gameState.Defeat();
+					//gameState.Defeat();
 					break;
 				}
 			}
@@ -212,7 +211,7 @@ public class ActionOfPlayer : MonoBehaviour
 
                     if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
                     {
-                        cardDisplayToSwapTo.hpText.text = cardDisplayToSwapFrom.hpText.text;
+                        cardDisplayToSwapTo.cardDisplayAtributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAtributes.hpText.text;
                     }
                 }
 

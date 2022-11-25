@@ -82,12 +82,9 @@ public class LandmarkDisplay : MonoBehaviour
         if (opponentLandmarks)
         {
             graveyard.AddCardToGraveyardOpponent(card);
-            gameState.opponentChampion.champion.WhenLandmarksDie();
-
         }
         else
         {
-            gameState.playerChampion.champion.WhenLandmarksDie();
             graveyard.AddCardToGraveyard(card);
         }
         card.LandmarkEffectTakeBack();
@@ -123,18 +120,6 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameState.amountOfTurns == 10)
-        {
-            if (card != null)
-            {
-                if (card.cardName.Equals("Mysterious Forest"))
-                {
-                    DestroyLandmark();
-                    gameState.DrawCard(5, null);
-                }
-            }
-            
-        }
         UpdateTextOnCard();
     }
 }

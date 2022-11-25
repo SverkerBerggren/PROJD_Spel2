@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/ShankerAttack")]
 public class ShankerAttack : Spells
 {
-    public int damage = 0;
-
     public ShankerAttack()
     {
         championCard = true;
@@ -15,11 +14,15 @@ public class ShankerAttack : Spells
     public override void PlaySpell()
     {
         //Damage Equals amount of cards discarded
+        ListEnum lE = new ListEnum();
+        lE.myHand = true;
+
+        Choice.Instance.ChoiceMenu(lE, -1, WhichMethod.discardXCardsInMyHand, this);        
     }
-    public override string WriteOutCardInfo()
+
+    public void WaitForChoices(int amountOfChoices)
     {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamage: " + damage;
-        return lineToWriteOut;
+        damage *= amountOfChoices;
+        GameState.Instance.CalculateAndDealDamage(damage, this);
     }
 }

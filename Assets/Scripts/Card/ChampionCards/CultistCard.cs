@@ -5,11 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Cultist")]
 public class CultistCard : Spells
 {
-    [Header("RitualSacrifice")]
-    public int selfInflictDamage = 0;
     [Header("Deluge")]
     public bool damageToAllOpponentCards;
-    public int damageToDealToAllOpponent = 0;
+
 
     public CultistCard()
     {
@@ -20,25 +18,18 @@ public class CultistCard : Spells
     {
         GameState gameState = GameState.Instance;
         Target = gameState.playerChampion.champion;
-        gameState.CalculateAndDealDamage(selfInflictDamage, this);
+        gameState.CalculateAndDealDamage(damage, this);
 
         if (damageToAllOpponentCards)
         {
             Target = gameState.opponentChampion.champion;
-            gameState.CalculateAndDealDamage(damageToDealToAllOpponent, this);
+            gameState.CalculateAndDealDamage(damage, this);
 
             /* MÅste fixa så att den targetar landmarks */
             foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
             {
-                gameState.CalculateAndDealDamage(damageToDealToAllOpponent, this);
+                gameState.CalculateAndDealDamage(damage, this);
             }           
         }
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nSelfInflictDamage: " + selfInflictDamage + "\nDamageToDealToAllOpponents: " + damageToDealToAllOpponent;
-        return lineToWriteOut;
     }
 }

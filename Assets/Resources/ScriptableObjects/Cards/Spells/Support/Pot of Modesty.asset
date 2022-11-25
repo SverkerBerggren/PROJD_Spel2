@@ -14,17 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Pot of Modesty
   typeOfCard: 0
-  description: Draw 2 cards dock igen
+  description: '*Draw*'
   artwork: {fileID: 21300000, guid: c862b9cb1f654ac4685a05423a3c12b9, type: 3}
   maxManaCost: 3
   tag: Spell
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 2
   amountOfCardsToDraw: 2
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 0
   championCard: 0
   championCardType: 0
-  damage: 0
   destroyLandmark: 0
   damageEqualsToYourChampionHP: 0
   damageToBothActiveChampions: 0

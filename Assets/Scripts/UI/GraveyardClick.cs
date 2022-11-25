@@ -8,6 +8,6 @@ public class GraveyardClick : MonoBehaviour
     {
         ListEnum lE = new ListEnum();
         lE.myGraveyard = true;
-        Choice.Instance.ChoiceMenu(lE, 0, WhichMethod.ShowGraveyard);
+        Choice.Instance.ChoiceMenu(lE, 0, WhichMethod.ShowGraveyard, null);
     }
 }

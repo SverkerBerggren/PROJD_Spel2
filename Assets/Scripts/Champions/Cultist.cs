@@ -10,7 +10,7 @@ public class Cultist : Champion
 
 	public int currentBonusDamage = 0;
 
-	public Cultist(Cultist c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) 
+	public Cultist(Cultist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) 
 	{
 		perMissingHP = c.perMissingHP;
 		damagePerMissingHP = c.damagePerMissingHP;
@@ -29,9 +29,9 @@ public class Cultist : Champion
 		return damage + currentBonusDamage;
 	}
 
-	public override void TakeDamage(int damage, GameObject gO)
+	public override void TakeDamage(int damage)
 	{
-		base.TakeDamage(damage, gO);
+		base.TakeDamage(damage);
 		ChangeBonusDamage();
 	}
 

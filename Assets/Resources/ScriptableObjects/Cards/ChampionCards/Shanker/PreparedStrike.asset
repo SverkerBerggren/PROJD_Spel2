@@ -17,9 +17,15 @@ MonoBehaviour:
   description: Draw 2 cards then for the rest of your turn your attack cards costs
     are reduced by 1
   artwork: {fileID: 21300000, guid: f1a1596e8f918e7449276c63c8c5319f, type: 3}
-  manaCost: 4
   maxManaCost: 4
   tag: Spell
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 2
   amountOfCardsToDiscard: 0
+  effect: {fileID: 11400000, guid: a3b1cf46b8a983c44bc21f7b8c6072e7, type: 2}
   discardCardsYourself: 1
+  targetable: 0
+  championCard: 1
+  championCardType: 5

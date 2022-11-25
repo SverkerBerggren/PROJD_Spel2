@@ -7,7 +7,7 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Graverobber", menuName = "Champion/Graverobber", order = 1)]
 public class Graverobber : Champion
 {
-	public Graverobber(Graverobber c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) { }
+	public Graverobber(Graverobber c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) { }
 
 	public override void EndStep()
 	{

@@ -7,7 +7,7 @@ public class Calculations : MonoBehaviour
 	private GameState gameState;
 	private ActionOfPlayer actionOfPlayer;
 	private static Calculations instance;
-	public static Calculations Instance { get; set; }
+	public static Calculations Instance { get { return instance; } set { instance = value; } }
 	private void Awake()
 	{
 		if (Instance == null)
@@ -19,14 +19,11 @@ public class Calculations : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
 	private void Start()
 	{
 		gameState = GameState.Instance;
 		actionOfPlayer = ActionOfPlayer.Instance;
-
     }
-
 	public int CalculateDamage(int baseDamage)
 	{
 		baseDamage = gameState.playerChampion.champion.DealDamageAttack(baseDamage);
@@ -35,9 +32,12 @@ public class Calculations : MonoBehaviour
 			if (landmark.card != null)
 				baseDamage = landmark.card.DealDamageAttack(baseDamage);
 		}
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			baseDamage = effect.DealDamageAttack(baseDamage);
+		}
 		return baseDamage;
 	}
-
 	public int CalculateHealing(int amount)
 	{
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
@@ -45,9 +45,12 @@ public class Calculations : MonoBehaviour
 			if (landmark.card == null) continue;
 			amount = landmark.card.HealingEffect(amount);
 		}
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			amount = effect.HealingEffect(amount);
+		}
 		return amount;
 	}
-
 	public int CalculateShield(int amount)
 	{
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
@@ -55,42 +58,40 @@ public class Calculations : MonoBehaviour
 			if (landmark.card == null) continue;
 			amount = landmark.card.ShieldingEffect(amount);
 		}
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			amount = effect.ShieldingEffect(amount);
+		}
 		return amount;
 	}
-
-	public void CalculateHandManaCost()
+	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
-		foreach (GameObject gO in actionOfPlayer.handPlayer.cardsInHand)
-		{
-			CardDisplay cardDisplay = gO.GetComponent<CardDisplay>();
-			if (cardDisplay.card == null) continue;
-
-			cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-            cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
+		cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+        cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
 			
-            foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
-			{
-				if (landmarkDisplay.card == null) continue;
-                cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
-				
-			}
+        foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+		{
+			if (landmarkDisplay.card == null) continue;
+            cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
+		}
 
-			//ContinousEffects
+		foreach (Effects effect in gameState.playerEffects)
+		{
+			cardDisplay.manaCost = effect.CalculateManaCost(cardDisplay);
+		}
 
-			if (cardDisplay.manaCost <= 0)
-				cardDisplay.manaCost = 0;
-			else if (cardDisplay.manaCost > 10)
-				cardDisplay.manaCost = 10;
-        }
+		if (cardDisplay.manaCost <= 0)
+			cardDisplay.manaCost = 0;
+		else if (cardDisplay.manaCost > 10)
+			cardDisplay.manaCost = 10;
+        
 	}
-
 	public TargetAndAmount TargetAndAmountFromCard(Card cardUsed, int amount)
 	{
 		TargetAndAmount tAA = null;
 		TargetInfo tI = null;
 		ListEnum listEnum = new ListEnum();
 		int index = 0;
-		// WIP
 		if (cardUsed.Target != null)
 		{
 			index = LookForChampionIndex(cardUsed, gameState.opponentChampions);
@@ -121,8 +122,6 @@ public class Calculations : MonoBehaviour
 		tAA = new TargetAndAmount(tI, amount);
 		return tAA;
 	}
-
-
 	private int LookForChampionIndex(Card cardUsed, List<AvailableChampion> champ)
 	{
 		for (int i = 0; i < champ.Count; i++)

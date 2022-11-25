@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Ruination
   typeOfCard: 2
-  description: Deal 50 damage to both active champs
+  description: '*Damage* to both active champions'
   artwork: {fileID: 0}
   maxManaCost: 2
   tag: AttackSpell
+  damage: 50
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
   targetable: 0
   championCard: 0
   championCardType: 0
-  damage: 500
   destroyLandmark: 0
   damageEqualsToYourChampionHP: 0
   damageToBothActiveChampions: 1

@@ -5,8 +5,8 @@ using UnityEngine;
 public class RequestDestroyLandmark : ClientRequest
 {
     public List<TargetInfo> landmarksToDestroy = new List<TargetInfo>();
-
-    public RequestDestroyLandmark()
+	public bool sacrificeLandmark = false;
+	public RequestDestroyLandmark()
     {
         Type = 9;
     }    

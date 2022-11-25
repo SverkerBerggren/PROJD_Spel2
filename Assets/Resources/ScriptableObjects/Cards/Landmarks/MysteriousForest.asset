@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Mysterious Forest
   typeOfCard: 1
-  description: At the begging of your round draw a card. At round 10 destroy this
-    card and draw 5
+  description: At the begging of your round *Draw*. At round 10 destroy this card
+    and draw 5
   artwork: {fileID: 21300000, guid: 8a00930aef240fc408e9de77165e6d6a, type: 3}
   maxManaCost: 4
   tag: DrawCardLandmark
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 0

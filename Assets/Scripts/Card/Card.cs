@@ -37,8 +37,16 @@ public abstract class Card : ScriptableObject
     private Champion target;
     private LandmarkDisplay landmarkTarget;
 
+    [Header("Atributes")]
+    public int damage = 0;
+    public int amountToHeal = 0;
+    public int amountToShield = 0;
     public int amountOfCardsToDraw = 0;
     public int amountOfCardsToDiscard = 0;
+
+    [Header("Effect")]
+    public Effects effect;
+
     public bool discardCardsYourself = true;
     public bool targetable = false;
 
@@ -80,20 +88,28 @@ public abstract class Card : ScriptableObject
             gameState.DrawCard(amountOfCardsToDraw, null);
             gameState.Refresh();
         }
+
         if (amountOfCardsToDiscard != 0)
         {
             gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
             gameState.Refresh();
         }
-        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
 
+        if (effect != null)
+        {
+            gameState.AddEffect(effect);
+            gameState.Refresh();
+        }
+
+        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    
     public virtual string WriteOutCardInfo()
     {
         string lineToWriteOut = null;
         lineToWriteOut = "Cardname: " +cardName + "\nDescription:  " + description + "\nTypeOfCard: " + typeOfCard + "\nMaxMana: " + maxManaCost + 
-            "\nTag: " + tag + "\nAmountOfCardsToDraw: " + amountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + amountOfCardsToDiscard + "\nDiscardCardsYourself: " + discardCardsYourself + 
+            "\nTag: " + tag + "\nAmountOfDamage: " + damage + "\nAmountOfHealing: " + amountToHeal + "\nAmountToShield: " + amountToShield + 
+            "\nAmountOfCardsToDraw: " + amountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + amountOfCardsToDiscard + "\nDiscardCardsYourself: " + discardCardsYourself + 
             "\nTargetable: " + targetable + "\nChampionCard: " + championCard + "\nChampionCardType: " + championCardType;
         return lineToWriteOut; 
     }

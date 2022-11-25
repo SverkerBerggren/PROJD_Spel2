@@ -32,10 +32,11 @@ public class CardTargeting : MonoBehaviour
         }
     }
 
-    private ChampionCardType WhichChampionIsActive()
+    public ChampionCardType WhichChampionIsActive()
     {
         ChampionCardType champCard = ChampionCardType.None;
-        switch (gameState.playerChampion.name)
+
+        switch (GameState.Instance.playerChampion.champion.championName)
         {
             case "Builder":
                 champCard = ChampionCardType.Builder;
@@ -78,7 +79,7 @@ public class CardTargeting : MonoBehaviour
 
         if (cardDisplay.opponentCard == true) return;
 
-        // Checking if the card used is a champion chard
+        // Checking if the card used is a champion card
         if (card.championCardType != ChampionCardType.All && card.championCard)
         {
             ChampionCardType champCardType = WhichChampionIsActive();

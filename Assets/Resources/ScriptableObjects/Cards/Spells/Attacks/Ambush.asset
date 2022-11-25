@@ -14,17 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Ambush
   typeOfCard: 2
-  description: Deal *Damage* damage
+  description: '*Damage*'
   artwork: {fileID: 21300000, guid: a0826bf54f9c2e34cbc7d006104b95d2, type: 3}
   maxManaCost: 6
   tag: AttackSpell
+  damage: 60
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1
   targetable: 1
   championCard: 0
   championCardType: 0
-  damage: 60
   destroyLandmark: 0
   damageEqualsToYourChampionHP: 0
   damageToBothActiveChampions: 0

@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Swap
   typeOfCard: 0
-  description: Swap your active champ and draw a card lol
+  description: Swap your active champ and *Draw*
   artwork: {fileID: 21300000, guid: 90fabdbc8ea4a3e4e949154b76e22c7a, type: 3}
   maxManaCost: 1
   tag: Spell
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 1
   amountOfCardsToDraw: 1
   amountOfCardsToDiscard: 0
   discardCardsYourself: 1

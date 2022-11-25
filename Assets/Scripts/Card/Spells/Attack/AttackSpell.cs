@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
 public class AttackSpell : Spells
 {
-    public int damage = 10;
     public bool destroyLandmark = false;
     public bool damageEqualsToYourChampionHP = false;
     public bool damageToBothActiveChampions = false;
@@ -36,7 +35,10 @@ public class AttackSpell : Spells
         
         if (destroyLandmark)
         {
-            DestroyLandmark();
+            ListEnum lE = new ListEnum();
+            lE.myLandmarks = true;
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
+            //DestroyLandmark();
         }
 
     }
@@ -79,12 +81,5 @@ public class AttackSpell : Spells
     private void DamageAsYourChampionHP()
     {
         damage = GameState.Instance.playerChampion.health;
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamage: " + damage;
-        return lineToWriteOut;
     }
 }

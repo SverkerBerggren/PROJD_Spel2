@@ -21,16 +21,20 @@ public class SpreadsheetUpdater
     private SpreadsheetData spreadsheetData;
 
     //Values from spreadsheet
-    private int cardNameIndex = 0;
-    private int cardTypeIndex = 1;
-    private int manaIndex = 2;
-    private int descriptionIndex = 3;
-    private int healthIndex = 4;
-    private int attackIndex = 5;
-    private int shieldIndex = 6;
-    private int healIndex = 7;
+    private const int cardNameIndex = 0;
+    private const int cardTypeIndex = 1;
+    private const int manaIndex = 2;
+    private const int descriptionIndex = 3;
+    private const int healthIndex = 4;
+    private const int damageIndex = 5;
+    private const int shieldIndex = 6;
+    private const int healIndex = 7;
+	private const int drawIndex = 8;
+	private const int discardIndex = 9;
 
-    private int amountOfCardsChanged = 0;
+    private List<Card> cards;
+
+	private int amountOfCardsChanged = 0;
     private bool updatedFiles = false;
 
     public void ClearFiles()
@@ -68,7 +72,7 @@ public class SpreadsheetUpdater
     {   
         Debug.ClearDeveloperConsole();
         var jsonHowBigSpreadsheet = await client.GetStringAsync(
-            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=K2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=M2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
 
         string stringToAppend = ""; 
         try
@@ -79,7 +83,7 @@ public class SpreadsheetUpdater
             string key = "&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k";
 
             var json = await client.GetStringAsync(
-                "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:H" + stringToAppend + key);
+                "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:J" + stringToAppend + key);
             //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
 
             spreadsheetData = new SpreadsheetData();
@@ -87,18 +91,23 @@ public class SpreadsheetUpdater
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
             spellObjects = new List<Spells>(Resources.LoadAll<Spells>("ScriptableObjects/Cards/Spells/Support"));
+            
+
+            cards = new List<Card>(attackSpellsObjects);
+            cards.AddRange(landmarkObjects);
+            cards.AddRange(spellObjects);
+
             CheckCardList();
+
         }
         catch(Exception ex)
         {
             Debug.LogError(ex.Message.ToString());   
         }
     }
-
     
     private Card FindCardFromName(List<Card> listToSearch, string name)
     {
-
         foreach(Card spell in listToSearch)
         {
             if(spell.cardName.Equals(name))
@@ -109,231 +118,72 @@ public class SpreadsheetUpdater
 
         return null;
     }
-
+   
     private void CheckCardList()
     {
-        for (int i = 0; i < spreadsheetData.valueRanges.Count; i++)
-        {
-            for (int z = 0; z < spreadsheetData.valueRanges[0].values.Count; z++)
-            {
-                List<string> currentCard = spreadsheetData.valueRanges[0].values[z];
-                switch (currentCard[cardTypeIndex])
-                {
-                    case "Attack":
-                        ChangeAttackCards(currentCard);
-                        break;
+        
+		for (int i = 0; i < spreadsheetData.valueRanges.Count; i++)
+		{
+			for (int z = 0; z < spreadsheetData.valueRanges[0].values.Count; z++)
+			{
+				List<string> currentCard = spreadsheetData.valueRanges[0].values[z];
+				
+                ChangeCards(currentCard);
+			}
+		}
 
-                    case "Support":
-                        ChangeSupportSpells(currentCard);
-                        break;
+		if (amountOfCardsChanged != 0)
+			Debug.Log(amountOfCardsChanged + " cards was changed");
 
-                    case "Landmark":
-                        ChangeLandmarkCards(currentCard);
-                        break;
-                }
-            }
-        }
+		amountOfCardsChanged = 0;
 
-        if (amountOfCardsChanged != 0)
-            Debug.Log(amountOfCardsChanged + " cards was changed");
+		if (updatedFiles)
+			Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
+	}
 
-        amountOfCardsChanged = 0; 
+    private void ChangeCards(List<string> currentCard)
+    {       
+		Card scriptableObject = (Card)FindCardFromName(cards.Cast<Card>().ToList(), currentCard[0]);
+		string textName = currentCard[cardNameIndex] + ".txt";
+		
+		if (scriptableObject != null)
+		{
 
-        if (updatedFiles)
-            Debug.Log("Tab in and out to see new changes in unimplemented and changed cards");
-    }
+            string oldString = scriptableObject.WriteOutCardInfo();
+			
+			List<int> indexChanges = ChangeVariables(scriptableObject, currentCard);
+			
+			string newString = scriptableObject.WriteOutCardInfo();
 
-    private bool CheckIfDefaultCardInfoChanged(Card scriptableObject, List<string> currentCard)
-    {
-        if (!scriptableObject.description.Equals(currentCard[descriptionIndex]) || !scriptableObject.maxManaCost.Equals(Convert.ToInt32(currentCard[manaIndex])))
-            return true;
-        else
-            return false;
-    }
+            if (indexChanges.Count <= 0) return;
+            
 
-    private void ChangeSupportSpells(List<string> currentCard)
-    {
-        Spells scriptableObject = (Spells)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);       
+			StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+			temp.WriteLine("Old Card");
 
-        string textName = currentCard[cardNameIndex] + ".txt";
-        if (scriptableObject != null)
-        {
-            if (scriptableObject is HealAndShieldChampion)
-            {
-                ChangeHealingAndShieldingSpells(currentCard);
-                return;
-            }
+			temp.WriteLine(oldString);
+			
 
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard))
-            {
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-                temp.WriteLine("Old Card");
+			
+			MakeDirty(scriptableObject);
+			amountOfCardsChanged += 1;
+			temp.WriteLine("\nNew Card");
 
-                temp.WriteLine(scriptableObject.WriteOutCardInfo());
-                string oldString = scriptableObject.WriteOutCardInfo();
+			foreach (string s in CompareStringChanges(oldString, newString))
+			{
+				temp.WriteLine(s);
+			}
 
-                updatedFiles = true;
-                scriptableObject.description = currentCard[descriptionIndex];
-                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
-                string newString = scriptableObject.WriteOutCardInfo();
-
-                MakeDirty(scriptableObject);
-                amountOfCardsChanged += 1;
-                temp.WriteLine("\nNew Card");
-
-                foreach (string s in CompareStringChanges(oldString, newString))
-                {
-                    temp.WriteLine(s);
-                }
-
-                temp.Close();
-            }
-        }
-        else
-        {
-            updatedFiles = true;
-            StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
-            temp.Close();
-        }
-    }
-
-    private void ChangeHealingAndShieldingSpells(List<string> currentCard)
-    {
-        HealAndShieldChampion scriptableObject = (HealAndShieldChampion)FindCardFromName(spellObjects.Cast<Card>().ToList(), currentCard[0]);
-        string textName = currentCard[cardNameIndex] + ".txt";
-        if (scriptableObject != null)
-        {
-            bool shieldChange = false;
-            bool healChange = false;
-
-            if (!currentCard[shieldIndex].Equals("-"))
-            {
-                shieldChange = Convert.ToInt32(currentCard[shieldIndex]) != scriptableObject.amountToDefence;
-            }
-            if (!currentCard[healIndex].Equals("-"))
-            {
-                healChange = Convert.ToInt32(currentCard[healIndex]) != scriptableObject.amountToHeal;
-            }
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || shieldChange || healChange)
-            {
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-                temp.WriteLine("Old Card");
-
-                temp.WriteLine(scriptableObject.WriteOutCardInfo());
-                string oldString = scriptableObject.WriteOutCardInfo();
-
-                updatedFiles = true;
-                scriptableObject.description = currentCard[descriptionIndex];
-                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);
-                if (shieldChange)
-                    scriptableObject.amountToDefence = Convert.ToInt32(currentCard[shieldIndex]);
-                if (healChange)
-                    scriptableObject.amountToHeal = Convert.ToInt32(currentCard[healIndex]);
-                string newString = scriptableObject.WriteOutCardInfo();
-
-                MakeDirty(scriptableObject);
-                amountOfCardsChanged += 1;
-                temp.WriteLine("\nNew Card");
-
-                foreach (string s in CompareStringChanges(oldString, newString))
-                {
-                    temp.WriteLine(s);
-                }
-                temp.Close();
-            }
-        }
-        else
-        {
-            updatedFiles = true;
-            StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
-            temp.Close();
-        }
-    }
-
-    private void ChangeAttackCards(List<string> currentCard)
-    {
-        AttackSpell scriptableObject = (AttackSpell)FindCardFromName(attackSpellsObjects.Cast<Card>().ToList(), currentCard[0]);
-        string textName = currentCard[ cardNameIndex] + ".txt";
-        if (scriptableObject != null)
-        {
-            bool isDamageChanged = false;
-            if (!currentCard[attackIndex].Equals("-"))
-            {
-                isDamageChanged = System.Convert.ToInt32(currentCard[attackIndex]) != scriptableObject.damage;
-            }
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || isDamageChanged)
-            {
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-                temp.WriteLine("Old Card");
-                
-                temp.WriteLine( scriptableObject.WriteOutCardInfo());
-				string oldString = scriptableObject.WriteOutCardInfo();
-
-				updatedFiles = true;
-                scriptableObject.description = currentCard[descriptionIndex];
-                scriptableObject.maxManaCost = Convert.ToInt32(currentCard[manaIndex]);           
-                scriptableObject.damage = Convert.ToInt32(currentCard[attackIndex]);
-				string newString = scriptableObject.WriteOutCardInfo();
-
-                MakeDirty(scriptableObject);
-                amountOfCardsChanged += 1;
-                temp.WriteLine("\nNew Card");
-
-				foreach (string s in CompareStringChanges(oldString, newString))
-				{
-					temp.WriteLine(s);
-				}
-
-				temp.Close();
-            }
-        }
-        else
-        {
-            updatedFiles = true;
-            StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
-            temp.Close();
-        }
-    }
-    
-    private void ChangeLandmarkCards(List<string> currentCard)
-    {
-        Landmarks scriptableObject = (Landmarks)FindCardFromName(landmarkObjects.Cast<Card>().ToList(), currentCard[0]);
-        string textName = currentCard[cardNameIndex] + ".txt";
-        if (scriptableObject != null)
-        {
-            if (CheckIfDefaultCardInfoChanged(scriptableObject, currentCard) || !scriptableObject.minionHealth.Equals(Convert.ToInt32(currentCard[healthIndex])))
-            {
-                StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
-				temp.WriteLine("Old Card");
-                temp.WriteLine(scriptableObject.WriteOutCardInfo());
-
-                string oldString = scriptableObject.WriteOutCardInfo();
-
-				updatedFiles = true;
-                scriptableObject.description = currentCard[descriptionIndex];
-                scriptableObject.minionHealth = System.Convert.ToInt32(currentCard[healthIndex]);
-                scriptableObject.maxManaCost = System.Convert.ToInt32(currentCard[manaIndex]);
-
-				string newString = scriptableObject.WriteOutCardInfo();
-
-                MakeDirty(scriptableObject);
-                amountOfCardsChanged += 1;
-				temp.WriteLine("\nNew Card");
-
-                foreach (string s in CompareStringChanges(oldString, newString))
-                {
-				    temp.WriteLine(s);
-                }
-				temp.Close();
-            }
-        }
-        else
-        {
-            updatedFiles = true;
-            StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
-            temp.Close();
-        }
-    }
+			temp.Close();
+			
+		}
+		else
+		{
+			updatedFiles = true;
+			StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/UnimplementedCards/" + textName);
+			temp.Close();
+		}
+	}
 
     private string[] CompareStringChanges(string old, string newS)
     {
@@ -350,7 +200,81 @@ public class SpreadsheetUpdater
         return newStringSplit;
 	}
 
-    private void MakeDirty(Card scriptableObject)
+    private List<int> ChangeVariables(Card cardObject, List<string> currentCard)
+    {
+        List<int> changed = new List<int>();
+        for (int i = 0; i < currentCard.Count; i++)
+        {
+            if (currentCard[i].Equals("-")) continue;
+
+            switch (i)
+            {
+                case healthIndex:
+                    if (cardObject is Landmarks)
+                    {
+                        Landmarks l = (Landmarks)cardObject;
+                        if (Convert.ToInt32(currentCard[i]) != l.minionHealth)
+                        {
+                            l.minionHealth = Convert.ToInt32(currentCard[i]);
+				    	    changed.Add(i);
+				    	}
+                    }
+                    break;
+
+                case healIndex:
+                    if (cardObject.amountToHeal != Convert.ToInt32(currentCard[i]))
+                    {
+                        cardObject.amountToHeal = Convert.ToInt32(currentCard[i]);
+					    changed.Add(i);
+                    }
+					break;
+
+			    case damageIndex:
+					if (cardObject.damage != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.damage = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
+					break;
+
+			    case shieldIndex:
+					if (cardObject.amountToShield != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountToShield = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
+					break;
+
+			    case drawIndex:
+					if (cardObject.amountOfCardsToDraw != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountOfCardsToDraw = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
+					break;
+
+			    case discardIndex:
+					if (cardObject.amountOfCardsToDiscard != Convert.ToInt32(currentCard[i]))
+					{
+						cardObject.amountOfCardsToDiscard = Convert.ToInt32(currentCard[i]);
+						changed.Add(i);
+					}
+                    break;
+
+			    case descriptionIndex:
+					if (!cardObject.description.Equals(currentCard[descriptionIndex]))
+					{
+						cardObject.description = currentCard[i];
+						changed.Add(i);
+					}
+					break;
+		    }
+            
+        }
+        return changed;
+    }
+
+    private static void MakeDirty(Card scriptableObject)
     {
         #if UNITY_EDITOR
         EditorUtility.SetDirty(scriptableObject);

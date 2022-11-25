@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Duelist", menuName = "Champion/Duelist", order = 1)]
 public class Duelist : Champion
 {
-	public Duelist(Duelist c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
+	public Duelist(Duelist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
 
 	public override void WhenCurrentChampion()
 	{
@@ -14,12 +14,12 @@ public class Duelist : Champion
 		lE.opponentChampions = true;
         if (gameState.isOnline)
         {
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
         }
         else
         {
             if (gameState.opponentChampion != this)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
         }
 	}
 }

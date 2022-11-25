@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Builder")]
 public class BuilderCard : Spells
 {
-    public int damage = 0;
-
     public BuilderCard()
     {
         championCard = true;
@@ -25,12 +23,5 @@ public class BuilderCard : Spells
             //Target.TakeDamage(damage);
         if (LandmarkTarget != null)
             LandmarkTarget.TakeDamage(damage);       
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamage: " + damage;
-        return lineToWriteOut;
     }
 }

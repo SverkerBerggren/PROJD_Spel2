@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/TheOneWhoDrawsSupport")]
 public class TheOneWhoDrawsSupport : Spells
 {
-
     public TheOneWhoDrawsSupport()
     {
         championCard = true;

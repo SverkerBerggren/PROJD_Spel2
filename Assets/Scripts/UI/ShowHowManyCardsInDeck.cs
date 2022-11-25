@@ -21,7 +21,7 @@ public class ShowHowManyCardsInDeck : MonoBehaviour
     private void OnMouseEnter()
     {
         if (deck != null)
-            amountOfCardsText.text = "You have " + deck.deckOfCardsPlayer.Count + " Cards in your deck";
+            amountOfCardsText.text = "You have " + deck.deckPlayer.Count + " Cards in your deck";
         else
             amountOfCardsText.text = "You have " + Graveyard.Instance.graveyardPlayer.Count + " Cards in your graveyard";
         howManyCardsPanel.SetActive(true);

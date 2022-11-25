@@ -7,24 +7,21 @@ using TMPro;
 
 public abstract class Champion : ScriptableObject
 {
-    private AvailableChampion aC;
-
     protected GameState gameState;
 
-    public new string name;
+    public string championName;
     public int health = 100;
     public int maxHealth;
     public int shield = 0;
     public Sprite artwork;
     public string passiveEffect;
-    public bool healEachRound = false;
     public bool destroyShield = false;
     
 
-    public Champion(string name, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
+    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
     {
         gameState = GameState.Instance;
-        this.name = name;
+        this.championName = championName;
         this.health = health;
         this.maxHealth = maxHealth;
         this.shield = shield;
@@ -34,21 +31,22 @@ public abstract class Champion : ScriptableObject
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
-    public virtual void TakeDamage(int damage, GameObject gO)
+    public virtual void TakeDamage(int damage)
     {
-        
+
         if (shield == 0)
         {
             health -= damage;
         }
         else
         {
-            if (damage > shield)
+            if (damage >= shield)
             {
                 int differenceAfterShieldDamage = damage - shield;
                 shield = 0;
                 destroyShield = true;
-                EffectController.Instance.DestoryShield(gO);
+                ShieldEffectDestroy();
+
                 health -= differenceAfterShieldDamage;
             }
             else
@@ -63,12 +61,31 @@ public abstract class Champion : ScriptableObject
         }
     }
 
-    public void HealEachRound()
+    private void ShieldEffectDestroy()
     {
-        if (healEachRound)
+        bool isPlayer = true;
+
+
+        foreach (AvailableChampion ac in GameState.Instance.opponentChampions)
         {
-            HealChampion(10);
+            if (ac.champion.championName.Equals(championName))
+            {
+
+                isPlayer = false;
+            }
+
         }
+        foreach (AvailableChampion ac in GameState.Instance.playerChampions)
+        {
+            if (ac.champion.championName.Equals(championName))
+            {
+                isPlayer = true;
+            }
+        }
+
+        Tuple<string, bool> tuple = new Tuple<string, bool>(championName, isPlayer);
+
+        EffectController.Instance.DestroyShield(tuple);
     }
 
     public virtual void HealChampion(int amountToHeal)
@@ -92,15 +109,11 @@ public abstract class Champion : ScriptableObject
 
     public virtual int DealDamageAttack(int damage) { return damage; }
 
-    public virtual void UpKeep() { HealEachRound(); } // Osäker på om jag gjort rätt när jag la in den här
+    public virtual void UpKeep() {}
 
     public virtual void EndStep() { }
 
     public virtual void WhenCurrentChampion() {}
-
-    public virtual void WhenInactiveChampion() {}
-
-    public virtual void WhenLandmarksDie() {}
 
     public virtual void UpdatePassive() {}
 
@@ -108,8 +121,6 @@ public abstract class Champion : ScriptableObject
 
     public virtual void Death()
     {
-
-        //CancelInvoke();
         gameState.ChampionDeath(this);
     }
 

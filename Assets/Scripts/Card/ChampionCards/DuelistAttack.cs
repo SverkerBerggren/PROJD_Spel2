@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/DuelistAttack")]
 public class DuelistAttack : Spells
 {
-    public int damage = 30;
     private GameState gameState;
 
     public DuelistAttack()
@@ -23,15 +22,8 @@ public class DuelistAttack : Spells
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
 
-        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
 
         gameState.CalculateAndDealDamage(damage, this);
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamage: " + damage;
-        return lineToWriteOut;
     }
 }

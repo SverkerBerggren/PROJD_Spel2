@@ -8,6 +8,7 @@ public class TestScript : MonoBehaviour
     [SerializeField] private Animator builderAnim;
     [SerializeField] private GameObject slash;
     [SerializeField] private float slashDelay;
+    [SerializeField] private ParticleSystem PS_Slash;
 
     // Start is called before the first frame update
     //void OnGUI()
@@ -27,9 +28,15 @@ public class TestScript : MonoBehaviour
         {
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);
-            builderAnim.SetTrigger("Attack");
+            builderAnim.Play("Attack");
             StartCoroutine(SlashAttack());
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            builderAnim.Play("Attack");
+            PS_Slash.Play();
         }
     }
 

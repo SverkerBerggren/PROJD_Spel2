@@ -24,6 +24,10 @@ public class GameState : MonoBehaviour
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
+    public List<Effects> playerEffects = new List<Effects>();
+    public List<Effects> opponentEffects = new List<Effects>();
+    public List<Effects> removeEffects = new List<Effects>();
+
     [Header("Have Friends?")]
     public bool isOnline = false;
 
@@ -107,6 +111,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            isItMyTurn = true;
             List<string> ha = new List<string>
             {
                 "Shanker",
@@ -176,11 +181,15 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, playerChampion.gameObject);
+            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            foreach (Effects effect in playerEffects)
+            {
+                effect.TakeDamage(targetAndAmount.amount);
+            }
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount, opponentChampion.gameObject);
+            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
         }
         if (lE.myLandmarks)
         {
@@ -249,12 +258,14 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            EffectController.Instance.ActiveShield(playerChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+            EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            EffectController.Instance.ActiveShield(opponentChampions[targetAndAmount.targetInfo.index].gameObject, targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+            EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
         if (isOnline)
@@ -316,6 +327,7 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = landmark;
         cardDisp.manaCost = landmark.maxManaCost;
+        cardDisp.UpdateTextOnCard();
 
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
@@ -327,6 +339,7 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = card;
         cardDisp.manaCost = card.maxManaCost;
+        cardDisp.UpdateTextOnCard();
 
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
@@ -341,19 +354,12 @@ public class GameState : MonoBehaviour
     public void DestroyLandmark(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.opponentLandmarks)
-        {
             Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
-            playerLandmarks[targetInfo.index].card = null;
-            playerChampion.champion.WhenLandmarksDie();
-        }
         else
-        {
             Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
-            playerLandmarks[targetInfo.index].card = null;
-        }
+
+        playerLandmarks[targetInfo.index].card = null;
     }
-
-
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
     {
@@ -364,7 +370,7 @@ public class GameState : MonoBehaviour
             {
                 ListEnum listEnum = new ListEnum();
                 listEnum.myHand = true;
-                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard);
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
             }
             else
             {
@@ -374,10 +380,7 @@ public class GameState : MonoBehaviour
                 requesten.isRandom = false;
                 ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
 
-
                 PassPriority();
-                
-
             }
         }
         else
@@ -418,20 +421,16 @@ public class GameState : MonoBehaviour
 		actionOfPlayer.DrawCardPlayer(amountOfCards, info.Item1, true);
 	}
 
-
 	public void SwitchMyChampions(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.myChampions)
         {
-            playerChampion.champion.WhenInactiveChampion();
             Swap(playerChampions, 0, targetInfo.index);
-
         }
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
         }
-
     }
 
     public void PassPriority()
@@ -450,13 +449,13 @@ public class GameState : MonoBehaviour
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
         if (isOnline)
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
         else
         {
             if(card)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
             else
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
 
         }
     }
@@ -484,7 +483,6 @@ public class GameState : MonoBehaviour
                 int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
-                    opponentChampion.champion.WhenInactiveChampion();
                     Swap(opponentChampions, 0, randomChamp);
                     opponentChampion.champion.WhenCurrentChampion();
                     break;
@@ -550,8 +548,11 @@ public class GameState : MonoBehaviour
         {
             if (landmark.card != null)
                 landmark.card.UpKeep();
-            //Trigger landmark endstep
-        }       
+        } 
+        foreach (Effects effect in playerEffects)
+        {
+            effect.UpKeep();
+        }
     }
 
     public void TriggerEndStep()
@@ -561,7 +562,10 @@ public class GameState : MonoBehaviour
         {
             if(landmark.card != null)
             landmark.card.EndStep();
-            //Trigger landmark endstep
+        }
+        foreach (Effects effect in playerEffects)
+        {
+            effect.EndStep();
         }
     }
 
@@ -572,7 +576,8 @@ public class GameState : MonoBehaviour
         {
             TriggerEndStep();
             TriggerUpKeep();
-            return;
+			Refresh();
+			return;
         }
 
         if (isItMyTurn)
@@ -660,10 +665,26 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void RequestEmpty(ServerResponse response)
+    public void AddEffect(Effects effect)
     {
-
+        playerEffects.Add(effect);
     }
+
+    public void RemoveEffect(Effects effect)
+    {
+        removeEffects.Add(effect);
+    }
+
+    public void ClearEffects()
+    {
+       foreach (Effects effect in removeEffects)
+       {
+           playerEffects.Remove(effect);
+       }
+       removeEffects.Clear();
+    }
+
+    public void RequestEmpty(ServerResponse response) {}
 
     //Victory and defeat should be in another script
     public void Victory()
@@ -687,7 +708,7 @@ public class GameState : MonoBehaviour
 
     public void Refresh()
     {
-        calculations.CalculateHandManaCost();
+        ClearEffects();
         actionOfPlayer.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();

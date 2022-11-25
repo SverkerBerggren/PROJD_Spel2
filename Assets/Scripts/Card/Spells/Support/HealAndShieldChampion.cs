@@ -5,14 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/HealAndShieldChampion")]
 public class HealAndShieldChampion : Spells
 {
-    public int amountToHeal;
-    public int amountToDefence;
     public bool allChampions;
+
     public override void PlaySpell()
     {
         if (amountToHeal > 0)
             Heal();
-        if (amountToDefence > 0)
+        if (amountToShield > 0)
             Shield();
     }
 
@@ -38,20 +37,13 @@ public class HealAndShieldChampion : Spells
             foreach (AvailableChampion champ in GameState.Instance.playerChampions)
             {
                 Target = champ.champion;
-                GameState.Instance.CalculateAndShield(amountToDefence, this);
+                GameState.Instance.CalculateAndShield(amountToShield, this);
             }
         }
         else
         {
             Target = GameState.Instance.playerChampion.champion;
-            GameState.Instance.CalculateAndShield(amountToDefence, this);
+            GameState.Instance.CalculateAndShield(amountToShield, this);
         }
-    }
-
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nAmountToHeal: " + amountToHeal + "\nDefence: " + amountToDefence;
-        return lineToWriteOut;
     }
 }

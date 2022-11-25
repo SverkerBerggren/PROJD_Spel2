@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/TheOneWhoDrawsAttack")]
 public class TheOneWhoDrawsAttack : Spells
 {
-    public int damage = 10;
-
     public TheOneWhoDrawsAttack()
     {
         championCard = true;
@@ -19,11 +17,5 @@ public class TheOneWhoDrawsAttack : Spells
         damage *= damageBoost - 10;
         if (damage < 0)       
             damage = 0;
-    }
-    public override string WriteOutCardInfo()
-    {
-        string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nDamage: " + damage;
-        return lineToWriteOut;
     }
 }
