@@ -22,6 +22,7 @@ public class CreateLobby : MonoBehaviour
         requestHostLobby.lobbyName = "HEJ TESt";
 
         ClientConnection.Instance.isHost = true;
+        ClientConnection.Instance.playerId = 0;
 
         ClientConnection.Instance.AddRequest(requestHostLobby, ResponseHost);
 

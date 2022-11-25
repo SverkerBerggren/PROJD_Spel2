@@ -31,9 +31,10 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
-
+        print("kommer den in i perfrom opponents actions");
         foreach (GameAction action in response.OpponentActions)
         {
+            
             print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
