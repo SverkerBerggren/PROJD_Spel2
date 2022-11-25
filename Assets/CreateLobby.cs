@@ -9,7 +9,10 @@ public class CreateLobby : MonoBehaviour
 {
     public TMP_InputField inputField;
     bool keepGoing = true;
-    private int lobbyIdToSearch = 0; 
+    private int lobbyIdToSearch = 0;
+
+    public Button startGameButton;
+
 
     public void OnClick()
     {
@@ -19,7 +22,7 @@ public class CreateLobby : MonoBehaviour
         requestHostLobby.lobbyName = inputField.text;
 
 
-        ClientConnection.Instance.AddRequest(requestHostLobby, Response);
+        ClientConnection.Instance.AddRequest(requestHostLobby, ResponseHost);
 
         Thread serverPolling = new Thread(PollServerLobby);
 
@@ -54,7 +57,8 @@ public class CreateLobby : MonoBehaviour
         {
             if(lobby.lobbyId == lobbyIdToSearch)
             {
-
+                startGameButton.interactable = true;
+                keepGoing = false;
             }
         }
     }

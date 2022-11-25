@@ -7,6 +7,9 @@ public class LobbyList : MonoBehaviour
 
     public GameObject lobbyButton;
 
+    public List<GameObject> lobbyButtons = new List<GameObject>();
+
+
 
     private void FixedUpdate()
     {
@@ -21,10 +24,16 @@ public class LobbyList : MonoBehaviour
     {
         ResponseAvailableLobbies recievedResponse = (ResponseAvailableLobbies)response;
 
+        foreach(GameObject obj  in lobbyButtons)
+        {
+            Destroy(obj);
+        }
+        lobbyButtons.Clear();
 
         foreach(Server.HostedLobby lobby in recievedResponse.Lobbies)
         {
             GameObject createdbutton = Instantiate(lobbyButton, gameObject.transform);
+            createdbutton.GetComponent<LobbyButton>().lobbyId = lobby.lobbyId;
         }
         
     }
