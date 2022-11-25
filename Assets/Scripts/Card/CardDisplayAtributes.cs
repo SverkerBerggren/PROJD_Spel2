@@ -70,11 +70,7 @@ public class CardDisplayAtributes : MonoBehaviour
                 isTheRightChampionCard = false;
             }
         }
-
-        if (!isTheRightChampionCard) return;
-
-
-        if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
+        if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn && isTheRightChampionCard)
             cardPlayableEffect.SetActive(true);
         else
             cardPlayableEffect.SetActive(false);

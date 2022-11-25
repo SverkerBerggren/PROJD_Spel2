@@ -370,7 +370,7 @@ public class GameState : MonoBehaviour
             {
                 ListEnum listEnum = new ListEnum();
                 listEnum.myHand = true;
-                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard);
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
             }
             else
             {
@@ -449,13 +449,13 @@ public class GameState : MonoBehaviour
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
         if (isOnline)
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
         else
         {
             if(card)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
             else
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
 
         }
     }

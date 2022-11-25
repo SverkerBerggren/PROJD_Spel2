@@ -66,7 +66,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
