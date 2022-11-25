@@ -6,6 +6,8 @@ using System.Threading;
 using System.Text;
 using System.Runtime.CompilerServices;
 using System.Linq;
+using Unity.VisualScripting.FullSerializer;
+using System.Diagnostics;
 
 public class Server
 {
@@ -465,6 +467,8 @@ public class Server
     {
         ServerResponse response = new ServerResponse();
         response.gameId = requestToHandle.gameId;
+
+        
 
         int player = requestToHandle.whichPlayer == 0 ? 1 : 0;
         if (player == 1)

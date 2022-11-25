@@ -91,6 +91,7 @@ public class ClientConnection : MonoBehaviour
     {   
         print("vilken which player ar man " + playerId);
         request.gameId = gameId;
+        request.whichPlayer = playerId;
 
         print("vilken request laggs " + request.GetType(request.Type));
 
