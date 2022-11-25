@@ -311,14 +311,19 @@ public class Server
 
         
         response.gameId = currentGameId;
-        currentGameId += 1;
+
 
         hostedLobbys[requestToHandle.lobbyId].anotherPlayerJoind = true; 
-        hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId; 
+        hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId;
 
-
-        //hostedLobbys.Add(currentGameId, new HostedLobby());
+        OngoingGame newGame = new OngoingGame();
         
+
+        onGoingGames.Add(currentGameId, newGame);
+
+        currentGameId += 1;
+        //hostedLobbys.Add(currentGameId, new HostedLobby());
+
         //AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
     }
