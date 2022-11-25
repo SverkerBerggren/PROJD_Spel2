@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Text;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class Server
 {
@@ -18,6 +19,8 @@ public class Server
     public Dictionary<int, OngoingGame> onGoingGames = new Dictionary<int, OngoingGame>();
 
     public int currentGameId = 0; 
+    public int lobbyId = 0;
+
 
     public Dictionary<int ,HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
@@ -214,6 +217,12 @@ public class Server
             testRequest.whichPlayer = requestToHandle.whichPlayer;
             return HandleJoinLobby(testRequest);
         }
+        if (requestToHandle is RequestAvailableLobbies)
+        {
+            RequestAvailableLobbies testRequest = (RequestAvailableLobbies)requestToHandle;
+            testRequest.whichPlayer = requestToHandle.whichPlayer;
+            return HandleRequestLobbies(testRequest);
+        }
 
         GameAction errorMessage = new GameAction();
         errorMessage.errorMessage = "den kommer inte till ratt handle " + requestToHandle.Type + " " + requestToHandle.GetType() + " " + (requestToHandle is RequestAddSpecificCardToHand);
@@ -273,13 +282,20 @@ public class Server
     }
     private ServerResponse HandleHostLobby(RequestHostLobby requestToHandle)
     {
-        ResponsePlayLandmark response = new ResponsePlayLandmark();
+        ResponseHostLobby response = new ResponseHostLobby();
         //response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionPlayLandmark gameAction = new GameActionPlayLandmark();
-        
+        response.lobbyName = requestToHandle.lobbyName;
         response.gameId = currentGameId +=1;
+        response.lobbyId = lobbyId; 
+
+        HostedLobby lobbyTohost = new HostedLobby();
+        lobbyTohost.lobbyName = requestToHandle.lobbyName;
+        lobbyTohost.lobbyId = lobbyId;
+
+        lobbyId += 1;
+
 
         hostedLobbys.Add(currentGameId, new HostedLobby());
         //AddGameAction(response, gameAction, requestToHandle.gameId);
@@ -292,11 +308,14 @@ public class Server
         //response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionPlayLandmark gameAction = new GameActionPlayLandmark();
         
-        response.gameId = currentGameId +=1;
+        response.gameId = currentGameId;
+        currentGameId += 1;
 
-        hostedLobbys[requestToHandle.gameId].anotherPlayerJoind = true; 
+        hostedLobbys[requestToHandle.lobbyId].anotherPlayerJoind = true; 
+        hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId; 
+
+
         //hostedLobbys.Add(currentGameId, new HostedLobby());
         
         //AddGameAction(response, gameAction, requestToHandle.gameId);
@@ -455,6 +474,13 @@ public class Server
 
         return response;
     }
+    private ServerResponse HandleRequestLobbies(ClientRequest requestToHandle)
+    {
+        ResponseAvailableLobbies response = new ResponseAvailableLobbies();
+        response.Lobbies = hostedLobbys.Values.ToList<HostedLobby>();
+
+        return response; 
+    }
 
     private void AddGameAction(ServerResponse response, GameAction gameAction, int gameId)
     {
@@ -495,8 +521,14 @@ public class Server
     }
 
     public class HostedLobby
-    {
+    {   
         public int lobbyId = 0;
         public bool anotherPlayerJoind = false;
+
+
+        public string lobbyName;
+
+        public int gameId;
+
     }
 }
