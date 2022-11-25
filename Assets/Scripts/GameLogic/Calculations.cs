@@ -19,14 +19,11 @@ public class Calculations : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
 	private void Start()
 	{
 		gameState = GameState.Instance;
 		actionOfPlayer = ActionOfPlayer.Instance;
-
     }
-
 	public int CalculateDamage(int baseDamage)
 	{
 		baseDamage = gameState.playerChampion.champion.DealDamageAttack(baseDamage);
@@ -41,7 +38,6 @@ public class Calculations : MonoBehaviour
 		}
 		return baseDamage;
 	}
-
 	public int CalculateHealing(int amount)
 	{
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
@@ -55,7 +51,6 @@ public class Calculations : MonoBehaviour
 		}
 		return amount;
 	}
-
 	public int CalculateShield(int amount)
 	{
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
@@ -69,7 +64,6 @@ public class Calculations : MonoBehaviour
 		}
 		return amount;
 	}
-
 	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
 		cardDisplay.manaCost = cardDisplay.card.maxManaCost;
@@ -92,7 +86,6 @@ public class Calculations : MonoBehaviour
 			cardDisplay.manaCost = 10;
         
 	}
-
 	public TargetAndAmount TargetAndAmountFromCard(Card cardUsed, int amount)
 	{
 		TargetAndAmount tAA = null;
@@ -129,8 +122,6 @@ public class Calculations : MonoBehaviour
 		tAA = new TargetAndAmount(tI, amount);
 		return tAA;
 	}
-
-
 	private int LookForChampionIndex(Card cardUsed, List<AvailableChampion> champ)
 	{
 		for (int i = 0; i < champ.Count; i++)

@@ -50,8 +50,6 @@ public class EffectController : MonoBehaviour
                 {
                     if(champOnField.champion.championName.Equals(availableChampion.Item1))  
                     {
-                        print("kommer den in");
-                        print("champOnFields namn " + champOnField.champion.championName);
                         shields[availableChampion].transform.position = champOnField.transform.position;
                     }
                 }

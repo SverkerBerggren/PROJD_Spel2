@@ -10,6 +10,8 @@ public class CardRegister : MonoBehaviour
     [SerializeField] private List<Card> cards = new List<Card>();
     public Dictionary<string, Card> cardRegister = new Dictionary<string, Card>();
 
+    [SerializeField] private List<Effects> effects = new List<Effects>();
+    public Dictionary<string, Effects> effectRegister = new Dictionary<string, Effects>();
 
     [SerializeField] private List<Champion> champions = new List<Champion>();
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
@@ -31,11 +33,29 @@ public class CardRegister : MonoBehaviour
             cardRegister.Add(card.cardName, card);
         }
 
+        foreach (Effects effect in effects)
+        {
+            effectRegister.Add(effect.name, effect);
+        }
+
         foreach (Champion champion in champions)
         {
             champRegister.Add(champion.championName, champion);
         }
 
         DontDestroyOnLoad(this);
+    }
+
+    public List<Card> GetChampionCards(Champion champion)
+    {
+        List<Card> cards = new List<Card>();
+        foreach (Card card in cardRegister.Values)
+        {
+            if (card.championCard && card.championCardType == champion.championCardType)
+            {
+                cards.Add(card);
+            }
+        }
+        return cards;
     }
 }

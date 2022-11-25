@@ -31,12 +31,10 @@ public class CardDisplayAtributes : MonoBehaviour
         {
             UpdateMaterialOnCard(cardDisplay.card);
 
+            cardDisplay.UpdateVariables();
             cardName.text = cardDisplay.card.cardName;
             manaText.text = cardDisplay.manaCost.ToString();
             description.text = cardDisplay.card.description;
-
-
-            cardDisplay.UpdateVariables();
             CardParser.Instance.CheckKeyword(cardDisplay);
 
 
@@ -63,18 +61,17 @@ public class CardDisplayAtributes : MonoBehaviour
 
     private void ShowCardPlayableEffect(CardDisplay cardDisplay)
     {
+
         bool isTheRightChampionCard = true;
         if (cardDisplay.card.championCard)
         {
-            if (cardDisplay.card.championCardType != cardDisplay.cardTargeting.WhichChampionIsActive())
+            CardTargeting cardTargeting = GetComponentInParent<CardTargeting>();
+            if (cardDisplay.card.championCardType != GameState.Instance.playerChampion.champion.championCardType)
             {
                 isTheRightChampionCard = false;
             }
         }
-
-        if (!isTheRightChampionCard) return;
-
-        if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn)
+        if (ActionOfPlayer.Instance.currentMana >= cardDisplay.manaCost && GameState.Instance.isItMyTurn && isTheRightChampionCard)
             cardPlayableEffect.SetActive(true);
         else
             cardPlayableEffect.SetActive(false);
@@ -102,8 +99,6 @@ public class CardDisplayAtributes : MonoBehaviour
                 hpText.text = landmarkCard.minionHealth.ToString();
                 artworkMeshRenderer.material = landmarkCardMaterial;
                 break;
-
         }
     }
-
 }

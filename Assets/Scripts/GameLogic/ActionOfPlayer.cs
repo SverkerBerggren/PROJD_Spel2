@@ -16,7 +16,7 @@ public class ActionOfPlayer : MonoBehaviour
     [SerializeField] private TMP_Text manaText;
 	public Sprite backfaceCard;
 
-	public Choice choice;
+	private Choice choice;
 
     private int cardCost;
     public int playerMana = 0;
@@ -66,7 +66,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion);
+            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {

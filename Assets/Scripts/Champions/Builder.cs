@@ -6,7 +6,7 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Builder", menuName = "Champion/Builder", order = 1)]
 public class Builder : Champion
 {
-	public int landmarkCount = 0;
+	private int landmarkCount = 0;
 	public int landmarkNeeded = 2;
 	public int cardCostReduce = 2;
 
