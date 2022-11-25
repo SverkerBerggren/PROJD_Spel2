@@ -35,7 +35,8 @@ public class CardTargeting : MonoBehaviour
     public ChampionCardType WhichChampionIsActive()
     {
         ChampionCardType champCard = ChampionCardType.None;
-        switch (gameState.playerChampion.nameOfChampion)
+
+        switch (GameState.Instance.playerChampion.champion.championName)
         {
             case "Builder":
                 champCard = ChampionCardType.Builder;

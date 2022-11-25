@@ -8,6 +8,6 @@ public class DeckClicked : MonoBehaviour
     {
         ListEnum lE = new ListEnum();
         lE.myDeck = true;
-        Choice.Instance.ChoiceMenu(lE, 2, WhichMethod.ShowDeck);
+        Choice.Instance.ChoiceMenu(lE, 2, WhichMethod.ShowDeck, null);
     }
 }
