@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 480033673}
   - component: {fileID: 480033672}
   - component: {fileID: 480033671}
+  - component: {fileID: 480033675}
   m_Layer: 5
   m_Name: IpAdressInput
   m_TagString: Untagged
@@ -986,6 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 462623867}
+  enalbeUIButton: {fileID: 0}
 --- !u!114 &480033672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,6 +1124,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480033669}
   m_CullTransparentMesh: 1
+--- !u!114 &480033675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480033669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5be55eeb390cd4c9b6b4196f97f699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectsToEnable:
+  - {fileID: 1855952470}
+  gameObjectsToDisable:
+  - {fileID: 178669073}
 --- !u!1 &523191475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,7 +2965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyButton: {fileID: 7334772652387577430, guid: 56461ab853a81f948a5bf6214e0c91cb, type: 3}
-  lobbyButtons: []
 --- !u!1 &1550299421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4703,6 +4720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1561753784}
   startGameButton: {fileID: 1914316399}
+  pollServer: 0
 --- !u!1 &2088677654
 GameObject:
   m_ObjectHideFlags: 0

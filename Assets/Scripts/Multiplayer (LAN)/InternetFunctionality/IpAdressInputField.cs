@@ -11,7 +11,7 @@ public class IpAdressInputField : MonoBehaviour
     public TextMeshProUGUI inputField;
 
     ClientConnection clientConnection;
-
+    public EnalbeUIButton enalbeUIButton;
     InternetLoop testInternet;
     private string ip;
 
@@ -69,14 +69,14 @@ public class IpAdressInputField : MonoBehaviour
 
         testInternet.hasJoinedLobby = true;
 
+        enalbeUIButton.ClickEnableObjects();
 
-        
 
-	//	if (!clientConnection.isHost)
-	//	{
-	//		RequestGameSetup gameSetup = new RequestGameSetup();
+    //	if (!clientConnection.isHost)
+    //	{
+    //		RequestGameSetup gameSetup = new RequestGameSetup();
     //        gameSetup.whichPlayer = 1;
-	//		gameSetup.reciprocate = true;
+    //		gameSetup.reciprocate = true;
     //       // gameSetup.Type = 15;
     //       List<string> ownChampions = new List<string>();
     //
@@ -87,9 +87,9 @@ public class IpAdressInputField : MonoBehaviour
     //        gameSetup.opponentChampions = ownChampions;
     //
     //        print("Not In method");
-	//		ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
-	//	}
-	}
+    //		ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
+    //	}
+    }
 
 
     public void EmptyMethod(ServerResponse response)
