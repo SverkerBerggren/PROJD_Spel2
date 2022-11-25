@@ -9,18 +9,18 @@ public abstract class Champion : ScriptableObject
 {
     protected GameState gameState;
 
+    [NonSerialized] public string passiveEffect;
+    [NonSerialized] public bool destroyShield = false;
+    [NonSerialized] public int shield = 0;
+    [NonSerialized] public int maxHealth;
+
     public string championName;
     public int health = 100;
-    public int maxHealth;
-    public int shield = 0;
     public Sprite artwork;
-    public string passiveEffect;
-    public bool destroyShield = false;
-    
+    public ChampionCardType championCardType;
 
     public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
     {
-        gameState = GameState.Instance;
         this.championName = championName;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -66,7 +66,7 @@ public abstract class Champion : ScriptableObject
         bool isPlayer = true;
 
 
-        foreach (AvailableChampion ac in GameState.Instance.opponentChampions)
+        foreach (AvailableChampion ac in gameState.opponentChampions)
         {
             if (ac.champion.championName.Equals(championName))
             {
@@ -75,7 +75,7 @@ public abstract class Champion : ScriptableObject
             }
 
         }
-        foreach (AvailableChampion ac in GameState.Instance.playerChampions)
+        foreach (AvailableChampion ac in gameState.playerChampions)
         {
             if (ac.champion.championName.Equals(championName))
             {

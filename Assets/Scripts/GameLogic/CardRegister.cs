@@ -45,4 +45,17 @@ public class CardRegister : MonoBehaviour
 
         DontDestroyOnLoad(this);
     }
+
+    public List<Card> GetChampionCards(Champion champion)
+    {
+        List<Card> cards = new List<Card>();
+        foreach (Card card in cardRegister.Values)
+        {
+            if (card.championCard && card.championCardType == champion.championCardType)
+            {
+                cards.Add(card);
+            }
+        }
+        return cards;
+    }
 }

@@ -65,7 +65,7 @@ public class CardDisplayAtributes : MonoBehaviour
         bool isTheRightChampionCard = true;
         if (cardDisplay.card.championCard)
         {
-            if (cardDisplay.card.championCardType != cardDisplay.cardTargeting.WhichChampionIsActive())
+            if (cardDisplay.card.championCardType != GameState.Instance.playerChampion.champion.championCardType)
             {
                 isTheRightChampionCard = false;
             }

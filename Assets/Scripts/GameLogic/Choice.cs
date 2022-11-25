@@ -30,8 +30,6 @@ public class Choice : MonoBehaviour
 
     private bool isChoiceActive = false;
 
-    private CardDisplayAtributes cardDisplayAtributes;
-
     public static Choice Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()

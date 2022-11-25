@@ -32,33 +32,6 @@ public class CardTargeting : MonoBehaviour
         }
     }
 
-    public ChampionCardType WhichChampionIsActive()
-    {
-        ChampionCardType champCard = ChampionCardType.None;
-        switch (gameState.playerChampion.nameOfChampion)
-        {
-            case "Builder":
-                champCard = ChampionCardType.Builder;
-                break;
-            case "Duelist":
-                champCard = ChampionCardType.Duelist;
-                break;
-            case "Cultist":
-                champCard = ChampionCardType.Cultist;
-                break;
-            case "Graverobber":
-                champCard = ChampionCardType.Graverobber;
-                break;
-            case "TheOneWhoDraws":
-                champCard = ChampionCardType.TheOneWhoDraws;
-                break;
-            case "Shanker":
-                champCard = ChampionCardType.Shanker;
-                break;
-        }
-        return champCard;
-    }
-
     private void OnMouseUp()
     {
         cardMovement = GetComponent<CardMovement>();
@@ -81,8 +54,7 @@ public class CardTargeting : MonoBehaviour
         // Checking if the card used is a champion card
         if (card.championCardType != ChampionCardType.All && card.championCard)
         {
-            ChampionCardType champCardType = WhichChampionIsActive();
-            if (champCardType != card.championCardType)
+            if (gameState.playerChampion.champion.championCardType != card.championCardType)
             {
                 CardGoBackToStartingPosition();
                 return;
