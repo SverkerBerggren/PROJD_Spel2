@@ -469,13 +469,20 @@ public class Server
         int player = requestToHandle.whichPlayer == 0 ? 1 : 0;
         if (player == 1)
         {
-            response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player2Actions);
-            onGoingGames[requestToHandle.gameId].player2Actions.Clear();
+            if (onGoingGames.ContainsKey(requestToHandle.gameId))
+            {
+                response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player2Actions);
+                onGoingGames[requestToHandle.gameId].player2Actions.Clear();
+            }
+
         }
         else
         {
-            response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player1Actions);
-            onGoingGames[requestToHandle.gameId].player1Actions.Clear();
+            if (onGoingGames.ContainsKey(requestToHandle.gameId))
+            {
+                response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player1Actions);
+                onGoingGames[requestToHandle.gameId].player1Actions.Clear();
+            }
         }
 
         return response;
