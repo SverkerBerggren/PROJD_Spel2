@@ -14,7 +14,7 @@ public class IpAdressInputField : MonoBehaviour
     public EnalbeUIButton enalbeUIButton;
     InternetLoop testInternet;
     private string ip;
-
+    public bool loadScene = false;
  //   public  inputFieldText; 
 
     // Start is called before the first frame update
@@ -45,7 +45,7 @@ public class IpAdressInputField : MonoBehaviour
 
 
 
-            enalbeUIButton.ClickEnableObjects();
+            
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
@@ -53,6 +53,12 @@ public class IpAdressInputField : MonoBehaviour
 			Thread messageThread = new Thread(this.ConnectToServer);
 			messageThread.Start();
 		}
+
+        if(loadScene)
+        {
+            enalbeUIButton.ClickEnableObjects();
+            loadScene = false;
+        }
     }
 
     public void ConnectToServer()
@@ -75,6 +81,7 @@ public class IpAdressInputField : MonoBehaviour
 
         print("connectar den till servern?");
 
+        loadScene = true;
 
 
     //	if (!clientConnection.isHost)
