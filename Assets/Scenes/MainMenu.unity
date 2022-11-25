@@ -347,8 +347,8 @@ Canvas:
   m_GameObject: {fileID: 178669073}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 5280378130382927202}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &285621464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -755,8 +755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ba14718e6b42e478f4eb385647aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCopies: 3
-  deckCount: 40
   myChampions:
   - Shanker
   - Builder
@@ -1628,7 +1626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &797587029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2182,7 +2180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00012207031, y: 440.8}
+  m_AnchoredPosition: {x: 779, y: 293}
   m_SizeDelta: {x: 263.1, y: 106.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &940687108
@@ -2715,7 +2713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 768.5, y: 478.8}
+  m_AnchoredPosition: {x: 768.5, y: 435}
   m_SizeDelta: {x: 263.1, y: 106.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028392786
@@ -2953,7 +2951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1161218404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256,8 +3254,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22, y: -64.4}
-  m_SizeDelta: {x: 931.44, y: 554.2}
+  m_AnchoredPosition: {x: 73.8, y: 111.806305}
+  m_SizeDelta: {x: 590.2, y: 344.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542938806
 MonoBehaviour:
@@ -3332,7 +3330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1604379380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3740,7 +3738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1707258299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3897,7 +3895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1756219165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4088,7 +4086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1821656468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4126,7 +4124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonHolder: {fileID: 1542938804}
-  cardButton: {fileID: 4087350943102769212, guid: e954e49bfde1adc459aca5bddc2346f5, type: 3}
+  cardButton: {fileID: 4087350943102769212, guid: bbe38b9dccc09f643a4fece53e464653, type: 3}
+  maxCopies: 3
+  deckCount: 40
 --- !u!114 &1821656470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4256,7 +4256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1980353770
 RectTransform:
   m_ObjectHideFlags: 0

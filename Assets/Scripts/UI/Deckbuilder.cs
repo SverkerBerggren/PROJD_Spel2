@@ -12,6 +12,8 @@ public class Deckbuilder : MonoBehaviour
     [SerializeField] private GameObject buttonHolder;
     public GameObject cardButton;
     private TMP_Text decklist;
+    [SerializeField] private int maxCopies = 3;
+    [SerializeField] private int deckCount = 40;
 
     private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
@@ -48,6 +50,7 @@ public class Deckbuilder : MonoBehaviour
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
+        gO.GetComponent<DeckbuilderCardButton>().card = card;
         buttons.Add(gO);
     }
 
@@ -73,11 +76,13 @@ public class Deckbuilder : MonoBehaviour
     public void UpdateDeckList()
     {
         decklist.text = "Decklist\n\n";
-        foreach(string champion in setup.myChampions)
+        decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
+        foreach (string champion in setup.myChampions)
         {
             decklist.text += champion + "\n";
         }
         decklist.text += "\n";
+        decklist.text += "Cards " + setup.playerDeckList.Count + "/" + deckCount + "\n";
         foreach (Card card in setup.playerDeckList)
         {
             decklist.text += card.cardName + "\n";

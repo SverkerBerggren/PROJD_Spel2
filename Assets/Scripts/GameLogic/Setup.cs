@@ -6,8 +6,6 @@ public class Setup : MonoBehaviour
 {
     private CardRegister cardRegister;
     private Deckbuilder deckbuilder;
-    [SerializeField] private int maxCopies = 3;
-    [SerializeField] private int deckCount = 40;
 
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
     public List<string> myChampions = new List<string>();
@@ -35,38 +33,30 @@ public class Setup : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddChampion(string championName)
+    public void AddChampion(Champion champion)
     {
-        Champion champion = cardRegister.champRegister[championName];
-        myChampions.Add(championName);
+        myChampions.Add(champion.championName);
         playerDeckList.AddRange(cardRegister.GetChampionCards(champion));
         deckbuilder.UpdateDeckList();
     }
 
-    public void RemoveChampion(string championName)
+    public void RemoveChampion(Champion champion)
     {
-        Champion champion = cardRegister.champRegister[championName];
-        myChampions.Remove(championName);
+        myChampions.Remove(champion.championName);
         playerDeckList.RemoveAll(x => x == cardRegister.GetChampionCards(champion).Contains(x));
         deckbuilder.UpdateDeckList();
     }
 
-    public void AddCard(string cardName)
+    public void AddCard(Card card)
     {
-        if (cardRegister.cardRegister.ContainsKey(cardName) && playerDeckList.Count < deckCount)
-        {
-            playerDeckList.Add(cardRegister.cardRegister[cardName]);
-            deckbuilder.UpdateDeckList();
-        }
+        playerDeckList.Add(card);
+        deckbuilder.UpdateDeckList();
     }
 
-    public void RemoveCard(string cardName)
+    public void RemoveCard(Card card)
     {
-        if (cardRegister.cardRegister.ContainsKey(cardName) && playerDeckList.Contains(cardRegister.cardRegister[cardName]))
-        {
-            playerDeckList.Remove(cardRegister.cardRegister[cardName]);
-            deckbuilder.UpdateDeckList();
-        }
+        playerDeckList.Remove(card);
+        deckbuilder.UpdateDeckList();
     }
 
     public void ClearDeck()
