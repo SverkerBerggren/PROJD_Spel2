@@ -62,6 +62,7 @@ public class CreateLobby : MonoBehaviour
                 if(lobby.anotherPlayerJoind)
                 {
                     startGameButton.interactable = true;
+                    ClientConnection.Instance.gameId = lobby.gameId;
                     keepGoing = false;
                 }
             }
