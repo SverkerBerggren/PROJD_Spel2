@@ -42,6 +42,10 @@ public class IpAdressInputField : MonoBehaviour
             ip = GetComponent<TMP_InputField>().text;
             Thread messageThread = new Thread(this.ConnectToServer);
             messageThread.Start();
+
+
+
+            enalbeUIButton.ClickEnableObjects();
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
@@ -71,7 +75,6 @@ public class IpAdressInputField : MonoBehaviour
 
         print("connectar den till servern?");
 
-        enalbeUIButton.ClickEnableObjects();
 
 
     //	if (!clientConnection.isHost)
