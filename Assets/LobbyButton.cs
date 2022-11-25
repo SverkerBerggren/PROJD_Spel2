@@ -34,6 +34,9 @@ public class LobbyButton : MonoBehaviour
     {   
         ResponseJoinLobby responseJoinLobby = (ResponseJoinLobby)response;
         ClientConnection.Instance.gameId = responseJoinLobby.gameId;
+
+        InternetLoop internetLoop = FindObjectOfType<InternetLoop>();
+        internetLoop.hasJoinedLobby = true;
     }
 
     public void SetText(string text)
