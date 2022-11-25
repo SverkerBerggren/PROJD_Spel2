@@ -26,6 +26,8 @@ public class CreateLobby : MonoBehaviour
 
         ClientConnection.Instance.AddRequest(requestHostLobby, ResponseHost);
 
+        InternetLoop internetLoop = FindObjectOfType<InternetLoop>();
+        internetLoop.hasJoinedLobby = true;
 
         StartCoroutine(PollCoroutine());
 
