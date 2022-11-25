@@ -77,7 +77,7 @@ public class IpAdressInputField : MonoBehaviour
 
         clientConnection.gameId = 0;
 
-        testInternet.hasJoinedLobby = true;
+     //   testInternet.hasJoinedLobby = true;
 
         print("connectar den till servern?");
 
