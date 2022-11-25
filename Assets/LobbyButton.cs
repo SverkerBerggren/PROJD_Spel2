@@ -16,7 +16,13 @@ public class LobbyButton : MonoBehaviour
 
     public void OnClick()
     {   
+        if(ClientConnection.Instance.isHost)
+        {
+            return;     
+        }
         RequestJoinLobby requestJoinLobby = new RequestJoinLobby();
+        requestJoinLobby.lobbyId = lobbyId; 
+
 
         SetJoinImage(true);
 

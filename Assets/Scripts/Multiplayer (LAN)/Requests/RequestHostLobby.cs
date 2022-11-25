@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RequestHostLobby : ClientRequest
 {
-    public string lobbyName = "";
+    public string lobbyName = "asd";
     public RequestHostLobby()
     {
         Type = 18;

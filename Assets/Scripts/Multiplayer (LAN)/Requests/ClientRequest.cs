@@ -88,7 +88,7 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         }
         if (IntegerToConvert == 19)
         {
-            return (typeof(RequestHostLobby));
+            return (typeof(RequestJoinLobby));
         }
 
         return (typeof(ClientRequest));

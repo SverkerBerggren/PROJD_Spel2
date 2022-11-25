@@ -297,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &178669074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2947,6 +2947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyButton: {fileID: 7334772652387577430, guid: 56461ab853a81f948a5bf6214e0c91cb, type: 3}
+  lobbyButtons: []
 --- !u!1 &1550299421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,7 +4209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1855952471
 Transform:
   m_ObjectHideFlags: 0
@@ -4440,10 +4441,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5be55eeb390cd4c9b6b4196f97f699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectsToEnable: []
+  gameObjectsToEnable:
+  - {fileID: 1855952470}
   gameObjectsToDisable:
   - {fileID: 1980353769}
   - {fileID: 1161218403}
+  - {fileID: 178669073}
 --- !u!114 &1980353773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4491,6 +4494,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1980353771}
         m_TargetAssemblyTypeName: HostButton, Assembly-CSharp
         m_MethodName: HostServer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1980353772}
+        m_TargetAssemblyTypeName: EnalbeUIButton, Assembly-CSharp
+        m_MethodName: ClickEnableObjects
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

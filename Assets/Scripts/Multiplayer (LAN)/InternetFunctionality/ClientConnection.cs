@@ -90,6 +90,8 @@ public class ClientConnection : MonoBehaviour
     {   
         request.gameId = gameId;
 
+        print("vilken request laggs " + request.GetType(request.Type));
+
         lock (queuedRequests)
         {
             queuedRequests.Enqueue(new Tuple<ClientRequest, Action<ServerResponse>>(request, action));

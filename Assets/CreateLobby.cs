@@ -9,37 +9,39 @@ public class CreateLobby : MonoBehaviour
 {
     public TMP_InputField inputField;
     bool keepGoing = true;
-    private int lobbyIdToSearch = 0;
+    private int lobbyIdToSearch = 100000;
 
     public Button startGameButton;
-
+    public bool pollServer = false;
 
     public void OnClick()
     {
         RequestHostLobby requestHostLobby = new RequestHostLobby();
 
         requestHostLobby.whichPlayer = ClientConnection.Instance.playerId;
-        requestHostLobby.lobbyName = inputField.text;
+        requestHostLobby.lobbyName = "HEJ TESt";
 
+        ClientConnection.Instance.isHost = true;
 
         ClientConnection.Instance.AddRequest(requestHostLobby, ResponseHost);
 
-        Thread serverPolling = new Thread(PollServerLobby);
 
-
-        serverPolling.Start();
+        StartCoroutine(PollCoroutine());
 
     }
 
-    private void PollServerLobby()
-    {
-       
 
+
+
+
+
+    public IEnumerator PollCoroutine()
+    {   
         while(keepGoing)
         {
             RequestAvailableLobbies request = new RequestAvailableLobbies();
-
             ClientConnection.Instance.AddRequest(request, ResponseAvailable);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -57,8 +59,11 @@ public class CreateLobby : MonoBehaviour
         {
             if(lobby.lobbyId == lobbyIdToSearch)
             {
-                startGameButton.interactable = true;
-                keepGoing = false;
+                if(lobby.anotherPlayerJoind)
+                {
+                    startGameButton.interactable = true;
+                    keepGoing = false;
+                }
             }
         }
     }

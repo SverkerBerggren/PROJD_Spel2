@@ -4,6 +4,8 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine;
 using TMPro;
+using System.Threading;
+
 public class HostButton : MonoBehaviour
 {
     // public Server server = new Server(); 
@@ -44,11 +46,18 @@ public class HostButton : MonoBehaviour
         ipAdressText.gameObject.SetActive(true);
         ipAdressText.text = LocalIPAddress();
 
+        Thread connectThread = new Thread(ConnectToServer);
+        connectThread.Start();
+
+
+   //     clientConnection.isHost = true;
+        clientConnection.gameId = 0; 
 
         
+    }
 
-
-        clientConnection.isHost = true;
-        clientConnection.gameId = -1; 
+    private void ConnectToServer()
+    {
+        clientConnection.ConnectToServer(LocalIPAddress(), 63000);
     }
 }

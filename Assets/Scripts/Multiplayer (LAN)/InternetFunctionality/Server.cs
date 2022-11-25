@@ -287,17 +287,18 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
         response.lobbyName = requestToHandle.lobbyName;
-        response.gameId = currentGameId +=1;
+        response.gameId = currentGameId;
         response.lobbyId = lobbyId; 
 
         HostedLobby lobbyTohost = new HostedLobby();
         lobbyTohost.lobbyName = requestToHandle.lobbyName;
         lobbyTohost.lobbyId = lobbyId;
-
+        hostedLobbys.Add(lobbyId, new HostedLobby());
         lobbyId += 1;
+       // currentGameId += 1;
 
 
-        hostedLobbys.Add(currentGameId, new HostedLobby());
+
         //AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
     }
@@ -526,9 +527,9 @@ public class Server
         public bool anotherPlayerJoind = false;
 
 
-        public string lobbyName;
+        public string lobbyName = "hej";
 
-        public int gameId;
+        public int gameId = 0;
 
     }
 }
