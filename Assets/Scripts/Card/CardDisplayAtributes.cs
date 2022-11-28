@@ -30,13 +30,16 @@ public class CardDisplayAtributes : MonoBehaviour
             landmarkDisplay.landmarkPrefab.SetActive(false);
             return;
         }
+        landmarkDisplay.UpdateVariables();
         landmarkDisplay.landmarkPrefab.SetActive(true);
         hpText.text = landmarkDisplay.health.ToString();
-        description.text = landmarkDisplay.card.description;
+        description.text = landmarkDisplay.landmark.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
-        cardName.text = landmarkDisplay.card.cardName;
+        cardName.text = landmarkDisplay.landmark.cardName;
+        print(description.text);
 
         CardParser.Instance.CheckKeyword(landmarkDisplay);
+        print(description.text);
     }
 
     public void UpdateTextOnCard(CardDisplay cardDisplay)

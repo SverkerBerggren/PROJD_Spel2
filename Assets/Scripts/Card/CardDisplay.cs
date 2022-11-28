@@ -18,7 +18,13 @@ public class CardDisplay : Displays
 
     private void Awake()
     {
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         Invoke(nameof(LoadInvoke), 0.01f);       
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void FixedUpdate()
@@ -43,26 +49,14 @@ public class CardDisplay : Displays
     }
 
     public void UpdateTextOnCard()
-    {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+    {       
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
-    public void UpdateVariables()
+    public override void UpdateVariables()
     {
-        calculations = Calculations.Instance;
-        calculations.CalculateHandManaCost(this);
-
-        if (card.damage != 0)
-            damageShow = calculations.CalculateDamage(card.damage);
-        if (card.amountToHeal != 0)
-            amountToHealShow = calculations.CalculateHealing(card.amountToHeal);
-        if (card.amountToShield != 0)
-            amountToShieldShow = calculations.CalculateShield(card.amountToShield);
-        if (card.amountOfCardsToDraw != 0)
-            amountOfCardsToDrawShow = card.amountOfCardsToDraw;
-        if (card.amountOfCardsToDiscard != 0)
-            amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;
+        Calculations.Instance.CalculateHandManaCost(this);
+        base.UpdateVariables();
     }
 
 
