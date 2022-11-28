@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Cultist", menuName = "Champion/Cultist", order = 1)]
 public class Cultist : Champion
 {
-	[System.NonSerialized] public int currentBonusDamage = 0;
 	public int perMissingHP = 20;
 	public int damagePerMissingHP = 10;
 
@@ -14,7 +13,6 @@ public class Cultist : Champion
 	{
 		perMissingHP = c.perMissingHP;
 		damagePerMissingHP = c.damagePerMissingHP;
-		currentBonusDamage = c.currentBonusDamage;
 	}
 
 	public override void Awake()
@@ -26,30 +24,17 @@ public class Cultist : Champion
 
 	public override int DealDamageAttack(int damage)
 	{
-		return damage + currentBonusDamage;
+        return damage + CalculateBonusDamage();
 	}
 
-/*	public override void TakeDamage(int damage)
+	private int CalculateBonusDamage()
 	{
-		base.TakeDamage(damage);
-		ChangeBonusDamage();
-	}
-
-	public override void HealChampion(int amountToHeal)
-	{
-		base.HealChampion(amountToHeal);
-		ChangeBonusDamage();
-	}*/
-
-	private void ChangeBonusDamage()
-	{
-		int difference = (maxHealth - health) / perMissingHP;
-		currentBonusDamage = damagePerMissingHP * difference;
-		
-	}
+        int difference = (maxHealth - health) / perMissingHP;
+        return damagePerMissingHP * difference;
+    }
 
 	public override void UpdatePassive()
 	{
-        passiveEffect = currentBonusDamage + "+ Extra damage";
+        passiveEffect = CalculateBonusDamage() + "+ Extra damage";
     }
 }

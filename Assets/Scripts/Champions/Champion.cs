@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
 
 public abstract class Champion : ScriptableObject
 {
@@ -32,7 +33,7 @@ public abstract class Champion : ScriptableObject
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
 
-
+    
     public virtual void DrawCard(CardDisplay cardDisplay) { }
 
     public virtual void AmountOfCardsPlayed(Card card) {}
