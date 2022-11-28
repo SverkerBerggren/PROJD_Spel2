@@ -714,6 +714,10 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         ClearEffects();
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
+        {
+            landmarkDisplay.UpdateTextOnCard();
+        }
         actionOfPlayer.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();

@@ -5,35 +5,20 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay : Displays
 {
-    public Card card;
-    public int manaCost;
-
-    private Calculations calculations;
-
     private bool alreadyBig = false;
     private Vector3 originalSize;
 
-    [System.NonSerialized] public CardTargeting cardTargeting;
-    [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
-    [System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
-   
-    public bool opponentCard;
+    [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+    
 
-    [System.NonSerialized] public bool firstCardDrawn = false;
-    [System.NonSerialized] public bool mouseDown = false;
-    [System.NonSerialized] public int damageShow = 0;
-    [System.NonSerialized] public int amountToHealShow = 0;
-    [System.NonSerialized] public int amountToShieldShow = 0;
-    [System.NonSerialized] public int amountOfCardsToDrawShow = 0;
-    [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
-
+    [NonSerialized] public bool firstCardDrawn = false;
+    [NonSerialized] public bool mouseDown = false;
 
     private void Awake()
     {
-        Invoke(nameof(LoadInvoke), 0.01f);
-        
+        Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
     private void FixedUpdate()
@@ -60,8 +45,7 @@ public class CardDisplay : MonoBehaviour
     public void UpdateTextOnCard()
     {
         cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
-        //if (cardDisplayAtributes != null)
-            cardDisplayAtributes.UpdateTextOnCard(this);
+        cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
     public void UpdateVariables()
