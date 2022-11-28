@@ -58,8 +58,8 @@ public class CardDisplay : MonoBehaviour
     public void UpdateTextOnCard()
     {
         cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
-        print("CardDispAttri: " + cardDisplayAtributes.name);
-        cardDisplayAtributes.UpdateTextOnCard(this);
+        if (cardDisplayAtributes != null)
+            cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
     public void UpdateVariables()
