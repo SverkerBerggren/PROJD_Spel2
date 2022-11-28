@@ -548,7 +548,7 @@ public class GameState : MonoBehaviour
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
             if (landmark.card != null)
-                landmark.card.UpKeep();
+                landmark.landmark.UpKeep();
         } 
         foreach (Effects effect in playerEffects)
         {
@@ -562,7 +562,7 @@ public class GameState : MonoBehaviour
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
             if(landmark.card != null)
-            landmark.card.EndStep();
+            landmark.landmark.EndStep();
         }
         foreach (Effects effect in playerEffects)
         {

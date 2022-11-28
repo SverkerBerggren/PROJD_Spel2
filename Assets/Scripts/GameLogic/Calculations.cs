@@ -30,7 +30,7 @@ public class Calculations : MonoBehaviour
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
 		{
 			if (landmark.card != null)
-				baseDamage = landmark.card.DealDamageAttack(baseDamage);
+				baseDamage = landmark.landmark.DealDamageAttack(baseDamage);
 		}
 		foreach (Effects effect in gameState.playerEffects)
 		{
@@ -43,7 +43,7 @@ public class Calculations : MonoBehaviour
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
 		{
 			if (landmark.card == null) continue;
-			amount = landmark.card.HealingEffect(amount);
+			amount = landmark.landmark.HealingEffect(amount);
 		}
 		foreach (Effects effect in gameState.playerEffects)
 		{
@@ -56,7 +56,7 @@ public class Calculations : MonoBehaviour
 		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
 		{
 			if (landmark.card == null) continue;
-			amount = landmark.card.ShieldingEffect(amount);
+			amount = landmark.landmark.ShieldingEffect(amount);
 		}
 		foreach (Effects effect in gameState.playerEffects)
 		{
@@ -72,7 +72,7 @@ public class Calculations : MonoBehaviour
         foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 		{
 			if (landmarkDisplay.card == null) continue;
-            cardDisplay.manaCost = landmarkDisplay.card.CalculateManaCost(cardDisplay);
+            cardDisplay.manaCost = landmarkDisplay.landmark.CalculateManaCost(cardDisplay);
 		}
 
 		foreach (Effects effect in gameState.playerEffects)

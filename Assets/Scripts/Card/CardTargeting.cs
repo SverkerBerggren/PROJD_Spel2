@@ -125,7 +125,7 @@ public class CardTargeting : MonoBehaviour
                 {
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
-                    gameState.ShowPlayedCardLandmark(landmarkDisplay.card);                    
+                    gameState.ShowPlayedCardLandmark(landmarkDisplay.landmark);                    
                     break;
                 }
                 else

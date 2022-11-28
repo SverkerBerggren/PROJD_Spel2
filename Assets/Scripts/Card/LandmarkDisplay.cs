@@ -7,7 +7,7 @@ using UnityEngine;
 public class LandmarkDisplay : Displays
 {  
     public int health;
-    private Landmarks landmark;
+    public Landmarks landmark;
 	public GameObject landmarkPrefab;
 
     public bool occultGathering = false;
