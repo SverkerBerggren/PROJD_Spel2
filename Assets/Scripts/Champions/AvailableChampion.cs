@@ -215,7 +215,7 @@ public class AvailableChampion : MonoBehaviour
 
     private void ShieldEffectDestroy()
     {
-        Tuple<string, bool> tuple = new Tuple<string, bool>(champion.championName, isOpponent);
+        Tuple<string, bool> tuple = new Tuple<string, bool>(champion.championName, !isOpponent);
         EffectController.Instance.DestroyShield(tuple);
     }
 
