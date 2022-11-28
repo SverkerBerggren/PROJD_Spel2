@@ -74,7 +74,6 @@ public class AvailableChampion : MonoBehaviour
 
         passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
         passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
-        
 
         GetAllMeshes();
     }
@@ -183,29 +182,28 @@ public class AvailableChampion : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-
-        if (shield == 0)
+        if (champion.shield == 0)
         {
-            health -= damage;
+            champion.health -= damage;
         }
         else
         {
-            if (damage >= shield)
+            if (damage >= champion.shield)
             {
-                int differenceAfterShieldDamage = damage - shield;
-                shield = 0;
+                int differenceAfterShieldDamage = damage - champion.shield;
+                champion.shield = 0;
 
                 ShieldEffectDestroy();
 
-                health -= differenceAfterShieldDamage;
+                champion.health -= differenceAfterShieldDamage;
             }
             else
             {
-                shield -= damage;
+                champion.shield -= damage;
             }
         }
 
-        if (health <= 0)
+        if (champion.health <= 0)
         {
             Death();
         }
