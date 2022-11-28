@@ -75,11 +75,13 @@ public class InternetLoop : MonoBehaviour
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
                         gameState.playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
+                        EffectController.Instance.GainHealingEffect(gameState.playerChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
                         gameState.opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
+                        EffectController.Instance.GainHealingEffect(gameState.opponentChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
                 }
             }

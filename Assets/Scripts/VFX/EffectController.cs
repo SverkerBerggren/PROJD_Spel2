@@ -102,6 +102,4 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
-
-
 }
