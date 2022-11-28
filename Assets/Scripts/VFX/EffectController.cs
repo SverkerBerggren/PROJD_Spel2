@@ -69,7 +69,7 @@ public class EffectController : MonoBehaviour
 
     //two parameters, which champion should have shiled and how much  
     //the shield shall only has tre state, on, half-on, and disappear
-    public void ActiveShield(Tuple<string,bool> tupleShields, int shiledAmount, GameObject gameObject)
+    public void ActiveShield(Tuple<string,bool> tupleShields, int shieldAmount, GameObject gameObject)
     {
         //shiled effect 100 procent
         //Set upp shield effect here at champions position 
