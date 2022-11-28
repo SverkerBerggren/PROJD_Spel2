@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Cultist", menuName = "Champion/Cultist", order = 1)]
 public class Cultist : Champion
 {
+	[System.NonSerialized] public int currentBonusDamage = 0;
 	public int perMissingHP = 20;
 	public int damagePerMissingHP = 10;
 
-	public int currentBonusDamage = 0;
 
 	public Cultist(Cultist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) 
 	{

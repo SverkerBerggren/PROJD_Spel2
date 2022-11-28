@@ -399,15 +399,15 @@ public class Choice : MonoBehaviour
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed)
     {
         
-        //Måste lägga in om choicen failar checkifchoice att den ska passa priority om den ska göra det
+        //Mï¿½ste lï¿½gga in om choicen failar checkifchoice att den ska passa priority om den ska gï¿½ra det
         print("vad blir checken " + CheckIfChoice(theMethod, list));
         if (CheckIfChoice(theMethod, list))
         {
-            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
-            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+            /* KAN SKAPA PROPLEM Sï¿½ JAG Fï¿½RSï¿½KER Gï¿½RA DEN Lï¿½TT ATT SE*/
+            /* KAN SKAPA PROPLEM Sï¿½ JAG Fï¿½RSï¿½KER Gï¿½RA DEN Lï¿½TT ATT SE*/
             ResetChoice();
-            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
-            /* KAN SKAPA PROPLEM SÅ JAG FÖRSÖKER GÖRA DEN LÄTT ATT SE*/
+            /* KAN SKAPA PROPLEM Sï¿½ JAG Fï¿½RSï¿½KER Gï¿½RA DEN Lï¿½TT ATT SE*/
+            /* KAN SKAPA PROPLEM Sï¿½ JAG Fï¿½RSï¿½KER Gï¿½RA DEN Lï¿½TT ATT SE*/
             if (cardUsed != null)
                 this.cardUsed = cardUsed;
             IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
