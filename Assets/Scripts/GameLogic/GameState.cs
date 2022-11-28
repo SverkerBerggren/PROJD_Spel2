@@ -181,7 +181,7 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
             foreach (Effects effect in playerEffects)
             {
                 effect.TakeDamage(targetAndAmount.amount);
@@ -189,7 +189,7 @@ public class GameState : MonoBehaviour
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
         if (lE.myLandmarks)
         {
@@ -219,14 +219,14 @@ public class GameState : MonoBehaviour
         
         if(lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             //Jiang: instansiera healing prefab
             EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
 
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             //Jiang: instansiera healing prefab
             EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
@@ -257,13 +257,13 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
             Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, true);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
             Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, false);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }

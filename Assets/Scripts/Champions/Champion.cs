@@ -31,77 +31,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
-    public virtual void TakeDamage(int damage)
-    {
 
-        if (shield == 0)
-        {
-            health -= damage;
-        }
-        else
-        {
-            if (damage >= shield)
-            {
-                int differenceAfterShieldDamage = damage - shield;
-                shield = 0;
-                destroyShield = true;
-                ShieldEffectDestroy();
-
-                health -= differenceAfterShieldDamage;
-            }
-            else
-            {
-                shield -= damage;
-            }
-        }
-
-        if (health <= 0)
-        {
-            Death();
-        }
-    }
-
-    private void ShieldEffectDestroy()
-    {
-        bool isPlayer = true;
-
-
-        foreach (AvailableChampion ac in gameState.opponentChampions)
-        {
-            if (ac.champion.championName.Equals(championName))
-            {
-
-                isPlayer = false;
-            }
-
-        }
-        foreach (AvailableChampion ac in gameState.playerChampions)
-        {
-            if (ac.champion.championName.Equals(championName))
-            {
-                isPlayer = true;
-            }
-        }
-
-        Tuple<string, bool> tuple = new Tuple<string, bool>(championName, isPlayer);
-
-        EffectController.Instance.DestroyShield(tuple);
-    }
-
-    public virtual void HealChampion(int amountToHeal)
-    {
-        health += amountToHeal;
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
-
-    }
-    public virtual void GainShield(int amountToBlock)
-    {
-        destroyShield = false;
-        shield += amountToBlock;
-    }
 
     public virtual void DrawCard(CardDisplay cardDisplay) { }
 
@@ -119,9 +49,6 @@ public abstract class Champion : ScriptableObject
 
     public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
 
-    public virtual void Death()
-    {
-        gameState.ChampionDeath(this);
-    }
+
 
 }

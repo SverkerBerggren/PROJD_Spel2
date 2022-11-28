@@ -29,7 +29,7 @@ public class Cultist : Champion
 		return damage + currentBonusDamage;
 	}
 
-	public override void TakeDamage(int damage)
+/*	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
 		ChangeBonusDamage();
@@ -39,7 +39,7 @@ public class Cultist : Champion
 	{
 		base.HealChampion(amountToHeal);
 		ChangeBonusDamage();
-	}
+	}*/
 
 	private void ChangeBonusDamage()
 	{
