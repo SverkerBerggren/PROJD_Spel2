@@ -22,5 +22,8 @@ public abstract class Displays : MonoBehaviour
     [System.NonSerialized] public int amountOfCardsToDrawShow = 0;
     [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
 
-
+    private void Start()
+    {
+        
+    }
 }

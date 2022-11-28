@@ -71,7 +71,7 @@ public class Calculations : MonoBehaviour
 			
         foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 		{
-			if (landmarkDisplay.card == null) continue;
+			if (landmarkDisplay.landmark == null) continue;
             cardDisplay.manaCost = landmarkDisplay.landmark.CalculateManaCost(cardDisplay);
 		}
 

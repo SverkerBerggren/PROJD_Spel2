@@ -34,7 +34,9 @@ public class CardDisplayAtributes : MonoBehaviour
         hpText.text = landmarkDisplay.health.ToString();
         description.text = landmarkDisplay.card.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
-        cardName.text = landmarkDisplay.card.cardName;      
+        cardName.text = landmarkDisplay.card.cardName;
+
+        CardParser.Instance.CheckKeyword(landmarkDisplay);
     }
 
     public void UpdateTextOnCard(CardDisplay cardDisplay)
