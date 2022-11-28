@@ -221,16 +221,16 @@ public class AvailableChampion : MonoBehaviour
 
     public virtual void HealChampion(int amountToHeal)
     {
-        health += amountToHeal;
-        if (health > maxHealth)
+        champion.health += amountToHeal;
+        if (champion.health > champion.maxHealth)
         {
-            health = maxHealth;
+            champion.health = maxHealth;
         }
 
     }
     public virtual void GainShield(int amountToBlock)
     {
-        shield += amountToBlock;
+        champion.shield += amountToBlock;
     }
 
 

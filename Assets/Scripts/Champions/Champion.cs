@@ -22,7 +22,7 @@ public abstract class Champion : ScriptableObject
     {
         this.championName = championName;
         this.health = health;
-        this.maxHealth = maxHealth;
+        this.maxHealth = health;
         this.shield = shield;
         this.artwork = artwork;
         this.passiveEffect = passiveEffect;
