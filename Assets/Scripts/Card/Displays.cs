@@ -22,8 +22,19 @@ public abstract class Displays : MonoBehaviour
     [System.NonSerialized] public int amountOfCardsToDrawShow = 0;
     [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
 
-    private void Start()
+    public virtual void UpdateVariables()
     {
-        
+        calculations = Calculations.Instance;
+
+        if (card.damage != 0)
+            damageShow = calculations.CalculateDamage(card.damage);
+        if (card.amountToHeal != 0)
+            amountToHealShow = calculations.CalculateHealing(card.amountToHeal);
+        if (card.amountToShield != 0)
+            amountToShieldShow = calculations.CalculateShield(card.amountToShield);
+        if (card.amountOfCardsToDraw != 0)
+            amountOfCardsToDrawShow = card.amountOfCardsToDraw;
+        if (card.amountOfCardsToDiscard != 0)
+            amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;
     }
 }

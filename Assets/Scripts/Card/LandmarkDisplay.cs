@@ -17,16 +17,19 @@ public class LandmarkDisplay : Displays
     public int index;
     public bool opponentLandmarks = false;
 
-    private GameObject previewLandmark;
-    private LandmarkDisplay previewLandmarkDisplay;
+    [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
+    private CardDisplayAtributes previewCardDisplayAtributes;
+
+    private void Awake()
+    {
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+    }
 
     private void Start()
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
-
-        previewLandmark = transform.parent.GetChild(4).gameObject;
-        previewLandmarkDisplay = previewLandmark.GetComponent<LandmarkDisplay>();
         landmark = (Landmarks)card;
     }
 
@@ -86,23 +89,27 @@ public class LandmarkDisplay : Displays
 
     private void OnMouseEnter()
     {
-        if (card == null) return;
-        previewLandmark.SetActive(true);
+        if (landmark == null) return;
+        previewLandmarkDisplay.gameObject.SetActive(true);
         previewLandmarkDisplay.card = card;
+        previewLandmarkDisplay.landmark = landmark;
         previewLandmarkDisplay.manaCost = manaCost;
         previewLandmarkDisplay.health = health;
+
+        previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     private void OnMouseExit()
     {
-        if (card == null) return;
-        previewLandmark.SetActive(false);
+        if (landmark == null) return;
+        previewLandmarkDisplay.gameObject.SetActive(false);
         previewLandmarkDisplay.card = null;
+        previewLandmarkDisplay.landmark = null;
+        previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     public void UpdateTextOnCard()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 }

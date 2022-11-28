@@ -60,6 +60,12 @@ public class CardParser : MonoBehaviour
 
     public void CheckKeyword(Displays display)
     {
+/*        if (display is CardDisplay)       
+            display = (CardDisplay)display;
+        
+        else if (display is LandmarkDisplay)      
+            display = (LandmarkDisplay)display;*/
+
         string[] s = display.cardDisplayAtributes.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
