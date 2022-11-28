@@ -44,7 +44,7 @@ public class EffectController : MonoBehaviour
     {
         foreach(Tuple<string,bool> availableChampion in shields.Keys)
         {
-            if(availableChampion.Item2 == true)
+            if(availableChampion.Item2 == false)
             {
                 foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
