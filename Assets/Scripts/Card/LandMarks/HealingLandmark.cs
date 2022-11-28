@@ -17,7 +17,6 @@ public class HealingLandmark : Landmarks
     {
         doubleHealingEffect = card.doubleHealingEffect;
         healEachRound = card.healEachRound;
-        gameState = GameState.Instance;
     }
 
     public static void CreateInstance(HealingLandmark card)
@@ -54,6 +53,7 @@ public class HealingLandmark : Landmarks
         base.UpKeep();
         if (healEachRound)
         {
+            gameState = GameState.Instance;
             for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
                 Target = gameState.playerChampions[i].champion;

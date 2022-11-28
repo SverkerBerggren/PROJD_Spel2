@@ -22,7 +22,7 @@ public class Landmarks : Card
 
     public override void PlayCard()
     {
-        base.PlayCard();
+        //base.PlayCard();
         PlaceLandmark();
         GameState.Instance.Refresh();
     }

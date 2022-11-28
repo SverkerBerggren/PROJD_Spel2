@@ -24,6 +24,7 @@ public class LandmarkDisplay : Displays
     {
         cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
     private void Start()
