@@ -8,18 +8,17 @@ using TMPro;
 public abstract class Champion : ScriptableObject
 {
     protected GameState gameState;
-
-    [NonSerialized] public string passiveEffect;
     [NonSerialized] public bool destroyShield = false;
-    [NonSerialized] public int shield = 0;
-    [NonSerialized] public int maxHealth;
 
     public string championName;
     public int health = 100;
+    public int maxHealth;
+    public int shield = 0;
     public Sprite artwork;
     public ChampionCardType championCardType;
+    public string passiveEffect;
 
-    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect)
+    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, ChampionCardType championType)
     {
         this.championName = championName;
         this.health = health;
@@ -27,6 +26,7 @@ public abstract class Champion : ScriptableObject
         this.shield = shield;
         this.artwork = artwork;
         this.passiveEffect = passiveEffect;
+        championCardType = championType;
     }
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }

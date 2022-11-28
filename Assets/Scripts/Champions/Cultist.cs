@@ -10,7 +10,7 @@ public class Cultist : Champion
 	public int damagePerMissingHP = 10;
 
 
-	public Cultist(Cultist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) 
+	public Cultist(Cultist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, ChampionCardType.Cultist) 
 	{
 		perMissingHP = c.perMissingHP;
 		damagePerMissingHP = c.damagePerMissingHP;
