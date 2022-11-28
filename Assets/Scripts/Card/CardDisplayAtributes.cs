@@ -25,7 +25,7 @@ public class CardDisplayAtributes : MonoBehaviour
 
     public void UpdateTextOnCard(LandmarkDisplay landmarkDisplay)
     {
-        if (landmarkDisplay.card == null)
+        if (landmarkDisplay.landmark == null)
         {
             landmarkDisplay.landmarkPrefab.SetActive(false);
             return;
