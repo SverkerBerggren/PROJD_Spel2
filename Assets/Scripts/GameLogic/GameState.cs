@@ -535,6 +535,7 @@ public class GameState : MonoBehaviour
     public void TriggerUpKeep()
     {
         DrawCard(1, null);
+
         if (isItMyTurn && !firstTurn || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
@@ -566,6 +567,10 @@ public class GameState : MonoBehaviour
         foreach (Effects effect in playerEffects)
         {
             effect.EndStep();
+        }
+        foreach (CardDisplay cardDisplay in actionOfPlayer.handPlayer.cardsInHand)
+        {
+            cardDisplay.EndStep();
         }
     }
 

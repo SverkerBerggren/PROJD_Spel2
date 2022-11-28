@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class CardDisplay : MonoBehaviour
 {
@@ -17,9 +18,10 @@ public class CardDisplay : MonoBehaviour
     [System.NonSerialized] public CardTargeting cardTargeting;
     [System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     [System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
-
-    
+   
     public bool opponentCard;
+
+    [System.NonSerialized] public bool firstCardDrawn = false;
     [System.NonSerialized] public bool mouseDown = false;
     [System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
@@ -107,5 +109,10 @@ public class CardDisplay : MonoBehaviour
             ResetSize();
         }
 
+    }
+
+    public void EndStep()
+    {
+        firstCardDrawn = false;
     }
 }

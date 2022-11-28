@@ -108,12 +108,11 @@ public class ActionOfPlayer : MonoBehaviour
 		else
 			hand = handOpponent;
 
-		foreach (GameObject cardSlot in hand.cardSlotsInHand)
+		foreach (CardDisplay cardDisplay in hand.cardSlotsInHand)
 		{
-			CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
 			if (cardDisplay.card != null) continue;
 
-			if (!cardSlot.activeSelf)
+			if (!cardDisplay.gameObject.activeSelf)
 			{
 				if (drawnCards >= amountToDraw) break;
 
@@ -130,10 +129,10 @@ public class ActionOfPlayer : MonoBehaviour
 				if (cardDisplay.card != null)
 				{
 					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-					cardSlot.SetActive(true);
+                    cardDisplay.gameObject.SetActive(true);
+                    if (drawnCards == 0)
+                        cardDisplay.firstCardDrawn = true;
 					drawnCards++;
-					//if (isPlayer)
-						//gameState.playerChampion.champion.DrawCard(cardDisplay);
 				}
 				else
 				{
@@ -190,7 +189,7 @@ public class ActionOfPlayer : MonoBehaviour
         }
             
 
-        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay);
         CardDisplay cardDisplayToSwapTo;
         CardDisplay cardDisplayToSwapFrom = null;
         cardDisplay.card = null;
