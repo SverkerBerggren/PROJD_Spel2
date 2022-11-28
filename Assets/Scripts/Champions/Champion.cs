@@ -9,15 +9,14 @@ using UnityEngine.Rendering;
 public abstract class Champion : ScriptableObject
 {
     protected GameState gameState;
-    [NonSerialized] public bool destroyShield = false;
 
     public string championName;
     public int health = 100;
-    public int maxHealth;
-    public int shield = 0;
+    [NonSerialized] public int maxHealth;
+    [NonSerialized] public int shield = 0;
     public Sprite artwork;
     public ChampionCardType championCardType;
-    public string passiveEffect;
+    [NonSerialized] public string passiveEffect;
 
     public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, ChampionCardType championType)
     {
