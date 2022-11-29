@@ -27,7 +27,6 @@ public class DamageLandmark : Landmarks
         lE.opponentChampions = true;
         TargetInfo tI = new TargetInfo(lE, 0);
         TargetAndAmount taa = new TargetAndAmount(tI, damage);
-
         GameState.Instance.DealDamage(taa);
     }
 }

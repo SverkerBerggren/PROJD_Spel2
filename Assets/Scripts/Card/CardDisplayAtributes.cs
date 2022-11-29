@@ -8,6 +8,7 @@ public class CardDisplayAtributes : MonoBehaviour
     public TMP_Text cardName;
     public TMP_Text description;
     public TMP_Text manaText;
+    public TMP_Text hpText;
 
     [Header("CardMaterial")]
     public MeshRenderer artworkMeshRenderer;
@@ -18,9 +19,25 @@ public class CardDisplayAtributes : MonoBehaviour
 
     public GameObject cardPlayableEffect;
 
-    public GameObject nameBackground;
-    public GameObject hpGameObject;
-    public TMP_Text hpText;
+    [SerializeField] private GameObject nameBackground;
+    [SerializeField] private GameObject hpGameObject;
+
+
+    public void UpdateTextOnCard(LandmarkDisplay landmarkDisplay)
+    {
+        if (landmarkDisplay.landmark == null)
+        {
+            landmarkDisplay.landmarkPrefab.SetActive(false);
+            return;
+        }
+        landmarkDisplay.UpdateVariables();
+        landmarkDisplay.landmarkPrefab.SetActive(true);
+        hpText.text = landmarkDisplay.health.ToString();
+        description.text = landmarkDisplay.landmark.description;
+        manaText.text = landmarkDisplay.manaCost.ToString();
+        cardName.text = landmarkDisplay.landmark.cardName;
+        CardParser.Instance.CheckKeyword(landmarkDisplay);
+    }
 
     public void UpdateTextOnCard(CardDisplay cardDisplay)
     {

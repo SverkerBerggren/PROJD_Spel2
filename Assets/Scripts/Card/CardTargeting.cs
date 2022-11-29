@@ -123,9 +123,10 @@ public class CardTargeting : MonoBehaviour
             {
                 if (landmarkDisplay.card == null)
                 {
+                    landmarkDisplay.landmark = (Landmarks)card;
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
-                    gameState.ShowPlayedCardLandmark(landmarkDisplay.card);                    
+                    gameState.ShowPlayedCardLandmark(landmarkDisplay.landmark);                    
                     break;
                 }
                 else

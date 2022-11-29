@@ -181,7 +181,7 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
             foreach (Effects effect in playerEffects)
             {
                 effect.TakeDamage(targetAndAmount.amount);
@@ -189,7 +189,7 @@ public class GameState : MonoBehaviour
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
         if (lE.myLandmarks)
         {
@@ -198,6 +198,28 @@ public class GameState : MonoBehaviour
         if (lE.opponentLandmarks)
         {
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
+        }
+    }
+
+    public void ChangeLandmarkStatus(TargetInfo targetInfo, bool enable) // TargetAndAmount
+    {
+        ListEnum lE = targetInfo.whichList;
+        if (lE.myLandmarks && !enable)
+        {
+            playerLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
+        }
+
+        if (lE.opponentLandmarks && !enable)
+        {
+            opponentLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
         }
     }
 
@@ -219,15 +241,13 @@ public class GameState : MonoBehaviour
         
         if(lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
+            playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
 
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
+            opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -257,14 +277,14 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+            playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, false);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+            opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, true);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -535,6 +555,7 @@ public class GameState : MonoBehaviour
     public void TriggerUpKeep()
     {
         DrawCard(1, null);
+
         if (isItMyTurn && !firstTurn || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
@@ -546,8 +567,8 @@ public class GameState : MonoBehaviour
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if (landmark.card != null)
-                landmark.card.UpKeep();
+            if (landmark.card != null && landmark.landmarkEnabled)
+                landmark.landmark.UpKeep();
         } 
         foreach (Effects effect in playerEffects)
         {
@@ -560,12 +581,16 @@ public class GameState : MonoBehaviour
         playerChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if(landmark.card != null)
-            landmark.card.EndStep();
+            if(landmark.card != null && landmark.landmarkEnabled)
+            landmark.landmark.EndStep();
         }
         foreach (Effects effect in playerEffects)
         {
             effect.EndStep();
+        }
+        foreach (CardDisplay cardDisplay in actionOfPlayer.handPlayer.cardsInHand)
+        {
+            cardDisplay.EndStep();
         }
     }
 
@@ -709,6 +734,10 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         ClearEffects();
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
+        {
+            landmarkDisplay.UpdateTextOnCard();
+        }
         actionOfPlayer.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();

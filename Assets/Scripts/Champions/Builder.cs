@@ -10,7 +10,7 @@ public class Builder : Champion
 	public int landmarkNeeded = 2;
 	public int cardCostReduce = 2;
 
-	public Builder(Builder c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) {}
+	public Builder(Builder c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, ChampionCardType.Builder) {}
 
 	public override void Awake()
 	{

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 
 public class Choice : MonoBehaviour
 {
-    public List<TargetInfo> chosenTargets = new List<TargetInfo>();
+    private List<TargetInfo> chosenTargets = new List<TargetInfo>();
     private int amountOfTargets = 0;
-    public GameObject choiceButtonPrefab;
 
-    public TMP_Text descriptionText;
+    [SerializeField] private GameObject choiceButtonPrefab;
+    [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject confirmMenuButton;
-    public GameObject buttonHolder;
+    [SerializeField] private GameObject buttonHolder;
 
     private GameState gameState;
     private ActionOfPlayer actionOfPlayer;
@@ -30,8 +30,6 @@ public class Choice : MonoBehaviour
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
 
     private bool isChoiceActive = false;
-
-    private CardDisplayAtributes cardDisplayAtributes;
 
     private Card cardUsed;
 
@@ -156,8 +154,21 @@ public class Choice : MonoBehaviour
             descriptionText.text = "Show landmarks";
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
-                MakeButtonsCards(gameState.playerLandmarks[i].card, listEnum, i);
+                MakeButtonsCards(gameState.playerLandmarks[i].landmark, listEnum, i);
                 closeMenuButton.SetActive(true);
+            }
+        }
+
+        if (listEnum.opponentLandmarks)
+        {
+            descriptionText.text = "Show opponent landmarks";
+            for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
+            {
+                if (gameState.opponentLandmarks[i].landmarkEnabled)
+                {
+                    MakeButtonsCards(gameState.opponentLandmarks[i].landmark, listEnum, i);
+                    closeMenuButton.SetActive(true);
+                }
             }
         }
     }
@@ -215,18 +226,25 @@ public class Choice : MonoBehaviour
                 case WhichMethod.discardCard:
                     DiscardCard();
                     break;
+
                 case WhichMethod.discardXCardsInMyHand:
 
                     break;
+
                 case WhichMethod.ShowGraveyard:
 
                     break;
+
                 case WhichMethod.ShowDeck:
                     print("Card 1: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[1].index]);
                     break;
+
                 case WhichMethod.ShowLandmarks:
-                    
                     gameState.DestroyLandmark(chosenTargets[0]);
+                    break;
+
+                case WhichMethod.DisableOpponentLandmark:
+                    DisableChosenLandmark(chosenTargets[0]);
                     break;
             }
             ResetChoice();
@@ -235,7 +253,25 @@ public class Choice : MonoBehaviour
 
     }
 
-    public void PressedConfirmButton()
+	private void DisableChosenLandmark(TargetInfo chosenTargets)
+	{
+        gameState.ChangeLandmarkStatus(chosenTargets, false);
+        if (cardUsed is DisableCardLandmark)
+        {
+            DisableCardLandmark card = (DisableCardLandmark)cardUsed;
+            if (chosenTargets.whichList.opponentLandmarks)
+            {
+                card.disabledLandmark = GameState.Instance.opponentLandmarks[chosenTargets.index].landmark;
+            }
+        }
+
+		if (gameState.isOnline)
+		{
+            //Ny request
+		}
+    }
+
+	public void PressedConfirmButton()
     {
 
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
@@ -392,6 +428,17 @@ public class Choice : MonoBehaviour
                 if (!checkIfLandmarkPlaced)
                     return false;
                 break;
+
+			case WhichMethod.DisableOpponentLandmark:
+                bool ifLandmarkExist = false;
+                foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
+                {
+                    if (landmarks.card != null && landmarks.landmarkEnabled)
+                        ifLandmarkExist = true;
+                }
+                if (!ifLandmarkExist)
+                    return false;
+                break;
         }
         return true;
     }
@@ -425,5 +472,6 @@ public enum WhichMethod
     discardXCardsInMyHand,
     ShowGraveyard,
     ShowDeck,
-    ShowLandmarks
+    ShowLandmarks,
+    DisableOpponentLandmark,
 }

@@ -4,50 +4,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LandmarkDisplay : MonoBehaviour
-{
-    public Landmarks card;
-    
+public class LandmarkDisplay : Displays
+{  
     public int health;
-    public TMP_Text healthText;
-    public TMP_Text descriptionText;
-    public TMP_Text nameText;
-    public TMP_Text manaText;
-	public int manaCost;
-
+    public Landmarks landmark;
 	public GameObject landmarkPrefab;
-
-    public bool occultGathering = false;
-    [NonSerialized] public int tenExtraDamage;
     private GameState gameState;
     private Graveyard graveyard;
     public int index;
     public bool opponentLandmarks = false;
+    [NonSerialized] public bool landmarkEnabled = true;
 
-    private GameObject previewLandmark;
-    private LandmarkDisplay previewLandmarkDisplay;
+    [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
+    private CardDisplayAtributes previewCardDisplayAtributes;
+
+    private void Awake()
+    {
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        cardDisplayAtributes.UpdateTextOnCard(this);
+    }
 
     private void Start()
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
-
-        previewLandmark = transform.parent.GetChild(4).gameObject;
-        previewLandmarkDisplay = previewLandmark.GetComponent<LandmarkDisplay>();
-    }
-
-    private void UpdateTextOnCard()
-    {
-        if (card == null)
-        {
-            landmarkPrefab.SetActive(false);
-            return;
-        }
-        landmarkPrefab.SetActive(true);
-        healthText.text = health.ToString();
-        descriptionText.text = card.description;
-        manaText.text = manaCost.ToString();
-        nameText.text = card.cardName;
+        landmark = (Landmarks)card;
     }
 
     public void DestroyLandmark()
@@ -87,9 +69,11 @@ public class LandmarkDisplay : MonoBehaviour
         {
             graveyard.AddCardToGraveyard(card);
         }
-        card.LandmarkEffectTakeBack();
-        card.WhenLandmarksDie();
+
+        landmark.LandmarkEffectTakeBack();
+        landmark.WhenLandmarksDie();
         card = null;
+        landmark = null;
     }
 
     public void TakeDamage(int amount)
@@ -104,23 +88,38 @@ public class LandmarkDisplay : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (card == null) return;
-        previewLandmark.SetActive(true);
+        if (landmark == null) return;
+        previewLandmarkDisplay.gameObject.SetActive(true);
         previewLandmarkDisplay.card = card;
+        previewLandmarkDisplay.landmark = landmark;
         previewLandmarkDisplay.manaCost = manaCost;
         previewLandmarkDisplay.health = health;
+
+        previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     private void OnMouseExit()
     {
-        if (card == null) return;
-        previewLandmark.SetActive(false);
+        if (landmark == null) return;
+        previewLandmarkDisplay.gameObject.SetActive(false);
         previewLandmarkDisplay.card = null;
+        previewLandmarkDisplay.landmark = null;
+        previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
-    private void FixedUpdate()
+    public void UpdateTextOnCard()
     {
-        UpdateTextOnCard();
+        cardDisplayAtributes.UpdateTextOnCard(this);
+    }
+
+    public void DisableLandmark()
+    {
+        landmarkEnabled = false;
+    }
+
+    public void EnableLandmark()
+    {
+        landmarkEnabled = true;
     }
 }
 
