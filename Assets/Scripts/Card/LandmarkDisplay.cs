@@ -9,13 +9,11 @@ public class LandmarkDisplay : Displays
     public int health;
     public Landmarks landmark;
 	public GameObject landmarkPrefab;
-
-    public bool occultGathering = false;
-    [NonSerialized] public int tenExtraDamage;
     private GameState gameState;
     private Graveyard graveyard;
     public int index;
     public bool opponentLandmarks = false;
+    [NonSerialized] public bool landmarkEnabled = true;
 
     [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
     private CardDisplayAtributes previewCardDisplayAtributes;
@@ -112,6 +110,16 @@ public class LandmarkDisplay : Displays
     public void UpdateTextOnCard()
     {
         cardDisplayAtributes.UpdateTextOnCard(this);
+    }
+
+    public void DisableLandmark()
+    {
+        landmarkEnabled = false;
+    }
+
+    public void EnableLandmark()
+    {
+        landmarkEnabled = true;
     }
 }
 

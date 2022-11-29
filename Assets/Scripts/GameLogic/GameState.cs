@@ -201,6 +201,28 @@ public class GameState : MonoBehaviour
         }
     }
 
+    public void ChangeLandmarkStatus(TargetInfo targetInfo, bool enable) // TargetAndAmount
+    {
+        ListEnum lE = targetInfo.whichList;
+        if (lE.myLandmarks && !enable)
+        {
+            playerLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
+        }
+
+        if (lE.opponentLandmarks && !enable)
+        {
+            opponentLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
+        }
+    }
+
     public void CalculateAndHeal(int amount, Card cardUsed)
     {
         amount = calculations.CalculateHealing(amount);
@@ -220,14 +242,12 @@ public class GameState : MonoBehaviour
         if(lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
             EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
 
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
             EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -547,7 +567,7 @@ public class GameState : MonoBehaviour
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if (landmark.card != null)
+            if (landmark.card != null && landmark.landmarkEnabled)
                 landmark.landmark.UpKeep();
         } 
         foreach (Effects effect in playerEffects)
@@ -561,7 +581,7 @@ public class GameState : MonoBehaviour
         playerChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if(landmark.card != null)
+            if(landmark.card != null && landmark.landmarkEnabled)
             landmark.landmark.EndStep();
         }
         foreach (Effects effect in playerEffects)

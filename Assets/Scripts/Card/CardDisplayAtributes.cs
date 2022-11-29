@@ -36,10 +36,7 @@ public class CardDisplayAtributes : MonoBehaviour
         description.text = landmarkDisplay.landmark.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
         cardName.text = landmarkDisplay.landmark.cardName;
-        print(description.text);
-
         CardParser.Instance.CheckKeyword(landmarkDisplay);
-        print(description.text);
     }
 
     public void UpdateTextOnCard(CardDisplay cardDisplay)
