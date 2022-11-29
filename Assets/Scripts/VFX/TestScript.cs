@@ -9,6 +9,7 @@ public class TestScript : MonoBehaviour
     [SerializeField] private GameObject slash;
     [SerializeField] private float slashDelay;
     [SerializeField] private ParticleSystem PS_Slash;
+    [SerializeField] private GameObject card_Prefab;
 
     // Start is called before the first frame update
     //void OnGUI()
@@ -37,6 +38,11 @@ public class TestScript : MonoBehaviour
         {
             builderAnim.Play("Attack");
             PS_Slash.Play();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            card_Prefab.GetComponent<CardDissolve>().SetDissolveState(true);
         }
     }
 
