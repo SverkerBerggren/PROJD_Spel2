@@ -18,6 +18,8 @@ public abstract class Champion : ScriptableObject
     public ChampionCardType championCardType;
     [NonSerialized] public string passiveEffect;
 
+    public AudioClip attackSound;
+
     public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, ChampionCardType championType)
     {
         this.championName = championName;

@@ -114,7 +114,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Shanker",
+                "Builder",
                 "Duelist",
                 "Graverobber"
             };
@@ -199,6 +199,8 @@ public class GameState : MonoBehaviour
         {
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
+
+        AudioManager.Instance.PlayDamageSound();
     }
 
     public void CalculateAndHeal(int amount, Card cardUsed)
@@ -240,6 +242,8 @@ public class GameState : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
+
+        AudioManager.Instance.PlayHealSound();
     }
 
     public void CalculateAndShield(int amount, Card cardUsed)
@@ -277,6 +281,8 @@ public class GameState : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
+
+        AudioManager.Instance.PlayShieldSound();
     }
 
 
@@ -539,6 +545,7 @@ public class GameState : MonoBehaviour
         if (isItMyTurn && !firstTurn || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
+            AudioManager.Instance.PlayManaSound();
         }
         if (didIStart || !isOnline)
         {
@@ -577,6 +584,7 @@ public class GameState : MonoBehaviour
 
     public void EndTurn()
     {
+        AudioManager.Instance.PlayClickSound();
         if (!isOnline)
         {
             TriggerEndStep();
@@ -600,6 +608,7 @@ public class GameState : MonoBehaviour
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
+
 
         Refresh();
     }

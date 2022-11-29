@@ -28,7 +28,7 @@ public class SoundSystem : MonoBehaviour
         audioSource.volume = volume;
     }
 
-    void PlaySound(PlaySoundEvent eventInfo)
+    public void PlaySound(PlaySoundEvent eventInfo)
     {
         AudioClip clip = eventInfo.sound;
         if (soundBuffer.Count < maxBufferSize)
@@ -36,6 +36,13 @@ public class SoundSystem : MonoBehaviour
             audioSource.PlayOneShot(clip);
             soundBuffer.Add(audioSource);
         }
+    }
+
+    public void PlaySoundGhetto(AudioClip clip)
+    {
+        print("kommer den hiut");
+        audioSource.Play();
+        audioSource.PlayOneShot(clip);
     }
 
     public void StopAudio()

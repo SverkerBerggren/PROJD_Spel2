@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
@@ -40,7 +41,21 @@ public class AttackSpell : Spells
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
             //DestroyLandmark();
         }
+        //PlaySoundEvent hej = new PlaySoundEvent("hej", null); 
 
+            Debug.Log("kommer den hit?1");
+        if(GameState.Instance.playerChampion.champion.championName == "Shanker")
+        { 
+            AudioManager.Instance.PlayShankerAttack();
+        }
+        if(GameState.Instance.playerChampion.champion.championName == "Builder")
+        { 
+            AudioManager.Instance.PlayBuilderAttackSound();
+        }
+        if(GameState.Instance.playerChampion.champion.championName == "Graverobber")
+        { 
+            AudioManager.Instance.PlayGraveDiggerAttackSound();
+        }
     }
 
     private void DamageToBothActiveChampions()
