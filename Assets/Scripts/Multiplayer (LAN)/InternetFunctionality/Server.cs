@@ -17,12 +17,12 @@ public class Server
     public Dictionary<int, OngoingGame> onGoingGames = new Dictionary<int, OngoingGame>();
 
     public Integer currentGameId = new Integer(0); 
-    public Integer lobbyId = new Integer(0);
+ //   public Integer lobbyId = new Integer(0);
 
 
     public Dictionary<int ,HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
 
-    public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
+ //   public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
 
     public Integer uniqueInteger = new Integer(0);
 
@@ -90,6 +90,46 @@ public class Server
                     ResponseUniqueInteger temp = new ResponseUniqueInteger();
                     temp.UniqueInteger = localUniqueInteger;
                     response = temp;
+                }
+                else if(NewRequest is RequestHostLobby)
+                {
+
+                    
+                    ResponseHostLobby responseHostLobby = new ResponseHostLobby();
+                    RequestHostLobby castedRequest = (RequestHostLobby)NewRequest;
+                    if(hostedLobbys.ContainsKey(castedRequest.uniqueInteger))
+                    {
+                        responseHostLobby.message = "already hosted lobby";
+
+                        response = responseHostLobby;
+                    }
+                    else
+                    {
+                        //response.gameId = requestToHandle.gameId;
+                        response.whichPlayer = NewRequest.whichPlayer;
+
+                        responseHostLobby.lobbyName = castedRequest.lobbyName;
+                        lock (currentGameId)
+                        {
+                            response.gameId = currentGameId.value;
+                        }
+
+                        responseHostLobby.lobbyId = localUniqueInteger;
+
+                        HostedLobby lobbyTohost = new HostedLobby();
+                        lobbyTohost.lobbyName = castedRequest.lobbyName;
+                        lobbyTohost.lobbyId = localUniqueInteger;
+
+                        response = responseHostLobby;
+
+
+
+                        lock (hostedLobbys)
+                        {
+
+                            hostedLobbys.Add(localUniqueInteger, new HostedLobby());
+                        }
+                    }
                 }
                 else
                 {
@@ -331,39 +371,40 @@ public class Server
     }
     private ServerResponse HandleHostLobby(RequestHostLobby requestToHandle)
     {
-        ResponseHostLobby response = new ResponseHostLobby();
-        //response.gameId = requestToHandle.gameId;
-        response.whichPlayer = requestToHandle.whichPlayer;
-
-        response.lobbyName = requestToHandle.lobbyName;
-        lock(currentGameId)
-        {
-            response.gameId = currentGameId.value;
-        }
-        lock(lobbyId)
-        {
-            response.lobbyId = lobbyId.value;
-
-            HostedLobby lobbyTohost = new HostedLobby();
-            lobbyTohost.lobbyName = requestToHandle.lobbyName;
-            lobbyTohost.lobbyId = lobbyId.value;
-            lobbyId.value += 1;
-        }
-   
-
-        lock(hostedLobbys)
-        {
-            hostedLobbys.Add(lobbyId.value -1, new HostedLobby());
-        }
-        
-
-
-       // currentGameId += 1;
-
-
-
-        //AddGameAction(response, gameAction, requestToHandle.gameId);
-        return response;
+        //    ResponseHostLobby response = new ResponseHostLobby();
+        //    //response.gameId = requestToHandle.gameId;
+        //    response.whichPlayer = requestToHandle.whichPlayer;
+        //
+        //    response.lobbyName = requestToHandle.lobbyName;
+        //    lock(currentGameId)
+        //    {
+        //        response.gameId = currentGameId.value;
+        //    }
+        //    lock(lobbyId)
+        //    {
+        //        response.lobbyId = lobbyId.value;
+        //
+        //        HostedLobby lobbyTohost = new HostedLobby();
+        //        lobbyTohost.lobbyName = requestToHandle.lobbyName;
+        //        lobbyTohost.lobbyId = lobbyId.value;
+        //        lobbyId.value += 1;
+        //    }
+        //
+        //
+        //    lock(hostedLobbys)
+        //    {
+        //        hostedLobbys.Add(lobbyId.value -1, new HostedLobby());
+        //    }
+        //    
+        //    
+        //
+        //   // currentGameId += 1;
+        //
+        //
+        //
+        //    //AddGameAction(response, gameAction, requestToHandle.gameId);
+        //    return response;
+        return null;
     }
     
     private ServerResponse HandleJoinLobby(RequestJoinLobby requestToHandle)

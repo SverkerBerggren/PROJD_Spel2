@@ -32,5 +32,16 @@ public class ConnectOnline : MonoBehaviour
         ClientConnection.Instance.ConnectToServer("mrboboget.se", 63000);
         enableNewRoom = true;
         Debug.Log("hej igen ");
+
+        RequestUniqueInteger request = new RequestUniqueInteger();
+        ClientConnection.Instance.AddRequest(request, UniqueIntegerCallback);
+
+    }
+
+    public void UniqueIntegerCallback(ServerResponse response)
+    {
+        ResponseUniqueInteger castedResponse = (ResponseUniqueInteger)response;
+
+        ClientConnection.Instance.uniqueInteger = castedResponse.UniqueInteger;
     }
 }
