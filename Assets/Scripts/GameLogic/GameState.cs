@@ -473,7 +473,7 @@ public class GameState : MonoBehaviour
         else
         {
             if(card)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
             else
                 Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
 
