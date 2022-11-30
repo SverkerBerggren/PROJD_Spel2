@@ -102,4 +102,9 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
+
+    public void DiscardCardEffect(GameObject card)
+    {
+        card.GetComponent<CardDissolve>().SetDissolveState(true);
+    }
 }
