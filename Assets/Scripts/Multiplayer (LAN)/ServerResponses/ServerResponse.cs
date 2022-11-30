@@ -82,6 +82,10 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         {
             return (typeof(ResponseJoinLobby));
         }
+        if (IntegerToConvert == 18)
+        {
+            return (typeof(ResponseUniqueInteger));
+        }
         return (typeof(ServerResponse));
     }
     public ServerResponse() { } //Denna ska inte tas bort, behovs for parsingen 

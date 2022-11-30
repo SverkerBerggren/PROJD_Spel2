@@ -51,9 +51,18 @@ public class HostButton : MonoBehaviour
 
 
    //     clientConnection.isHost = true;
-        clientConnection.gameId = 0; 
+        clientConnection.gameId = 0;
+        RequestUniqueInteger request = new RequestUniqueInteger();
+
+        clientConnection.AddRequest(request, UniqueIntegerCallback);
 
         
+    }
+    public void UniqueIntegerCallback(ServerResponse response)
+    {
+        ResponseUniqueInteger castedResponse = (ResponseUniqueInteger)response;
+
+        clientConnection.uniqueInteger = castedResponse.UniqueInteger;
     }
 
     private void ConnectToServer()

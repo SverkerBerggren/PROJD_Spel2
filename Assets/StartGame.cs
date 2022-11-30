@@ -11,7 +11,9 @@ public class StartGame : MonoBehaviour
         RequestGameSetup gameSetup = new RequestGameSetup();
         gameSetup.whichPlayer = 1;
         gameSetup.reciprocate = true;
-        
+
+        gameSetup.lobbyId = FindObjectOfType<CreateLobby>().lobbyIdToSearch;
+
 
         // gameSetup.Type = 15;
         List<string> ownChampions = new List<string>();

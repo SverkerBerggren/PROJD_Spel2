@@ -37,8 +37,11 @@ public class LobbyList : MonoBehaviour
     {
         ResponseAvailableLobbies recievedResponse = (ResponseAvailableLobbies)response;
 
+        List<int> allLobbies = new List<int>();
+
         foreach(Server.HostedLobby lobby in recievedResponse.Lobbies)
         {
+            allLobbies.Add(lobby.lobbyId);
             if (!lobbyButtons.ContainsKey(lobby.lobbyId))
             {
 
@@ -54,13 +57,19 @@ public class LobbyList : MonoBehaviour
             }
 
         }
+        List<int> currentLobbyButtons = new List<int>(lobbyButtons.Keys);
 
-        foreach (Server.HostedLobby lobby in recievedResponse.removedLobbies)
+
+        foreach(int intRemove in allLobbies)
         {
-            if (lobbyButtons.ContainsKey(lobby.lobbyId))
-            {
-                lobbyButtons.Remove(lobby.lobbyId);
-            }
+            currentLobbyButtons.Remove(intRemove);
         }
+
+        foreach(int intRemove in currentLobbyButtons)
+        {
+            lobbyButtons.Remove(intRemove);
+        }
+        
+
     }
 }

@@ -20,7 +20,9 @@ public class ClientConnection : MonoBehaviour
 
     public bool isHost = false;
 
-    public int gameId = 0; 
+    public int gameId = 0;
+
+    public int uniqueInteger = 0;
 
     public static ClientConnection Instance { get; set; }
 
@@ -92,6 +94,7 @@ public class ClientConnection : MonoBehaviour
         print("vilken which player ar man " + playerId);
         request.gameId = gameId;
         request.whichPlayer = playerId;
+        request.uniqueInteger = uniqueInteger;
 
         print("vilken request laggs " + request.GetType(request.Type));
 

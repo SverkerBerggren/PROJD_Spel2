@@ -9,7 +9,7 @@ public class CreateLobby : MonoBehaviour
 {
     public TMP_InputField inputField;
     bool keepGoing = true;
-    private int lobbyIdToSearch = 100000;
+    public int lobbyIdToSearch = 100000;
 
     public Button startGameButton;
     public bool pollServer = false;

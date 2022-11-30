@@ -81,6 +81,10 @@ public class IpAdressInputField : MonoBehaviour
 
         print("connectar den till servern?");
 
+        RequestUniqueInteger request = new RequestUniqueInteger();
+
+        clientConnection.AddRequest(request, UniqueIntegerCallback);
+
         loadScene = true;
 
 
@@ -102,7 +106,12 @@ public class IpAdressInputField : MonoBehaviour
     //		ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
     //	}
     }
+    public void UniqueIntegerCallback(ServerResponse response)
+    {
+        ResponseUniqueInteger castedResponse = (ResponseUniqueInteger)response;
 
+        clientConnection.uniqueInteger = castedResponse.UniqueInteger;
+    }
 
     public void EmptyMethod(ServerResponse response)
     {

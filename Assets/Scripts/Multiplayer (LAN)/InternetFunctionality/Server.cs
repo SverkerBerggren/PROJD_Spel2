@@ -1,14 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
-using System.Text;
-using System.Runtime.CompilerServices;
 using System.Linq;
-using System.Diagnostics;
-
 using System.IO;
+
 
 public class Server
 {
@@ -26,6 +21,12 @@ public class Server
 
 
     public Dictionary<int ,HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
+
+    public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
+
+    public Integer uniqueInteger = new Integer(0);
+
+
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
     {
         Int32 ReturnValue = 0;
@@ -72,13 +73,34 @@ public class Server
     void p_HandleConnection(object ConnectionToHandle)
     {
         System.Net.Sockets.TcpClient Connection = (System.Net.Sockets.TcpClient)ConnectionToHandle;
-        try
+        int localUniqueInteger = 0;
+        lock (uniqueInteger)
         {
+            localUniqueInteger = uniqueInteger.value;
+            uniqueInteger.value += 1;
+        }
+        try
+        {   
             while (Connection.Connected)
             {
                 ClientRequest NewRequest = MBJson.JSONObject.DeserializeObject<ClientRequest>(ParseJsonObject(Connection.GetStream()));
-                ServerResponse Response = HandleClientRequest(NewRequest);
-                byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(Response));
+                ServerResponse response = new ServerResponse();
+                if(NewRequest is RequestUniqueInteger)
+                {
+                    ResponseUniqueInteger temp = new ResponseUniqueInteger();
+                    temp.UniqueInteger = localUniqueInteger;
+                    response = temp;
+                }
+                else
+                {
+                    response = HandleClientRequest(NewRequest);
+
+                }
+
+
+                byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(response));
+
+
                 Connection.GetStream().Write(BytesToSend, 0, BytesToSend.Length);
             }
         }
@@ -94,6 +116,17 @@ public class Server
     }
     public void p_Listen()
     {
+        m_Listener.Start();
+        while (!m_Stopping)
+        {
+            System.Net.Sockets.TcpClient NewConnection = m_Listener.AcceptTcpClient();
+            Thread ConnectionThread = new Thread(this.p_HandleConnection);
+            ConnectionThread.Start(NewConnection);
+        }
+    }
+    public void p_Listen(int port)
+    {
+        m_Listener = new System.Net.Sockets.TcpListener(port);
         m_Listener.Start();
         while (!m_Stopping)
         {
@@ -238,6 +271,7 @@ public class Server
             return HandleRequestLobbies(testRequest);
         }
 
+
         GameAction errorMessage = new GameAction();
         errorMessage.errorMessage = "den kommer inte till ratt handle " + requestToHandle.Type + " " + requestToHandle.GetType() + " " + (requestToHandle is RequestAddSpecificCardToHand);
         ServerResponse errorResponse = new ServerResponse();
@@ -258,6 +292,7 @@ public class Server
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
     }
+
 
     private ServerResponse HandleDrawCard(RequestDrawCard requestToHandle)
     {
@@ -321,6 +356,8 @@ public class Server
             hostedLobbys.Add(lobbyId.value -1, new HostedLobby());
         }
         
+
+
        // currentGameId += 1;
 
 
@@ -378,6 +415,10 @@ public class Server
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
+        lock(hostedLobbys)
+        {
+            hostedLobbys.Remove(requestToHandle.lobbyId);
+        }
         GameActionGameSetup gameAction = new GameActionGameSetup();
         gameAction.reciprocate = requestToHandle.reciprocate;
         gameAction.opponentChampions = requestToHandle.opponentChampions;
@@ -529,6 +570,7 @@ public class Server
     {
         ResponseAvailableLobbies response = new ResponseAvailableLobbies();
         response.Lobbies = hostedLobbys.Values.ToList<HostedLobby>();
+        
 
         return response; 
     }
@@ -578,6 +620,8 @@ public class Server
     {   
         public int lobbyId = 0;
         public bool anotherPlayerJoind = false;
+
+        public int uniqueInteger = 0;
 
 
         public string lobbyName = "hej";
