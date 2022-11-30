@@ -6,22 +6,23 @@ using System.Threading;
 using System.Text;
 using System.Runtime.CompilerServices;
 using System.Linq;
-using Unity.VisualScripting.FullSerializer;
 using System.Diagnostics;
+
+using System.IO;
 
 public class Server
 {
     System.Net.Sockets.TcpListener m_Listener;
     bool m_Stopping = false;
 
-    public Dictionary<int, bool> hasPLayedCard = new Dictionary<int, bool>();
+   // public Dictionary<int, bool> hasPLayedCard = new Dictionary<int, bool>();
 
-
+    public bool playingFromServer = false;
 
     public Dictionary<int, OngoingGame> onGoingGames = new Dictionary<int, OngoingGame>();
 
-    public int currentGameId = 0; 
-    public int lobbyId = 0;
+    public Integer currentGameId = new Integer(0); 
+    public Integer lobbyId = new Integer(0);
 
 
     public Dictionary<int ,HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
@@ -71,16 +72,27 @@ public class Server
     void p_HandleConnection(object ConnectionToHandle)
     {
         System.Net.Sockets.TcpClient Connection = (System.Net.Sockets.TcpClient)ConnectionToHandle;
-        while (Connection.Connected)
+        try
         {
-            ClientRequest NewRequest = MBJson.JSONObject.DeserializeObject<ClientRequest>(ParseJsonObject(Connection.GetStream()));
-            ServerResponse Response = HandleClientRequest(NewRequest);
-            byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(Response));
-            Connection.GetStream().Write(BytesToSend, 0, BytesToSend.Length);
+            while (Connection.Connected)
+            {
+                ClientRequest NewRequest = MBJson.JSONObject.DeserializeObject<ClientRequest>(ParseJsonObject(Connection.GetStream()));
+                ServerResponse Response = HandleClientRequest(NewRequest);
+                byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(Response));
+                Connection.GetStream().Write(BytesToSend, 0, BytesToSend.Length);
+            }
         }
+        catch (Exception e)
+        {
+            StreamWriter temp = File.CreateText("ErrorMessage.txt");
+            temp.Write(e.Message.ToString());
+
+            temp.Close();
+        }
+
         Connection.Close();
     }
-    void p_Listen()
+    public void p_Listen()
     {
         m_Listener.Start();
         while (!m_Stopping)
@@ -289,14 +301,26 @@ public class Server
         response.whichPlayer = requestToHandle.whichPlayer;
 
         response.lobbyName = requestToHandle.lobbyName;
-        response.gameId = currentGameId;
-        response.lobbyId = lobbyId; 
+        lock(currentGameId)
+        {
+            response.gameId = currentGameId.value;
+        }
+        lock(lobbyId)
+        {
+            response.lobbyId = lobbyId.value;
 
-        HostedLobby lobbyTohost = new HostedLobby();
-        lobbyTohost.lobbyName = requestToHandle.lobbyName;
-        lobbyTohost.lobbyId = lobbyId;
-        hostedLobbys.Add(lobbyId, new HostedLobby());
-        lobbyId += 1;
+            HostedLobby lobbyTohost = new HostedLobby();
+            lobbyTohost.lobbyName = requestToHandle.lobbyName;
+            lobbyTohost.lobbyId = lobbyId.value;
+            lobbyId.value += 1;
+        }
+   
+
+        lock(hostedLobbys)
+        {
+            hostedLobbys.Add(lobbyId.value -1, new HostedLobby());
+        }
+        
        // currentGameId += 1;
 
 
@@ -311,19 +335,25 @@ public class Server
         //response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        
-        response.gameId = currentGameId;
+        lock(currentGameId)
+        {
+            response.gameId = currentGameId.value;
 
 
-        hostedLobbys[requestToHandle.lobbyId].anotherPlayerJoind = true; 
-        hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId;
+            hostedLobbys[requestToHandle.lobbyId].anotherPlayerJoind = true;
+            hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId.value;
+            currentGameId.value += 1;
+        }
+
 
         OngoingGame newGame = new OngoingGame();
         
+        lock(onGoingGames)
+        {
 
-        onGoingGames.Add(currentGameId, newGame);
+            onGoingGames.Add(currentGameId.value -1, newGame);
+        }
 
-        currentGameId += 1;
         //hostedLobbys.Add(currentGameId, new HostedLobby());
 
         //AddGameAction(response, gameAction, requestToHandle.gameId);
@@ -471,23 +501,27 @@ public class Server
         
 
         int player = requestToHandle.whichPlayer == 0 ? 1 : 0;
-        if (player == 1)
+        lock(onGoingGames)
         {
-            if (onGoingGames.ContainsKey(requestToHandle.gameId))
+            if (player == 1)
             {
-                response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player2Actions);
-                onGoingGames[requestToHandle.gameId].player2Actions.Clear();
-            }
+                if (onGoingGames.ContainsKey(requestToHandle.gameId))
+                {
+                    response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player2Actions);
+                    onGoingGames[requestToHandle.gameId].player2Actions.Clear();
+                }
 
-        }
-        else
-        {
-            if (onGoingGames.ContainsKey(requestToHandle.gameId))
+            }
+            else
             {
-                response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player1Actions);
-                onGoingGames[requestToHandle.gameId].player1Actions.Clear();
+                if (onGoingGames.ContainsKey(requestToHandle.gameId))
+                {
+                    response.OpponentActions = new List<GameAction>(onGoingGames[requestToHandle.gameId].player1Actions);
+                    onGoingGames[requestToHandle.gameId].player1Actions.Clear();
+                }
             }
         }
+
 
         return response;
     }
@@ -502,16 +536,19 @@ public class Server
     private void AddGameAction(ServerResponse response, GameAction gameAction, int gameId)
     {
 
-
-
-        if (response.whichPlayer == 1)
+        lock(onGoingGames)
         {
-            onGoingGames[response.gameId].AddGameActionPlayer2(gameAction);
+
+            if (response.whichPlayer == 1)
+            {
+                onGoingGames[response.gameId].AddGameActionPlayer2(gameAction);
+            }
+            else
+            {
+                onGoingGames[response.gameId].AddGameActionPlayer1(gameAction);
+            }
         }
-        else
-        {
-            onGoingGames[response.gameId].AddGameActionPlayer1(gameAction);
-        }
+
     }
 
     ~Server()
@@ -546,6 +583,16 @@ public class Server
         public string lobbyName = "hej";
 
         public int gameId = 0;
+
+    }
+    public class Integer
+    {
+        public int value = 0; 
+
+        public Integer(int value)
+        {
+            this.value = value;
+        }
 
     }
 }
