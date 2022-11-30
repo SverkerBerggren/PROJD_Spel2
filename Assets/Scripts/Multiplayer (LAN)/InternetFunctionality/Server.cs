@@ -4,7 +4,6 @@ using System.Threading;
 using System.Linq;
 using System.IO;
 
-
 public class Server
 {
     System.Net.Sockets.TcpListener m_Listener;
@@ -50,7 +49,8 @@ public class Server
         }
     }
     public static MBJson.JSONObject ParseJsonObject(System.IO.Stream Stream)
-    {
+    {   
+        
         MBJson.JSONObject ReturnValue = new MBJson.JSONObject();
         byte[] LengthBuffer = new byte[4];
         int ReadBytes = Stream.Read(LengthBuffer, 0, 4);
@@ -93,8 +93,10 @@ public class Server
                 }
                 else if(NewRequest is RequestHostLobby)
                 {
+                    StreamWriter temp = File.CreateText("Debug.txt");
+                    temp.Write("kommer den hit");
+                    temp.Close();
 
-                    
                     ResponseHostLobby responseHostLobby = new ResponseHostLobby();
                     RequestHostLobby castedRequest = (RequestHostLobby)NewRequest;
                     if(hostedLobbys.ContainsKey(castedRequest.uniqueInteger))
@@ -141,12 +143,21 @@ public class Server
                 byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(response));
 
 
-                Connection.GetStream().Write(BytesToSend, 0, BytesToSend.Length);
+                Connection.GetStream().Write(BytesToSend,0,BytesToSend.Length);
             }
         }
         catch (Exception e)
-        {
+        {   
+            lock(hostedLobbys)
+            {
+                if(hostedLobbys.ContainsKey(localUniqueInteger))
+                {
+                    hostedLobbys.Remove(localUniqueInteger);
+                }
+            }
             StreamWriter temp = File.CreateText("ErrorMessage.txt");
+            temp.Write(e.StackTrace.ToString());
+            temp.Write(e.ToString());
             temp.Write(e.Message.ToString());
 
             temp.Close();
@@ -291,12 +302,6 @@ public class Server
             RequestPassPriority testRequest = (RequestPassPriority)requestToHandle;
             testRequest.whichPlayer = requestToHandle.whichPlayer;
             return HandlePassPriority(testRequest);
-        }
-        if (requestToHandle is RequestHostLobby)
-        {
-            RequestHostLobby testRequest = (RequestHostLobby)requestToHandle;
-            testRequest.whichPlayer = requestToHandle.whichPlayer;
-            return HandleHostLobby(testRequest);
         }
         if (requestToHandle is RequestJoinLobby)
         {

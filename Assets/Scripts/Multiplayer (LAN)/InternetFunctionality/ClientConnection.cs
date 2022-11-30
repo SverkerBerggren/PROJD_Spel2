@@ -112,7 +112,7 @@ public class ClientConnection : MonoBehaviour
     {
         MBJson.JSONObject ObjectToSend = MBJson.JSONObject.SerializeObject(data);
         byte[] DataToSend = Server.SerializeJsonObject(ObjectToSend);
-        m_TCPClient.GetStream().Write(DataToSend, 0, DataToSend.Length);
+        m_TCPClient.GetStream().Write(DataToSend);
 
         MBJson.JSONObject Response = Server.ParseJsonObject(m_TCPClient.GetStream());
         ServerResponse ReturnValue = MBJson.JSONObject.DeserializeObject<ServerResponse>(Response);
