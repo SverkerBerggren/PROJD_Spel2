@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Landmarks : Card
 {
+    [Header("Landmark")]
     public int minionHealth;
 
     public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, string tag, int damage, int amountToHeal, int amountToShield) : base()

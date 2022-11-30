@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a194c6fff82b734ba5e1d687ea568c4, type: 3}
   m_Name: SeersShack
   m_EditorClassIdentifier: 
-  cardName: 
-  typeOfCard: 0
-  description: 
-  artwork: {fileID: 0}
-  maxManaCost: 0
-  tag: 
+  cardName: Seers Shack
+  typeOfCard: 1
+  description: At your upkeep, look at the top 2 cards of your deck, choose any number
+    to place at the bottom
+  artwork: {fileID: 21300000, guid: c6cfd2ae7db8cab4ab778c9ffd8f86ee, type: 3}
+  maxManaCost: 2
+  tag: SeersShack
   damage: 0
   amountToHeal: 0
   amountToShield: 0
@@ -28,5 +29,5 @@ MonoBehaviour:
   targetable: 0
   championCard: 0
   championCardType: 0
-  minionHealth: 0
-  cardsShown: 0
+  minionHealth: 30
+  cardsShown: 2
