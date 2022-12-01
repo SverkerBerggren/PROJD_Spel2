@@ -9,12 +9,12 @@ public class RequestStopSwapping : ClientRequest
     public RequestStopSwapping()
     {
 
-        Type = 17;
+        Type = 21;
     }
     public RequestStopSwapping(bool canSwap)
     {
         this.canSwap = canSwap;
-        Type = 17;
+        Type = 21;
     }
 
 }

@@ -8,11 +8,11 @@ public class ResponseStopSwapping : ServerResponse
 
     public ResponseStopSwapping()
     {
-        Type = 15;
+        Type = 19;
     }
     public ResponseStopSwapping(bool canSwap)
     {
-        Type = 15;
+        Type = 19;
 
         this.canSwap = canSwap;
     }

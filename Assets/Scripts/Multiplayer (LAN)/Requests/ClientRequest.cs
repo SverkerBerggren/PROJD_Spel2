@@ -95,8 +95,14 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         if (IntegerToConvert == 20)
         {
             return (typeof(RequestUniqueInteger));
-            return (typeof(RequestStopSwapping));
+            
         }
+        if (IntegerToConvert == 21)
+        {
+            return (typeof(RequestStopSwapping));
+            
+        }
+
 
         return (typeof(ClientRequest));
     }
