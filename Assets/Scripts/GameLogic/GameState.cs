@@ -40,6 +40,7 @@ public class GameState : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] private GameObject healEffect;
+    [SerializeField] private GameObject yourTurnEffect;
 
 
     [Header("UI Elements")]
@@ -599,6 +600,11 @@ public class GameState : MonoBehaviour
     {
         if (!isOnline)
         {
+            if (yourTurnEffect != null)
+            {
+                yourTurnEffect.SetActive(true);
+                Invoke(nameof(YourTurnEffectHide), 1.5f);
+            }
             TriggerEndStep();
             TriggerUpKeep();
 			Refresh();
@@ -613,6 +619,11 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            if (yourTurnEffect != null)
+            {
+                yourTurnEffect.SetActive(true);
+                Invoke(nameof(YourTurnEffectHide), 1.5f);
+            }
 
             isItMyTurn = true;
             TriggerUpKeep();
@@ -622,6 +633,11 @@ public class GameState : MonoBehaviour
         cardsPlayedThisTurn.Clear();
 
         Refresh();
+    }
+
+    private void YourTurnEffectHide()
+    {
+        yourTurnEffect.SetActive(false);
     }
 
     public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
