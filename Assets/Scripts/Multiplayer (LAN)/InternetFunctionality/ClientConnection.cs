@@ -20,6 +20,10 @@ public class ClientConnection : MonoBehaviour
 
     public bool isHost = false;
 
+    public int gameId = 0;
+
+    public int uniqueInteger = 0;
+
     public static ClientConnection Instance { get; set; }
 
     private void Awake()
@@ -74,6 +78,7 @@ public class ClientConnection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("vilket game id har man " + gameId);
         lock (recievedRespones)
         {
             if (recievedRespones.Count > 0)
@@ -85,7 +90,14 @@ public class ClientConnection : MonoBehaviour
     }
 
     public void AddRequest(ClientRequest request, Action<ServerResponse> action)
-    {
+    {   
+       
+        request.gameId = gameId;
+        request.whichPlayer = playerId;
+        request.uniqueInteger = uniqueInteger;
+
+        print("vilken request laggs " + request.GetType(request.Type));
+
         lock (queuedRequests)
         {
             queuedRequests.Enqueue(new Tuple<ClientRequest, Action<ServerResponse>>(request, action));
@@ -100,7 +112,7 @@ public class ClientConnection : MonoBehaviour
     {
         MBJson.JSONObject ObjectToSend = MBJson.JSONObject.SerializeObject(data);
         byte[] DataToSend = Server.SerializeJsonObject(ObjectToSend);
-        m_TCPClient.GetStream().Write(DataToSend, 0, DataToSend.Length);
+        m_TCPClient.GetStream().Write(DataToSend);
 
         MBJson.JSONObject Response = Server.ParseJsonObject(m_TCPClient.GetStream());
         ServerResponse ReturnValue = MBJson.JSONObject.DeserializeObject<ServerResponse>(Response);

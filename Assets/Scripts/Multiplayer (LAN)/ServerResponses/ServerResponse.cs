@@ -8,7 +8,7 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
     public  int whichPlayer = 100;
     public List<GameAction> OpponentActions = new List<GameAction>();
     public string message = "";
-
+    public int gameId = 0; 
     public Type GetType(int IntegerToConvert)
     {   if(IntegerToConvert == 0)
         {
@@ -70,7 +70,23 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         {
             return (typeof(ResponsePassPriority));
         }
-        if(IntegerToConvert == 15)
+        if (IntegerToConvert == 15)
+        {
+            return (typeof(ResponseAvailableLobbies));
+        }
+        if (IntegerToConvert == 16)
+        {
+            return (typeof(ResponseHostLobby));
+        }
+        if (IntegerToConvert == 17)
+        {
+            return (typeof(ResponseJoinLobby));
+        }
+        if (IntegerToConvert == 18)
+        {
+            return (typeof(ResponseUniqueInteger));
+        }
+        if(IntegerToConvert == 19)
         {
             return (typeof(ResponseStopSwapping));
         }

@@ -32,9 +32,16 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
+        print("kommer den in i perfrom opponents actions");
+
+        if(!response.message.Equals(""))
+        {
+            print("Reponse message: " + response.message);
+        }
 
         foreach (GameAction action in response.OpponentActions)
         {
+            
             print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
@@ -312,16 +319,21 @@ public class InternetLoop : MonoBehaviour
     {   if(hasJoinedLobby && !hasEstablishedEnemurator)
         {
            StartCoroutine(SendRequest());
+            hasEstablishedEnemurator = true;
         }
     }
     
     private IEnumerator SendRequest()
     {
-        RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
 
-        clientConnection.AddRequest(request, PerformOpponentsActions);
-       
-        yield return new WaitForSeconds(0);
+        while(true)
+        {
+            RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
+
+            clientConnection.AddRequest(request, PerformOpponentsActions);
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void EmptyRequest(ServerResponse response) {}

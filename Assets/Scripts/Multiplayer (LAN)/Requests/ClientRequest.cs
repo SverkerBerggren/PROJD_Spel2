@@ -6,7 +6,9 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
 {
     public  int Type = 0; 
     public  int whichPlayer = 1000;
+    public int gameId = 0;
 
+    public int uniqueInteger = 0;
     public ClientRequest() { } //Denna far inte tas bort kravs for parsingen 
 
     public Type GetType(int IntegerToConvert)
@@ -80,8 +82,27 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         }
         if (IntegerToConvert == 17)
         {
-            return (typeof(RequestStopSwapping));
+            return (typeof(RequestAvailableLobbies));
         }
+        if (IntegerToConvert == 18)
+        {
+            return (typeof(RequestHostLobby));
+        }
+        if (IntegerToConvert == 19)
+        {
+            return (typeof(RequestJoinLobby));
+        }
+        if (IntegerToConvert == 20)
+        {
+            return (typeof(RequestUniqueInteger));
+            
+        }
+        if (IntegerToConvert == 21)
+        {
+            return (typeof(RequestStopSwapping));
+            
+        }
+
 
         return (typeof(ClientRequest));
     }

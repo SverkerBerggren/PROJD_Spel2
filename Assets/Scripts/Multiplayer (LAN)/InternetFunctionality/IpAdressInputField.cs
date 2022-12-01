@@ -11,10 +11,10 @@ public class IpAdressInputField : MonoBehaviour
     public TextMeshProUGUI inputField;
 
     ClientConnection clientConnection;
-
+    public EnalbeUIButton enalbeUIButton;
     InternetLoop testInternet;
     private string ip;
-
+    public bool loadScene = false;
  //   public  inputFieldText; 
 
     // Start is called before the first frame update
@@ -42,6 +42,10 @@ public class IpAdressInputField : MonoBehaviour
             ip = GetComponent<TMP_InputField>().text;
             Thread messageThread = new Thread(this.ConnectToServer);
             messageThread.Start();
+
+
+
+            
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
@@ -49,6 +53,12 @@ public class IpAdressInputField : MonoBehaviour
 			Thread messageThread = new Thread(this.ConnectToServer);
 			messageThread.Start();
 		}
+
+        if(loadScene)
+        {
+            enalbeUIButton.ClickEnableObjects();
+            loadScene = false;
+        }
     }
 
     public void ConnectToServer()
@@ -65,30 +75,43 @@ public class IpAdressInputField : MonoBehaviour
         }
 
 
-        testInternet.hasJoinedLobby = true;
+        clientConnection.gameId = 0;
+
+     //   testInternet.hasJoinedLobby = true;
+
+        print("connectar den till servern?");
+
+        RequestUniqueInteger request = new RequestUniqueInteger();
+
+        clientConnection.AddRequest(request, UniqueIntegerCallback);
+
+        loadScene = true;
 
 
-        
+    //	if (!clientConnection.isHost)
+    //	{
+    //		RequestGameSetup gameSetup = new RequestGameSetup();
+    //        gameSetup.whichPlayer = 1;
+    //		gameSetup.reciprocate = true;
+    //       // gameSetup.Type = 15;
+    //       List<string> ownChampions = new List<string>();
+    //
+    //        foreach (string stringen in Setup.Instance.myChampions)
+    //        {
+    //            ownChampions.Add(stringen);
+    //        }
+    //        gameSetup.opponentChampions = ownChampions;
+    //
+    //        print("Not In method");
+    //		ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
+    //	}
+    }
+    public void UniqueIntegerCallback(ServerResponse response)
+    {
+        ResponseUniqueInteger castedResponse = (ResponseUniqueInteger)response;
 
-		if (!clientConnection.isHost)
-		{
-			RequestGameSetup gameSetup = new RequestGameSetup();
-            gameSetup.whichPlayer = 1;
-			gameSetup.reciprocate = true;
-           // gameSetup.Type = 15;
-           List<string> ownChampions = new List<string>();
-
-            foreach (string stringen in Setup.Instance.myChampions)
-            {
-                ownChampions.Add(stringen);
-            }
-            gameSetup.opponentChampions = ownChampions;
-
-            print("Not In method");
-			ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
-		}
-	}
-
+        clientConnection.uniqueInteger = castedResponse.UniqueInteger;
+    }
 
     public void EmptyMethod(ServerResponse response)
     {
