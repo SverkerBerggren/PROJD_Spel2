@@ -45,7 +45,7 @@ public class CardTargeting : MonoBehaviour
         card = cardDisplay.card;
         cardDisplay.mouseDown = false;
 
-        if (!PlayCardManager.Instance.CanCardBePlayed(cardDisplay))
+        if (!playCardManager.CanCardBePlayed(cardDisplay))
         {
             CardGoBackToStartingPosition();
             return;
