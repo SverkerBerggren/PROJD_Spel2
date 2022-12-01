@@ -772,11 +772,15 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         ClearEffects();
+        print("Clear");
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
+            print("landmarks");
             landmarkDisplay.UpdateTextOnCard();
         }
+        print("Bef fixcardorder");
         actionOfPlayer.handPlayer.FixCardOrderInHand();
+        print("aft fixcardorder");
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();
     }
