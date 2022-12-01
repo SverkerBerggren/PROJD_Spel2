@@ -779,7 +779,7 @@ public class GameState : MonoBehaviour
             landmarkDisplay.UpdateTextOnCard();
         }
         print("Bef fixcardorder");
-        actionOfPlayer.handPlayer.FixCardOrderInHand();
+        ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
         print("aft fixcardorder");
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();
