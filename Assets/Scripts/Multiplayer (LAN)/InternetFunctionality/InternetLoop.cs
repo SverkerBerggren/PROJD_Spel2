@@ -312,7 +312,7 @@ public class InternetLoop : MonoBehaviour
     private IEnumerator SendRequest()
     {
 
-        while(hasEstablishedEnemurator)
+        while(true)
         {
             RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
 
