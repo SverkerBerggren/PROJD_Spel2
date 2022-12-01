@@ -98,6 +98,7 @@ public class GameState : MonoBehaviour
         calculations = Calculations.Instance;
         if (isOnline)
         {
+            print(ClientConnection.Instance.playerId);
             if (ClientConnection.Instance.playerId == 0)
             {
                 isItMyTurn = true;
