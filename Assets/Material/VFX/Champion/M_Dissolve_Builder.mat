@@ -45,6 +45,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 965904915b51fba4aaf742833b6e4c5e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MaskMap:
         m_Texture: {fileID: 2800000, guid: f3ae019d412099e40812bc9432272dd7, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -57,12 +61,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: 36eca57a6707f0a42b04fe33f5f86d00, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 36eca57a6707f0a42b04fe33f5f86d00, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_602b9b7289fd4b54a8fec7962e3a94c3_Texture_1:
         m_Texture: {fileID: 2800000, guid: a8f3c4be2c4ecad44a92a4474caf5ece, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_7a5e332891404d259bc8b90484a6539e_Texture_1:
         m_Texture: {fileID: 2800000, guid: 72c6e57c2af9cc440be78292bdee11ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_87869fd098b643fb854ff3c7d9380057_Texture_1:
+        m_Texture: {fileID: 2800000, guid: e090557d829446646880edd77441897d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_d9cffb6825d2453a99318a623fbefad4_Texture_1:
@@ -94,12 +106,13 @@ Material:
     - _CullMode: 2
     - _CullModeForward: 2
     - _DepthOffsetEnable: 0
-    - _DissolvedAmount: 1
+    - _DissolveAmount: -1.13
+    - _DissolvedAmount: 0
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 0
-    - _EdgeWidth: 0.5
+    - _EdgeWidth: 0.01
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _OpaqueCullMode: 2
@@ -109,6 +122,7 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
+    - _RimPower: 4
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
@@ -137,6 +151,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
     - _DissolveEdgeColor: {r: 24543.875, g: 20303.31, b: 0, a: 1}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 52.70588, g: 6.27451, b: 0, a: 0}
   m_BuildTextureStacks: []
