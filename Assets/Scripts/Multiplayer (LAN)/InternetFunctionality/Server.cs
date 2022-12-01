@@ -613,6 +613,7 @@ public class Server
             }
         }
 
+        response.message = "" + "ongoinggames count " + onGoingGames.Count + " " + onGoingGames.ContainsKey(requestToHandle.gameId) + "  " + onGoingGames.ContainsKey(requestToHandle.gameId);
 
         return response;
     }

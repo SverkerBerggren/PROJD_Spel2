@@ -31,7 +31,13 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
-     //   print("kommer den in i perfrom opponents actions");
+        print("kommer den in i perfrom opponents actions");
+
+        if(!response.message.Equals(""))
+        {
+            print("Reponse message: " + response.message);
+        }
+
         foreach (GameAction action in response.OpponentActions)
         {
             
