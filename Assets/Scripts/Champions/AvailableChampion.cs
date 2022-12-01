@@ -82,7 +82,7 @@ public class AvailableChampion : MonoBehaviour
 
         GetAllMeshes();
 
-        if (gameState.playerChampion == this || gameState.opponentChampion == this && !gameState.isOnline)
+        if ((gameState.playerChampion == this || gameState.opponentChampion == this) && !gameState.isOnline)
             SetupHealthbar();
     }
 
