@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WhichManaCrystalsToShow : MonoBehaviour
 {
-    public List<GameObject> manaCrustals = new List<GameObject>();
+    public List<GameObject> manaCrystals = new List<GameObject>();
     private ActionOfPlayer actionOfPlayer;
     // Start is called before the first frame update
     void Start()
@@ -15,9 +15,9 @@ public class WhichManaCrystalsToShow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        for (int i = 0; i < manaCrustals.Count; i++) 
+        for (int i = 0; i < manaCrystals.Count; i++) 
         {
-            GameObject manaCrystal = manaCrustals[i];
+            GameObject manaCrystal = manaCrystals[i];
             if (actionOfPlayer.currentMana >= (i + 1))
                 manaCrystal.SetActive(true);
             else

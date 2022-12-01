@@ -119,8 +119,9 @@ public class ActionOfPlayer : MonoBehaviour
 
 				if (specificCard == null)
 					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
-				else
+				else               
 					cardDisplay.card = specificCard;
+
 
 				if (cardDisplay.card != null)
 				{

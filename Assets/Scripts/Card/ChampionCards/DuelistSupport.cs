@@ -14,28 +14,42 @@ public class DuelistSupport : Spells
     {      
         List<AvailableChampion> enemyChamps = GameState.Instance.opponentChampions;
 
-        AvailableChampion champToSwapTo;
         int index = 0;
 
-        for (int i = enemyChamps.Count; i > 0; i++)
+        for (int i = enemyChamps.Count - 1; i > 0; i--)
         {
+            
             if (enemyChamps[i].champion.health > enemyChamps[i-1].champion.health)
             {
-                champToSwapTo = enemyChamps[i - 1];
                 index = i - 1;
             }
             else
             {
-                champToSwapTo = enemyChamps[i];
                 index = i;
             }
         }
 
         ListEnum lE = new ListEnum();
-        lE.opponentChampions = true;
+        lE.myChampions = true;
 
         TargetInfo tI = new TargetInfo(lE, index);
 
         GameState.Instance.SwapChampionWithTargetInfo(tI, false);
+
+        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+
+        foreach (Card card in actionOfPlayer.handPlayer.deck.deckPlayer)
+        {
+            if (card is AttackSpell)
+            {
+                actionOfPlayer.DrawCardPlayer(1, card, true);
+                actionOfPlayer.handPlayer.deck.RemoveCardFromDeck(card);
+                if (GameState.Instance.isOnline)
+                {
+                    //Kanske new request???
+                }
+                break;
+            }
+        }
     }
 }
