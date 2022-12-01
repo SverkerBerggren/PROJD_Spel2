@@ -47,6 +47,7 @@ public class GameState : MonoBehaviour
     public GameObject playedCardGO;
     public UnityEngine.UI.Button endTurnBttn;
 
+    [SerializeField] private GameObject cardRegisterPrefab;
 
     [NonSerialized] public int currentPlayerID = 0;
     public bool hasPriority = true;
@@ -91,6 +92,8 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        if (CardRegister.Instance == null)
+            Instantiate(cardRegisterPrefab, transform.parent);
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
         if (isOnline)
