@@ -46,6 +46,10 @@ public class AvailableChampion : MonoBehaviour
 
     [NonSerialized] public GameObject targetingEffect;
 
+
+    private GameObject healthBar;
+    private Slider healthBarSlider;
+
     //public SpriteRenderer artwork;
 
     private void Awake()
@@ -76,7 +80,22 @@ public class AvailableChampion : MonoBehaviour
         passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
 
         GetAllMeshes();
+
+        if (gameState.playerChampion == this || gameState.opponentChampion == this)
+            SetupHealthbar();
     }
+
+    private void SetupHealthbar()
+    {
+        if (isOpponent)
+            healthBar = GameObject.FindGameObjectWithTag("EnemyHealthBar");
+        else
+            healthBar = GameObject.FindGameObjectWithTag("PlayerHealthBar");
+        healthBarSlider = healthBar.GetComponent<Slider>();
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = maxHealth;
+    }
+
     private void GetAllMeshes()
     {
         builderMesh = transform.Find("Builder").gameObject;
@@ -153,7 +172,11 @@ public class AvailableChampion : MonoBehaviour
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
 
-        healthText.text = health + "/" + maxHealth;
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = health;
+
+        healthBar.GetComponent<ChangeTextWithSlider>().textToChange.text = health.ToString() + "/" + maxHealth.ToString();
+
         if (shieldText != null)
         {
             if (shield > 0)
