@@ -19,6 +19,11 @@ public class CardRegister : MonoBehaviour
 
     private void Awake()
     {
+        if (GameState.Instance != null)
+        {
+            if (GameState.Instance.isOnline)
+                gameObject.SetActive(false);
+        }
         if (Instance == null)
         {
             Instance = this;
