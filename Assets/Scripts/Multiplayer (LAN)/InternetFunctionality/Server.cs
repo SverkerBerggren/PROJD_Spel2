@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
+using System.Transactions;
 
 public class Server
 {
@@ -23,7 +24,7 @@ public class Server
 
  //   public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
 
-    public Integer uniqueInteger = new Integer(0);
+    public Integer uniqueInteger = new Integer(1);
 
 
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
@@ -99,39 +100,41 @@ public class Server
 
                     ResponseHostLobby responseHostLobby = new ResponseHostLobby();
                     RequestHostLobby castedRequest = (RequestHostLobby)NewRequest;
-                    if(hostedLobbys.ContainsKey(castedRequest.uniqueInteger))
+                    lock(hostedLobbys)
                     {
-                        responseHostLobby.message = "already hosted lobby";
-
-                        response = responseHostLobby;
-                    }
-                    else
-                    {
-                        //response.gameId = requestToHandle.gameId;
-                        response.whichPlayer = NewRequest.whichPlayer;
-
-                        responseHostLobby.lobbyName = castedRequest.lobbyName;
-                        lock (currentGameId)
+                        if (hostedLobbys.ContainsKey(castedRequest.uniqueInteger))
                         {
-                            response.gameId = currentGameId.value;
+                            responseHostLobby.message = "already hosted lobby";
+
+                            response = responseHostLobby;
                         }
-
-                        responseHostLobby.lobbyId = localUniqueInteger;
-
-                        HostedLobby lobbyTohost = new HostedLobby();
-                        lobbyTohost.lobbyName = castedRequest.lobbyName;
-                        lobbyTohost.lobbyId = localUniqueInteger;
-
-                        response = responseHostLobby;
-
-
-
-                        lock (hostedLobbys)
+                        else
                         {
+                            //response.gameId = requestToHandle.gameId;
+                            response.whichPlayer = NewRequest.whichPlayer;
+
+                            responseHostLobby.lobbyName = castedRequest.lobbyName;
+                            lock (currentGameId)
+                            {
+                                response.gameId = currentGameId.value;
+                            }
+
+                            responseHostLobby.lobbyId = localUniqueInteger;
+
+                            HostedLobby lobbyTohost = new HostedLobby();
+                            lobbyTohost.lobbyName = castedRequest.lobbyName;
+                            lobbyTohost.lobbyId = localUniqueInteger;
+
+                            response = responseHostLobby;
+
+
+
 
                             hostedLobbys.Add(localUniqueInteger, new HostedLobby());
+                            
                         }
                     }
+
                 }
                 else
                 {
@@ -417,7 +420,7 @@ public class Server
         ResponseJoinLobby response = new ResponseJoinLobby();
         //response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
-
+        int temp = 0; 
         lock(currentGameId)
         {
             response.gameId = currentGameId.value;
@@ -425,6 +428,7 @@ public class Server
 
             hostedLobbys[requestToHandle.lobbyId].anotherPlayerJoind = true;
             hostedLobbys[requestToHandle.lobbyId].gameId = currentGameId.value;
+            temp = currentGameId.value;
             currentGameId.value += 1;
         }
 
@@ -434,7 +438,7 @@ public class Server
         lock(onGoingGames)
         {
 
-            onGoingGames.Add(currentGameId.value -1, newGame);
+            onGoingGames.Add(temp, newGame);
         }
 
         //hostedLobbys.Add(currentGameId, new HostedLobby());
