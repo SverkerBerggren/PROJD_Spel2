@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
-using System.Transactions;
+
 
 public class Server
 {
@@ -130,7 +130,7 @@ public class Server
 
 
 
-                            hostedLobbys.Add(localUniqueInteger, new HostedLobby());
+                            hostedLobbys.Add(localUniqueInteger, lobbyTohost);
                             
                         }
                     }

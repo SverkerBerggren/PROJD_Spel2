@@ -299,16 +299,21 @@ public class InternetLoop : MonoBehaviour
     {   if(hasJoinedLobby && !hasEstablishedEnemurator)
         {
            StartCoroutine(SendRequest());
+            hasEstablishedEnemurator = true;
         }
     }
     
     private IEnumerator SendRequest()
     {
-        RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
 
-        clientConnection.AddRequest(request, PerformOpponentsActions);
-       
-        yield return new WaitForSeconds(0.1f);
+        while(hasEstablishedEnemurator)
+        {
+            RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
+
+            clientConnection.AddRequest(request, PerformOpponentsActions);
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void EmptyRequest(ServerResponse response) {}
