@@ -82,7 +82,7 @@ public class AvailableChampion : MonoBehaviour
 
         GetAllMeshes();
 
-        if (gameState.playerChampion == this || gameState.opponentChampion == this)
+        if (gameState.playerChampion == this || gameState.opponentChampion == this && !gameState.isOnline)
             SetupHealthbar();
     }
 
@@ -173,11 +173,15 @@ public class AvailableChampion : MonoBehaviour
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
+        if (!gameState.isOnline)
+        {
+            healthBarSlider.maxValue = maxHealth;
+            healthBarSlider.value = health;
+            healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
+        }
 
-        healthBarSlider.maxValue = maxHealth;
-        healthBarSlider.value = health;
-
-        healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
+        healthText.text = health.ToString() + "/" + maxHealth.ToString();
+        
 
         if (shieldText != null)
         {
