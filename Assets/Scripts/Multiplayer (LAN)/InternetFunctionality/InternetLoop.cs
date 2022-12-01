@@ -284,6 +284,13 @@ public class InternetLoop : MonoBehaviour
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
 
+            if (action is GameActionStopSwapping)
+            {
+                GameActionStopSwapping castedAction = (GameActionStopSwapping)action;
+
+                gameState.canSwap = castedAction.canSwap;
+            }
+
             if (gameState != null)
                 gameState.Refresh();
 

@@ -17,10 +17,4 @@ public class TauntLandmark : Landmarks
         base.PlaceLandmark();
 
     }
-
-    public override void LandmarkEffectTakeBack()
-    {
-        base.LandmarkEffectTakeBack();
-
-    }
 }

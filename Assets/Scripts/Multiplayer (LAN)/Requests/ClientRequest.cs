@@ -78,6 +78,10 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         {
             return (typeof(RequestPassPriority));
         }
+        if (IntegerToConvert == 17)
+        {
+            return (typeof(RequestStopSwapping));
+        }
 
         return (typeof(ClientRequest));
     }

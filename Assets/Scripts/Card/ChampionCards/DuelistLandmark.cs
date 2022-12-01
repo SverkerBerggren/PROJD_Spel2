@@ -13,12 +13,23 @@ public class DuelistLandmark : Landmarks
 
     public override void PlaceLandmark()
     {
-        base.PlaceLandmark();
+        GameState gameState = GameState.Instance;
+        if (gameState.isOnline)
+        {
+            RequestStopSwapping stopSwapRequest = new RequestStopSwapping(false);
+            stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(stopSwapRequest, gameState.RequestEmpty);
+        }
     }
 
-    public override void LandmarkEffectTakeBack()
+    public override void WhenLandmarksDie()
     {
-        base.LandmarkEffectTakeBack();
-
+        GameState gameState = GameState.Instance;
+        if (gameState.isOnline)
+        {
+            RequestStopSwapping stopSwapRequest = new RequestStopSwapping(true);
+            stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(stopSwapRequest, gameState.RequestEmpty);
+        }
     }
 }

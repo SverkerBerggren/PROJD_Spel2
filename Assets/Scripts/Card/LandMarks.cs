@@ -35,10 +35,6 @@ public class Landmarks : Card
 
     public virtual void PlaceLandmark() {}
 
-    public virtual void LandmarkEffectTakeBack() { }
-
-    public virtual void DrawCard() { }
-
     public virtual void AmountOfCardsPlayed(Card card) { }
 
     public virtual int DealDamageAttack(int damage) { return damage; }

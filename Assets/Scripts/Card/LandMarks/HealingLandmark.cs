@@ -19,19 +19,9 @@ public class HealingLandmark : Landmarks
         healEachRound = card.healEachRound;
     }
 
-    public static void CreateInstance(HealingLandmark card)
-    {
-        new HealingLandmark(card);
-    }
-
     public override void PlaceLandmark()
     {
         base.PlaceLandmark();
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-        base.LandmarkEffectTakeBack();
     }
 
     public override int HealingEffect(int healing)

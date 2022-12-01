@@ -69,8 +69,7 @@ public class LandmarkDisplay : Displays
         {
             graveyard.AddCardToGraveyard(card);
         }
-
-        landmark.LandmarkEffectTakeBack();
+        
         landmark.WhenLandmarksDie();
         card = null;
         landmark = null;

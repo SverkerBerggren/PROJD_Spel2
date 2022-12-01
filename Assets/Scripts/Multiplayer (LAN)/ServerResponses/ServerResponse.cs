@@ -70,6 +70,10 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         {
             return (typeof(ResponsePassPriority));
         }
+        if(IntegerToConvert == 15)
+        {
+            return (typeof(ResponseStopSwapping));
+        }
         return (typeof(ServerResponse));
     }
     public ServerResponse() { } //Denna ska inte tas bort, behovs for parsingen 
