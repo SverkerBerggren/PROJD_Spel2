@@ -7,7 +7,7 @@ public class RequestUniqueInteger : ClientRequest
 
     public RequestUniqueInteger()
     {
-        Type = 21;
+        Type = 20;
     }
 
 }
