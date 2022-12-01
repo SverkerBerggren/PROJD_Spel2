@@ -7,7 +7,7 @@ public class BuilderLandmark : Landmarks
 {
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield) 
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield) 
     { 
         championCard = true;
         championCardType = ChampionCardType.Builder;

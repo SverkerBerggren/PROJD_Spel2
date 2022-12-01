@@ -515,26 +515,29 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
-        switch (landmark.tag)
+        if (landmark is HealingLandmark)
         {
-            case "HealingLandmark":
-                landmark = new HealingLandmark((HealingLandmark)landmark);
-                break;
-            case "TauntLandmark":
-                landmark = new TauntLandmark((TauntLandmark)landmark);
-                break;
-            case "DamageLandmark":
-                landmark = new DamageLandmark((DamageLandmark)landmark);
-                break;
-            case "DrawCardLandmark":
-                landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
-                break;
-            case "CultistLandmark":
-                landmark = new CultistLandmark((CultistLandmark)landmark);
-                break;
-            case "BuilderLandmark":
-                landmark = new BuilderLandmark((BuilderLandmark)landmark);
-                break;
+            landmark = new HealingLandmark((HealingLandmark)landmark);
+        }
+        else if (landmark is TauntLandmark)
+        {
+            landmark = new TauntLandmark((TauntLandmark)landmark);
+        }
+        else if (landmark is DamageLandmark)
+        {
+            landmark = new DamageLandmark((DamageLandmark)landmark);
+        }
+        else if (landmark is DrawCardLandmark)
+        {
+            landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
+        }
+        else if (landmark is CultistLandmark)
+        {
+            landmark = new CultistLandmark((CultistLandmark)landmark);
+        }
+        else if (landmark is BuilderLandmark)
+        {
+            landmark = new BuilderLandmark((BuilderLandmark)landmark);
         }
 
         if (opponentPlayedLandmark)

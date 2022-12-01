@@ -8,7 +8,7 @@ using UnityEngine;
 public class DamageLandmark : Landmarks
 {
     public bool isPyromancyHut = false;
-    public DamageLandmark(DamageLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield)
+    public DamageLandmark(DamageLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
         damage = card.damage;
     }

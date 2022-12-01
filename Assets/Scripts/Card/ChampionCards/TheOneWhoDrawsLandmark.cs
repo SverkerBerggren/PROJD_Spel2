@@ -8,7 +8,7 @@ public class TheOneWhoDrawsLandmark : Landmarks
     public int amountOfManaToDecreaseBy = 2;
     private bool preparation = false;
 
-    public TheOneWhoDrawsLandmark(TheOneWhoDrawsLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield)
+    public TheOneWhoDrawsLandmark(TheOneWhoDrawsLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
         championCard = true;
         championCardType = ChampionCardType.TheOneWhoDraws;

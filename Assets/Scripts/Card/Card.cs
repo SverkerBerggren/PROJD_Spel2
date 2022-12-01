@@ -32,8 +32,6 @@ public abstract class Card : ScriptableObject
     public Sprite artwork;
     public int maxManaCost;
 
-    public string tag;
-
     private Champion target;
     private LandmarkDisplay landmarkTarget;
 
@@ -108,7 +106,7 @@ public abstract class Card : ScriptableObject
     {
         string lineToWriteOut = null;
         lineToWriteOut = "Cardname: " +cardName + "\nDescription:  " + description + "\nTypeOfCard: " + typeOfCard + "\nMaxMana: " + maxManaCost + 
-            "\nTag: " + tag + "\nAmountOfDamage: " + damage + "\nAmountOfHealing: " + amountToHeal + "\nAmountToShield: " + amountToShield + 
+            "\nAmountOfDamage: " + damage + "\nAmountOfHealing: " + amountToHeal + "\nAmountToShield: " + amountToShield + 
             "\nAmountOfCardsToDraw: " + amountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + amountOfCardsToDiscard + "\nDiscardCardsYourself: " + discardCardsYourself + 
             "\nTargetable: " + targetable + "\nChampionCard: " + championCard + "\nChampionCardType: " + championCardType;
         return lineToWriteOut; 

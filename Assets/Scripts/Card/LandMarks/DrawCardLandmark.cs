@@ -6,7 +6,7 @@ using UnityEngine;
 public class DrawCardLandmark : Landmarks
 {
     public bool mysteriousForest = false;
-    public DrawCardLandmark(DrawCardLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield) {}
+    public DrawCardLandmark(DrawCardLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield) {}
 
     public override void UpKeep()
     {

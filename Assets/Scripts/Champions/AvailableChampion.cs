@@ -49,6 +49,7 @@ public class AvailableChampion : MonoBehaviour
 
     private GameObject healthBar;
     private Slider healthBarSlider;
+    private TMP_Text healthBarText;
 
     //public SpriteRenderer artwork;
 
@@ -94,6 +95,7 @@ public class AvailableChampion : MonoBehaviour
         healthBarSlider = healthBar.GetComponent<Slider>();
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = maxHealth;
+        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
     }
 
     private void GetAllMeshes()
@@ -175,7 +177,7 @@ public class AvailableChampion : MonoBehaviour
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = health;
 
-        healthBar.GetComponent<ChangeTextWithSlider>().textToChange.text = health.ToString() + "/" + maxHealth.ToString();
+        healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
 
         if (shieldText != null)
         {
