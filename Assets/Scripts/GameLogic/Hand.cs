@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public List<GameObject> cardSlotsInHand = new List<GameObject>();
+    public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
     public Deck deck;
-    public List<GameObject> cardsInHand = new List<GameObject>();
+    public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
     private void Start()
     {
@@ -28,14 +28,14 @@ public class Hand : MonoBehaviour
 
     public void FixCardOrderInHand()
     {
+        print("Check");
         cardsInHand.Clear();
-        foreach (GameObject cardSlot in cardSlotsInHand)
+        foreach (CardDisplay cardDisplay in cardSlotsInHand)
         {
-            CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
             if (cardDisplay.card == null) continue;          
    
-            if (!cardsInHand.Contains(cardSlot))
-               cardsInHand.Add(cardSlot);  
+            if (!cardsInHand.Contains(cardDisplay))
+               cardsInHand.Add(cardDisplay);  
             
             cardDisplay.UpdateTextOnCard();
 		}
@@ -44,14 +44,12 @@ public class Hand : MonoBehaviour
     public Card DiscardRandomCardInHand()
     {
         int cardIndex = Random.Range(0, cardsInHand.Count);
-        CardDisplay cardDisplay = cardsInHand[cardIndex].GetComponent<CardDisplay>();
-        return CardToDiscard(cardDisplay);
+        return CardToDiscard(cardsInHand[cardIndex]);
     }
 
     public string DiscardSpecificCardWithIndex(int index)
     {
-        CardDisplay cardDisplay = cardsInHand[index].GetComponent<CardDisplay>();
-        return CardToDiscard(cardDisplay).cardName;
+        return CardToDiscard(cardsInHand[index]).cardName;
     }
 
     private Card CardToDiscard(CardDisplay cardDisplay)

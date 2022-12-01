@@ -40,23 +40,25 @@ public class GameState : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] private GameObject healEffect;
+    [SerializeField] private GameObject yourTurnEffect;
 
 
     [Header("UI Elements")]
     public GameObject playedCardGO;
     public UnityEngine.UI.Button endTurnBttn;
 
+    [SerializeField] private GameObject cardRegisterPrefab;
 
     [NonSerialized] public int currentPlayerID = 0;
     public bool hasPriority = true;
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
+    [NonSerialized] public bool canSwap;
     public int amountOfTurns;
 
     [NonSerialized] public GameObject targetingEffect;
 
-    [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
     [NonSerialized] public int attacksPlayedThisTurn;
 
@@ -90,10 +92,13 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        if (CardRegister.Instance == null)
+            Instantiate(cardRegisterPrefab, transform.parent);
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
         if (isOnline)
         {
+            print(ClientConnection.Instance.playerId);
             if (ClientConnection.Instance.playerId == 0)
             {
                 isItMyTurn = true;
@@ -114,8 +119,8 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Shanker",
                 "Duelist",
+                "TheOneWhoDraws",
                 "Graverobber"
             };
             AddChampions(ha, true);
@@ -181,7 +186,7 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            playerChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
             foreach (Effects effect in playerEffects)
             {
                 effect.TakeDamage(targetAndAmount.amount);
@@ -189,7 +194,7 @@ public class GameState : MonoBehaviour
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+            opponentChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
         }
         if (lE.myLandmarks)
         {
@@ -198,6 +203,28 @@ public class GameState : MonoBehaviour
         if (lE.opponentLandmarks)
         {
             opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
+        }
+    }
+
+    public void ChangeLandmarkStatus(TargetInfo targetInfo, bool enable) // TargetAndAmount
+    {
+        ListEnum lE = targetInfo.whichList;
+        if (lE.myLandmarks && !enable)
+        {
+            playerLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
+        }
+
+        if (lE.opponentLandmarks && !enable)
+        {
+            opponentLandmarks[targetInfo.index].DisableLandmark();
+        }
+        else if (lE.myLandmarks && enable)
+        {
+            playerLandmarks[targetInfo.index].EnableLandmark();
         }
     }
 
@@ -219,15 +246,13 @@ public class GameState : MonoBehaviour
         
         if(lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
+            playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             EffectController.Instance.GainHealingEffect(playerChampions[targetAndAmount.targetInfo.index].gameObject);
 
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
-            //Jiang: instansiera healing prefab
+            opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
             EffectController.Instance.GainHealingEffect(opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -257,14 +282,14 @@ public class GameState : MonoBehaviour
 
         if (lE.myChampions)
         {
-            playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+            playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, false);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
-            opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+            opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, true);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -453,7 +478,7 @@ public class GameState : MonoBehaviour
         else
         {
             if(card)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
+                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
             else
                 Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
 
@@ -494,37 +519,59 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
-        switch (landmark.tag)
+        if (landmark is HealingLandmark)
         {
-            case "HealingLandmark":
-                landmark = new HealingLandmark((HealingLandmark)landmark);
-                break;
-            case "TauntLandmark":
-                landmark = new TauntLandmark((TauntLandmark)landmark);
-                break;
-            case "DamageLandmark":
-                landmark = new DamageLandmark((DamageLandmark)landmark);
-                break;
-            case "DrawCardLandmark":
-                landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
-                break;
-            case "CultistLandmark":
-                landmark = new CultistLandmark((CultistLandmark)landmark);
-                break;
-            case "BuilderLandmark":
-                landmark = new BuilderLandmark((BuilderLandmark)landmark);
-                break;
+            landmark = new HealingLandmark((HealingLandmark)landmark);
         }
+        else if (landmark is TauntLandmark)
+        {
+            landmark = new TauntLandmark((TauntLandmark)landmark);
+        }
+        else if (landmark is DamageLandmark)
+        {
+            landmark = new DamageLandmark((DamageLandmark)landmark);
+        }
+        else if (landmark is DrawCardLandmark)
+        {
+            landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
+        }
+        else if (landmark is CultistLandmark)
+        {
+            landmark = new CultistLandmark((CultistLandmark)landmark);
+        }
+        else if (landmark is BuilderLandmark)
+        {
+            landmark = new BuilderLandmark((BuilderLandmark)landmark);
+        }
+        else if (landmark is SeersShack)
+        {
+            landmark = new SeersShack((SeersShack)landmark);
+        }
+        else if (landmark is DisableCardLandmark)
+        {
+            landmark = new DisableCardLandmark((DisableCardLandmark)landmark);
+        }
+        else if (landmark is TheOneWhoDrawsLandmark)
+        {
+            landmark = new TheOneWhoDrawsLandmark((TheOneWhoDrawsLandmark)landmark);
+        }
+        else if (landmark is DuelistLandmark)
+        {
+            landmark = new DuelistLandmark((DuelistLandmark)landmark);
+        }
+ 
 
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].landmark = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
         }
         else
         {
             playerLandmarks[index].card = landmark;
+            playerLandmarks[index].landmark = landmark;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
@@ -535,6 +582,7 @@ public class GameState : MonoBehaviour
     public void TriggerUpKeep()
     {
         DrawCard(1, null);
+
         if (isItMyTurn && !firstTurn || !isOnline)
         {
             actionOfPlayer.IncreaseMana();
@@ -546,8 +594,8 @@ public class GameState : MonoBehaviour
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if (landmark.card != null)
-                landmark.card.UpKeep();
+            if (landmark.card != null && landmark.landmarkEnabled)
+                landmark.landmark.UpKeep();
         } 
         foreach (Effects effect in playerEffects)
         {
@@ -560,12 +608,16 @@ public class GameState : MonoBehaviour
         playerChampion.champion.EndStep();
         foreach (LandmarkDisplay landmark in playerLandmarks)
         {
-            if(landmark.card != null)
-            landmark.card.EndStep();
+            if(landmark.card != null && landmark.landmarkEnabled)
+            landmark.landmark.EndStep();
         }
         foreach (Effects effect in playerEffects)
         {
             effect.EndStep();
+        }
+        foreach (CardDisplay cardDisplay in actionOfPlayer.handPlayer.cardsInHand)
+        {
+            cardDisplay.EndStep();
         }
     }
 
@@ -574,6 +626,11 @@ public class GameState : MonoBehaviour
     {
         if (!isOnline)
         {
+            if (yourTurnEffect != null)
+            {
+                yourTurnEffect.SetActive(true);
+                Invoke(nameof(YourTurnEffectHide), 1.5f);
+            }
             TriggerEndStep();
             TriggerUpKeep();
 			Refresh();
@@ -588,6 +645,11 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            if (yourTurnEffect != null)
+            {
+                yourTurnEffect.SetActive(true);
+                Invoke(nameof(YourTurnEffectHide), 1.5f);
+            }
 
             isItMyTurn = true;
             TriggerUpKeep();
@@ -597,6 +659,11 @@ public class GameState : MonoBehaviour
         cardsPlayedThisTurn.Clear();
 
         Refresh();
+    }
+
+    private void YourTurnEffectHide()
+    {
+        yourTurnEffect.SetActive(false);
     }
 
     public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
@@ -709,8 +776,19 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         ClearEffects();
-        actionOfPlayer.handPlayer.FixCardOrderInHand();
+        print("Clear");
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
+        {
+            print("landmarks");
+            landmarkDisplay.UpdateTextOnCard();
+        }
+        
+        ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
+        print("bef updPlayer");
         playerChampion.UpdateTextOnCard();
+        print("aft updPlayer");
+        print("bef updOponent");
         opponentChampion.UpdateTextOnCard();
+        print("aft updOponent");
     }
 }

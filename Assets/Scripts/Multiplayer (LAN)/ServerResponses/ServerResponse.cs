@@ -85,6 +85,9 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         if (IntegerToConvert == 18)
         {
             return (typeof(ResponseUniqueInteger));
+        if(IntegerToConvert == 15)
+        {
+            return (typeof(ResponseStopSwapping));
         }
         return (typeof(ServerResponse));
     }

@@ -7,23 +7,23 @@ public class BuilderLandmark : Landmarks
 {
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield) 
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield) 
     { 
         championCard = true;
         championCardType = ChampionCardType.Builder;
     }
 
-    public override void PlaceLandmark()
+    public override int CalculateManaCost(CardDisplay cardDisplay)
     {
-        base.PlaceLandmark();
-        if (factory)
-            GameState.Instance.factory++;
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-        if (factory)
-            GameState.Instance.factory--;
+        int amountOfLandmarksActive = 0;
+        foreach (LandmarkDisplay lD in GameState.Instance.playerLandmarks)
+        {
+            if (lD.card != null)
+                amountOfLandmarksActive++;
+        }
+        if (amountOfLandmarksActive >= 3)
+            return base.CalculateManaCost(cardDisplay) - 2;
+        return base.CalculateManaCost(cardDisplay);
     }
 
     public override int DealDamageAttack(int damage)

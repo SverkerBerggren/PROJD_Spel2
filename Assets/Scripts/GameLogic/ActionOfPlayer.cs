@@ -66,7 +66,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
+            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -83,10 +83,6 @@ public class ActionOfPlayer : MonoBehaviour
     public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
     {
         cardCost = cardDisplay.manaCost;
-        if (gameState.factory > 0)        
-            if (gameState.playerLandmarks.Count >= 3)
-                cardCost -= (2 * gameState.factory);
-
         if (currentMana >= cardCost)
         {
             currentMana -= cardCost;
@@ -108,12 +104,11 @@ public class ActionOfPlayer : MonoBehaviour
 		else
 			hand = handOpponent;
 
-		foreach (GameObject cardSlot in hand.cardSlotsInHand)
+		foreach (CardDisplay cardDisplay in hand.cardSlotsInHand)
 		{
-			CardDisplay cardDisplay = cardSlot.GetComponent<CardDisplay>();
 			if (cardDisplay.card != null) continue;
 
-			if (!cardSlot.activeSelf)
+			if (!cardDisplay.gameObject.activeSelf)
 			{
 				if (drawnCards >= amountToDraw) break;
 
@@ -124,16 +119,17 @@ public class ActionOfPlayer : MonoBehaviour
 
 				if (specificCard == null)
 					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
-				else
+				else               
 					cardDisplay.card = specificCard;
+
 
 				if (cardDisplay.card != null)
 				{
 					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-					cardSlot.SetActive(true);
+                    cardDisplay.gameObject.SetActive(true);
+                    if (drawnCards == 0)
+                        cardDisplay.firstCardDrawn = true;
 					drawnCards++;
-					//if (isPlayer)
-						//gameState.playerChampion.champion.DrawCard(cardDisplay);
 				}
 				else
 				{
@@ -190,7 +186,7 @@ public class ActionOfPlayer : MonoBehaviour
         }
             
 
-        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay.gameObject);
+        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay);
         CardDisplay cardDisplayToSwapTo;
         CardDisplay cardDisplayToSwapFrom = null;
         cardDisplay.card = null;

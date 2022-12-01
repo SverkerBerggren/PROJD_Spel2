@@ -75,6 +75,11 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void RemoveCardFromDeck(Card card)
+    {
+        deckPlayer.Remove(card);
+    }
+
     public void AddCardToDeckPlayer(Card cardToAdd)
     {
         deckPlayer.Add(cardToAdd);

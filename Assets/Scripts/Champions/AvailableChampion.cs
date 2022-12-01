@@ -15,6 +15,8 @@ public class AvailableChampion : MonoBehaviour
 	public int maxHealth;
     public int shield;
 
+    public bool isOpponent = false;
+
     public GameObject meshToShow;
     private GameObject builderMesh;
     private GameObject cultistMesh;
@@ -35,6 +37,7 @@ public class AvailableChampion : MonoBehaviour
 
 
     public SpriteRenderer champCard;
+    private GameState gameState;
     //private ArmorEffect armorEffect;
 
     [SerializeField] private TMP_Text healthText;
@@ -42,6 +45,11 @@ public class AvailableChampion : MonoBehaviour
     [SerializeField] private TMP_Text passiveEffect;
 
     [NonSerialized] public GameObject targetingEffect;
+
+
+    private GameObject healthBar;
+    private Slider healthBarSlider;
+    private TMP_Text healthBarText;
 
     //public SpriteRenderer artwork;
 
@@ -56,6 +64,7 @@ public class AvailableChampion : MonoBehaviour
 
 	private void Start()
 	{
+        gameState = GameState.Instance;
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
@@ -70,10 +79,25 @@ public class AvailableChampion : MonoBehaviour
 
         passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
         passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
-        
 
         GetAllMeshes();
+
+        if ((gameState.playerChampion == this || gameState.opponentChampion == this) && !gameState.isOnline)
+            SetupHealthbar();
     }
+
+    private void SetupHealthbar()
+    {
+        if (isOpponent)
+            healthBar = GameObject.FindGameObjectWithTag("EnemyHealthBar");
+        else
+            healthBar = GameObject.FindGameObjectWithTag("PlayerHealthBar");
+        healthBarSlider = healthBar.GetComponent<Slider>();
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = maxHealth;
+        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+    }
+
     private void GetAllMeshes()
     {
         builderMesh = transform.Find("Builder").gameObject;
@@ -149,8 +173,16 @@ public class AvailableChampion : MonoBehaviour
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
+        if (!gameState.isOnline)
+        {
+            healthBarSlider.maxValue = maxHealth;
+            healthBarSlider.value = health;
+            healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
+        }
 
-        healthText.text = health + "/" + maxHealth;
+        healthText.text = health.ToString() + "/" + maxHealth.ToString();
+        
+
         if (shieldText != null)
         {
             if (shield > 0)
@@ -167,11 +199,6 @@ public class AvailableChampion : MonoBehaviour
 
     public void FixedUpdate()
 	{
-        if (champion.destroyShield)
-        {
-            //armorEffect.DamageArmor(10);
-        }
-
         SwapMesh();
 
         if (wantToSeInfoOnChamp)
@@ -181,7 +208,62 @@ public class AvailableChampion : MonoBehaviour
                 champCard.sprite = champion.artwork;
         }
 	}
-    
+
+    public virtual void TakeDamage(int damage)
+    {
+        if (champion.shield == 0)
+        {
+            champion.health -= damage;
+        }
+        else
+        {
+            if (damage >= champion.shield)
+            {
+                int differenceAfterShieldDamage = damage - champion.shield;
+                champion.shield = 0;
+
+                ShieldEffectDestroy();
+
+                champion.health -= differenceAfterShieldDamage;
+            }
+            else
+            {
+                champion.shield -= damage;
+            }
+        }
+
+        if (champion.health <= 0)
+        {
+            Death();
+        }
+    }
+    public virtual void Death()
+    {
+        gameState.ChampionDeath(champion);
+    }
+
+    private void ShieldEffectDestroy()
+    {
+        Tuple<string, bool> tuple = new Tuple<string, bool>(champion.championName, isOpponent);
+        EffectController.Instance.DestroyShield(tuple);
+    }
+
+    public virtual void HealChampion(int amountToHeal)
+    {
+        champion.health += amountToHeal;
+        if (champion.health > champion.maxHealth)
+        {
+            champion.health = maxHealth;
+        }
+
+    }
+    public virtual void GainShield(int amountToBlock)
+    {
+        champion.shield += amountToBlock;
+    }
+
+
+
     private void SwapMesh()
     {
         switch (champion.championName)

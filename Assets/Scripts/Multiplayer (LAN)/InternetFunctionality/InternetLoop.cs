@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -80,12 +81,14 @@ public class InternetLoop : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
+                        EffectController.Instance.GainHealingEffect(gameState.playerChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.HealChampion(targetAndAmount.amount);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].HealChampion(targetAndAmount.amount);
+                        EffectController.Instance.GainHealingEffect(gameState.opponentChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
                 }
             }
@@ -98,7 +101,7 @@ public class InternetLoop : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                         foreach (Effects effect in gameState.playerEffects)
                         {
                             effect.TakeDamage(targetAndAmount.amount);
@@ -111,7 +114,7 @@ public class InternetLoop : MonoBehaviour
                     }
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.TakeDamage(targetAndAmount.amount);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                     if (targetAndAmount.targetInfo.whichList.myLandmarks)
                     {
@@ -130,12 +133,16 @@ public class InternetLoop : MonoBehaviour
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
-                        gameState.playerChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+                        gameState.playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.playerChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+                        EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.playerChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
-                        gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.GainShield(targetAndAmount.amount);
+                        gameState.opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+                        EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.opponentChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
                 }
 
@@ -283,6 +290,13 @@ public class InternetLoop : MonoBehaviour
                 gameState.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
+
+            if (action is GameActionStopSwapping)
+            {
+                GameActionStopSwapping castedAction = (GameActionStopSwapping)action;
+
+                gameState.canSwap = castedAction.canSwap;
+            }
 
             if (gameState != null)
                 gameState.Refresh();

@@ -10,12 +10,12 @@ public class TransformSpell : Spells
     public override void PlaySpell()
     {
         // Takes the players hand and checks if there are any champion cards, then it choses a random card that it makes playable for all champions
-        List<GameObject> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;       
+        List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;       
         List<Card> cardList = new List<Card>();
 
         for (int i = 0; i < cardsInHand.Count; i++)
         {
-            Card card = cardsInHand[i].GetComponent<CardDisplay>().card;
+            Card card = cardsInHand[i].card;
             if (card.championCard)
             {
                 cardList.Add(card);

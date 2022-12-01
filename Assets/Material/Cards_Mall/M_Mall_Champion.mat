@@ -24,17 +24,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Mall_Champion
-  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: -6465566751694194690, guid: 570a55204de6bce4ba7be6d99b00f5c7, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   - _EMISSIVE_COLOR_MAP
   - _NORMALMAP_TANGENT_SPACE
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2225
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    MotionVector: User
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
@@ -84,6 +85,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainCardTexture:
+        m_Texture: {fileID: 2800000, guid: ce75acb1d149c54419b8208cf393093e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: ce75acb1d149c54419b8208cf393093e, type: 3}
         m_Scale: {x: -1, y: -1}
@@ -98,6 +103,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_0cc82c3e93f84211833d88a86d25fda3_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ce75acb1d149c54419b8208cf393093e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6fed04e350ff4107b1dfc5776445d925_Texture_1:
+        m_Texture: {fileID: 2800000, guid: a8f3c4be2c4ecad44a92a4474caf5ece, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -143,6 +156,7 @@ Material:
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
     - _AlbedoAffectEmissive: 0
+    - _AlphaClipThreshold: 0.4
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaCutoffPostpass: 0.5
@@ -155,6 +169,7 @@ Material:
     - _Anisotropy: 0
     - _BlendMode: 0
     - _CoatMask: 0
+    - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
@@ -167,6 +182,7 @@ Material:
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
+    - _DissolveEdgeThickness: 0.01
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
@@ -209,6 +225,7 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
+    - _RenderQueueType: 1
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -217,11 +234,13 @@ Material:
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 8
-    - _StencilRefGBuffer: 10
-    - _StencilRefMV: 40
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
     - _StencilWriteMask: 6
     - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
     - _SubsurfaceMask: 1
@@ -252,12 +271,14 @@ Material:
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
+    - _DissolveEdgeColor: {r: 1.949114, g: 0.08163827, b: 0, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _OutsideEdgeColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

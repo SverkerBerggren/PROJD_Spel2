@@ -44,7 +44,7 @@ public class EffectController : MonoBehaviour
     {
         foreach(Tuple<string,bool> availableChampion in shields.Keys)
         {
-            if(availableChampion.Item2 == true)
+            if(availableChampion.Item2 == false)
             {
                 foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
@@ -69,7 +69,7 @@ public class EffectController : MonoBehaviour
 
     //two parameters, which champion should have shiled and how much  
     //the shield shall only has tre state, on, half-on, and disappear
-    public void ActiveShield(Tuple<string,bool> tupleShields, int shiledAmount, GameObject gameObject)
+    public void ActiveShield(Tuple<string,bool> tupleShields, int shieldAmount, GameObject gameObject)
     {
         //shiled effect 100 procent
         //Set upp shield effect here at champions position 
@@ -103,5 +103,8 @@ public class EffectController : MonoBehaviour
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
 
-
+    public void DiscardCardEffect(GameObject card)
+    {
+        card.GetComponent<CardDissolve>().SetDissolveState(true);
+    }
 }
