@@ -8,9 +8,12 @@ public class SeersShack : Landmarks
 	[Header("Seers Shack")]
 	public int cardsShown;
 
-	public SeersShack(int mH, string name, string desc, Sprite art, int maxMana, int damage, int amountToHeal, int amountToShield) : base(mH, name, desc, art, maxMana, damage, amountToHeal, amountToShield) {}
+    public SeersShack(SeersShack card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
+    {
 
-	public override void UpKeep()
+    }
+
+    public override void UpKeep()
 	{
 		base.UpKeep();
 		ListEnum lE = new ListEnum();

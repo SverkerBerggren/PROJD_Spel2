@@ -415,7 +415,7 @@ public class Choice : MonoBehaviour
         switch (theMethod)
         {
             case WhichMethod.switchChampionPlayer:
-                if (gameState.playerChampions.Count <= 1)
+                if (gameState.playerChampions.Count <= 1 && !gameState.canSwap)
                 {
                     return false;
                 }
@@ -428,7 +428,14 @@ public class Choice : MonoBehaviour
 				}
                 break;
 
-			case WhichMethod.discardCard:
+            case WhichMethod.switchChampionDied:
+                if (gameState.playerChampions.Count <= 1)
+                {
+                    return false;
+                }
+                break;
+
+            case WhichMethod.discardCard:
                 if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;

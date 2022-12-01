@@ -5,8 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/DisableCardLandmark")]
 public class DisableCardLandmark : Landmarks
 {
-	public DisableCardLandmark(int mH, string name, string desc, Sprite art, int maxMana, int damage, int amountToHeal, int amountToShield) : base(mH, name, desc, art, maxMana, damage, amountToHeal, amountToShield) {}
-	public Landmarks disabledLandmark;
+    public DisableCardLandmark(DisableCardLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
+    {
+
+    }
+    public Landmarks disabledLandmark;
 
 	public override void PlaceLandmark()
 	{

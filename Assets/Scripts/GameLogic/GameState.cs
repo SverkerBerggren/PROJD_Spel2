@@ -53,11 +53,11 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
+    [NonSerialized] public bool canSwap;
     public int amountOfTurns;
 
     [NonSerialized] public GameObject targetingEffect;
 
-    [NonSerialized] public int factory = 0;
     [NonSerialized] public int landmarkEffect = 1;
     [NonSerialized] public int attacksPlayedThisTurn;
 
@@ -539,6 +539,23 @@ public class GameState : MonoBehaviour
         {
             landmark = new BuilderLandmark((BuilderLandmark)landmark);
         }
+        else if (landmark is SeersShack)
+        {
+            landmark = new SeersShack((SeersShack)landmark);
+        }
+        else if (landmark is DisableCardLandmark)
+        {
+            landmark = new DisableCardLandmark((DisableCardLandmark)landmark);
+        }
+        else if (landmark is TheOneWhoDrawsLandmark)
+        {
+            landmark = new TheOneWhoDrawsLandmark((TheOneWhoDrawsLandmark)landmark);
+        }
+        else if (landmark is DuelistLandmark)
+        {
+            landmark = new DuelistLandmark((DuelistLandmark)landmark);
+        }
+ 
 
         if (opponentPlayedLandmark)
         {
