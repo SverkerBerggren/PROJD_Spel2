@@ -86,7 +86,7 @@ public class GameState : MonoBehaviour
         if (ClientConnection.Instance != null)
             isOnline = true;
 
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -132,7 +132,6 @@ public class GameState : MonoBehaviour
         opponentChampion = opponentChampions[0];
 
         DrawStartingCards();
-        Refresh();
     }
 
     private void ChangeInteractabiltyEndTurn()
