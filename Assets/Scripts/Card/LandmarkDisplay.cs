@@ -31,19 +31,15 @@ public class LandmarkDisplay : Displays
         graveyard = Graveyard.Instance;
     }
 
-    private void FixedUpdate()
+/*    private void FixedUpdate()
     {
         if (card != null)
         {
             landmarkPrefab.SetActive(true);
         }
-    }
+    }*/
 
-    private void OnEnable()
-    {
-        if (card != null)
-            gameState.Refresh();
-    }
+
 
     public void DestroyLandmark()
     {
