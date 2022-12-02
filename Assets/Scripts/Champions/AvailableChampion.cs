@@ -54,15 +54,6 @@ public class AvailableChampion : MonoBehaviour
 
     //public SpriteRenderer artwork;
 
-    private void Awake()
-	{
-        nameOfChampion = champion.championName;
-        //artwork.sprite = champion.artwork;
-        passiveEffect.text = champion.passiveEffect;
-        health = champion.health;
-        maxHealth = champion.maxHealth;
-	}
-
 	private void Start()
 	{
         gameState = GameState.Instance;
@@ -97,6 +88,12 @@ public class AvailableChampion : MonoBehaviour
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = maxHealth;
         healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+
+        nameOfChampion = champion.championName;
+        //artwork.sprite = champion.artwork;
+        passiveEffect.text = champion.passiveEffect;
+        health = champion.health;
+        maxHealth = champion.maxHealth;
     }
 
     private void GetAllMeshes()

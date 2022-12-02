@@ -119,7 +119,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Duelist",
+                "Cultist",
                 "TheOneWhoDraws",
                 "Graverobber"
             };
@@ -310,33 +310,8 @@ public class GameState : MonoBehaviour
         Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
-            Champion champ = null;
-            switch (champions[i])
-            {
-                case "Cultist":
-                    champ = new Cultist((Cultist)champReg[champions[i]]);
-                    break;
-
-                case "Builder":
-                    champ = new Builder((Builder)champReg[champions[i]]);
-                    break;
-
-                case "Shanker":
-                    champ = new Shanker((Shanker)champReg[champions[i]]);
-                    break;
-
-                case "Graverobber":
-                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
-                    break;
-
-                case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
-                    break;
-
-                case "Duelist":
-                    champ = new Duelist((Duelist)champReg[champions[i]]);
-                    break;
-            }
+            Champion champ = Instantiate(champReg[champions[i]]);
+       
 			if (isPlayer)
 			    playerChampions[i].champion = champ;
             else
