@@ -39,6 +39,11 @@ public class LandmarkDisplay : Displays
         }
     }
 
+    private void OnEnable()
+    {
+        gameState.Refresh();
+    }
+
     public void DestroyLandmark()
     {
         LandmarkDead();
