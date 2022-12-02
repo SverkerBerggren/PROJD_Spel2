@@ -7,7 +7,7 @@ using UnityEngine;
 public class LandmarkDisplay : Displays
 {  
     public int health;
-    public Landmarks landmark;
+    //public Landmarks landmark;
 	public GameObject landmarkPrefab;
     private GameState gameState;
     private Graveyard graveyard;
@@ -29,8 +29,17 @@ public class LandmarkDisplay : Displays
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
-        landmark = (Landmarks)card;
     }
+
+/*    private void FixedUpdate()
+    {
+        if (card != null)
+        {
+            landmarkPrefab.SetActive(true);
+        }
+    }*/
+
+
 
     public void DestroyLandmark()
     {
@@ -69,10 +78,9 @@ public class LandmarkDisplay : Displays
         {
             graveyard.AddCardToGraveyard(card);
         }
-        
+        Landmarks landmark = (Landmarks)card;
         landmark.WhenLandmarksDie();
         card = null;
-        landmark = null;
     }
 
     public void TakeDamage(int amount)
@@ -87,10 +95,9 @@ public class LandmarkDisplay : Displays
 
     private void OnMouseEnter()
     {
-        if (landmark == null) return;
+        if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(true);
         previewLandmarkDisplay.card = card;
-        previewLandmarkDisplay.landmark = landmark;
         previewLandmarkDisplay.manaCost = manaCost;
         previewLandmarkDisplay.health = health;
 
@@ -99,10 +106,9 @@ public class LandmarkDisplay : Displays
 
     private void OnMouseExit()
     {
-        if (landmark == null) return;
+        if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(false);
         previewLandmarkDisplay.card = null;
-        previewLandmarkDisplay.landmark = null;
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 

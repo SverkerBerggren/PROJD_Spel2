@@ -10,9 +10,11 @@ public class Setup : MonoBehaviour
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
     public List<string> myChampions = new List<string>();
     public List<Card> playerDeckList = new List<Card>();
+	[SerializeField] private int maxCopies = 3;
+	public int deckCount = 40;
 
 
-    private static Setup instance;
+	private static Setup instance;
     public static Setup Instance { get { return instance; } set { instance = value; } }
     private void Awake()
     {
@@ -49,8 +51,11 @@ public class Setup : MonoBehaviour
 
     public void AddCard(Card card)
     {
-        playerDeckList.Add(card);
-        deckbuilder.UpdateDeckList();
+        if (playerDeckList.Count < deckCount)
+        {
+            playerDeckList.Add(card);
+            deckbuilder.UpdateDeckList();
+        }
     }
 
     public void RemoveCard(Card card)

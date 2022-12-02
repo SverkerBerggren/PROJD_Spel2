@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDisplayAtributes : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class CardDisplayAtributes : MonoBehaviour
 
     public void UpdateTextOnCard(LandmarkDisplay landmarkDisplay)
     {
-        if (landmarkDisplay.landmark == null)
+        if (landmarkDisplay.card == null)
         {
             landmarkDisplay.landmarkPrefab.SetActive(false);
             return;
@@ -33,9 +35,9 @@ public class CardDisplayAtributes : MonoBehaviour
         landmarkDisplay.UpdateVariables();
         landmarkDisplay.landmarkPrefab.SetActive(true);
         hpText.text = landmarkDisplay.health.ToString();
-        description.text = landmarkDisplay.landmark.description;
+        description.text = landmarkDisplay.card.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
-        cardName.text = landmarkDisplay.landmark.cardName;
+        cardName.text = landmarkDisplay.card.cardName;
         CardParser.Instance.CheckKeyword(landmarkDisplay);
     }
 
@@ -97,25 +99,36 @@ public class CardDisplayAtributes : MonoBehaviour
 
     private void UpdateMaterialOnCard(Card card)
     {
+        Material materialToChange = null;
+     
         switch (card.typeOfCard)
         {
             case CardType.Attack:
                 nameBackground.SetActive(false);
                 hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = attackCardMaterial;
+                materialToChange = attackCardMaterial;
                 break;
             case CardType.Spell:
                 nameBackground.SetActive(false);
                 hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = spellCardMaterial;
+                materialToChange = spellCardMaterial;
                 break;
             case CardType.Landmark:
                 nameBackground.SetActive(true);
                 hpGameObject.SetActive(true);
                 Landmarks landmarkCard = (Landmarks)card;
                 hpText.text = landmarkCard.minionHealth.ToString();
-                artworkMeshRenderer.material = landmarkCardMaterial;
+                materialToChange = landmarkCardMaterial;
                 break;
+        }
+
+        if (artworkMeshRenderer == null)
+        {
+            GetComponent<RawImage>().material = materialToChange;
+        }
+        else
+        {
+            artworkMeshRenderer.material = materialToChange;
         }
     }
 }

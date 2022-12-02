@@ -8,14 +8,7 @@ public class Cultist : Champion
 	public int perMissingHP = 20;
 	public int damagePerMissingHP = 10;
 
-
-	public Cultist(Cultist c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, ChampionCardType.Cultist) 
-	{
-		perMissingHP = c.perMissingHP;
-		damagePerMissingHP = c.damagePerMissingHP;
-	}
-
-	public override void Awake()
+    public override void Awake()
 	{
 		base.Awake();
 		UpdatePassive();

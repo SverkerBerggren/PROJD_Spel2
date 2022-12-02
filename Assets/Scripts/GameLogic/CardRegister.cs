@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,11 @@ public class CardRegister : MonoBehaviour
     public Dictionary<string, Effects> effectRegister = new Dictionary<string, Effects>();
 
     [SerializeField] private List<Champion> champions = new List<Champion>();
+
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
+    public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
+    public Dictionary<string, Card> attackCardRegister = new Dictionary<string, Card>();
+    public Dictionary<string, Card> supportCardRegister = new Dictionary<string, Card>();
     // Start is called before the first frame update
 
     private void Awake()
@@ -33,9 +38,23 @@ public class CardRegister : MonoBehaviour
             Destroy(Instance);
         }
 
+        InstantiateRegister();
+
+        DontDestroyOnLoad(this);
+    }
+
+    private void InstantiateRegister()
+    {
         foreach (Card card in cards)
         {
             cardRegister.Add(card.cardName, card);
+
+            if (card.typeOfCard == CardType.Landmark)
+                landmarkRegister.Add(card.cardName, (Landmarks)card);
+            else if (card.typeOfCard == CardType.Attack)
+                attackCardRegister.Add(card.cardName, card);
+            else if (card.typeOfCard == CardType.Spell)
+                supportCardRegister.Add(card.cardName, card);
         }
 
         foreach (Effects effect in effects)
@@ -47,8 +66,6 @@ public class CardRegister : MonoBehaviour
         {
             champRegister.Add(champion.championName, champion);
         }
-
-        DontDestroyOnLoad(this);
     }
 
     public List<Card> GetChampionCards(Champion champion)
@@ -59,6 +76,10 @@ public class CardRegister : MonoBehaviour
             if (card.championCard && card.championCardType == champion.championCardType)
             {
                 cards.Add(card);
+                if (card.typeOfCard == CardType.Attack)
+                {
+                    cards.Add(card);
+                }
             }
         }
         return cards;

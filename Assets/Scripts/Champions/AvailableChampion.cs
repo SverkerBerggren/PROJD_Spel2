@@ -39,6 +39,7 @@ public class AvailableChampion : MonoBehaviour
     public SpriteRenderer champCard;
     private GameState gameState;
     //private ArmorEffect armorEffect;
+    [SerializeField] private GameObject sheildUIObject;
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text shieldText;
@@ -52,15 +53,6 @@ public class AvailableChampion : MonoBehaviour
     private TMP_Text healthBarText;
 
     //public SpriteRenderer artwork;
-
-    private void Awake()
-	{
-        nameOfChampion = champion.championName;
-        //artwork.sprite = champion.artwork;
-        passiveEffect.text = champion.passiveEffect;
-        health = champion.health;
-        maxHealth = champion.maxHealth;
-	}
 
 	private void Start()
 	{
@@ -82,7 +74,7 @@ public class AvailableChampion : MonoBehaviour
 
         GetAllMeshes();
 
-        if ((gameState.playerChampion == this || gameState.opponentChampion == this) && !gameState.isOnline)
+        if ((gameState.playerChampion == this || gameState.opponentChampion == this))
             SetupHealthbar();
     }
 
@@ -96,6 +88,12 @@ public class AvailableChampion : MonoBehaviour
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = maxHealth;
         healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+
+        nameOfChampion = champion.championName;
+        //artwork.sprite = champion.artwork;
+        passiveEffect.text = champion.passiveEffect;
+        health = champion.health;
+        maxHealth = champion.maxHealth;
     }
 
     private void GetAllMeshes()
@@ -173,16 +171,11 @@ public class AvailableChampion : MonoBehaviour
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
-        if (!gameState.isOnline)
-        {
-            healthBarSlider.maxValue = maxHealth;
-            healthBarSlider.value = health;
-            healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
-        }
 
-        healthText.text = health.ToString() + "/" + maxHealth.ToString();
-        
-
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = health;
+        healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
+    
         if (shieldText != null)
         {
             if (shield > 0)
@@ -221,7 +214,7 @@ public class AvailableChampion : MonoBehaviour
             {
                 int differenceAfterShieldDamage = damage - champion.shield;
                 champion.shield = 0;
-
+                sheildUIObject.SetActive(false);
                 ShieldEffectDestroy();
 
                 champion.health -= differenceAfterShieldDamage;
@@ -229,6 +222,7 @@ public class AvailableChampion : MonoBehaviour
             else
             {
                 champion.shield -= damage;
+                sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
             }
         }
 
@@ -260,6 +254,8 @@ public class AvailableChampion : MonoBehaviour
     public virtual void GainShield(int amountToBlock)
     {
         champion.shield += amountToBlock;
+        sheildUIObject.SetActive(true);
+        sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
     }
 
 

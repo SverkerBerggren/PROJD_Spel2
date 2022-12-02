@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DeckbuilderCardButton : MonoBehaviour
+public class DeckbuilderChampionButton : MonoBehaviour
 {
-	[NonSerialized] public Card card;
+	[NonSerialized] public Champion champion;
 	private int tapCount = 0;
 
 	public void OnClick()
 	{
 		tapCount++;
+		//CancelInvoke();
 		Invoke(nameof(OnDoAction), 0.3f);
 	}
 
@@ -30,11 +32,11 @@ public class DeckbuilderCardButton : MonoBehaviour
 
 	public void Add()
 	{
-		Setup.Instance.AddCard(card);
+		Setup.Instance.AddChampion(champion);
 	}
 
 	private void Remove()
 	{
-		Setup.Instance.RemoveCard(card);
+		Setup.Instance.RemoveChampion(champion);		
 	}
 }

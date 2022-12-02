@@ -18,7 +18,7 @@ public abstract class Champion : ScriptableObject
     public ChampionCardType championCardType;
     [NonSerialized] public string passiveEffect;
 
-    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, ChampionCardType championType)
+/*    public Champion(string championName, int health, int maxHealth, int shield, Sprite artwork, string passiveEffect, ChampionCardType championType)
     {
         this.championName = championName;
         this.health = health;
@@ -27,7 +27,7 @@ public abstract class Champion : ScriptableObject
         this.artwork = artwork;
         this.passiveEffect = passiveEffect;
         championCardType = championType;
-    }
+    }*/
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
