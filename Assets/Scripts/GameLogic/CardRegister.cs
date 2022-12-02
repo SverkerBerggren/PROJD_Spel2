@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading.Tasks;
 public class CardRegister : MonoBehaviour
 {
     private static CardRegister instance;
@@ -19,6 +19,8 @@ public class CardRegister : MonoBehaviour
 
     private void Awake()
     {
+        bool updateCardsInterent = true;
+
         if (GameState.Instance != null)
         {
             if (GameState.Instance.isOnline)
@@ -31,6 +33,17 @@ public class CardRegister : MonoBehaviour
         else
         {
             Destroy(Instance);
+        }
+        #if UNITY_EDITOR
+        updateCardsInterent = false;    
+        #endif
+        
+
+        if(updateCardsInterent)
+        {
+            SpreadsheetUpdater updater = new SpreadsheetUpdater();
+
+            Task tasket =  updater.UpdateCardReferences(cards);
         }
 
         foreach (Card card in cards)
