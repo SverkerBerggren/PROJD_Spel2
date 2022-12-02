@@ -78,7 +78,6 @@ public class ClientConnection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("vilket game id har man " + gameId);
         lock (recievedRespones)
         {
             if (recievedRespones.Count > 0)
