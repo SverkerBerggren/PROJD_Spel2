@@ -786,8 +786,7 @@ public class GameState : MonoBehaviour
         ClearEffects();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if (landmarkDisplay.card != null)
-                landmarkDisplay.UpdateTextOnCard();
+            landmarkDisplay.UpdateTextOnCard();
         }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
