@@ -776,19 +776,13 @@ public class GameState : MonoBehaviour
     public void Refresh()
     {
         ClearEffects();
-        print("Clear");
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            print("landmarks");
             landmarkDisplay.UpdateTextOnCard();
         }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
-        print("bef updPlayer");
         playerChampion.UpdateTextOnCard();
-        print("aft updPlayer");
-        print("bef updOponent");
         opponentChampion.UpdateTextOnCard();
-        print("aft updOponent");
     }
 }
