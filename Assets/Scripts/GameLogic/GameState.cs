@@ -564,14 +564,12 @@ public class GameState : MonoBehaviour
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
-            opponentLandmarks[index].landmark = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
         }
         else
         {
             playerLandmarks[index].card = landmark;
-            playerLandmarks[index].landmark = landmark;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
@@ -592,10 +590,13 @@ public class GameState : MonoBehaviour
             amountOfTurns++;
         }
         playerChampion.champion.UpKeep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if (landmark.card != null && landmark.landmarkEnabled)
-                landmark.landmark.UpKeep();
+            if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            {
+                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                landmark.UpKeep();
+            }
         } 
         foreach (Effects effect in playerEffects)
         {
@@ -606,10 +607,13 @@ public class GameState : MonoBehaviour
     public void TriggerEndStep()
     {
         playerChampion.champion.EndStep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if(landmark.card != null && landmark.landmarkEnabled)
-            landmark.landmark.EndStep();
+            if(landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            {
+                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                landmark.EndStep();
+            }
         }
         foreach (Effects effect in playerEffects)
         {

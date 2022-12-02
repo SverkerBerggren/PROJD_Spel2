@@ -161,7 +161,7 @@ public class Choice : MonoBehaviour
             descriptionText.text = "Show landmarks";
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
-                MakeButtonOfCard(gameState.playerLandmarks[i].landmark, listEnum, i);
+                MakeButtonOfCard(gameState.playerLandmarks[i].card, listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
@@ -174,7 +174,7 @@ public class Choice : MonoBehaviour
             {
                 if (gameState.opponentLandmarks[i].landmarkEnabled)
                 {
-                    MakeButtonOfCard(gameState.opponentLandmarks[i].landmark, listEnum, i);
+                    MakeButtonOfCard(gameState.opponentLandmarks[i].card, listEnum, i);
                     closeMenuButton.SetActive(true);
                 }
             }
@@ -287,7 +287,8 @@ public class Choice : MonoBehaviour
             DisableCardLandmark card = (DisableCardLandmark)cardUsed;
             if (chosenTargets.whichList.opponentLandmarks)
             {
-                card.disabledLandmark = GameState.Instance.opponentLandmarks[chosenTargets.index].landmark;
+                Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets.index].card;
+                card.disabledLandmark = landmark;
             }
         }
 
