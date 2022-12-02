@@ -41,7 +41,8 @@ public class LandmarkDisplay : Displays
 
     private void OnEnable()
     {
-        gameState.Refresh();
+        if (card != null)
+            gameState.Refresh();
     }
 
     public void DestroyLandmark()
