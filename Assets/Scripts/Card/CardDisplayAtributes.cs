@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDisplayAtributes : MonoBehaviour
 {
@@ -97,25 +99,36 @@ public class CardDisplayAtributes : MonoBehaviour
 
     private void UpdateMaterialOnCard(Card card)
     {
+        Material materialToChange = null;
+     
         switch (card.typeOfCard)
         {
             case CardType.Attack:
                 nameBackground.SetActive(false);
                 hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = attackCardMaterial;
+                materialToChange = attackCardMaterial;
                 break;
             case CardType.Spell:
                 nameBackground.SetActive(false);
                 hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = spellCardMaterial;
+                materialToChange = spellCardMaterial;
                 break;
             case CardType.Landmark:
                 nameBackground.SetActive(true);
                 hpGameObject.SetActive(true);
                 Landmarks landmarkCard = (Landmarks)card;
                 hpText.text = landmarkCard.minionHealth.ToString();
-                artworkMeshRenderer.material = landmarkCardMaterial;
+                materialToChange = landmarkCardMaterial;
                 break;
+        }
+
+        if (artworkMeshRenderer == null)
+        {
+            GetComponent<RawImage>().material = materialToChange;
+        }
+        else
+        {
+            artworkMeshRenderer.material = materialToChange;
         }
     }
 }
