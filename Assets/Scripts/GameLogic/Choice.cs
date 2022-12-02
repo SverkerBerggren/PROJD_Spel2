@@ -230,6 +230,9 @@ public class Choice : MonoBehaviour
                 case WhichMethod.switchChampionDied:
                     SwitchChamp(true);                    
                     break;
+                case WhichMethod.switchChampionEnemy:
+                    SwitchChamp(false);
+                    break;
 
                 case WhichMethod.discardCard:
                     DiscardCard();
