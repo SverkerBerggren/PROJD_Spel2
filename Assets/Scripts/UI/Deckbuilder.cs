@@ -9,9 +9,10 @@ public class Deckbuilder : MonoBehaviour
     private Setup setup;
     private CardRegister register;
     private List<GameObject> buttons = new List<GameObject>();
+	private TMP_Text decklist;
     [SerializeField] private GameObject buttonHolder;
-    public GameObject cardButton;
-    private TMP_Text decklist;
+	[SerializeField] private GameObject cardButton;
+	[SerializeField] private GameObject championButton;
     [SerializeField] private int maxCopies = 3;
     [SerializeField] private int deckCount = 40;
 
@@ -37,13 +38,16 @@ public class Deckbuilder : MonoBehaviour
     void Start()
     {
         register = CardRegister.Instance;
+		foreach (Champion champion in register.champRegister.Values)
+		{
+			MakeButtonsChampions(champion);
+		}
         foreach (Card card in register.cardRegister.Values)
         {
             if (!card.championCard)    
             MakeButtonsCards(card);
         }
-        //MakeButtonsChampions();
-    }
+	}
 
 	private void MakeButtonsCards(Card card)
     {
@@ -53,25 +57,15 @@ public class Deckbuilder : MonoBehaviour
         gO.GetComponent<DeckbuilderCardButton>().card = card;
         buttons.Add(gO);
     }
-
-    /*
-    private void MakeButtonsChampions(Sprite championSprite, ListEnum listEnum, int index)
+    private void MakeButtonsChampions(Champion champion)
     {
-        GameObject gO = Instantiate(cardButton, buttonHolder.transform);
+        GameObject gO = Instantiate(championButton, buttonHolder.transform);
         gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = championSprite;
-        gO.transform.localScale = new Vector3(1.3f, 1, 0.4f);
-
-        gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
-
+        gO.GetComponent<Image>().sprite = champion.artwork;
         gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
-
-        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
+        gO.GetComponentInChildren<DeckbuilderChampionButton>().champion = champion;
         buttons.Add(gO);
-        //if (amountOfTargets == 0)
-            gO.GetComponent<Button>().interactable = false;
     }
-    */
 
     public void UpdateDeckList()
     {

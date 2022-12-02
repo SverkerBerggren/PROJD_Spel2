@@ -59,6 +59,10 @@ public class CardRegister : MonoBehaviour
             if (card.championCard && card.championCardType == champion.championCardType)
             {
                 cards.Add(card);
+                if (card.typeOfCard == CardType.Attack)
+                {
+                    cards.Add(card);
+                }
             }
         }
         return cards;
