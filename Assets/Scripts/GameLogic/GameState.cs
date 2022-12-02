@@ -64,8 +64,8 @@ public class GameState : MonoBehaviour
 
     private bool firstTurn = true;
     private Calculations calculations;
-
     private ActionOfPlayer actionOfPlayer;
+    private CardRegister cardRegister;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
@@ -94,11 +94,13 @@ public class GameState : MonoBehaviour
     {
         if (CardRegister.Instance == null)
             Instantiate(cardRegisterPrefab, transform.parent);
+
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
+        cardRegister = CardRegister.Instance;
+
         if (isOnline)
-        {
-            print(ClientConnection.Instance.playerId);
+        {           
             if (ClientConnection.Instance.playerId == 0)
             {
                 isItMyTurn = true;
@@ -130,7 +132,7 @@ public class GameState : MonoBehaviour
         opponentChampion = opponentChampions[0];
 
         DrawStartingCards();
-        //Refresh();
+        Refresh();
     }
 
     private void ChangeInteractabiltyEndTurn()
@@ -307,7 +309,7 @@ public class GameState : MonoBehaviour
 
     private void AddChampions(List<string> champions, bool isPlayer)
     {
-        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
+        Dictionary<string, Champion> champReg = cardRegister.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
             Champion champ = Instantiate(champReg[champions[i]]);
@@ -494,47 +496,7 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
-        print("Landmark" + landmark + " Op" + opponentPlayedLandmark);
-        if (landmark is HealingLandmark)
-        {
-            landmark = new HealingLandmark((HealingLandmark)landmark);
-        }
-        else if (landmark is TauntLandmark)
-        {
-            landmark = new TauntLandmark((TauntLandmark)landmark);
-        }
-        else if (landmark is DamageLandmark)
-        {
-            landmark = new DamageLandmark((DamageLandmark)landmark);
-        }
-        else if (landmark is DrawCardLandmark)
-        {
-            landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
-        }
-        else if (landmark is CultistLandmark)
-        {
-            landmark = new CultistLandmark((CultistLandmark)landmark);
-        }
-        else if (landmark is BuilderLandmark)
-        {
-            landmark = new BuilderLandmark((BuilderLandmark)landmark);
-        }
-        else if (landmark is SeersShack)
-        {
-            landmark = new SeersShack((SeersShack)landmark);
-        }
-        else if (landmark is DisableCardLandmark)
-        {
-            landmark = new DisableCardLandmark((DisableCardLandmark)landmark);
-        }
-        else if (landmark is TheOneWhoDrawsLandmark)
-        {
-            landmark = new TheOneWhoDrawsLandmark((TheOneWhoDrawsLandmark)landmark);
-        }
-        else if (landmark is DuelistLandmark)
-        {
-            landmark = new DuelistLandmark((DuelistLandmark)landmark);
-        }
+        landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
 
         print("Landmark" + landmark + " Op" + opponentPlayedLandmark + "Index: " + index);
 
