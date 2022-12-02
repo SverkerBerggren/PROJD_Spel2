@@ -107,4 +107,13 @@ public class EffectController : MonoBehaviour
     {
         card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
+    public void DestoryBuilderEffect(GameObject go)
+    {
+        go.GetComponent<Effect_Builder>().SetDissolve(true);
+    }
+    public void DestoryGraveRoEffect(GameObject go)
+    {
+        go.GetComponent<Effect_GraveRobber>().SetDissolve(true);
+    }
+
 }

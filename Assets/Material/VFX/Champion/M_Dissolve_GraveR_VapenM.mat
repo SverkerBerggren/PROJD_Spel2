@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Dissolve_GraveR
+  m_Name: M_Dissolve_GraveR_VapenM
   m_Shader: {fileID: -6465566751694194690, guid: 835d59103ee038349bc4ada657025a80, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
@@ -46,15 +46,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 8b90cb14c88cd7744b6a228336778acb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 838ed3fd277322643b1d0b89a600c7bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeshTexture:
-        m_Texture: {fileID: 2800000, guid: d4a3946286f888e4b92d2a2d3d3d9aa8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a724617d4d8c73459516eca0acc4f68, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMAp:
-        m_Texture: {fileID: 2800000, guid: c202d92e6589e0c4c8f5949a7706ec73, type: 3}
+        m_Texture: {fileID: 2800000, guid: d0549644fbeca9d4c803e7bc3cd6e77e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_602b9b7289fd4b54a8fec7962e3a94c3_Texture_1:
@@ -136,7 +136,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _DissolveEdgeColor: {r: 0, g: 4882.4316, b: 585.89124, a: 1}
+    - _DissolveEdgeColor: {r: 24543.875, g: 20303.31, b: 0, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
