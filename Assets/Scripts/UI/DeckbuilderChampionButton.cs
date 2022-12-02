@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -38,4 +39,13 @@ public class DeckbuilderChampionButton : MonoBehaviour
 	{
 		Setup.Instance.RemoveChampion(champion);		
 	}
+
+	private void OnEnable()
+	{
+        DrawGizmo gizmo = new DrawGizmo(GizmoType.InSelectionHierarchy);
+    }
+
+
+
+
 }
