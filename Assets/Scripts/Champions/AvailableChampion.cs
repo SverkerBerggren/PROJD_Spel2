@@ -39,6 +39,7 @@ public class AvailableChampion : MonoBehaviour
     public SpriteRenderer champCard;
     private GameState gameState;
     //private ArmorEffect armorEffect;
+    [SerializeField] private GameObject sheildUIObject;
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text shieldText;
@@ -221,7 +222,7 @@ public class AvailableChampion : MonoBehaviour
             {
                 int differenceAfterShieldDamage = damage - champion.shield;
                 champion.shield = 0;
-
+                sheildUIObject.SetActive(false);
                 ShieldEffectDestroy();
 
                 champion.health -= differenceAfterShieldDamage;
@@ -229,6 +230,7 @@ public class AvailableChampion : MonoBehaviour
             else
             {
                 champion.shield -= damage;
+                sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
             }
         }
 
@@ -260,6 +262,8 @@ public class AvailableChampion : MonoBehaviour
     public virtual void GainShield(int amountToBlock)
     {
         champion.shield += amountToBlock;
+        sheildUIObject.SetActive(true);
+        sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
     }
 
 
