@@ -38,6 +38,16 @@ public class DuelistSupport : Spells
 
         ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
+
+        if (GameState.Instance.isOnline)
+        {
+            RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tI);
+            request.whichPlayer = ClientConnection.Instance.playerId;
+
+            ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+        }
+
+
         foreach (Card card in actionOfPlayer.handPlayer.deck.deckPlayer)
         {
             if (card is AttackSpell)
