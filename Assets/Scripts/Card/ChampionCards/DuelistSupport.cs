@@ -28,26 +28,27 @@ public class DuelistSupport : Spells
                 index = i;
             }
         }
+        //I Do
+        ListEnum lEMe = new ListEnum();
+        lEMe.myChampions = true;
+        TargetInfo tIForMe = new TargetInfo(lEMe, index);
+        GameState.Instance.SwapChampionWithTargetInfo(tIForMe, false);
 
-        ListEnum lE = new ListEnum();
-        lE.myChampions = true;
-
-        TargetInfo tI = new TargetInfo(lE, index);
-
-        GameState.Instance.SwapChampionWithTargetInfo(tI, false);
-
-        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-
+        //OpponentDoes
+        ListEnum lEOpponenent = new ListEnum();
+        lEOpponenent.opponentChampions = true;
+        TargetInfo tIForOpponent = new TargetInfo(lEOpponenent, index);
 
         if (GameState.Instance.isOnline)
         {
-            RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tI);
+            RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tIForOpponent);
             request.whichPlayer = ClientConnection.Instance.playerId;
 
             ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
         }
 
 
+        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
         foreach (Card card in actionOfPlayer.handPlayer.deck.deckPlayer)
         {
             if (card is AttackSpell)
