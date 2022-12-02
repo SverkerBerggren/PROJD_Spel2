@@ -788,6 +788,10 @@ public class GameState : MonoBehaviour
         {
             landmarkDisplay.UpdateTextOnCard();
         }
+        foreach (LandmarkDisplay landmarkDisplay in opponentLandmarks)
+        {
+            landmarkDisplay.UpdateTextOnCard();
+        }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
