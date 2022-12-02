@@ -519,6 +519,7 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
+        print("Landmark" + landmark + " Op" + opponentPlayedLandmark);
         if (landmark is HealingLandmark)
         {
             landmark = new HealingLandmark((HealingLandmark)landmark);
@@ -559,13 +560,16 @@ public class GameState : MonoBehaviour
         {
             landmark = new DuelistLandmark((DuelistLandmark)landmark);
         }
- 
+
+        print("Landmark" + landmark + " Op" + opponentPlayedLandmark + "Index: " + index);
 
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
+
+            print(opponentLandmarks[index].card);
         }
         else
         {
