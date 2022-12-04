@@ -22,7 +22,7 @@ public class TestScript : MonoBehaviour
             //builderAnim.Play("Attack");
             //StartCoroutine(SlashAttack());
             VFXController.
-                DestoryGraveRoEffect(Builder);
+                GainCultistAttackEffect(Builder);
         }
 
  

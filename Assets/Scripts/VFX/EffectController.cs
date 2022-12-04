@@ -11,6 +11,7 @@ public class EffectController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private GameObject healingPrefab;
+    [SerializeField] private GameObject cultistAttackPrefab;
   
     
     private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
@@ -102,7 +103,13 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
-
+    public void GainCultistAttackEffect(GameObject go)
+    {
+       
+            Instantiate(cultistAttackPrefab, go.transform.position, Quaternion.identity);
+        
+   
+    }
     public void DiscardCardEffect(GameObject card)
     {
         card.GetComponent<CardDissolve>().SetDissolveState(true);
@@ -115,5 +122,9 @@ public class EffectController : MonoBehaviour
     {
         go.GetComponent<Effect_GraveRobber>().SetDissolve(true);
     }
-
+    public void DestoryCultistEffect(GameObject go)
+    {
+        go.GetComponent<Effect_Cultist>().SetDissolve(true);
+    }
+    
 }
