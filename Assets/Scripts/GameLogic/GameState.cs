@@ -54,7 +54,7 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
-    public bool canSwap;
+    public bool canSwap = true;
     public int amountOfTurns;
 
     [NonSerialized] public GameObject targetingEffect;

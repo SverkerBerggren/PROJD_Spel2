@@ -420,7 +420,7 @@ public class Choice : MonoBehaviour
         switch (theMethod)
         {
             case WhichMethod.switchChampionPlayer:
-                if (gameState.playerChampions.Count <= 1 && !gameState.canSwap)
+                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
                 }
