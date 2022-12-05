@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8130a8f51845284397e353f2d853c9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 289f43770bd65104d89636611366a94a, type: 3}
   m_Name: GhastlyBackup
   m_EditorClassIdentifier: 
   cardName: Ghastly Backup
@@ -17,12 +17,14 @@ MonoBehaviour:
   description: Deal 20 damage for each attack in the top 3 cards of your graveyard
   artwork: {fileID: 21300000, guid: 89461812c24c87147b0ac02615bc7943, type: 3}
   maxManaCost: 2
-  tag: AttackSpell
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
   targetable: 0
   championCard: 1
   championCardType: 6
-  amountOfCardsToReturn: 0
-  topCardsInGraveyard: 3
+  topCardsInGraveyard: 0
