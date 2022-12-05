@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class GraverobberAttack : Spells
 {
-    //public int amountOfCardsToReturn;
     public int topCardsInGraveyard = 0;
-    //public bool graveGrief = false;
 
     public GraverobberAttack()
     {
