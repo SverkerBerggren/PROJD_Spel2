@@ -66,6 +66,7 @@ public class GameState : MonoBehaviour
     private Calculations calculations;
     private ActionOfPlayer actionOfPlayer;
     private CardRegister cardRegister;
+    private Setup setup;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
@@ -92,12 +93,13 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
-        if (CardRegister.Instance == null)
-            Instantiate(cardRegisterPrefab, transform.parent);
+ /*       if (CardRegister.Instance == null)
+            Instantiate(cardRegisterPrefab, transform.parent);*/
 
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
         cardRegister = CardRegister.Instance;
+        setup = Setup.Instance;
 
         if (isOnline)
         {           
@@ -112,9 +114,9 @@ public class GameState : MonoBehaviour
                 didIStart = false;
                 ChangeInteractabiltyEndTurn();
             }
-            AddChampions(Setup.Instance.myChampions, true);
-            AddChampions(Setup.Instance.opponentChampions, false);
-            Deck.Instance.CreateDecks(Setup.Instance.playerDeckList);
+            AddChampions(setup.myChampions, true);
+            AddChampions(setup.opponentChampions, false);
+            Deck.Instance.CreateDecks(setup.playerDeckList);
         }
         else
         {
