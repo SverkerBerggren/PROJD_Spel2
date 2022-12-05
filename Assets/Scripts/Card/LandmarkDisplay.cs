@@ -8,7 +8,7 @@ public class LandmarkDisplay : Displays
 {  
     public int health;
     //public Landmarks landmark;
-	public GameObject landmarkPrefab;
+	//public GameObject landmarkPrefab;
     private GameState gameState;
     private Graveyard graveyard;
     public int index;

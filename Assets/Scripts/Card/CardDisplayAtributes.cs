@@ -29,11 +29,11 @@ public class CardDisplayAtributes : MonoBehaviour
     {
         if (landmarkDisplay.card == null)
         {
-            landmarkDisplay.landmarkPrefab.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
             return;
         }
         landmarkDisplay.UpdateVariables();
-        landmarkDisplay.landmarkPrefab.SetActive(true);
+        transform.parent.gameObject.SetActive(false);
         hpText.text = landmarkDisplay.health.ToString();
         description.text = landmarkDisplay.card.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
