@@ -26,11 +26,11 @@ public class CardRegister : MonoBehaviour
     {
         bool updateCardsInterent = true;
 
-        if (GameState.Instance != null)
+/*        if (GameState.Instance != null)
         {
             if (GameState.Instance.isOnline)
                 gameObject.SetActive(false);
-        }
+        }*/
         if (Instance == null)
         {
             Instance = this;

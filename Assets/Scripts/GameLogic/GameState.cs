@@ -93,8 +93,8 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
- /*       if (CardRegister.Instance == null)
-            Instantiate(cardRegisterPrefab, transform.parent);*/
+        if (CardRegister.Instance == null)
+            Instantiate(cardRegisterPrefab, transform.parent);
 
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
