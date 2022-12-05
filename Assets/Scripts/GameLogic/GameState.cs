@@ -499,18 +499,16 @@ public class GameState : MonoBehaviour
     {
         landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
 
-        print("Landmark" + landmark + " Op" + opponentPlayedLandmark + "Index: " + index);
-
         if (opponentPlayedLandmark)
         {
+            opponentLandmarks[index].gameObject.SetActive(true);
             opponentLandmarks[index].card = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
-
-            print(opponentLandmarks[index].card);
         }
         else
         {
+            playerLandmarks[index].gameObject.SetActive(true);
             playerLandmarks[index].card = landmark;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
