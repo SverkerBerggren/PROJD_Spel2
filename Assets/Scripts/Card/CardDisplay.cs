@@ -10,6 +10,7 @@ public class CardDisplay : Displays
     private bool alreadyBig = false;
     private Vector3 originalSize;
     private bool loadedSpriteRenderer = false;
+    private bool loadedDisplayAttributes = false;
 
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     
@@ -19,7 +20,7 @@ public class CardDisplay : Displays
 
     private void Awake()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
@@ -42,6 +43,8 @@ public class CardDisplay : Displays
         cardTargeting = GetComponent<CardTargeting>();
         if (!loadedSpriteRenderer)
             LoadSpriteRendererOnce();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
     }
 
 
@@ -60,8 +63,16 @@ public class CardDisplay : Displays
         artworkSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
+    private void LoadDisplayAttributesOnce()
+    {
+        loadedDisplayAttributes = true;
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+    }
+
     public void UpdateTextOnCard()
     {
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
