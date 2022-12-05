@@ -40,7 +40,8 @@ public class CardDisplay : Displays
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-        
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
     }
 
 
