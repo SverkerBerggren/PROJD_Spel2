@@ -51,8 +51,8 @@ public class CardDisplay : Displays
 
     public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
-/*        if (!loadedSpriteRenderer)
-            LoadSpriteRendererOnce();*/
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
         opponentCard = true;
         artworkSpriteRenderer.sprite = backfaceCard;
         transform.GetChild(0).gameObject.SetActive(false);
@@ -72,8 +72,8 @@ public class CardDisplay : Displays
 
     public void UpdateTextOnCard()
     {
-/*        if (!loadedDisplayAttributes)
-            LoadDisplayAttributesOnce();*/
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
 
         print(cardDisplayAtributes == null);
         cardDisplayAtributes.UpdateTextOnCard(this);
