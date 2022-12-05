@@ -7,7 +7,7 @@ public abstract class Displays : MonoBehaviour
 {
     public Card card;
     public int manaCost;
-    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
+    
     protected Calculations calculations;
 
     [System.NonSerialized] public CardTargeting cardTargeting;

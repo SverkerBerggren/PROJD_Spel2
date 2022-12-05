@@ -14,6 +14,7 @@ public class LandmarkDisplay : Displays
     public int index;
     public bool opponentLandmarks = false;
     [NonSerialized] public bool landmarkEnabled = true;
+    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
     [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
     private CardDisplayAtributes previewCardDisplayAtributes;

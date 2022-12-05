@@ -12,6 +12,7 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
 
+    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     
 

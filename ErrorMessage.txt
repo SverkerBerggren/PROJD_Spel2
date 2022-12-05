@@ -1,1 +1,4 @@
-Unable to read data from the transport connection: Thread was being aborted..
+  at Server.ParseJsonObject (System.IO.Stream Stream) [0x00053] in C:\Users\mahe8600\Documents\GitHub\PROJD_Spel2\Assets\Scripts\Multiplayer (LAN)\Server.cs:71 
+  at Server.p_HandleConnection (System.Object ConnectionToHandle) [0x0004b] in C:\Users\mahe8600\Documents\GitHub\PROJD_Spel2\Assets\Scripts\Multiplayer (LAN)\Server.cs:87 System.Exception: Insufficient bytes to parse JSON object length
+  at Server.ParseJsonObject (System.IO.Stream Stream) [0x00053] in C:\Users\mahe8600\Documents\GitHub\PROJD_Spel2\Assets\Scripts\Multiplayer (LAN)\Server.cs:71 
+  at Server.p_HandleConnection (System.Object ConnectionToHandle) [0x0004b] in C:\Users\mahe8600\Documents\GitHub\PROJD_Spel2\Assets\Scripts\Multiplayer (LAN)\Server.cs:87 Insufficient bytes to parse JSON object length

@@ -58,7 +58,7 @@ public class CardParser : MonoBehaviour
 		}
 	}
 
-    public void CheckKeyword(Displays display)
+    public void CheckKeyword(Displays display, CardDisplayAtributes cardDisplayAttributes)
     {
 /*        if (display is CardDisplay)       
             display = (CardDisplay)display;
@@ -66,7 +66,7 @@ public class CardParser : MonoBehaviour
         else if (display is LandmarkDisplay)      
             display = (LandmarkDisplay)display;*/
 
-        string[] s = display.cardDisplayAtributes.description.text.Split(" ");
+        string[] s = cardDisplayAttributes.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
         {
@@ -78,7 +78,7 @@ public class CardParser : MonoBehaviour
             if(i + 1 != s.Length)
                 returnString += " ";
         }
-        display.cardDisplayAtributes.description.text = returnString;
+        cardDisplayAttributes.description.text = returnString;
     }
 
     public string Attack(Displays display)

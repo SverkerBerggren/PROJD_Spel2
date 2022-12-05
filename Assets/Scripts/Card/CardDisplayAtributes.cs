@@ -38,7 +38,7 @@ public class CardDisplayAtributes : MonoBehaviour
         description.text = landmarkDisplay.card.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
         cardName.text = landmarkDisplay.card.cardName;
-        CardParser.Instance.CheckKeyword(landmarkDisplay);
+        CardParser.Instance.CheckKeyword(landmarkDisplay, this);
     }
 
     public void UpdateTextOnCard(CardDisplay cardDisplay)
@@ -54,7 +54,7 @@ public class CardDisplayAtributes : MonoBehaviour
             cardName.text = cardDisplay.card.cardName;
             manaText.text = cardDisplay.manaCost.ToString();
             description.text = cardDisplay.card.description;
-            CardParser.Instance.CheckKeyword(cardDisplay);
+            CardParser.Instance.CheckKeyword(cardDisplay, this);
 
 
             if (cardPlayableEffect != null)
