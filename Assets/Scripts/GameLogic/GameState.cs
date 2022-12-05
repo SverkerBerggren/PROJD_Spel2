@@ -501,15 +501,15 @@ public class GameState : MonoBehaviour
 
         if (opponentPlayedLandmark)
         {
-            opponentLandmarks[index].gameObject.SetActive(true);
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].gameObject.SetActive(true);
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
         }
         else
         {
-            playerLandmarks[index].gameObject.SetActive(true);
             playerLandmarks[index].card = landmark;
+            playerLandmarks[index].gameObject.SetActive(true);
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
