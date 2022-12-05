@@ -75,6 +75,11 @@ public class LandmarkDisplay : Displays
 		}
 	}
 
+    private void OnDisable()
+    {
+        gameObject.SetActive(true);
+    }
+
     private void LandmarkDead()
     {
         if (opponentLandmarks)
