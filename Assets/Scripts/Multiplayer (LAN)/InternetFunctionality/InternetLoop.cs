@@ -285,7 +285,7 @@ public class InternetLoop : MonoBehaviour
             if (action is GameActionPlayLandmark)
             {
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
-
+                Debug.Log("CardReg: " + CardRegister.Instance.cardRegister);
                 gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
                 gameState.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;

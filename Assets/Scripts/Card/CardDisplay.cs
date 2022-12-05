@@ -9,6 +9,7 @@ public class CardDisplay : Displays
 {
     private bool alreadyBig = false;
     private Vector3 originalSize;
+    private bool loadedSpriteRenderer = false;
 
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     
@@ -21,6 +22,8 @@ public class CardDisplay : Displays
         cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
+
+
 
     private void Start()
     {
@@ -40,16 +43,24 @@ public class CardDisplay : Displays
         
     }
 
+
     public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
         opponentCard = true;
-        artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         artworkSpriteRenderer.sprite = backfaceCard;
-        transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private void LoadSpriteRendererOnce()
+    {
+        loadedSpriteRenderer = true;
+        artworkSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     public void UpdateTextOnCard()
-    {       
+    {
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 

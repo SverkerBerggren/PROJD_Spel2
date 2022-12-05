@@ -6,12 +6,7 @@ using UnityEngine;
 public class TheOneWhoDraws : Champion
 {
 	int cardsDraw = 1;
-	public TheOneWhoDraws(TheOneWhoDraws c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, ChampionCardType.TheOneWhoDraws)
-	{
-		cardsDraw = c.cardsDraw;
-	}
-
-	public override void EndStep()
+    public override void EndStep()
 	{
 		base.EndStep();
 		gameState.DrawCard(1, null);

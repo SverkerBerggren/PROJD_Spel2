@@ -139,10 +139,10 @@ public class PlayCardManager : MonoBehaviour
             {
                 if (landmarkDisplay.card == null)
                 {
-                    landmarkDisplay.landmark = (Landmarks)card;
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
-                    gameState.ShowPlayedCardLandmark(landmarkDisplay.landmark);
+                    Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                    gameState.ShowPlayedCardLandmark(landmark);
                     break;
                 }
                 else

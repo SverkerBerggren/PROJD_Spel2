@@ -28,7 +28,6 @@ public class Hand : MonoBehaviour
 
     public void FixCardOrderInHand()
     {
-        print("Check");
         cardsInHand.Clear();
         foreach (CardDisplay cardDisplay in cardSlotsInHand)
         {

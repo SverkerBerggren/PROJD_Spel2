@@ -64,8 +64,9 @@ public class GameState : MonoBehaviour
 
     private bool firstTurn = true;
     private Calculations calculations;
-
     private ActionOfPlayer actionOfPlayer;
+    private CardRegister cardRegister;
+    private Setup setup;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
@@ -86,19 +87,22 @@ public class GameState : MonoBehaviour
         if (ClientConnection.Instance != null)
             isOnline = true;
 
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
 
     void Start()
     {
-        if (CardRegister.Instance == null)
-            Instantiate(cardRegisterPrefab, transform.parent);
+ /*       if (CardRegister.Instance == null)
+            Instantiate(cardRegisterPrefab, transform.parent);*/
+
         actionOfPlayer = ActionOfPlayer.Instance;
         calculations = Calculations.Instance;
+        cardRegister = CardRegister.Instance;
+        setup = Setup.Instance;
+
         if (isOnline)
-        {
-            print(ClientConnection.Instance.playerId);
+        {           
             if (ClientConnection.Instance.playerId == 0)
             {
                 isItMyTurn = true;
@@ -110,16 +114,16 @@ public class GameState : MonoBehaviour
                 didIStart = false;
                 ChangeInteractabiltyEndTurn();
             }
-            AddChampions(Setup.Instance.myChampions, true);
-            AddChampions(Setup.Instance.opponentChampions, false);
-            Deck.Instance.CreateDecks(Setup.Instance.playerDeckList);
+            AddChampions(setup.myChampions, true);
+            AddChampions(setup.opponentChampions, false);
+            Deck.Instance.CreateDecks(setup.playerDeckList);
         }
         else
         {
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Duelist",
+                "Cultist",
                 "TheOneWhoDraws",
                 "Graverobber"
             };
@@ -130,7 +134,6 @@ public class GameState : MonoBehaviour
         opponentChampion = opponentChampions[0];
 
         DrawStartingCards();
-        //Refresh();
     }
 
     private void ChangeInteractabiltyEndTurn()
@@ -307,36 +310,11 @@ public class GameState : MonoBehaviour
 
     private void AddChampions(List<string> champions, bool isPlayer)
     {
-        Dictionary<string, Champion> champReg = CardRegister.Instance.champRegister;
+        Dictionary<string, Champion> champReg = cardRegister.champRegister;
         for (int i = 0; i < champions.Count; i++)
         {
-            Champion champ = null;
-            switch (champions[i])
-            {
-                case "Cultist":
-                    champ = new Cultist((Cultist)champReg[champions[i]]);
-                    break;
-
-                case "Builder":
-                    champ = new Builder((Builder)champReg[champions[i]]);
-                    break;
-
-                case "Shanker":
-                    champ = new Shanker((Shanker)champReg[champions[i]]);
-                    break;
-
-                case "Graverobber":
-                    champ = new Graverobber((Graverobber)champReg[champions[i]]);
-                    break;
-
-                case "TheOneWhoDraws":
-                    champ = new TheOneWhoDraws((TheOneWhoDraws)champReg[champions[i]]);
-                    break;
-
-                case "Duelist":
-                    champ = new Duelist((Duelist)champReg[champions[i]]);
-                    break;
-            }
+            Champion champ = Instantiate(champReg[champions[i]]);
+       
 			if (isPlayer)
 			    playerChampions[i].champion = champ;
             else
@@ -519,59 +497,21 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
-        if (landmark is HealingLandmark)
-        {
-            landmark = new HealingLandmark((HealingLandmark)landmark);
-        }
-        else if (landmark is TauntLandmark)
-        {
-            landmark = new TauntLandmark((TauntLandmark)landmark);
-        }
-        else if (landmark is DamageLandmark)
-        {
-            landmark = new DamageLandmark((DamageLandmark)landmark);
-        }
-        else if (landmark is DrawCardLandmark)
-        {
-            landmark = new DrawCardLandmark((DrawCardLandmark)landmark);
-        }
-        else if (landmark is CultistLandmark)
-        {
-            landmark = new CultistLandmark((CultistLandmark)landmark);
-        }
-        else if (landmark is BuilderLandmark)
-        {
-            landmark = new BuilderLandmark((BuilderLandmark)landmark);
-        }
-        else if (landmark is SeersShack)
-        {
-            landmark = new SeersShack((SeersShack)landmark);
-        }
-        else if (landmark is DisableCardLandmark)
-        {
-            landmark = new DisableCardLandmark((DisableCardLandmark)landmark);
-        }
-        else if (landmark is TheOneWhoDrawsLandmark)
-        {
-            landmark = new TheOneWhoDrawsLandmark((TheOneWhoDrawsLandmark)landmark);
-        }
-        else if (landmark is DuelistLandmark)
-        {
-            landmark = new DuelistLandmark((DuelistLandmark)landmark);
-        }
- 
+        landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
+
+        print("Landmark" + landmark + " Op" + opponentPlayedLandmark + "Index: " + index);
 
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
-            opponentLandmarks[index].landmark = landmark;
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
+
+            print(opponentLandmarks[index].card);
         }
         else
         {
             playerLandmarks[index].card = landmark;
-            playerLandmarks[index].landmark = landmark;
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
@@ -592,10 +532,13 @@ public class GameState : MonoBehaviour
             amountOfTurns++;
         }
         playerChampion.champion.UpKeep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if (landmark.card != null && landmark.landmarkEnabled)
-                landmark.landmark.UpKeep();
+            if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            {
+                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                landmark.UpKeep();
+            }
         } 
         foreach (Effects effect in playerEffects)
         {
@@ -606,10 +549,13 @@ public class GameState : MonoBehaviour
     public void TriggerEndStep()
     {
         playerChampion.champion.EndStep();
-        foreach (LandmarkDisplay landmark in playerLandmarks)
+        foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if(landmark.card != null && landmark.landmarkEnabled)
-            landmark.landmark.EndStep();
+            if(landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            {
+                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                landmark.EndStep();
+            }
         }
         foreach (Effects effect in playerEffects)
         {
@@ -777,6 +723,10 @@ public class GameState : MonoBehaviour
     {
         ClearEffects();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
+        {
+            landmarkDisplay.UpdateTextOnCard();
+        }
+        foreach (LandmarkDisplay landmarkDisplay in opponentLandmarks)
         {
             landmarkDisplay.UpdateTextOnCard();
         }

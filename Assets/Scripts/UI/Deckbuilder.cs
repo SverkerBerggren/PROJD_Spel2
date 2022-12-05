@@ -28,13 +28,13 @@ public class Deckbuilder : MonoBehaviour
         {
             Destroy(Instance);
         }
-        setup = Setup.Instance;
-        decklist = GetComponentInChildren<TMP_Text>();
-        UpdateDeckList();
 	}
 
     void Start()
     {
+        setup = Setup.Instance;
+        decklist = GetComponentInChildren<TMP_Text>();
+        UpdateDeckList();
         register = CardRegister.Instance;
 		foreach (Champion champion in register.champRegister.Values)
 		{
@@ -50,7 +50,7 @@ public class Deckbuilder : MonoBehaviour
 	private void MakeButtonsCards(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
-        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
+        CardDisplayAtributes cardDisplayAtributes = gO.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
         gO.GetComponent<DeckbuilderCardButton>().card = card;
         buttons.Add(gO);
