@@ -202,7 +202,7 @@ public class Choice : MonoBehaviour
 
         gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
 
-        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+        gO.transform.GetChild(0).gameObject.SetActive(false);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
