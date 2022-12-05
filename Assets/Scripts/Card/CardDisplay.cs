@@ -67,14 +67,14 @@ public class CardDisplay : Displays
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
     }
 
     public void UpdateTextOnCard()
     {
-/*        if (!loadedDisplayAttributes)
-            LoadDisplayAttributesOnce();*/
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
+
         print(cardDisplayAtributes == null);
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
