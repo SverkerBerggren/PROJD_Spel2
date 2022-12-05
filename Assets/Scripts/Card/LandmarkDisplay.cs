@@ -38,6 +38,10 @@ public class LandmarkDisplay : Displays
         {
             gameObject.SetActive(true);
         }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 

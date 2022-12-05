@@ -27,11 +27,11 @@ public class CardDisplayAtributes : MonoBehaviour
 
     public void UpdateTextOnCard(LandmarkDisplay landmarkDisplay)
     {
-        if (landmarkDisplay.card == null)
+/*        if (landmarkDisplay.card == null)
         {
             transform.parent.gameObject.SetActive(false);
             return;
-        }
+        }*/
         landmarkDisplay.UpdateVariables();
         transform.parent.gameObject.SetActive(false);
         hpText.text = landmarkDisplay.health.ToString();
