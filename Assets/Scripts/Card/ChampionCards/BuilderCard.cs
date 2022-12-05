@@ -16,12 +16,11 @@ public class BuilderCard : Spells
 
         for (int i = 0; i < gameState.playerLandmarks.Count; i++)
         {
+            if (gameState.playerLandmarks == null) continue;
             damage += 10;
             gameState.DrawCard(1, null);
-        }       
-        if (Target != null)
-            //Target.TakeDamage(damage);
-        if (LandmarkTarget != null)
-            LandmarkTarget.TakeDamage(damage);       
+        }
+
+        gameState.CalculateAndDealDamage(damage, this);
     }
 }
