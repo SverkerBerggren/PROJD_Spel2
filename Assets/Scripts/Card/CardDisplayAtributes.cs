@@ -34,7 +34,6 @@ public class CardDisplayAtributes : MonoBehaviour
         }
         
         landmarkDisplay.UpdateVariables();
-        transform.parent.gameObject.SetActive(false);
         hpText.text = landmarkDisplay.health.ToString();
         description.text = landmarkDisplay.card.description;
         manaText.text = landmarkDisplay.manaCost.ToString();
