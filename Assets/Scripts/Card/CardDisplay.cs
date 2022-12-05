@@ -21,7 +21,10 @@ public class CardDisplay : Displays
 
     private void Awake()
     {
-        
+        if (!loadedSpriteRenderer && opponentCard)
+            LoadSpriteRendererOnce();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
@@ -42,17 +45,14 @@ public class CardDisplay : Displays
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-        if (!loadedSpriteRenderer)
-            LoadSpriteRendererOnce();
-        if (!loadedDisplayAttributes)
-            LoadDisplayAttributesOnce();
+
     }
 
 
     public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
-        if (!loadedSpriteRenderer)
-            LoadSpriteRendererOnce();
+/*        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();*/
         opponentCard = true;
         artworkSpriteRenderer.sprite = backfaceCard;
         transform.GetChild(0).gameObject.SetActive(false);
@@ -72,8 +72,8 @@ public class CardDisplay : Displays
 
     public void UpdateTextOnCard()
     {
-        if (!loadedDisplayAttributes)
-            LoadDisplayAttributesOnce();
+/*        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();*/
 
         print(cardDisplayAtributes == null);
         cardDisplayAtributes.UpdateTextOnCard(this);
