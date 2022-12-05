@@ -27,7 +27,7 @@ public class GraverobberAttack : Spells
             {
                 if (graveyard.graveyardPlayer[i] == null) return;
                 Card cardToCheck = graveyard.graveyardPlayer[i];
-                if (cardToCheck.GetType().Equals("AttackSpell"))
+                if (cardToCheck.typeOfCard == CardType.Attack)
                 {
                     damage += 20;
                 }
