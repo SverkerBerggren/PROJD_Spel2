@@ -36,7 +36,7 @@ public class LandmarkDisplay : Displays
     {
         if (card != null)
         {
-            landmarkPrefab.SetActive(true);
+            gameObject.SetActive(true);
         }
     }
 
