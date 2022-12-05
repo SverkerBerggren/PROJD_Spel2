@@ -73,6 +73,8 @@ public class CardDisplay : Displays
     {
         if (!loadedDisplayAttributes)
             LoadDisplayAttributesOnce();
+
+        print(cardDisplayAtributes == null);
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
