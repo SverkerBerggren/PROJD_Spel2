@@ -68,11 +68,11 @@ public class InternetLoop : MonoBehaviour
                 {
                     if (theAction.discardCardToOpponentGraveyard)
                     {
-                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                        Graveyard.Instance.AddCardToGraveyard(register.cardRegister[card]);
                     }
                     else
                     {
-                        Graveyard.Instance.AddCardToGraveyard(register.cardRegister[card]);
+                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
                     }
                     
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
