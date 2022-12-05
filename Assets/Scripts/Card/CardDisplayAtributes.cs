@@ -32,6 +32,7 @@ public class CardDisplayAtributes : MonoBehaviour
             //transform.parent.gameObject.SetActive(false);
             return;
         }
+        
         landmarkDisplay.UpdateVariables();
         transform.parent.gameObject.SetActive(false);
         hpText.text = landmarkDisplay.health.ToString();
