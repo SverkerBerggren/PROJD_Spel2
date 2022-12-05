@@ -499,7 +499,7 @@ Transform:
   - {fileID: 1692619723}
   - {fileID: 670250808}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &18711634
 GameObject:
@@ -920,16 +920,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932640576116373}
-  descriptionText: {fileID: 262932640077588333}
-  nameText: {fileID: 3610504236401711815}
-  manaText: {fileID: 262932639323055038}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932640183773020}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 1
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &34705480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,9 +998,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 573844388}
   animator: {fileID: 0}
   champCard: {fileID: 1156412987}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 2033468273}
   shieldText: {fileID: 1105119588}
   passiveEffect: {fileID: 1862957796}
@@ -1668,7 +1666,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0.00010331947}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 144919220}
   m_Father: {fileID: 1020739985}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2211,7 +2210,7 @@ Transform:
   - {fileID: 1637298888}
   - {fileID: 2016389651}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &115222919
 GameObject:
@@ -2613,6 +2612,96 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141158751}
   m_CullTransparentMesh: 1
+--- !u!1 &144919219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144919220}
+  - component: {fileID: 144919223}
+  - component: {fileID: 144919222}
+  - component: {fileID: 144919221}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &144919220
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144919219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91243267}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 67, y: 67}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &144919221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144919219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+--- !u!114 &144919222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144919219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &144919223
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144919219}
+  m_CullTransparentMesh: 1
 --- !u!1 &153878646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,7 +2769,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4076928805
+    rgba: 4278255397
   m_fontColor: {r: 0.14341998, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3762,7 +3851,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &232757173 stripped
 Transform:
@@ -4314,8 +4403,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -6280,7 +6369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.36078432, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10215,16 +10304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932639221379643}
-  descriptionText: {fileID: 262932638714446787}
-  nameText: {fileID: 3610504235600592489}
-  manaText: {fileID: 262932640677791504}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932638870930418}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 1
   opponentLandmarks: 1
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &684227067
 GameObject:
   m_ObjectHideFlags: 0
@@ -11222,16 +11307,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932640614911475}
-  descriptionText: {fileID: 262932640040893451}
-  nameText: {fileID: 3610504236356616609}
-  manaText: {fileID: 262932639284263128}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932640163855418}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 0
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &773101715
 GameObject:
   m_ObjectHideFlags: 0
@@ -11696,7 +11777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &784799632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12051,16 +12132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932640236474684}
-  descriptionText: {fileID: 262932640819945668}
-  nameText: {fileID: 3610504237001727342}
-  manaText: {fileID: 262932638857651223}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932640657694965}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 2
   opponentLandmarks: 1
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &812522613
 GameObject:
   m_ObjectHideFlags: 0
@@ -12370,7 +12447,7 @@ Transform:
   - {fileID: 1654315319}
   - {fileID: 1370044241}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &837795189
 GameObject:
@@ -12908,7 +12985,6 @@ Transform:
   - {fileID: 1272521303}
   - {fileID: 1028002208}
   - {fileID: 556425801}
-  - {fileID: 1980007845}
   - {fileID: 1873254730}
   - {fileID: 1739761103}
   - {fileID: 15175700}
@@ -12947,9 +13023,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 1980007843}
   animator: {fileID: 0}
   champCard: {fileID: 556425802}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 997731172}
   shieldText: {fileID: 0}
   passiveEffect: {fileID: 1272521304}
@@ -14458,16 +14536,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932640260242340}
-  descriptionText: {fileID: 262932640759941724}
-  nameText: {fileID: 3610504236979222518}
-  manaText: {fileID: 262932638828908175}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932640652741229}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 0
   opponentLandmarks: 1
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &923356252
 GameObject:
   m_ObjectHideFlags: 0
@@ -16322,9 +16396,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 650474946}
   animator: {fileID: 0}
   champCard: {fileID: 1448664348}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 654930298}
   shieldText: {fileID: 0}
   passiveEffect: {fileID: 1751679037}
@@ -16421,7 +16497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50.3, y: -343, z: 7.23}
 --- !u!114 &1049669949
 MonoBehaviour:
@@ -16750,7 +16826,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1087117246
 GameObject:
@@ -17166,7 +17242,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1098649238
 GameObject:
@@ -17548,7 +17624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1105119587
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18359,7 +18435,7 @@ Transform:
   - {fileID: 1397093725}
   - {fileID: 1607819211}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1136873170
 GameObject:
@@ -18594,7 +18670,7 @@ Transform:
   m_Children:
   - {fileID: 923356256}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &1143690703
 MonoBehaviour:
@@ -19810,7 +19886,7 @@ Transform:
   - {fileID: 1764185727}
   - {fileID: 546446633}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199579783
 GameObject:
@@ -20304,7 +20380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.6037736, g: 0.33891064, b: 0.33891064, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -20339,6 +20415,7 @@ GameObject:
   - component: {fileID: 1215840854}
   - component: {fileID: 1215840856}
   - component: {fileID: 1215840855}
+  - component: {fileID: 1215840858}
   - component: {fileID: 1215840857}
   m_Layer: 5
   m_Name: Champion Card
@@ -20420,6 +20497,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a05e7d7300f9b4eb68784ea0bdf1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &1215840858
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215840853}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &1216743655 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5576498782315105810, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
@@ -21464,16 +21553,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 956395947}
-  descriptionText: {fileID: 634122892}
-  nameText: {fileID: 1855883705}
-  manaText: {fileID: 1278783700}
   manaCost: 0
-  landmarkPrefab: {fileID: 1158355017}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 0
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &1289456916
 GameObject:
   m_ObjectHideFlags: 0
@@ -22579,7 +22664,7 @@ RectTransform:
   - {fileID: 92863037}
   - {fileID: 706448669}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -22698,16 +22783,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 911267182}
-  descriptionText: {fileID: 645355278}
-  nameText: {fileID: 1554439287}
-  manaText: {fileID: 1091419111}
   manaCost: 0
-  landmarkPrefab: {fileID: 2111273372}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 0
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &1376420577
 GameObject:
   m_ObjectHideFlags: 0
@@ -23184,9 +23265,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 214592259}
   animator: {fileID: 0}
   champCard: {fileID: 332835980}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 1270442384}
   shieldText: {fileID: 0}
   passiveEffect: {fileID: 1167235817}
@@ -23314,7 +23397,7 @@ Transform:
   - {fileID: 1964712667}
   - {fileID: 1287429659}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1420926599
 MonoBehaviour:
@@ -26687,9 +26770,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 849473047}
   animator: {fileID: 0}
   champCard: {fileID: 1975923551}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 1429977873}
   shieldText: {fileID: 0}
   passiveEffect: {fileID: 1441505063}
@@ -26728,8 +26813,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2.4999847, y: 0}
+  m_SizeDelta: {x: -5.0000367, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1609462843
 MonoBehaviour:
@@ -26753,15 +26838,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: End Turn
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
+  m_sharedMaterial: {fileID: 1552031480343583169, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -26778,8 +26863,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 30.9
+  m_fontSizeBase: 30.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27169,16 +27254,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932640143622841}
-  descriptionText: {fileID: 262932640642298689}
-  nameText: {fileID: 3610504236829019883}
-  manaText: {fileID: 262932638678661010}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932640770470768}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 3
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!4 &1660881993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1939979838948246886, guid: 4465a847b7845684f8c5ec28b3f382d6, type: 3}
@@ -27404,7 +27485,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!4 &1667448639 stripped
 Transform:
@@ -27423,6 +27504,7 @@ GameObject:
   - component: {fileID: 1669628586}
   - component: {fileID: 1669628585}
   - component: {fileID: 1669628584}
+  - component: {fileID: 1669628587}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: Untagged
@@ -27448,8 +27530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 856.9, y: -5.3}
+  m_SizeDelta: {x: 177.9, y: 79.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1669628584
 MonoBehaviour:
@@ -27472,13 +27554,13 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.1663507, g: 0.7735849, b: 0.018244924, a: 1}
-    m_HighlightedColor: {r: 0.12368392, g: 0.6132076, b: 0.0028924954, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.5994267, g: 0.6037736, b: 0.52118194, a: 1}
+    m_DisabledColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0.77254903}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0.2
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -27527,8 +27609,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 25269313f6c936a4899f944b8d161150, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -27545,6 +27627,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669628582}
   m_CullTransparentMesh: 1
+--- !u!114 &1669628587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669628582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1669881195
 GameObject:
   m_ObjectHideFlags: 0
@@ -27576,7 +27672,7 @@ Transform:
   m_Children:
   - {fileID: 1210825699}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1669881198
 MonoBehaviour:
@@ -27681,7 +27777,7 @@ RectTransform:
   - {fileID: 550721940}
   - {fileID: 341116896}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -28398,7 +28494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1720108237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31205,7 +31301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1862957795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31849,16 +31945,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932639471755011}
-  descriptionText: {fileID: 262932638897729275}
-  nameText: {fileID: 3610504235620275025}
-  manaText: {fileID: 262932640691137064}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932638756941514}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 2
   opponentLandmarks: 0
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!1 &1907014523
 GameObject:
   m_ObjectHideFlags: 0
@@ -33003,7 +33095,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963134516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33012,8 +33104,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.2, y: -39.3}
-  m_SizeDelta: {x: 164.39, y: 50}
+  m_AnchoredPosition: {x: 6.2, y: -14.3108}
+  m_SizeDelta: {x: 164.39, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963134518
 MonoBehaviour:
@@ -33037,8 +33129,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Information: blablablablablablabla'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
+  m_sharedMaterial: {fileID: 1552031480343583169, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -33062,8 +33154,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 24.9
+  m_fontSizeBase: 24.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -33098,7 +33190,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -2.0399857, y: 0, z: 0, w: 47.93848}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -33145,16 +33237,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  health: 0
-  healthText: {fileID: 262932639002673608}
-  descriptionText: {fileID: 262932639501479984}
-  nameText: {fileID: 3610504235822419354}
-  manaText: {fileID: 262932639819609315}
   manaCost: 0
-  landmarkPrefab: {fileID: 262932639629651969}
-  occultGathering: 0
+  opponentCard: 0
+  health: 0
   index: 3
   opponentLandmarks: 1
+  previewLandmarkDisplay: {fileID: 0}
 --- !u!4 &1964712667
 Transform:
   m_ObjectHideFlags: 0
@@ -33425,7 +33513,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1980007845
 Transform:
@@ -33439,8 +33527,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 859636922}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2012537247
 GameObject:
@@ -33515,9 +33603,11 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   shield: 0
+  isOpponent: 0
   meshToShow: {fileID: 1785881366}
   animator: {fileID: 0}
   champCard: {fileID: 1955778092}
+  sheildUIObject: {fileID: 0}
   healthText: {fileID: 1824264812}
   shieldText: {fileID: 784799633}
   passiveEffect: {fileID: 1720108238}
@@ -33635,6 +33725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldPrefab: {fileID: 3613564094345285143, guid: 3abc830fa009c8549855beb0010a110d, type: 3}
   healingPrefab: {fileID: 4250885045825998455, guid: c54af6505c484194bb5eab90e60db6e9, type: 3}
+  cultistAttackPrefab: {fileID: 0}
 --- !u!1 &2033468271
 GameObject:
   m_ObjectHideFlags: 0
@@ -34969,7 +35060,7 @@ Transform:
   - {fileID: 859636922}
   - {fileID: 1044950338}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &130444418942285445
 PrefabInstance:
@@ -47646,7 +47737,7 @@ Transform:
   - {fileID: 1331260739}
   - {fileID: 1326917641}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8809972490673812199
 MonoBehaviour:
