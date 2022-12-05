@@ -62,6 +62,10 @@ public class GameState : MonoBehaviour
     [NonSerialized] public int landmarkEffect = 1;
     [NonSerialized] public int attacksPlayedThisTurn;
 
+
+    [NonSerialized] public int drawnCardsThisTurn = 0;
+    [NonSerialized] public int drawnCardsPreviousTurn = 0;
+
     private bool firstTurn = true;
     private Calculations calculations;
     private ActionOfPlayer actionOfPlayer;
@@ -602,6 +606,8 @@ public class GameState : MonoBehaviour
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
 
+        drawnCardsPreviousTurn = drawnCardsThisTurn;
+        drawnCardsThisTurn = 0;
         Refresh();
     }
 

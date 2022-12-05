@@ -97,10 +97,14 @@ public class ActionOfPlayer : MonoBehaviour
 
 	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
 	{
+        
 		int drawnCards = 0;
 		Hand hand;
 		if (isPlayer)
+        {
 			hand = handPlayer;
+            gameState.drawnCardsThisTurn += amountToDraw;
+        }
 		else
 			hand = handOpponent;
 
