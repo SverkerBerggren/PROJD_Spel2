@@ -318,6 +318,20 @@ public class Server
             testRequest.whichPlayer = requestToHandle.whichPlayer;
             return HandleRequestLobbies(testRequest);
         }
+        if (requestToHandle is RequestStopSwapping)
+        {
+			RequestStopSwapping testRequest = (RequestStopSwapping)requestToHandle;
+            testRequest.whichPlayer = requestToHandle.whichPlayer;
+            return HandleRequestStopSwapping(testRequest);
+        }
+        /*
+        if (requestToHandle is RequestStopSwapping)
+        {
+			RequestStopSwapping testRequest = (RequestStopSwapping)requestToHandle;
+            testRequest.whichPlayer = requestToHandle.whichPlayer;
+            return HandleRequestStopSwapping(testRequest);
+        }
+        */
 
 
         GameAction errorMessage = new GameAction();
@@ -621,6 +635,16 @@ public class Server
     {
         ResponseAvailableLobbies response = new ResponseAvailableLobbies();
         response.Lobbies = hostedLobbys.Values.ToList<HostedLobby>();
+        
+
+        return response; 
+    }
+    private ServerResponse HandleRequestStopSwapping(RequestStopSwapping requestToHandle)
+    {
+        ResponseStopSwapping response = new ResponseStopSwapping();
+
+        response.whichPlayer = requestToHandle.whichPlayer;
+        response.canSwap = requestToHandle.canSwap;
         
 
         return response; 

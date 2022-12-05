@@ -57,7 +57,8 @@ public class DuelistSupport : Spells
                 actionOfPlayer.handPlayer.deck.RemoveCardFromDeck(card);
                 if (GameState.Instance.isOnline)
                 {
-                    //Kanske new request???
+                    RequestDrawCard request = new RequestDrawCard(1);
+                    ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
                 }
                 break;
             }
