@@ -293,6 +293,8 @@ public class InternetLoop : MonoBehaviour
 
             if (action is GameActionStopSwapping)
             {
+
+                print("den swappar ej");
                 GameActionStopSwapping castedAction = (GameActionStopSwapping)action;
 
                 gameState.canSwap = castedAction.canSwap;

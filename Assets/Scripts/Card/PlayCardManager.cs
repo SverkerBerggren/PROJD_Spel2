@@ -143,6 +143,7 @@ public class PlayCardManager : MonoBehaviour
                     card.PlayCard();
                     Landmarks landmark = (Landmarks)landmarkDisplay.card;
                     gameState.ShowPlayedCardLandmark(landmark);
+
                     break;
                 }
                 else

@@ -645,9 +645,13 @@ public class Server
 
         response.whichPlayer = requestToHandle.whichPlayer;
         response.canSwap = requestToHandle.canSwap;
+
+        GameActionStopSwapping gameAction = new GameActionStopSwapping(requestToHandle.canSwap);
+
         
 
-        return response; 
+		AddGameAction(response, gameAction, requestToHandle.gameId);
+		return response; 
     }
 
     private void AddGameAction(ServerResponse response, GameAction gameAction, int gameId)
