@@ -74,11 +74,6 @@ public class ActionOfPlayer : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        manaText.text = "Mana: " + currentMana.ToString();
-    }
-
     public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
     {
         cardCost = cardDisplay.manaCost;

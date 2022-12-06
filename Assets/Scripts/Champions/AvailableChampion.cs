@@ -27,6 +27,7 @@ public class AvailableChampion : MonoBehaviour
 
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
+    public Image currentSprite;
 
 	public Animator animator;
 
@@ -41,11 +42,11 @@ public class AvailableChampion : MonoBehaviour
     //private ArmorEffect armorEffect;
     [SerializeField] private GameObject sheildUIObject;
 
-    [SerializeField] private TMP_Text healthText;
-    [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text passiveEffect;
 
     [NonSerialized] public GameObject targetingEffect;
+
+    public GameObject imageHolder;
 
 
     private GameObject healthBar;
@@ -71,6 +72,8 @@ public class AvailableChampion : MonoBehaviour
 
         passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
         passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
+
+        currentSprite = imageHolder.GetComponent<Image>();
 
         GetAllMeshes();
 
@@ -168,6 +171,8 @@ public class AvailableChampion : MonoBehaviour
         maxHealth = champion.maxHealth;
         shield = champion.shield;
 
+        currentSprite.sprite = champion.champBackground;
+
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
@@ -175,19 +180,6 @@ public class AvailableChampion : MonoBehaviour
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = health;
         healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
-    
-        if (shieldText != null)
-        {
-            if (shield > 0)
-            {
-                shieldText.text = "Shield: " + shield;
-            }
-            else
-            {
-                shieldText.text = "";
-            }
-        }
-
 	}
 
     public void FixedUpdate()
