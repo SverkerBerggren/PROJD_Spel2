@@ -137,6 +137,8 @@ public class GameState : MonoBehaviour
         playerChampion = playerChampions[0];
         opponentChampion = opponentChampions[0];
 
+       
+
         DrawStartingCards();
     }
 
@@ -436,7 +438,6 @@ public class GameState : MonoBehaviour
             playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
             playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
             /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
         }
         else if(targetInfo.whichList.opponentChampions)
         {
@@ -444,7 +445,6 @@ public class GameState : MonoBehaviour
             opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
             opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
             /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
         }
     }
 
@@ -483,7 +483,7 @@ public class GameState : MonoBehaviour
             opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
             opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
             /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
+
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
         }
@@ -493,7 +493,7 @@ public class GameState : MonoBehaviour
             playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
             playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
             /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
+
 
         }
     }
@@ -511,8 +511,6 @@ public class GameState : MonoBehaviour
                     opponentChampions[0].champion.health = opponentChampions[randomChamp].champion.health;
                     opponentChampions[0].champion.shield = opponentChampions[randomChamp].champion.shield;
                     /*                    opponentChampions[0].champion.champBackground = opponentChampions[randomChamp].champion.champBackground;*/
-                    yourTurnEffect.ChangePicture(opponentChampions[randomChamp]);
-
                     opponentChampion.champion.WhenCurrentChampion();
                     break;
                 }
@@ -748,5 +746,7 @@ public class GameState : MonoBehaviour
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
         playerChampion.UpdateTextOnCard();
         opponentChampion.UpdateTextOnCard();
+
+        yourTurnEffect.ChangePicture(playerChampions[0]);
     }
 }
