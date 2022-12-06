@@ -829,9 +829,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 1156412987}
   sheildUIObject: {fileID: 528176768}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
-  passiveEffect: {fileID: 0}
+  passiveEffect: {fileID: 1116077890}
   imageHolder: {fileID: 2667302578586911732}
 --- !u!114 &34705487
 MonoBehaviour:
@@ -13447,8 +13445,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 556425802}
   sheildUIObject: {fileID: 528176768}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
   passiveEffect: {fileID: 1272521304}
   imageHolder: {fileID: 2667302578524173227}
 --- !u!1 &869787085
@@ -15823,8 +15819,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 1448664348}
   sheildUIObject: {fileID: 528176768}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
   passiveEffect: {fileID: 1751679037}
   imageHolder: {fileID: 2667302577968787424}
 --- !u!1 &1048683146
@@ -21849,8 +21843,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 332835980}
   sheildUIObject: {fileID: 167852753}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
   passiveEffect: {fileID: 1167235817}
   imageHolder: {fileID: 2667302579237474287}
 --- !u!4 &1398714449 stripped
@@ -23627,8 +23619,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 1975923551}
   sheildUIObject: {fileID: 167852753}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
   passiveEffect: {fileID: 1441505063}
   imageHolder: {fileID: 2667302578758364248}
 --- !u!1 &1608023040
@@ -30278,9 +30268,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   champCard: {fileID: 1955778092}
   sheildUIObject: {fileID: 167852753}
-  healthText: {fileID: 0}
-  shieldText: {fileID: 0}
-  passiveEffect: {fileID: 0}
+  passiveEffect: {fileID: 265458291}
   imageHolder: {fileID: 2667302578457271268}
 --- !u!114 &2012537254
 MonoBehaviour:
@@ -48706,6 +48694,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2467369803854054459, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4675177513485855040, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
       propertyPath: textureImage
       value: 
@@ -48801,7 +48793,7 @@ PrefabInstance:
     - target: {fileID: 7393335339252658232, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
       propertyPath: settingsButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2667302578754746494}
     m_RemovedComponents:
     - {fileID: 3344721597087595306, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
