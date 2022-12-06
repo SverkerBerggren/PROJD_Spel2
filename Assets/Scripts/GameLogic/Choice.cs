@@ -256,11 +256,14 @@ public class Choice : MonoBehaviour
                     break;
 
                 case WhichMethod.DisableOpponentLandmark:
-                    DisableChosenLandmark(chosenTargets[0]);
+                    DisableChosenLandmark();
                     break;
 
                 case WhichMethod.SeersShack:
-                    SeersShackAbility(chosenTargets[0]);
+                    SeersShackAbility();
+                    break;
+                case WhichMethod.TransformChampionCard:
+                    TransformCard();
                     break;
             }
             ResetChoice();
@@ -269,27 +272,32 @@ public class Choice : MonoBehaviour
 			waitRoom.Remove(waitRoom[0]);
 			if (waitRoom.Count > 0)
 			{
-				NextInWaitRoom(waitRoom[0]);
+				NextInWaitRoom();
 			}
 		}
-
     }
 
-	private void SeersShackAbility(TargetInfo targetInfo)
+    private void TransformCard()
+    {
+        CardDisplay cardToTransform = ActionOfPlayer.Instance.handPlayer.cardsInHand[chosenTargets[0].index];
+        cardToTransform.card.championCardType = ChampionCardType.All;
+    }
+
+	private void SeersShackAbility()
 	{
         Deck deck = Deck.Instance;
-        Card card = deck.deckPlayer[targetInfo.index];
-        deck.deckPlayer.RemoveAt(targetInfo.index);
+        Card card = deck.deckPlayer[chosenTargets[0].index];
+        deck.deckPlayer.RemoveAt(chosenTargets[0].index);
         deck.deckPlayer.Add(card);
 	}
 
-	private void DisableChosenLandmark(TargetInfo chosenTargets)
+	private void DisableChosenLandmark()
 	{
-        gameState.ChangeLandmarkStatus(chosenTargets, false);
+        gameState.ChangeLandmarkStatus(chosenTargets[0], false);
         if (cardUsed is DisableCardLandmark)
         {
             DisableCardLandmark card = (DisableCardLandmark)cardUsed;
-            if (chosenTargets.whichList.opponentLandmarks)
+            if (chosenTargets[0].whichList.opponentLandmarks)
             {
                 Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets.index].card;
                 card.disabledLandmark = landmark;
@@ -432,7 +440,7 @@ public class Choice : MonoBehaviour
 					return false;
 				}
                 break;
-
+            
             case WhichMethod.switchChampionDied:
                 if (gameState.playerChampions.Count <= 1)
                 {
@@ -480,6 +488,21 @@ public class Choice : MonoBehaviour
                 if (!ifLandmarkExist)
                     return false;
                 break;
+            case WhichMethod.TransformChampionCard:
+                List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
+                bool thereIsAChampionCardToTransform = false;
+                for (int i = 0; i < cardsInHand.Count; i++)
+                {
+                    Card card = cardsInHand[i].card;
+                    if (card.championCard)
+                    {
+                        thereIsAChampionCardToTransform = true;
+                        break;
+                    }
+                }
+                if (!thereIsAChampionCardToTransform)
+                    return false;
+                break;
         }
         return true;
     }
@@ -492,30 +515,30 @@ public class Choice : MonoBehaviour
         waitRoom.Add(tuple);
         if (waitRoom[0] == tuple)
         {
-            NextInWaitRoom(tuple);
+            NextInWaitRoom();
         }
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
         print("vad blir checken " + CheckIfChoice(theMethod));
 
     }
 
-    private void NextInWaitRoom(Tuple<WhichMethod, IEnumerator> choice)
+    private void NextInWaitRoom()
     {
-        if (CheckIfChoice(choice.Item1))
+        if (CheckIfChoice(waitRoom[0].Item1))
         {
             /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             ResetChoice();
-            StartCoroutine(choice.Item2);
+            StartCoroutine(waitRoom[0].Item2);
         }
         else
         {
-            waitRoom.Remove(choice);
+            waitRoom.Remove(waitRoom[0]);
             if (waitRoom.Count > 0)
             {
-                NextInWaitRoom(waitRoom[0]);
+                NextInWaitRoom();
 			}
 		}
 	}
@@ -533,5 +556,6 @@ public enum WhichMethod
     ShowDeck,
     ShowLandmarks,
     DisableOpponentLandmark,
-	SeersShack
+	SeersShack,
+    TransformChampionCard
 }
