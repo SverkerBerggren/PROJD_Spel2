@@ -8670,7 +8670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: ae9e350d68f969d4aa208bd2f659ad85, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: ae9e350d68f969d4aa208bd2f659ad85, type: 3}
       propertyPath: m_LocalScale.x
@@ -11295,7 +11295,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -120
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3344721597087595306, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
 --- !u!1 &689723066
 GameObject:
@@ -15976,7 +15977,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1230990753}
   m_HandleRect: {fileID: 0}
@@ -30385,7 +30386,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 604337010}
   m_HandleRect: {fileID: 0}
@@ -32030,7 +32031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: ae9e350d68f969d4aa208bd2f659ad85, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: ae9e350d68f969d4aa208bd2f659ad85, type: 3}
       propertyPath: m_LocalScale.x
@@ -37700,6 +37701,10 @@ PrefabInstance:
       propertyPath: textureImage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2095175949191671240, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4675177513485855040, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
       propertyPath: textureImage
       value: 
@@ -37796,7 +37801,8 @@ PrefabInstance:
       propertyPath: settingsButton
       value: 
       objectReference: {fileID: 865252928}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3344721597087595306, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d848da1b8ae48e479b5a2c268e2ee8e, type: 3}
 --- !u!1001 &6063266745630243869
 PrefabInstance:
