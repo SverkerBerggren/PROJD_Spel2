@@ -299,7 +299,7 @@ public class Choice : MonoBehaviour
             DisableCardLandmark card = (DisableCardLandmark)cardUsed;
             if (chosenTargets[0].whichList.opponentLandmarks)
             {
-                Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets.index].card;
+                Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets[0].index].card;
                 card.disabledLandmark = landmark;
             }
         }
