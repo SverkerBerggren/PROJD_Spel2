@@ -47,6 +47,8 @@ public class AvailableChampion : MonoBehaviour
 
     [NonSerialized] public GameObject targetingEffect;
 
+    [SerializeField] private GameObject imageHolder;
+
 
     private GameObject healthBar;
     private Slider healthBarSlider;
