@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Gravedigging")]
-public class Gravedigging : Spells
+[CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/GraverobberAttack")]
+
+public class GraverobberAttack : Spells
 {
-    public int amountOfCardsToReturn;
     public int topCardsInGraveyard = 0;
 
-    public Gravedigging()
+    public GraverobberAttack()
     {
         championCard = true;
         championCardType = ChampionCardType.Graverobber;
@@ -17,19 +17,18 @@ public class Gravedigging : Spells
     public override void PlaySpell()
     {
         Graveyard graveyard = Graveyard.Instance;
-        for (int i = 0; i < amountOfCardsToReturn;i++)
-        {
-            graveyard.RandomizeCardFromGraveyard();
-        }  
 
         if (topCardsInGraveyard > 0)
         {
             int damage = 0;
-            for (int i = 0; i < topCardsInGraveyard;i++)
+            int startLoop = graveyard.graveyardPlayer.Count - 1;
+
+            for (int i = startLoop; i > 0; i++)
             {
-                if (graveyard.graveyardPlayer[i] == null) return;
+                if (startLoop - topCardsInGraveyard == i || graveyard.graveyardPlayer[i] == null) break;
+                
                 Card cardToCheck = graveyard.graveyardPlayer[i];
-                if (cardToCheck.GetType().Equals("AttackSpell"))
+                if (cardToCheck.typeOfCard == CardType.Attack)
                 {
                     damage += 20;
                 }
@@ -43,7 +42,7 @@ public class Gravedigging : Spells
     public override string WriteOutCardInfo()
     {
         string lineToWriteOut = base.WriteOutCardInfo();
-        lineToWriteOut += "\nAmountOfCardsToReturn: " + amountOfCardsToReturn + "\nTopCardInGraveyard: " + topCardsInGraveyard;
+        lineToWriteOut += "\nTopCardInGraveyard: " + topCardsInGraveyard;
         return lineToWriteOut;
     }
 }

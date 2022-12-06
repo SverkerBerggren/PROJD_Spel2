@@ -463,11 +463,11 @@ public class Server
 
     private ServerResponse HandleDiscardCardOpponent(RequestOpponentDiscardCard requestToHandle)
     {
-        ResponseOpponentDiscardCard response = new ResponseOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard);
+        ResponseOpponentDiscardCard response = new ResponseOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard, requestToHandle.discardCardToOpponentGraveyard);
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionOpponentDiscardCard gameAction = new GameActionOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard);
+        GameActionOpponentDiscardCard gameAction = new GameActionOpponentDiscardCard(requestToHandle.amountOfCardsToDiscard, requestToHandle.discardCardToOpponentGraveyard);
         gameAction.isRandom = requestToHandle.isRandom;
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
@@ -492,11 +492,11 @@ public class Server
 
     private ServerResponse HandleDiscardCard(RequestDiscardCard requestToHandle)
     {
-        ResponseDiscardCard response = new ResponseDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded));
+        ResponseDiscardCard response = new ResponseDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded), requestToHandle.discardCardToOpponentGraveyard);
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        GameActionDiscardCard gameAction = new GameActionDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded));
+        GameActionDiscardCard gameAction = new GameActionDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded), requestToHandle.discardCardToOpponentGraveyard);
 
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
@@ -645,9 +645,13 @@ public class Server
 
         response.whichPlayer = requestToHandle.whichPlayer;
         response.canSwap = requestToHandle.canSwap;
+
+        GameActionStopSwapping gameAction = new GameActionStopSwapping(requestToHandle.canSwap);
+
         
 
-        return response; 
+		AddGameAction(response, gameAction, requestToHandle.gameId);
+		return response; 
     }
 
     private void AddGameAction(ServerResponse response, GameAction gameAction, int gameId)

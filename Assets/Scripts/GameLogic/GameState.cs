@@ -54,13 +54,17 @@ public class GameState : MonoBehaviour
 
     [NonSerialized] public bool isItMyTurn;
     [NonSerialized] public bool didIStart;
-    [NonSerialized] public bool canSwap;
+    public bool canSwap = true;
     public int amountOfTurns;
 
     [NonSerialized] public GameObject targetingEffect;
 
     [NonSerialized] public int landmarkEffect = 1;
     [NonSerialized] public int attacksPlayedThisTurn;
+
+
+    [NonSerialized] public int drawnCardsThisTurn = 0;
+    [NonSerialized] public int drawnCardsPreviousTurn = 0;
 
     private bool firstTurn = true;
     private Calculations calculations;
@@ -499,19 +503,17 @@ public class GameState : MonoBehaviour
     {
         landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
 
-        print("Landmark" + landmark + " Op" + opponentPlayedLandmark + "Index: " + index);
-
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
             opponentLandmarks[index].health = landmark.minionHealth;
             opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
-
-            print(opponentLandmarks[index].card);
         }
         else
         {
             playerLandmarks[index].card = landmark;
+            playerLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
             playerLandmarks[index].health = landmark.minionHealth;
             playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
         }
@@ -604,6 +606,8 @@ public class GameState : MonoBehaviour
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
 
+        drawnCardsPreviousTurn = drawnCardsThisTurn;
+        drawnCardsThisTurn = 0;
         Refresh();
     }
 

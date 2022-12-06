@@ -66,7 +66,15 @@ public class InternetLoop : MonoBehaviour
 
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    if (theAction.discardCardToOpponentGraveyard)
+                    {
+                        Graveyard.Instance.AddCardToGraveyard(register.cardRegister[card]);
+                    }
+                    else
+                    {
+                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    }
+                    
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     //actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
                 }
@@ -226,12 +234,19 @@ public class InternetLoop : MonoBehaviour
                     {
                         if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
                         {
-
-                            discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                            if (castedAction.discardCardToOpponentGraveyard)
+                            {
+                                discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(false));
+                            }
+                            else
+                            {
+                                discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                            }
+                            
                         }
                     }
 
-                    RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
+                    RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards, castedAction.discardCardToOpponentGraveyard);
                     discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
                     ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
                 }
@@ -293,6 +308,8 @@ public class InternetLoop : MonoBehaviour
 
             if (action is GameActionStopSwapping)
             {
+
+                print("den swappar ej");
                 GameActionStopSwapping castedAction = (GameActionStopSwapping)action;
 
                 gameState.canSwap = castedAction.canSwap;

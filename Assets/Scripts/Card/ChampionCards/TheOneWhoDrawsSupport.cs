@@ -12,6 +12,11 @@ public class TheOneWhoDrawsSupport : Spells
     }
     public override void PlaySpell()
     {
-        GameState.Instance.SwapActiveChampion(this);
-    }
+        //GameState.Instance.SwapActiveChampion(this);
+
+        if (GameState.Instance.drawnCardsPreviousTurn >= 2)
+        {
+            GameState.Instance.DrawCard(2, null);
+        }
+    } 
 }

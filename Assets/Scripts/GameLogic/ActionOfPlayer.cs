@@ -40,12 +40,11 @@ public class ActionOfPlayer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        gameState = GameState.Instance;
     }
 
 	private void Start()
 	{
-
-        gameState = GameState.Instance;
         choice = Choice.Instance;
 		graveyard = Graveyard.Instance;
 	}
@@ -97,10 +96,15 @@ public class ActionOfPlayer : MonoBehaviour
 
 	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
 	{
+        
 		int drawnCards = 0;
 		Hand hand;
 		if (isPlayer)
+        {
 			hand = handPlayer;
+            
+            GameState.Instance.drawnCardsThisTurn += amountToDraw;
+        }
 		else
 			hand = handOpponent;
 

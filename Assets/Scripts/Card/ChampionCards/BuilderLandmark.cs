@@ -15,22 +15,28 @@ public class BuilderLandmark : Landmarks
 
     public override int CalculateManaCost(CardDisplay cardDisplay)
     {
+        if (factory && LandmarksActive() >= 3)
+            return base.CalculateManaCost(cardDisplay) - 2;            
+        
+        return base.CalculateManaCost(cardDisplay);
+    }
+
+    private int LandmarksActive()
+    {
         int amountOfLandmarksActive = 0;
         foreach (LandmarkDisplay lD in GameState.Instance.playerLandmarks)
         {
             if (lD.card != null)
                 amountOfLandmarksActive++;
         }
-        if (amountOfLandmarksActive >= 3)
-            return base.CalculateManaCost(cardDisplay) - 2;
-        return base.CalculateManaCost(cardDisplay);
+        return amountOfLandmarksActive;
     }
 
     public override int DealDamageAttack(int damage)
-    {
+    {   
         if (slaughterhouse)
         {
-            return damage + this.damage;
+            return damage + (this.damage * LandmarksActive());
         }
 
         return base.DealDamageAttack(damage) ;

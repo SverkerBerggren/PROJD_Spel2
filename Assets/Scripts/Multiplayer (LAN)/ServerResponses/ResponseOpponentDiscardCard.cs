@@ -8,15 +8,17 @@ public class ResponseOpponentDiscardCard : ServerResponse
 
 
     public bool isRandom = false;
+    public bool discardCardToOpponentGraveyard = false;
 
     public ResponseOpponentDiscardCard()
     {
         Type = 12;
     }
-    public ResponseOpponentDiscardCard(int amountOfCardsToDiscard)
+    public ResponseOpponentDiscardCard(int amountOfCardsToDiscard, bool discardCardToOpponentGraveyard)
     {
         Type = 12;
-        this.amountOfCardsToDiscard = amountOfCardsToDiscard; 
+        this.amountOfCardsToDiscard = amountOfCardsToDiscard;
+        this.discardCardToOpponentGraveyard = discardCardToOpponentGraveyard;
     }
 
 

@@ -6,15 +6,11 @@ using static UnityEngine.GraphicsBuffer;
 public class CardTargeting : MonoBehaviour
 {
     private Vector3 startposition;
+    private Vector3 mousePosition;
     private RectTransform gameObjectRectTransform;
 
-    private ActionOfPlayer actionOfPlayer;
     private CardDisplay cardDisplay;
     private CardMovement cardMovement;
-    private Vector3 mousePosition;
-    private Card card;
-    private Graveyard graveyard;
-    private GameState gameState;
     private PlayCardManager playCardManager;
 
     private GameObject gameObjectHit;
@@ -25,9 +21,6 @@ public class CardTargeting : MonoBehaviour
 
     void Start()
     {
-        graveyard = Graveyard.Instance;
-        actionOfPlayer = ActionOfPlayer.Instance;
-        gameState = GameState.Instance;
         playCardManager = PlayCardManager.Instance;
         cardDisplay = GetComponent<CardDisplay>();       
 
@@ -42,7 +35,6 @@ public class CardTargeting : MonoBehaviour
     {
         cardMovement = GetComponent<CardMovement>();
         mousePosition = cardMovement.mousePosition;
-        card = cardDisplay.card;
         cardDisplay.mouseDown = false;
 
         if (!playCardManager.CanCardBePlayed(cardDisplay))

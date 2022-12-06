@@ -13,6 +13,7 @@ public class LandmarkDisplay : Displays
     private Graveyard graveyard;
     public int index;
     public bool opponentLandmarks = false;
+    private GameObject landmarkPrefab;
     [NonSerialized] public bool landmarkEnabled = true;
     [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
@@ -23,7 +24,8 @@ public class LandmarkDisplay : Displays
     {
         cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
-        cardDisplayAtributes.UpdateTextOnCard(this);
+        //cardDisplayAtributes.UpdateTextOnCard(this);
+        landmarkPrefab = transform.GetChild(0).gameObject;
     }
 
     private void Start()
@@ -36,7 +38,11 @@ public class LandmarkDisplay : Displays
     {
         if (card != null)
         {
-            gameObject.SetActive(true);
+            landmarkPrefab.SetActive(true);
+        }
+        else
+        {
+            landmarkPrefab.SetActive(false);
         }
     }
 

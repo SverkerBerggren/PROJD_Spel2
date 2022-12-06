@@ -389,7 +389,7 @@ public class Choice : MonoBehaviour
 
         if (gameState.isOnline)
         {
-            RequestDiscardCard request = new RequestDiscardCard(cards);
+            RequestDiscardCard request = new RequestDiscardCard(cards, false);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
@@ -406,7 +406,7 @@ public class Choice : MonoBehaviour
 
         if (gameState.isOnline)
         {
-            RequestDiscardCard request = new RequestDiscardCard(cards);
+            RequestDiscardCard request = new RequestDiscardCard(cards, false);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
@@ -420,7 +420,7 @@ public class Choice : MonoBehaviour
         switch (theMethod)
         {
             case WhichMethod.switchChampionPlayer:
-                if (gameState.playerChampions.Count <= 1 && !gameState.canSwap)
+                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
                 }
