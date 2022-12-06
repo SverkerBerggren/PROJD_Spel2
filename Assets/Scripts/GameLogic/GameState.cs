@@ -431,20 +431,20 @@ public class GameState : MonoBehaviour
 	public void SwitchMyChampions(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.myChampions)
-        {
+        {yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
             Swap(playerChampions, 0, targetInfo.index);
             playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
             playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
             /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
+            
         }
         else if(targetInfo.whichList.opponentChampions)
-        {
+        {yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
 			Swap(opponentChampions, 0, targetInfo.index);
             opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
             opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
             /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
-            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
+            
         }
     }
 
