@@ -27,6 +27,7 @@ public class AvailableChampion : MonoBehaviour
 
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
+    public Image currentSprite;
 
 	public Animator animator;
 
@@ -47,7 +48,7 @@ public class AvailableChampion : MonoBehaviour
 
     [NonSerialized] public GameObject targetingEffect;
 
-    [SerializeField] private GameObject imageHolder;
+    public GameObject imageHolder;
 
 
     private GameObject healthBar;
@@ -73,6 +74,8 @@ public class AvailableChampion : MonoBehaviour
 
         passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
         passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
+
+        currentSprite = imageHolder.GetComponent<Image>();
 
         GetAllMeshes();
 
@@ -169,6 +172,8 @@ public class AvailableChampion : MonoBehaviour
         health = champion.health;
         maxHealth = champion.maxHealth;
         shield = champion.shield;
+
+        currentSprite.sprite = champion.champBackground;
 
         champion.UpdatePassive();
         if (passiveEffect.text != null)

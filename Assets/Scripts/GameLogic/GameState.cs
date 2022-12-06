@@ -40,7 +40,7 @@ public class GameState : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] private GameObject healEffect;
-    [SerializeField] private GameObject yourTurnEffect;
+    [SerializeField] private YourTurnEffect yourTurnEffect;
 
 
     [Header("UI Elements")]
@@ -128,7 +128,7 @@ public class GameState : MonoBehaviour
             List<string> ha = new List<string>
             {
                 "Cultist",
-                "TheOneWhoDraws",
+                "Builder",
                 "Graverobber"
             };
             AddChampions(ha, true);
@@ -433,10 +433,18 @@ public class GameState : MonoBehaviour
         if (targetInfo.whichList.myChampions)
         {
             Swap(playerChampions, 0, targetInfo.index);
+            playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
+            playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
+            /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
+            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
         }
         else if(targetInfo.whichList.opponentChampions)
         {
 			Swap(opponentChampions, 0, targetInfo.index);
+            opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
+            opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
+            /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
+            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
         }
     }
 
@@ -472,12 +480,21 @@ public class GameState : MonoBehaviour
         if (targetInfo.whichList.myChampions == true)
         {
             Swap(opponentChampions, 0, targetInfo.index);
+            opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
+            opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
+            /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
+            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
         }
         if (targetInfo.whichList.opponentChampions == true)
         {
             Swap(playerChampions, 0, targetInfo.index);
+            playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
+            playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
+            /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
+            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
+
         }
     }
 
@@ -491,6 +508,11 @@ public class GameState : MonoBehaviour
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
                     Swap(opponentChampions, 0, randomChamp);
+                    opponentChampions[0].champion.health = opponentChampions[randomChamp].champion.health;
+                    opponentChampions[0].champion.shield = opponentChampions[randomChamp].champion.shield;
+                    /*                    opponentChampions[0].champion.champBackground = opponentChampions[randomChamp].champion.champBackground;*/
+                    yourTurnEffect.ChangePicture(opponentChampions[randomChamp]);
+
                     opponentChampion.champion.WhenCurrentChampion();
                     break;
                 }
@@ -574,13 +596,9 @@ public class GameState : MonoBehaviour
     {
         if (!isOnline)
         {
-            if (yourTurnEffect != null)
-            {
-                yourTurnEffect.SetActive(true);
-                Invoke(nameof(YourTurnEffectHide), 1.5f);
-            }
             TriggerEndStep();
             TriggerUpKeep();
+            yourTurnEffect.ActivateEffect();
 			Refresh();
 			return;
         }
@@ -592,15 +610,10 @@ public class GameState : MonoBehaviour
             TriggerEndStep();
         }
         else
-        {
-            if (yourTurnEffect != null)
-            {
-                yourTurnEffect.SetActive(true);
-                Invoke(nameof(YourTurnEffectHide), 1.5f);
-            }
-
+        {       
             isItMyTurn = true;
             TriggerUpKeep();
+            yourTurnEffect.ActivateEffect();
         }
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
@@ -611,10 +624,7 @@ public class GameState : MonoBehaviour
         Refresh();
     }
 
-    private void YourTurnEffectHide()
-    {
-        yourTurnEffect.SetActive(false);
-    }
+ 
 
     public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
     {

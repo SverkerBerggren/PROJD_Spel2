@@ -202,7 +202,7 @@ public class Choice : MonoBehaviour
 
         gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
 
-        print(gO.transform.childCount);
+
         gO.transform.GetChild(0).gameObject.SetActive(false);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
