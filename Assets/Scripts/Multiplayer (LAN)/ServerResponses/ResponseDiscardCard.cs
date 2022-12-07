@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
 public class ResponseDiscardCard : ServerResponse
 {
     public List<string> listOfCardsDiscarded = new List<string>();

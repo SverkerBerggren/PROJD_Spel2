@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
 public class GameActionDiscardCard : GameAction
 {
     public List<string> listOfCardsDiscarded = new List<string>();

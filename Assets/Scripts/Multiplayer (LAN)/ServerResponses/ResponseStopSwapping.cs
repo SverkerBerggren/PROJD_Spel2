@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
 public class ResponseStopSwapping : ServerResponse
 {
     public bool canSwap;
