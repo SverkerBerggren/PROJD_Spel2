@@ -127,9 +127,9 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Builder",
+                "Graverobber",
                 "Cultist",
-                "Graverobber"
+                "Builder",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
