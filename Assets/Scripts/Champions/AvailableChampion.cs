@@ -18,12 +18,12 @@ public class AvailableChampion : MonoBehaviour
     public bool isOpponent = false;
 
     public GameObject meshToShow;
-    private GameObject builderMesh;
+/*    private GameObject builderMesh;
     private GameObject cultistMesh;
     private GameObject graverobberMesh;
     private GameObject theOneDrawsMesh;
     private GameObject shankerMesh;
-    private GameObject duelistMesh;
+    private GameObject duelistMesh;*/
 
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
@@ -61,7 +61,8 @@ public class AvailableChampion : MonoBehaviour
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
-        Invoke(nameof(SetWichMeshToShowOnStart),0.05f);
+
+        
 
         if (transform.Find("TargetingEffect") != null)
         {
@@ -75,13 +76,14 @@ public class AvailableChampion : MonoBehaviour
 
         currentSprite = imageHolder.GetComponent<Image>();
 
-        GetAllMeshes();
+        //GetAllMeshes();
 
         if ((gameState.playerChampion == this || gameState.opponentChampion == this))
-            SetupHealthbar();
+            SetupChampion();
     }
 
-    private void SetupHealthbar()
+
+    private void SetupChampion()
     {
         if (isOpponent)
             healthBar = GameObject.FindGameObjectWithTag("EnemyHealthBar");
@@ -97,47 +99,11 @@ public class AvailableChampion : MonoBehaviour
         passiveEffect.text = champion.passiveEffect;
         health = champion.health;
         maxHealth = champion.maxHealth;
-    }
 
-    private void GetAllMeshes()
-    {
-        builderMesh = transform.Find("Builder").gameObject;
-        cultistMesh = transform.Find("Cultist").gameObject;
-        graverobberMesh = transform.Find("Graverobber").gameObject;
-        theOneDrawsMesh = transform.Find("TheOneWhoDraws").gameObject;
-        shankerMesh = transform.Find("Shanker").gameObject;
-        duelistMesh = transform.Find("Duelist").gameObject;
-    }
+        meshToShow = Instantiate(champion.championMesh, transform);
 
-    private void SetWichMeshToShowOnStart()
-    {
-        switch(meshToShow.name)
-        {
-            case "Builder":
-                builderMesh.SetActive(true);
-                animator = builderMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Cultist":
-                cultistMesh.SetActive(true);
-                animator = cultistMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Graverobber":
-                graverobberMesh.SetActive(true);
-                animator = graverobberMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Duelist":
-                duelistMesh.SetActive(true);
-                animator = null;
-                break;
-			case "TheOneWhoDraws":
-				theOneDrawsMesh.SetActive(true);
-				animator = null;
-				break;
-			case "Shanker":
-				shankerMesh.SetActive(true);
-				animator = null;
-				break;
-		}
+        if (meshToShow.GetComponentInChildren<Animator>() != null) 
+            animator = meshToShow.GetComponentInChildren<Animator>();
     }
 
     private void OnMouseEnter()
@@ -162,6 +128,12 @@ public class AvailableChampion : MonoBehaviour
         timer = 0f;
     }
 
+    private void ChangeChampionMesh()
+    {
+        Destroy(meshToShow);
+        meshToShow = Instantiate(champion.championMesh, transform);
+    }
+
     public void UpdateTextOnCard()
     {
         if (champion == null) return;
@@ -173,6 +145,7 @@ public class AvailableChampion : MonoBehaviour
 
         currentSprite.sprite = champion.champBackground;
 
+        ChangeChampionMesh();
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
@@ -184,7 +157,7 @@ public class AvailableChampion : MonoBehaviour
 
     public void FixedUpdate()
 	{
-        SwapMesh();
+        //SwapMesh();
 
         if (wantToSeInfoOnChamp)
         {
@@ -252,7 +225,7 @@ public class AvailableChampion : MonoBehaviour
 
 
 
-    private void SwapMesh()
+/*    private void SwapMesh()
     {
         switch (champion.championName)
         {
@@ -322,5 +295,5 @@ public class AvailableChampion : MonoBehaviour
 				animator = null;
 				break;
 		}
-    }
+    }*/
 }
