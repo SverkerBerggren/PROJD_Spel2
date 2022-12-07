@@ -159,7 +159,7 @@ public class InternetLoop : MonoBehaviour
             {
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
-                gameState.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
+                gameState.SwapChampionOnline(castedAction.targetToSwitch,castedAction.championDied);
 
                 if (castedAction.targetToSwitch.whichList.opponentChampions)               
                     gameState.playerChampion.champion.WhenCurrentChampion();
@@ -210,19 +210,11 @@ public class InternetLoop : MonoBehaviour
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
 
-                print("kommer den hit  1");
-                if (cardPlayed.typeOfCard == CardType.Landmark)
-                    gameState.ShowPlayedCardLandmark((Landmarks)cardPlayed);
-                else
-                    gameState.ShowPlayedCard(cardPlayed);
-                print("kommer den hit  2");
+                gameState.ShowPlayedCard(cardPlayed, true);
+
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-
-                print("kommer den hit  3");
                 actionOfPlayer.handOpponent.FixCardOrderInHand();
-                print("kommer den hit  4");
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
-
             }    
             if (action  is GameActionOpponentDiscardCard)
             {   
@@ -300,9 +292,8 @@ public class InternetLoop : MonoBehaviour
             if (action is GameActionPlayLandmark)
             {
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
-                Debug.Log("CardReg: " + CardRegister.Instance.cardRegister);
                 gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-                gameState.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
+                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
 

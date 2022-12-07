@@ -24,8 +24,11 @@ public class Calculations : MonoBehaviour
 		gameState = GameState.Instance;
 		actionOfPlayer = ActionOfPlayer.Instance;
     }
-	public int CalculateDamage(int baseDamage)
+	public int CalculateDamage(int baseDamage, bool justBaseDmg)
 	{
+		if (justBaseDmg)
+			return baseDamage;
+
 		baseDamage = gameState.playerChampion.champion.DealDamageAttack(baseDamage);
 		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 		{
@@ -41,8 +44,10 @@ public class Calculations : MonoBehaviour
 		}
 		return baseDamage;
 	}
-	public int CalculateHealing(int amount)
+	public int CalculateHealing(int amount, bool justBaseHealing)
 	{
+		if (justBaseHealing)
+			return amount;
 		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 		{
 			if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
@@ -57,8 +62,10 @@ public class Calculations : MonoBehaviour
 		}
 		return amount;
 	}
-	public int CalculateShield(int amount)
+	public int CalculateShield(int amount, bool justBaseShield)
 	{
+		if (justBaseShield)
+			return amount;
 		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
 		{
 			if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)

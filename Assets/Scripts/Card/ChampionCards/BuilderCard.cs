@@ -13,14 +13,15 @@ public class BuilderCard : Spells
     public override void PlaySpell()
     {
         GameState gameState = GameState.Instance;
-
-        for (int i = 0; i < gameState.playerLandmarks.Count; i++)
+        int calculated = damage;
+        foreach (LandmarkDisplay display in gameState.playerLandmarks)
         {
-            if (gameState.playerLandmarks == null) continue;
-            damage += 10;
+            if (display.card == null) continue;
+
+            calculated += damage;
             gameState.DrawCard(1, null);
         }
 
-        gameState.CalculateAndDealDamage(damage, this);
+        gameState.CalculateAndDealDamage(calculated, this);
     }
 }

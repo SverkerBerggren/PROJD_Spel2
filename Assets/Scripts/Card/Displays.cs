@@ -14,7 +14,9 @@ public abstract class Displays : MonoBehaviour
     //[System.NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     //[System.NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
-    public bool opponentCard;
+    [System.NonSerialized] public bool opponentCard;
+
+    [System.NonSerialized] public bool previewCard = false;
 
     [System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
@@ -27,14 +29,14 @@ public abstract class Displays : MonoBehaviour
         calculations = Calculations.Instance;
 
         if (card.damage != 0)
-            damageShow = calculations.CalculateDamage(card.damage);
+            damageShow = calculations.CalculateDamage(card.damage, previewCard);
         if (card.amountToHeal != 0)
-            amountToHealShow = calculations.CalculateHealing(card.amountToHeal);
+            amountToHealShow = calculations.CalculateHealing(card.amountToHeal, previewCard);
         if (card.amountToShield != 0)
-            amountToShieldShow = calculations.CalculateShield(card.amountToShield);
+            amountToShieldShow = calculations.CalculateShield(card.amountToShield, previewCard);
         if (card.amountOfCardsToDraw != 0)
             amountOfCardsToDrawShow = card.amountOfCardsToDraw;
         if (card.amountOfCardsToDiscard != 0)
-            amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;
+            amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;        
     }
 }

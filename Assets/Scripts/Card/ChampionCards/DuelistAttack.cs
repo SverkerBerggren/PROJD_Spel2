@@ -16,7 +16,7 @@ public class DuelistAttack : Spells
     public override void PlaySpell()
     {
         gameState = GameState.Instance;
-        int newDamage = Calculations.Instance.CalculateDamage(damage);
+        int newDamage = Calculations.Instance.CalculateDamage(damage, false);
         //if (Target == null && newDamage >= Target.)
         gameState.CalculateAndDealDamage(damage, this);
 
