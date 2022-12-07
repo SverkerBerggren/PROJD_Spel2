@@ -30,13 +30,14 @@ public class Effect_GraveRobber : MonoBehaviour
     {
         if (goDissolve)
         {
+            
             StartCoroutine(DissolveCo());
         }
     }
     
     IEnumerator DissolveCo()
     {
-          
+            yield return new WaitForSeconds(1f);
             goDissolve = false;
             float counter = 0;
             deathPS.Play();
@@ -64,6 +65,7 @@ public class Effect_GraveRobber : MonoBehaviour
     }
     public void PlayEffect()
     {
+        //attack effect
         slashEffect.Play();
     }
     public void SetDissolve(bool bo)

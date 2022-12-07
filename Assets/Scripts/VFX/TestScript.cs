@@ -5,7 +5,8 @@ using UnityEngine;
 public class TestScript : MonoBehaviour
 {
 
-    [SerializeField] private GameObject Builder;
+    [SerializeField] private GameObject testObj;
+    [SerializeField] private GameObject attackObj;
     [SerializeField] private EffectController VFXController;
 
 
@@ -21,8 +22,10 @@ public class TestScript : MonoBehaviour
             //slash.SetActive(true);
             //builderAnim.Play("Attack");
             //StartCoroutine(SlashAttack());
-            VFXController.
-                GainCultistAttackEffect(Builder);
+            testObj.GetComponent<Animator>().Play("AttackMagic");
+            VFXController.GainHealingEffect(testObj);
+
+
         }
 
  

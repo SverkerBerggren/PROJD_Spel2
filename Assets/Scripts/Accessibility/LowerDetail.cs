@@ -19,5 +19,6 @@ public class LowerDetail : MonoBehaviour
     public void setUpLowerDetailBkg()
     {
         //do something here
+       // camera.cullingMask &= ~(1 << LayerMask.NameToLayer("SomeLayer"));
     }
 }
