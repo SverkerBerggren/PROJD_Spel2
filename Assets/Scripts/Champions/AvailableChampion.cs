@@ -155,7 +155,8 @@ public class AvailableChampion : MonoBehaviour
 
         if (shield == 0)        
             sheildUIObject.SetActive(false);
-        
+        else
+            sheildUIObject.SetActive(true);
 
         healthBarSlider.maxValue = maxHealth;
         if (health <= 0)
