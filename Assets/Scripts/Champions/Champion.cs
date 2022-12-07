@@ -19,6 +19,8 @@ public abstract class Champion : ScriptableObject
     [NonSerialized] public string passiveEffect;
     public Sprite champBackground;
 
+    public GameObject championMesh;
+
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
 
