@@ -18,12 +18,9 @@ public class AvailableChampion : MonoBehaviour
     public bool isOpponent = false;
 
     public GameObject meshToShow;
-/*    private GameObject builderMesh;
-    private GameObject cultistMesh;
-    private GameObject graverobberMesh;
-    private GameObject theOneDrawsMesh;
-    private GameObject shankerMesh;
-    private GameObject duelistMesh;*/
+
+    [SerializeField] private List<GameObject> playerHealthBars = new List<GameObject>();
+    [SerializeField] private List<GameObject> enemyHealthBars = new List<GameObject>();
 
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
@@ -55,7 +52,7 @@ public class AvailableChampion : MonoBehaviour
 
     //public SpriteRenderer artwork;
 
-	private void Start()
+    private void Start()
 	{
         gameState = GameState.Instance;
         maxHealth = health;
@@ -83,16 +80,38 @@ public class AvailableChampion : MonoBehaviour
     }
 
 
-    private void SetupChampion()
+    private void SetupHealthBar()
     {
         if (isOpponent)
-            healthBar = GameObject.FindGameObjectWithTag("EnemyHealthBar");
+        {
+            for (int i = 0; i < enemyHealthBars.Count; i++)
+            {
+                if (gameState.opponentChampions[i].champion.championName.Equals(champion.championName))
+                {
+                    healthBar = enemyHealthBars[i];
+                }
+            }
+        }
         else
-            healthBar = GameObject.FindGameObjectWithTag("PlayerHealthBar");
+        {
+            for (int i = 0; i < playerHealthBars.Count; i++)
+            {
+                if (gameState.playerChampions[i].champion.championName.Equals(champion.championName))
+                {
+                    healthBar = playerHealthBars[i];
+                }
+            }
+        }
+
         healthBarSlider = healthBar.GetComponent<Slider>();
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = maxHealth;
         healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+    }
+
+    private void SetupChampion()
+    {
+        SetupHealthBar();
 
         nameOfChampion = champion.championName;
         //artwork.sprite = champion.artwork;
@@ -149,6 +168,9 @@ public class AvailableChampion : MonoBehaviour
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
+
+        if (healthBarSlider == null)
+            SetupHealthBar();
 
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = health;
@@ -222,78 +244,4 @@ public class AvailableChampion : MonoBehaviour
         sheildUIObject.SetActive(true);
         sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
     }
-
-
-
-/*    private void SwapMesh()
-    {
-        switch (champion.championName)
-        {
-            case "Builder":
-                builderMesh.SetActive(true);
-                cultistMesh.SetActive(false);
-                graverobberMesh.SetActive(false);
-                duelistMesh.SetActive(false);
-                shankerMesh.SetActive(false);
-                theOneDrawsMesh.SetActive(false);
-                animator = builderMesh.GetComponentInChildren<Animator>();
-                meshToShow = builderMesh;
-                break;
-
-            case "Cultist":
-                builderMesh.SetActive(false);
-                cultistMesh.SetActive(true);
-                graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				animator = cultistMesh.GetComponentInChildren<Animator>();
-                meshToShow = cultistMesh;
-                break;
-
-            case "Graverobber":
-                builderMesh.SetActive(false);               
-                cultistMesh.SetActive(false);
-                graverobberMesh.SetActive(true);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				animator = graverobberMesh.GetComponentInChildren<Animator>();
-                meshToShow = graverobberMesh;
-                break;
-
-			case "Duelist":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(true);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				meshToShow = duelistMesh;
-				animator = null;
-				break;
-
-			case "Shanker":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(true);
-				theOneDrawsMesh.SetActive(false);
-				meshToShow = shankerMesh;
-				animator = null;
-				break;
-
-			case "TheOneWhoDraws":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(true);
-				meshToShow = theOneDrawsMesh;
-				animator = null;
-				break;
-		}
-    }*/
 }
