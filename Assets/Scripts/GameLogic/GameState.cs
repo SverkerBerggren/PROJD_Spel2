@@ -437,8 +437,7 @@ public class GameState : MonoBehaviour
             yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
 
             Swap(playerChampions, 0, targetInfo.index);
-            playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
-            playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
+
             /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
         }
         else if(targetInfo.whichList.opponentChampions)
@@ -733,6 +732,9 @@ public class GameState : MonoBehaviour
         Champion temp = list[i].champion;
         list[i].champion = list[j].champion;
         list[j].champion = temp;
+
+        list[i].champion.health = list[j].champion.health;
+        list[i].champion.shield = list[j].champion.shield;
     }
 
     public void Refresh()
