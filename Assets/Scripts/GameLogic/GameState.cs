@@ -127,8 +127,8 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "TheOneWhoDraws",
                 "Cultist",
+                "TheOneWhoDraws",
                 "Builder",
             };
             AddChampions(ha, true);
@@ -285,10 +285,7 @@ public class GameState : MonoBehaviour
 
     public void ShieldTarget(TargetAndAmount targetAndAmount) // TargetAndAmount
     {
-
         ListEnum lE = targetAndAmount.targetInfo.whichList;
-        print("vilket index shielding" + targetAndAmount.targetInfo.index);
-
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
@@ -733,8 +730,8 @@ public class GameState : MonoBehaviour
         list[i].champion = list[j].champion;
         list[j].champion = temp;
 
-        list[i].champion.health = list[j].champion.health;
-        list[i].champion.shield = list[j].champion.shield;
+/*        list[j].champion.health = list[i].champion.health;
+        list[j].champion.shield = list[i].champion.shield;*/
     }
 
     public void Refresh()

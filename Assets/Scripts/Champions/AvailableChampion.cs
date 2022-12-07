@@ -19,9 +19,6 @@ public class AvailableChampion : MonoBehaviour
 
     public GameObject meshToShow;
 
-    [SerializeField] private List<GameObject> playerHealthBars = new List<GameObject>();
-    [SerializeField] private List<GameObject> enemyHealthBars = new List<GameObject>();
-
     private GameObject passiveTextPlayer;
     private GameObject passiveTextOpponent;
     public Image currentSprite;
@@ -46,11 +43,16 @@ public class AvailableChampion : MonoBehaviour
     public GameObject imageHolder;
 
 
-    private GameObject healthBar;
+    [SerializeField] private GameObject healthBar;
     private Slider healthBarSlider;
     private TMP_Text healthBarText;
 
     //public SpriteRenderer artwork;
+
+    private void Awake()
+    {
+        SetupHealthBar();
+    }
 
     private void Start()
 	{
@@ -73,46 +75,25 @@ public class AvailableChampion : MonoBehaviour
 
         currentSprite = imageHolder.GetComponent<Image>();
 
+
+        SetupChampion();
         //GetAllMeshes();
 
-        if ((gameState.playerChampion == this || gameState.opponentChampion == this))
-            SetupChampion();
+        /*        if ((gameState.playerChampion == this || gameState.opponentChampion == this))*/
+
     }
 
 
     private void SetupHealthBar()
     {
-        if (isOpponent)
-        {
-            for (int i = 0; i < enemyHealthBars.Count; i++)
-            {
-                if (gameState.opponentChampions[i].champion.championName.Equals(champion.championName))
-                {
-                    healthBar = enemyHealthBars[i];
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < playerHealthBars.Count; i++)
-            {
-                if (gameState.playerChampions[i].champion.championName.Equals(champion.championName))
-                {
-                    healthBar = playerHealthBars[i];
-                }
-            }
-        }
-
+        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
         healthBarSlider = healthBar.GetComponent<Slider>();
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = maxHealth;
-        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
     }
 
     private void SetupChampion()
     {
-        SetupHealthBar();
-
         nameOfChampion = champion.championName;
         //artwork.sprite = champion.artwork;
         passiveEffect.text = champion.passiveEffect;
@@ -172,6 +153,10 @@ public class AvailableChampion : MonoBehaviour
         if (healthBarSlider == null)
             SetupHealthBar();
 
+        if (shield == 0)        
+            sheildUIObject.SetActive(false);
+        
+
         healthBarSlider.maxValue = maxHealth;
         healthBarSlider.value = health;
         healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
@@ -179,8 +164,6 @@ public class AvailableChampion : MonoBehaviour
 
     public void FixedUpdate()
 	{
-        //SwapMesh();
-
         if (wantToSeInfoOnChamp)
         {
             timer += Time.fixedDeltaTime;
