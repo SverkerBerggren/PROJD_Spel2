@@ -17,14 +17,14 @@ MonoBehaviour:
   description: Deal 20 damage for each attack in the top 3 cards of your graveyard
   artwork: {fileID: 21300000, guid: 89461812c24c87147b0ac02615bc7943, type: 3}
   maxManaCost: 2
-  damage: 0
+  damage: 20
   amountToHeal: 0
   amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
   effect: {fileID: 0}
   discardCardsYourself: 1
-  targetable: 0
+  targetable: 1
   championCard: 1
   championCardType: 6
   topCardsInGraveyard: 3
