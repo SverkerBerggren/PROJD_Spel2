@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/TheOneWhoDrawsSupport")]
 public class TheOneWhoDrawsSupport : Spells
 {
+    public int cardsDrawnNeeded;
+
     public TheOneWhoDrawsSupport()
     {
         championCard = true;
@@ -14,9 +16,9 @@ public class TheOneWhoDrawsSupport : Spells
     {
         //GameState.Instance.SwapActiveChampion(this);
 
-        if (GameState.Instance.drawnCardsPreviousTurn >= 2)
+        if (GameState.Instance.drawnCardsPreviousTurn >= cardsDrawnNeeded)
         {
-            GameState.Instance.DrawCard(2, null);
+            GameState.Instance.DrawCard(amountOfCardsToDraw, null);
         }
     } 
 }
