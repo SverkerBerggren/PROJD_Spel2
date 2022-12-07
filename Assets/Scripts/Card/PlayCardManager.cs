@@ -119,7 +119,7 @@ public class PlayCardManager : MonoBehaviour
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
                 card.PlayCard();
-                gameState.ShowPlayedCard(card);
+                gameState.ShowPlayedCard(card, false);
                 graveyard.AddCardToGraveyard(card);
                 gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 return true;
@@ -142,7 +142,7 @@ public class PlayCardManager : MonoBehaviour
                     PlaceLandmark(landmarkDisplay);
                     card.PlayCard();
                     Landmarks landmark = (Landmarks)landmarkDisplay.card;
-                    gameState.ShowPlayedCardLandmark(landmark);
+                    gameState.ShowPlayedCard(card, false);
 
                     break;
                 }
@@ -160,7 +160,7 @@ public class PlayCardManager : MonoBehaviour
         {
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
@@ -173,7 +173,7 @@ public class PlayCardManager : MonoBehaviour
 
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
 
@@ -182,7 +182,7 @@ public class PlayCardManager : MonoBehaviour
             card.LandmarkTarget = gameObjectTargeted.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);
             card.PlayCard();
-            gameState.ShowPlayedCard(card);
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }

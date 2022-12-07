@@ -29,15 +29,11 @@ public class DuelistSupport : Spells
             }
         }
         //I Do
-        ListEnum lEMe = new ListEnum();
-        lEMe.myChampions = true;
-        TargetInfo tIForMe = new TargetInfo(lEMe, index);
-        GameState.Instance.SwapChampionWithTargetInfo(tIForMe, false);
-
-        //OpponentDoes
         ListEnum lEOpponenent = new ListEnum();
         lEOpponenent.opponentChampions = true;
         TargetInfo tIForOpponent = new TargetInfo(lEOpponenent, index);
+
+        GameState.Instance.SwapChampionWithTargetInfo(tIForOpponent, false);
 
         if (GameState.Instance.isOnline)
         {

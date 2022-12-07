@@ -158,7 +158,14 @@ public class AvailableChampion : MonoBehaviour
         
 
         healthBarSlider.maxValue = maxHealth;
-        healthBarSlider.value = health;
+        if (health <= 0)
+        {
+            healthBarSlider.value = 0;
+            // Show X on dead champ here
+        }
+        else
+            healthBarSlider.value = health;
+
         healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
 	}
 

@@ -343,9 +343,7 @@ public class Choice : MonoBehaviour
 
     private void SwitchChamp(bool died)
     {
-        gameState.SwitchMyChampions(chosenTargets[0]);
-        if(died)
-            gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
+        gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
 
         if (gameState.isOnline)
         {
@@ -518,8 +516,6 @@ public class Choice : MonoBehaviour
             NextInWaitRoom();
         }
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
-        print("vad blir checken " + CheckIfChoice(theMethod));
-
     }
 
     private void NextInWaitRoom()

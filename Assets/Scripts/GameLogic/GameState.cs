@@ -165,7 +165,7 @@ public class GameState : MonoBehaviour
 
     public void CalculateAndDealDamage(int damage, Card cardUsed)
     {
-        damage = calculations.CalculateDamage(damage);
+        damage = calculations.CalculateDamage(damage, false);
         DealDamage(calculations.TargetAndAmountFromCard(cardUsed, damage));
 
         if (playerChampion.animator != null)
@@ -239,7 +239,7 @@ public class GameState : MonoBehaviour
 
     public void CalculateAndHeal(int amount, Card cardUsed)
     {
-        amount = calculations.CalculateHealing(amount);
+        amount = calculations.CalculateHealing(amount, false);
         Invoke(nameof(TakeAwayHealEffect), 3f);
         HealTarget(calculations.TargetAndAmountFromCard(cardUsed, amount));
     }
@@ -278,7 +278,7 @@ public class GameState : MonoBehaviour
 
     public void CalculateAndShield(int amount, Card cardUsed)
     {
-        amount = calculations.CalculateShield(amount);
+        amount = calculations.CalculateShield(amount, false);
         ShieldTarget(calculations.TargetAndAmountFromCard(cardUsed, amount));
     }
 
@@ -325,28 +325,13 @@ public class GameState : MonoBehaviour
         }
     }
 
-
-    //Move all showedplayedcard to new script with UI elements
-    public void ShowPlayedCardLandmark(Landmarks landmark)
-    {
-        playedCardGO.SetActive(true);
-        CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
-        cardDisp.card = landmark;
-        cardDisp.manaCost = landmark.maxManaCost;
-        cardDisp.UpdateTextOnCard();
-
-        StopCoroutine(HideCardPlayed());
-        StartCoroutine(HideCardPlayed());
-    }
-
-    public void ShowPlayedCard(Card card)
+    public void ShowPlayedCard(Card card, bool opponent)
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         cardDisp.card = card;
-        cardDisp.manaCost = card.maxManaCost;
+        cardDisp.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
-
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
     }
@@ -427,27 +412,6 @@ public class GameState : MonoBehaviour
 		actionOfPlayer.DrawCardPlayer(amountOfCards, info.Item1, true);
 	}
 
-	public void SwitchMyChampions(TargetInfo targetInfo)
-    {
-        if (targetInfo.whichList.myChampions)
-        {
-            yourTurnEffect.ChangePicture(playerChampions[targetInfo.index]);
-
-            Swap(playerChampions, 0, targetInfo.index);
-
-            /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
-        }
-        else if(targetInfo.whichList.opponentChampions)
-        {
-            yourTurnEffect.ChangePicture(opponentChampions[targetInfo.index]);
-
-			Swap(opponentChampions, 0, targetInfo.index);
-            opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
-            opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
-            /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
-        }
-    }
-
     public void PassPriority()
     {
         if(hasPriority && isOnline)
@@ -459,30 +423,48 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void SwapActiveChampion(Card card)
+    public void SwapOnDeath(AvailableChampion champ)
     {
+        if (!isOnline && champ.isOpponent)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                
+                int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
+                if (opponentChampion != opponentChampions[randomChamp])
+                {
+                    Swap(opponentChampions, 0, randomChamp);
+                    opponentChampion.champion.WhenCurrentChampion();
+                    return;
+                }
+            }
+        }
+
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
-        if (isOnline)
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
-        else
-        {
-            if(card)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
-            else
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
-
-        }
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
     {
         if (targetInfo.whichList.myChampions == true)
         {
+            Swap(playerChampions, 0, targetInfo.index);
+
+            if (championDied)
+                RemoveChampion(playerChampions[targetInfo.index].champion);
+        }
+        if (targetInfo.whichList.opponentChampions == true)
+        {
             Swap(opponentChampions, 0, targetInfo.index);
-            opponentChampions[0].champion.health = opponentChampions[targetInfo.index].champion.health;
-            opponentChampions[0].champion.shield = opponentChampions[targetInfo.index].champion.shield;
-            /*            opponentChampions[0].champion.champBackground = opponentChampions[targetInfo.index].champion.champBackground;*/
+        }
+    }
+
+    public void SwapChampionOnline(TargetInfo targetInfo, bool championDied)
+    {
+        if (targetInfo.whichList.myChampions == true)
+        {
+            Swap(opponentChampions, 0, targetInfo.index);
 
             if (championDied)
                 RemoveChampion(opponentChampions[targetInfo.index].champion);
@@ -490,39 +472,15 @@ public class GameState : MonoBehaviour
         if (targetInfo.whichList.opponentChampions == true)
         {
             Swap(playerChampions, 0, targetInfo.index);
-            playerChampions[0].champion.health = playerChampions[targetInfo.index].champion.health;
-            playerChampions[0].champion.shield = playerChampions[targetInfo.index].champion.shield;
-            /*            playerChampions[0].champion.champBackground = playerChampions[targetInfo.index].champion.champBackground;*/
-
-
         }
     }
 
-    public void SwapActiveChampionEnemy()
-    {
-        if (!isOnline)
-        {
-            for (int i = 0; i < 25; i++)
-            {
-                int randomChamp = UnityEngine.Random.Range(0, opponentChampions.Count);
-                if (opponentChampion != opponentChampions[randomChamp])
-                {
-                    Swap(opponentChampions, 0, randomChamp);
-                    opponentChampions[0].champion.health = opponentChampions[randomChamp].champion.health;
-                    opponentChampions[0].champion.shield = opponentChampions[randomChamp].champion.shield;
-                    /*                    opponentChampions[0].champion.champBackground = opponentChampions[randomChamp].champion.champBackground;*/
-                    opponentChampion.champion.WhenCurrentChampion();
-                    break;
-                }
-            }
-            
-        }
-    }
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
         landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
-
+        ShowPlayedCard(landmark, opponentPlayedLandmark);
+        
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
@@ -656,26 +614,28 @@ public class GameState : MonoBehaviour
     {
         if (playerChampion.champion == deadChampion)
         {
-            SwapActiveChampion(null);
-        }
-        else if (!isOnline && opponentChampion.champion == deadChampion)
-        {          
-            SwapActiveChampionEnemy();
-            RemoveChampion(deadChampion);
+            SwapOnDeath(playerChampion);
         }
 
-		if (isOnline && opponentChampion.champion == deadChampion)
-		{
-            PassPriority();
-		}
+        if (opponentChampion.champion == deadChampion)
+        {
+            if (isOnline)
+                PassPriority();
+            else
+            {
+                SwapOnDeath(opponentChampion);
+                RemoveChampion(deadChampion);
+            }
+        }
 	}
 
-    public void RemoveChampion(Champion deadChamp)
+    private void RemoveChampion(Champion deadChamp)
     {
         foreach (AvailableChampion ac in playerChampions)
         {
             if (ac.champion == deadChamp)
             {
+                ac.UpdateTextOnCard();
                 playerChampions.Remove(ac);
                 break;
             }
@@ -684,6 +644,7 @@ public class GameState : MonoBehaviour
         {
             if (ac.champion == deadChamp)
             {
+                ac.UpdateTextOnCard();
                 opponentChampions.Remove(ac);
                 break;
             }
