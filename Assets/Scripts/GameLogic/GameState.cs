@@ -71,6 +71,7 @@ public class GameState : MonoBehaviour
     private ActionOfPlayer actionOfPlayer;
     private CardRegister cardRegister;
     private Setup setup;
+    private Deck deck;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
@@ -104,6 +105,7 @@ public class GameState : MonoBehaviour
         calculations = Calculations.Instance;
         cardRegister = CardRegister.Instance;
         setup = Setup.Instance;
+        deck = Deck.Instance;
 
         if (isOnline)
         {           
@@ -120,6 +122,8 @@ public class GameState : MonoBehaviour
             }
             AddChampions(setup.myChampions, true);
             AddChampions(setup.opponentChampions, false);
+            InstantiateCardsFromDeck(setup.playerDeckList);
+
             Deck.Instance.CreateDecks(setup.playerDeckList);
         }
         else
@@ -142,6 +146,17 @@ public class GameState : MonoBehaviour
         DrawStartingCards();
     }
 
+    private void InstantiateCardsFromDeck(List<Card> listOfCards)
+    {
+        Dictionary<string, Card> cardReg = cardRegister.cardRegister;
+        for (int i = 0; i < listOfCards.Count; i++)
+        {
+            Card card = Instantiate(cardRegister.cardRegister[listOfCards[i].cardName]);
+
+            deck.AddCardToDeckPlayer(card);
+            deck.AddCardToDeckOpponent(card);
+        }
+    }
     private void ChangeInteractabiltyEndTurn()
     {
         endTurnBttn.interactable = !endTurnBttn.interactable;
@@ -545,6 +560,8 @@ public class GameState : MonoBehaviour
         {
             cardDisplay.EndStep();
         }
+
+        actionOfPlayer.UpdateUnspentMana();
     }
 
 

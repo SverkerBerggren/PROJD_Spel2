@@ -281,7 +281,7 @@ public class InternetLoop : MonoBehaviour
 
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
-                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+                Deck.Instance.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
 				ActionOfPlayer.Instance.DrawCardPlayer(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd], false);
             }
             if (action is GameActionPassPriority)

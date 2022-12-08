@@ -85,7 +85,7 @@ public class CardDisplayAtributes : MonoBehaviour
         if (cardDisplay.card.championCard)
         {
             CardTargeting cardTargeting = GetComponentInParent<CardTargeting>();
-            if (cardDisplay.card.championCardType != GameState.Instance.playerChampion.champion.championCardType)
+            if (cardDisplay.card.championCardType != GameState.Instance.playerChampion.champion.championCardType && cardDisplay.card.championCardType != ChampionCardType.All)
             {
                 isTheRightChampionCard = false;
             }

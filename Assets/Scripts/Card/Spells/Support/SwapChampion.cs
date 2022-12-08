@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/SwapChampion")]
@@ -10,7 +11,7 @@ public class SwapChampion : Spells
         ListEnum listEnum = new ListEnum();
         listEnum.myChampions = true;
 
-       
+        Debug.Log("InSpellSwap");
         Choice.Instance.ChoiceMenu(listEnum, 1, WhichMethod.switchChampionPlayer, null);
     }
 }

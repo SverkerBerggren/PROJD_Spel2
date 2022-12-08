@@ -5,7 +5,6 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
-    public Deck deck;
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
     private void Start()

@@ -28,6 +28,8 @@ public class ActionOfPlayer : MonoBehaviour
     private Graveyard graveyard;
     private static ActionOfPlayer instance;
 
+    public int unspentMana = 0;
+
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()
@@ -74,12 +76,19 @@ public class ActionOfPlayer : MonoBehaviour
 
     }
 
-    public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
+    public void UpdateUnspentMana()
+    {
+        unspentMana += currentMana;
+
+    }
+
+    public bool CheckIfCanPlayCard(CardDisplay cardDisplay, bool useMana)
     {
         cardCost = cardDisplay.manaCost;
         if (currentMana >= cardCost)
         {
-            currentMana -= cardCost;
+            if (useMana)
+                currentMana -= cardCost;
             return true;
         }
         else
@@ -117,7 +126,7 @@ public class ActionOfPlayer : MonoBehaviour
 				}
 
 				if (specificCard == null)
-					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
+					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer();
 				else               
 					cardDisplay.card = specificCard;
 
@@ -143,7 +152,7 @@ public class ActionOfPlayer : MonoBehaviour
 		{
 			for (; drawnCards < amountToDraw; drawnCards++)
 			{
-				Card c = hand.deck.WhichCardToDrawPlayer();
+				Card c = Deck.Instance.WhichCardToDrawPlayer();
 				if (isPlayer)
 					graveyard.AddCardToGraveyard(c);
 				else
