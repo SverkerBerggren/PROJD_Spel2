@@ -27,8 +27,7 @@ public class TestScript : MonoBehaviour
             //VFXController.GainHealingEffect(testObj);
 
             // GetComponent<LowerDetail>().setUpLowerDetailBkg();
-            GetComponent<LowerDetail>().lowerDetailShader();
-
+            VFXController.DiscardCardEffect(testObj);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
