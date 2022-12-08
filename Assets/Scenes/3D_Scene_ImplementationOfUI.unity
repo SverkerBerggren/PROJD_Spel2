@@ -1800,7 +1800,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 277314424}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -4544,118 +4544,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506026480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e46d2393531446428690b5a5f21645d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 873396843}
   m_OutputDisplay: 0
-  m_InputLayers:
-  - m_LayerName: BaseLayer
-    m_OutputTarget: 0
-    m_ClearDepth: 0
-    m_ClearAlpha: 1
-    m_OutputRenderer: {fileID: 0}
-    m_Type: 0
-    m_Camera: {fileID: 0}
-    m_InputVideo: {fileID: 0}
-    m_InputTexture: {fileID: 0}
-    m_BackgroundFit: 0
-    m_ResolutionScale: 1
-    m_ColorBufferFormat: 48
-    m_OverrideAntialiasing: 0
-    m_Antialiasing: 0
-    m_OverrideClearMode: 0
-    m_ClearMode: 1
-    m_OverrideCullingMask: 0
-    m_CullingMask:
-      serializedVersion: 2
-      m_Bits: 0
-    m_OverrideVolumeMask: 0
-    m_VolumeMask:
-      serializedVersion: 2
-      m_Bits: 0
-    m_LayerPositionInStack: 0
-    m_InputFilters: []
-    m_AOVBitmask: 0
-    m_AOVRenderTargets: []
-    m_RenderTarget: {fileID: 277314424}
-    m_ClearsBackGround: 0
-    m_Show: 1
-    m_LayerCamera: {fileID: 0}
-    m_AlphaMin: 0
-    m_AlphaMax: 1
-  - m_LayerName: MainCamera
-    m_OutputTarget: 1
-    m_ClearDepth: 1
-    m_ClearAlpha: 1
-    m_OutputRenderer: {fileID: 0}
-    m_Type: 0
-    m_Camera: {fileID: 1143690701}
-    m_InputVideo: {fileID: 0}
-    m_InputTexture: {fileID: 0}
-    m_BackgroundFit: 0
-    m_ResolutionScale: 1
-    m_ColorBufferFormat: 48
-    m_OverrideAntialiasing: 0
-    m_Antialiasing: 0
-    m_OverrideClearMode: 0
-    m_ClearMode: 1
-    m_OverrideCullingMask: 0
-    m_CullingMask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    m_OverrideVolumeMask: 0
-    m_VolumeMask:
-      serializedVersion: 2
-      m_Bits: 0
-    m_LayerPositionInStack: 0
-    m_InputFilters: []
-    m_AOVBitmask: 0
-    m_AOVRenderTargets: []
-    m_RenderTarget: {fileID: 0}
-    m_ClearsBackGround: 0
-    m_Show: 1
-    m_LayerCamera: {fileID: 1143690701}
-    m_AlphaMin: 0
-    m_AlphaMax: 1
-  - m_LayerName: Canvas
-    m_OutputTarget: 1
-    m_ClearDepth: 1
-    m_ClearAlpha: 1
-    m_OutputRenderer: {fileID: 0}
-    m_Type: 0
-    m_Camera: {fileID: 186398436}
-    m_InputVideo: {fileID: 0}
-    m_InputTexture: {fileID: 0}
-    m_BackgroundFit: 0
-    m_ResolutionScale: 1
-    m_ColorBufferFormat: 48
-    m_OverrideAntialiasing: 0
-    m_Antialiasing: 0
-    m_OverrideClearMode: 0
-    m_ClearMode: 1
-    m_OverrideCullingMask: 0
-    m_CullingMask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    m_OverrideVolumeMask: 0
-    m_VolumeMask:
-      serializedVersion: 2
-      m_Bits: 0
-    m_LayerPositionInStack: 1
-    m_InputFilters: []
-    m_AOVBitmask: 0
-    m_AOVRenderTargets: []
-    m_RenderTarget: {fileID: 0}
-    m_ClearsBackGround: 0
-    m_Show: 1
-    m_LayerCamera: {fileID: 186398436}
-    m_AlphaMin: 0
-    m_AlphaMax: 1
+  m_InputLayers: []
   m_Shader: {fileID: -6465566751694194690, guid: 88326a19507d162469251deb8cf361de, type: 3}
-  m_CompositionProfile: {fileID: 11400000, guid: 68a1821c493fc4640984656e0f638f9d, type: 2}
+  m_CompositionProfile: {fileID: 0}
   m_OutputCamera: {fileID: 685548785}
 --- !u!4 &506026482
 Transform:
@@ -8195,7 +8093,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685548783}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -13745,7 +13643,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 277314424}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
