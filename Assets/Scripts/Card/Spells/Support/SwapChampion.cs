@@ -10,8 +10,6 @@ public class SwapChampion : Spells
     {
         ListEnum listEnum = new ListEnum();
         listEnum.myChampions = true;
-
-        Debug.Log("InSpellSwap");
         Choice.Instance.ChoiceMenu(listEnum, 1, WhichMethod.switchChampionPlayer, null);
     }
 }

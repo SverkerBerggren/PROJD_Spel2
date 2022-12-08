@@ -137,11 +137,10 @@ public class GameState : MonoBehaviour
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
+            InstantiateCardsFromDeck(deck.deckPlayer);
         }
         playerChampion = playerChampions[0];
-        opponentChampion = opponentChampions[0];
-
-       
+        opponentChampion = opponentChampions[0];       
 
         DrawStartingCards();
     }
@@ -149,12 +148,22 @@ public class GameState : MonoBehaviour
     private void InstantiateCardsFromDeck(List<Card> listOfCards)
     {
         Dictionary<string, Card> cardReg = cardRegister.cardRegister;
+        List<Card> listToAdd = new List<Card>();
         for (int i = 0; i < listOfCards.Count; i++)
         {
             Card card = Instantiate(cardRegister.cardRegister[listOfCards[i].cardName]);
+            if (isOnline)
+            {
+                deck.AddCardToDeckPlayer(card);
+                deck.AddCardToDeckOpponent(card);
+            }
+            listToAdd.Add(card);
 
-            deck.AddCardToDeckPlayer(card);
-            deck.AddCardToDeckOpponent(card);
+        }
+        if (!isOnline)
+        {
+            listOfCards.Clear();
+            listOfCards.AddRange(listToAdd);
         }
     }
     private void ChangeInteractabiltyEndTurn()

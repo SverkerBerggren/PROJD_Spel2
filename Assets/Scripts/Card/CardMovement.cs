@@ -21,7 +21,6 @@ public class CardMovement : MonoBehaviour
     private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        print(mainCamera.gameObject.name);
         cardDisplay = GetComponent<CardDisplay>();
         actionOfPlayer = ActionOfPlayer.Instance;
         gameState = GameState.Instance;

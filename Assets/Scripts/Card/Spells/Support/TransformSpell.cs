@@ -11,8 +11,6 @@ public class TransformSpell : Spells
     {
         ListEnum lE = new ListEnum();
         lE.myHand = true;
-
-        Debug.Log("InSpellTransform");
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.TransformChampionCard,this);
     }
 }

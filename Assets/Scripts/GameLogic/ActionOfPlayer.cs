@@ -126,7 +126,7 @@ public class ActionOfPlayer : MonoBehaviour
 				}
 
 				if (specificCard == null)
-					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer();
+					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
 				else               
 					cardDisplay.card = specificCard;
 
@@ -152,7 +152,7 @@ public class ActionOfPlayer : MonoBehaviour
 		{
 			for (; drawnCards < amountToDraw; drawnCards++)
 			{
-				Card c = Deck.Instance.WhichCardToDrawPlayer();
+				Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
 				if (isPlayer)
 					graveyard.AddCardToGraveyard(c);
 				else
