@@ -9,8 +9,8 @@ public class Effect_Cultist : MonoBehaviour
     [SerializeField] private VisualEffect deathEffect;
     private Material mainMaterial;
 
-    private float dissolveRate = 0.0125f;
-    private float refreshRate = 0.025f;
+    private const float DISOLVERATE = 0.0125f;
+    private const float REFRESHRATE = 0.025f;
 
     private bool goDissolve;
     // Start is called before the first frame update
@@ -37,9 +37,9 @@ public class Effect_Cultist : MonoBehaviour
 
         while(mainMaterial.GetFloat("_DissolvedAmount") < 1)
         {
-            counter += dissolveRate;
+            counter += DISOLVERATE;
             mainMaterial.SetFloat("_DissolvedAmount", counter);
-            yield return new WaitForSeconds(refreshRate);
+            yield return new WaitForSeconds(REFRESHRATE);
         }
         if(mainMaterial.GetFloat("_DissolvedAmount") > 0.99f)
             {

@@ -247,7 +247,7 @@ public class InternetLoop : MonoBehaviour
                 {   
                     ListEnum listEnum = new ListEnum();
                     listEnum.myHand = true;
-                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null);
+                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null, 2f);
                 }
             }  
             if (action  is GameActionGameSetup)

@@ -14,7 +14,8 @@ public class ActionOfPlayer : MonoBehaviour
     public Hand handOpponent;
 
     [SerializeField] private TMP_Text manaText;
-	public Sprite backfaceCard;
+    public TMP_Text roundCounter;
+    public Sprite backfaceCard;
 
 	private Choice choice;
 

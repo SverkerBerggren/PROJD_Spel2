@@ -32,6 +32,9 @@ public class Choice : MonoBehaviour
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
 
     private WhichMethod whichMethod;
+
+    private int amountOfWaitrooms = 0;
+
     
     private static Choice instance;
 
@@ -83,7 +86,10 @@ public class Choice : MonoBehaviour
 
     private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        if (!isChoiceActive)
+            yield return new WaitForSeconds(delay);
+        else
+            yield return null;
 
         if(cardUsed != null)
             this.cardUsed = cardUsed;
@@ -134,8 +140,7 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-                if (amountOfTargets == -1)
-                    confirmMenuButton.SetActive(true);
+
                 MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -196,6 +201,9 @@ public class Choice : MonoBehaviour
                 }
             }
         }
+
+        if (amountOfTargets == -1)
+            confirmMenuButton.SetActive(true);
     }
 
     private void MakeButtonOfCard(Card card, ListEnum listEnum, int index)
@@ -227,8 +235,6 @@ public class Choice : MonoBehaviour
         if (amountOfTargets == 0)
             gO.GetComponent<Button>().interactable = false;
     }
-
-
 
     public void AddTargetInfo(TargetInfo targetInfo)
     {
@@ -283,14 +289,11 @@ public class Choice : MonoBehaviour
                     TransformCard();
                     break;
             }
+
             ResetChoice();
             gameState.Refresh();
-
 			waitRoom.Remove(waitRoom[0]);
-			if (waitRoom.Count > 0)
-			{
-				NextInWaitRoom();
-			}
+			NextInWaitRoom();			
 		}
     }
 
@@ -329,7 +332,6 @@ public class Choice : MonoBehaviour
 
 	public void PressedConfirmButton()
     {
-
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
         {
             DiscardXCards();
@@ -337,6 +339,11 @@ public class Choice : MonoBehaviour
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
 
+
+        ResetChoice();
+        gameState.Refresh();
+        waitRoom.Remove(waitRoom[0]);
+        NextInWaitRoom();
     }
 
     public int HowManyChoicesWhereMade()
@@ -346,7 +353,6 @@ public class Choice : MonoBehaviour
 
     public void ResetChoice()
     {
-        isChoiceActive = false;
         closeMenuButton.SetActive(false);
         amountOfTargets = 0;
         chosenTargets.Clear();
@@ -537,35 +543,43 @@ public class Choice : MonoBehaviour
 
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed)
     {
-        
-        IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, cardUsed, 0.01f);
+        ChoiceMenu(list,amountToTarget,theMethod,cardUsed, 0.01f);
+    }
+
+    public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
+    {
+        IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, cardUsed, delay);
+
         Tuple<WhichMethod, IEnumerator> tuple = new Tuple<WhichMethod, IEnumerator>(theMethod, enumerator);
         waitRoom.Add(tuple);
-        if (waitRoom[0] == tuple)
-        {
-            NextInWaitRoom();
-        }
+        
+        if (waitRoom[0].Item2 == tuple.Item2)       
+            NextInWaitRoom();       
+        else     
+            print("Choice not First");
+        
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
     }
 
     private void NextInWaitRoom()
     {
+        if (waitRoom[0] == null)
+        {
+            isChoiceActive = false;
+            if (!gameState.isItMyTurn && gameState.hasPriority)
+                gameState.PassPriority();
+            return;
+        }
+
         if (CheckIfChoice(waitRoom[0].Item1))
         {
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             ResetChoice();
             StartCoroutine(waitRoom[0].Item2);
         }
         else
         {
             waitRoom.Remove(waitRoom[0]);
-            if (waitRoom.Count > 0)
-            {
-                NextInWaitRoom();
-			}
+            NextInWaitRoom();			
 		}
 	}
 }
