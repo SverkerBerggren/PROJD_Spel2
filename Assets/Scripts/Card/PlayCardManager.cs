@@ -118,8 +118,8 @@ public class PlayCardManager : MonoBehaviour
                 print("LandmarkTAUNT");
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
-                card.PlayCard();
                 gameState.ShowPlayedCard(card, false);
+                card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
                 gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 return true;
@@ -140,9 +140,9 @@ public class PlayCardManager : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
+                    gameState.ShowPlayedCard(card, false);
                     card.PlayCard();
                     Landmarks landmark = (Landmarks)landmarkDisplay.card;
-                    gameState.ShowPlayedCard(card, false);
 
                     break;
                 }
@@ -159,8 +159,8 @@ public class PlayCardManager : MonoBehaviour
         else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
-            card.PlayCard();
             gameState.ShowPlayedCard(card, false);
+            card.PlayCard();
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
@@ -172,8 +172,8 @@ public class PlayCardManager : MonoBehaviour
             card.Target = gameObjectTargeted.GetComponent<AvailableChampion>().champion;
 
             Graveyard.Instance.AddCardToGraveyard(card);
-            card.PlayCard();
             gameState.ShowPlayedCard(card, false);
+            card.PlayCard();
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
 
@@ -181,8 +181,8 @@ public class PlayCardManager : MonoBehaviour
         {
             card.LandmarkTarget = gameObjectTargeted.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);
-            card.PlayCard();
             gameState.ShowPlayedCard(card, false);
+            card.PlayCard();
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
