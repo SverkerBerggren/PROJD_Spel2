@@ -51,7 +51,10 @@ public class Deckbuilder : MonoBehaviour
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         CardDisplayAttributes cardDisplayAtributes = gO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+
+        cardDisplayAtributes.previewCard = true;
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
+
         gO.GetComponent<DeckbuilderCardButton>().card = card;
         buttons.Add(gO);
     }
