@@ -20,6 +20,7 @@ public class ActionOfPlayer : MonoBehaviour
 
     private int cardCost;
     public int playerMana = 0;
+    public int enemyMana = 0;
     public int currentMana = 0;
     public readonly int maxMana = 10;
     public bool selectCardOption = false;

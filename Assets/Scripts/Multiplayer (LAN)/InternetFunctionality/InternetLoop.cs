@@ -205,7 +205,7 @@ public class InternetLoop : MonoBehaviour
                 {
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
                 }
-                else
+                else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
                 {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
@@ -213,6 +213,7 @@ public class InternetLoop : MonoBehaviour
                 gameState.ShowPlayedCard(cardPlayed, true);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+                actionOfPlayer.enemyMana -= castedAction.manaCost;
                 actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    

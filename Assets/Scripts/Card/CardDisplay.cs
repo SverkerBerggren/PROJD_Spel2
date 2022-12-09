@@ -84,8 +84,6 @@ public class CardDisplay : Displays
         base.UpdateVariables();
     }
 
-
-
     public void ResetSize()
     {
         transform.localScale = originalSize;

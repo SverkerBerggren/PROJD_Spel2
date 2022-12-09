@@ -140,10 +140,26 @@ public class GameState : MonoBehaviour
             InstantiateCardsFromDeck(deck.deckPlayer);
         }
         playerChampion = playerChampions[0];
-        opponentChampion = opponentChampions[0];       
+        opponentChampion = opponentChampions[0];
+
+
+        if (!didIStart)
+            actionOfPlayer.enemyMana++;
 
         DrawStartingCards();
     }
+
+    public void PlayCardRequest(CardAndPlacement cardPlacement)
+    {
+        CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
+        calculations.CalculateHandManaCost(cardDisplay);
+        RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
+        playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
+        ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
+
+        Refresh();
+    }
+
 
     private void InstantiateCardsFromDeck(List<Card> listOfCards)
     {
@@ -570,6 +586,7 @@ public class GameState : MonoBehaviour
             cardDisplay.EndStep();
         }
 
+        actionOfPlayer.enemyMana = actionOfPlayer.playerMana;
         actionOfPlayer.UpdateUnspentMana();
     }
 
@@ -597,6 +614,7 @@ public class GameState : MonoBehaviour
             TriggerUpKeep();
             yourTurnEffect.ActivateEffect();
         }
+
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
@@ -744,6 +762,8 @@ public class GameState : MonoBehaviour
             aC.UpdateTextOnCard();
         }
 
+
+        WhichManaCrystalsToShow.Instance.UpdateManaCrystals();
         yourTurnEffect.ChangePicture(playerChampions[0]);
     }
 }
