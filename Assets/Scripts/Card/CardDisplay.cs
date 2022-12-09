@@ -12,7 +12,7 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
 
-    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
+    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     
 
@@ -67,7 +67,7 @@ public class CardDisplay : Displays
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
     }
 
     public void UpdateTextOnCard()
@@ -76,12 +76,6 @@ public class CardDisplay : Displays
             LoadDisplayAttributesOnce();
 
         cardDisplayAtributes.UpdateTextOnCard(this);
-    }
-
-    public override void UpdateVariables()
-    {
-        Calculations.Instance.CalculateHandManaCost(this);
-        base.UpdateVariables();
     }
 
     public void ResetSize()

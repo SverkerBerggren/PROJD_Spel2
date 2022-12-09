@@ -122,7 +122,7 @@ public class GameState : MonoBehaviour
             List<string> ha = new List<string>
             {
                 "Cultist",
-                "Graverobber",
+                "Shanker",
                 "Builder",
             };
             AddChampions(ha, true);
@@ -359,8 +359,9 @@ public class GameState : MonoBehaviour
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         cardDisp.card = card;
-        cardDisp.previewCard = opponent;
+        cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
@@ -406,9 +407,18 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < amountToDiscard; i++)
+            if (discardCardsYourself)
             {
-				actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+                ListEnum listEnum = new ListEnum();
+                listEnum.myHand = true;
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
+            }
+            else
+            {
+                for (int i = 0; i < amountToDiscard; i++)
+                {
+                    actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+                }
             }
         }
     }

@@ -209,7 +209,7 @@ public class Choice : MonoBehaviour
     private void MakeButtonOfCard(Card card, ListEnum listEnum, int index)
     {      
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
+        CardDisplayAttributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAttributes>();
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
@@ -563,7 +563,7 @@ public class Choice : MonoBehaviour
 
     private void NextInWaitRoom()
     {
-        if (waitRoom[0] == null)
+        if (waitRoom.Count == 0)
         {
             isChoiceActive = false;
             if (!gameState.isItMyTurn && gameState.hasPriority)

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardDisplayAtributes : MonoBehaviour
+public class CardDisplayAttributes : MonoBehaviour
 {
     public TMP_Text cardName;
     public TMP_Text description;
@@ -25,47 +25,57 @@ public class CardDisplayAtributes : MonoBehaviour
     [SerializeField] private GameObject hpGameObject;
 
 
-    public void UpdateTextOnCard(LandmarkDisplay landmarkDisplay)
+    [System.NonSerialized] public int damageShow = 0;
+    [System.NonSerialized] public int amountToHealShow = 0;
+    [System.NonSerialized] public int amountToShieldShow = 0;
+    [System.NonSerialized] public int amountOfCardsToDrawShow = 0;
+    [System.NonSerialized] public int amountOfCardsToDiscardShow = 0;
+
+    [System.NonSerialized] public bool previewCard = false;
+
+    private Calculations calculations;
+
+    private void Start()
     {
-        if (landmarkDisplay.card == null)
-        {
-            //transform.parent.gameObject.SetActive(false);
-            return;
-        }
         
-        landmarkDisplay.UpdateVariables();
-        hpText.text = landmarkDisplay.health.ToString();
-        description.text = landmarkDisplay.card.description;
-        manaText.text = landmarkDisplay.manaCost.ToString();
-        cardName.text = landmarkDisplay.card.cardName;
-        CardParser.Instance.CheckKeyword(landmarkDisplay, this);
     }
 
-    public void UpdateTextOnCard(CardDisplay cardDisplay)
+    private void UpdateDependingOnCard(Displays display)
     {
-        if (cardDisplay.card == null) return;
-
-
-        if (!cardDisplay.opponentCard)
+        if (display is LandmarkDisplay)
         {
-            UpdateMaterialOnCard(cardDisplay.card);
-
-            cardDisplay.UpdateVariables();
-            cardName.text = cardDisplay.card.cardName;
-            manaText.text = cardDisplay.manaCost.ToString();
-            description.text = cardDisplay.card.description;
-            CardParser.Instance.CheckKeyword(cardDisplay, this);
-
-
-            if (cardPlayableEffect != null)
+            LandmarkDisplay displayLandmark = (LandmarkDisplay)display;
+            hpText.text = displayLandmark.health.ToString();
+        }
+        else if (display is CardDisplay)
+        {
+            CardDisplay cardDisplay = (CardDisplay)display;
+            if (!cardDisplay.opponentCard)
             {
-                ShowCardPlayableEffect(cardDisplay);
+                UpdateMaterialOnCard(cardDisplay.card);
+                if (cardPlayableEffect != null)
+                {
+                    ShowCardPlayableEffect(cardDisplay);
+                }
+            }
+            else
+            {
+                cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
             }
         }
-        else
-        {
-            cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
-        }
+
+        description.text = display.card.description;
+        manaText.text = display.manaCost.ToString();
+        cardName.text = display.card.cardName;
+    }
+
+    public void UpdateTextOnCard(Displays display)
+    {
+        if (display.card == null) return;
+        
+        UpdateVariables(display);
+        UpdateDependingOnCard(display);
+        description.text = CardParser.Instance.CheckKeyword(this);
     }
     public void UpdateTextOnCardWithCard(Card card)
     {
@@ -75,7 +85,10 @@ public class CardDisplayAtributes : MonoBehaviour
 
         cardName.text = card.cardName;
         manaText.text = card.maxManaCost.ToString();
-        description.text = card.description;      
+        description.text = card.description;
+
+        UpdateVariables(card);  
+        description.text = CardParser.Instance.CheckKeyword(this);
     }
 
     private void ShowCardPlayableEffect(CardDisplay cardDisplay)
@@ -131,4 +144,34 @@ public class CardDisplayAtributes : MonoBehaviour
             artworkMeshRenderer.material = materialToChange;
         }
     }
+
+    private void UpdateVariables(Card card)
+    {
+        calculations = Calculations.Instance;
+
+        if (card.damage != 0)
+            damageShow = calculations.CalculateDamage(card.damage, previewCard);
+        if (card.amountToHeal != 0)
+            amountToHealShow = calculations.CalculateHealing(card.amountToHeal, previewCard);
+        if (card.amountToShield != 0)
+            amountToShieldShow = calculations.CalculateShield(card.amountToShield, previewCard);
+        if (card.amountOfCardsToDraw != 0)
+            amountOfCardsToDrawShow = card.amountOfCardsToDraw;
+        if (card.amountOfCardsToDiscard != 0)
+            amountOfCardsToDiscardShow = card.amountOfCardsToDiscard;
+    }
+
+    public void UpdateVariables(Displays display)
+    {
+        calculations = Calculations.Instance;
+
+        if (display is CardDisplay)
+        {
+            Calculations.Instance.CalculateHandManaCost((CardDisplay)display);
+        }
+
+        UpdateVariables(display.card);
+    }
+
+
 }
