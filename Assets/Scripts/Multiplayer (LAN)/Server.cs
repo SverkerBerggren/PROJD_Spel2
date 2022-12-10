@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
-
+using Dapper;
+using System.Data;
 
 public class Server
 {
@@ -27,8 +28,10 @@ public class Server
     public Integer uniqueInteger = new Integer(1);
 
 
+    
+
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
-    {
+    {   
         Int32 ReturnValue = 0;
         if (BytesToParse.Length < ByteOffset + 4)
         {
@@ -712,11 +715,28 @@ public class Server
     public class Integer
     {
         public int value = 0; 
-
+        
         public Integer(int value)
         {
             this.value = value;
         }
 
+    }
+
+    public static List<test> LoadTest()
+    {
+        using (IDbConnection connection = new System.Data.SQLite.SQLiteConnection())
+        {
+            var output = connection.Query<test>("select * from test", new DynamicParameters());
+
+
+
+            return output.ToList();
+        }
+    }
+
+    public class test
+    {
+        public string namn = ""; 
     }
 }
