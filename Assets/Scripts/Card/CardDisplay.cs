@@ -12,7 +12,7 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
 
-    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
+    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
     
 
@@ -67,7 +67,7 @@ public class CardDisplay : Displays
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
     }
 
     public void UpdateTextOnCard()
@@ -78,23 +78,15 @@ public class CardDisplay : Displays
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 
-    public override void UpdateVariables()
-    {
-        Calculations.Instance.CalculateHandManaCost(this);
-        base.UpdateVariables();
-    }
-
-
-
     public void ResetSize()
     {
         transform.localScale = originalSize;
     }
 
-    private void OnMouseEnter()
+    public void MouseEnter()
     {
         if (opponentCard) return;
-       
+
         if (!alreadyBig)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z - 1);
@@ -102,7 +94,8 @@ public class CardDisplay : Displays
             alreadyBig = true;
         }
     }
-    private void OnMouseExit()
+
+    public void MouseExit()
     {
         if (opponentCard) return;
         if (!mouseDown)
@@ -111,7 +104,6 @@ public class CardDisplay : Displays
             transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z + 1);
             ResetSize();
         }
-
     }
 
     public void EndStep()

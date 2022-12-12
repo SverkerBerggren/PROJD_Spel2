@@ -39,7 +39,7 @@ public class CultistCard : Spells
         /* MÅste fixa så att den targetar landmarks */
         foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
         {
-            if (landmark == null) continue;
+            if (landmark.card == null) continue;
 
             LandmarkTarget = landmark;
             gameState.CalculateAndDealDamage(damage, this);

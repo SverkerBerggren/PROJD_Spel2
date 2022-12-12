@@ -611,6 +611,7 @@ MonoBehaviour:
   cardDissolve_VFX: {fileID: 3276278590813212244}
   meshMaterial: {fileID: 262932640106156721}
   ram: {fileID: 5774111163111633159}
+  textCanvas: {fileID: 262932638914602545}
 --- !u!1 &262932640230691484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,7 +1150,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4356193953453754509}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.50097907}
+  m_LocalPosition: {x: 0, y: 0, z: -0.501}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1158,8 +1159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0.411}
-  m_SizeDelta: {x: 64.6, y: 100}
+  m_AnchoredPosition: {x: 0.00111, y: 0.42726}
+  m_SizeDelta: {x: 5.85241, y: 1.45478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2256183306864108807
 CanvasRenderer:
@@ -1226,7 +1227,7 @@ MonoBehaviour:
   m_fontSizeMax: 2.83
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1254,7 +1255,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 29.37198, y: 49.54993, z: 29.388481, w: 49.550613}
+  m_margin: {x: -0.0033226013, y: 0.44008526, z: 0.02974093, w: 0.10649538}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
