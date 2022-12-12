@@ -122,7 +122,7 @@ public class GameState : MonoBehaviour
             List<string> ha = new List<string>
             {
                 "Cultist",
-                "Shanker",
+                "Graverobber",
                 "Builder",
             };
             AddChampions(ha, true);
