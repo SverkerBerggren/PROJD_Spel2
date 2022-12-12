@@ -112,8 +112,6 @@ public class Choice : MonoBehaviour
 
         if(listEnum.myHand)
         {
-            print("kommer den till discard delen");
-            descriptionText.text = "Choose a card to discard";
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i].GetComponent<CardDisplay>();
@@ -125,7 +123,6 @@ public class Choice : MonoBehaviour
 
         if (listEnum.myGraveyard)
         {
-            descriptionText.text = "Show graveyard";
             for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
             {
                 MakeButtonOfCard(graveyard.graveyardPlayer[i], listEnum, i);
@@ -157,8 +154,7 @@ public class Choice : MonoBehaviour
         }
 
         if (listEnum.myLandmarks)
-        {
-            descriptionText.text = "Show landmarks";
+        { 
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
                 MakeButtonOfCard(gameState.playerLandmarks[i].card, listEnum, i);
