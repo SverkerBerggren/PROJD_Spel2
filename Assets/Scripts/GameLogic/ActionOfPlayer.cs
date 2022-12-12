@@ -143,7 +143,7 @@ public class ActionOfPlayer : MonoBehaviour
 			}
 		}
 
-		if (drawnCards < amountToDraw)
+		if (drawnCards < amountToDraw) //Discards overdrawn cards
 		{
 			for (; drawnCards < amountToDraw; drawnCards++)
 			{
