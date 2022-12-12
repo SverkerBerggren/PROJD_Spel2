@@ -26,27 +26,17 @@ public class LandmarkDisplay : Displays
         previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         //cardDisplayAtributes.UpdateTextOnCard(this);
         landmarkPrefab = transform.GetChild(0).gameObject;
+
+        
     }
 
     private void Start()
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
+
+        landmarkPrefab.SetActive(false);
     }
-
-    private void FixedUpdate()
-    {
-        if (card != null)
-        {
-            landmarkPrefab.SetActive(true);
-        }
-        else
-        {
-            landmarkPrefab.SetActive(false);
-        }
-    }
-
-
 
     public void DestroyLandmark()
     {
@@ -87,6 +77,7 @@ public class LandmarkDisplay : Displays
         }
         Landmarks landmark = (Landmarks)card;
         landmark.WhenLandmarksDie();
+        landmarkPrefab.SetActive(false);
         card = null;
     }
 
@@ -121,6 +112,7 @@ public class LandmarkDisplay : Displays
 
     public void UpdateTextOnCard()
     {
+        landmarkPrefab.SetActive(true);
         cardDisplayAtributes.UpdateTextOnCard(this);
     }
 

@@ -28,18 +28,11 @@ public class CardDisplay : Displays
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
-
-
-    private void Start()
+    public void HideUnusedCard()
     {
-        
+        gameObject.SetActive(false);
     }
 
-    private void FixedUpdate()
-    {
-        if (card == null)
-            gameObject.SetActive(false);
-    }
 
     private void LoadInvoke()
     {

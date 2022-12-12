@@ -23,7 +23,11 @@ public class Hand : MonoBehaviour
         cardsInHand.Clear();
         foreach (CardDisplay cardDisplay in cardSlotsInHand)
         {
-            if (cardDisplay.card == null) continue;          
+            if (cardDisplay.card == null)
+            {
+                cardDisplay.HideUnusedCard();
+                continue;
+            }
    
             if (!cardsInHand.Contains(cardDisplay))
                cardsInHand.Add(cardDisplay);  

@@ -35,11 +35,6 @@ public class CardDisplayAttributes : MonoBehaviour
 
     private Calculations calculations;
 
-    private void Start()
-    {
-        
-    }
-
     private void UpdateDependingOnCard(Displays display)
     {
         if (display is LandmarkDisplay)

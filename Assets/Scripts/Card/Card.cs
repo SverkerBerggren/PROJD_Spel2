@@ -74,29 +74,19 @@ public abstract class Card : ScriptableObject
             placement.index = 100;
         }
 
-        if (gameState.isOnline)
-        {
+        if (gameState.isOnline)        
             gameState.PlayCardRequest(cardPlacement);
-        }
         
-        if (amountOfCardsToDraw != 0)
-        {
+        if (amountOfCardsToDraw != 0)       
             gameState.DrawCard(amountOfCardsToDraw, null);
-            gameState.Refresh();
-        }
-
-        if (amountOfCardsToDiscard != 0)
-        {
+        
+        if (amountOfCardsToDiscard != 0)     
             gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
-            gameState.Refresh();
-        }
-
+        
         if (effect != null)
-        {
             gameState.AddEffect(effect);
-            gameState.Refresh();
-        }
 
+        gameState.Refresh();
         gameState.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    
