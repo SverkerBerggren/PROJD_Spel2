@@ -23,6 +23,12 @@ public class Choice : MonoBehaviour
     [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject confirmMenuButton;
     [SerializeField] private GameObject buttonHolder;
+    [SerializeField] private GameObject choiceMenu;
+    [SerializeField] private GameObject choiceOpponentMenu;
+    private bool isChoiceActive;
+
+    private List<GameObject> buttonsToDestroy = new List<GameObject>();
+    private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
 
     private static Choice instance;
 	public static Choice Instance { get { return instance; } set { instance = value; } }

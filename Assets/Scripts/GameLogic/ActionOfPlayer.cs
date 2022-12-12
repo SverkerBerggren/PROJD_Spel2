@@ -32,8 +32,6 @@ public class ActionOfPlayer : MonoBehaviour
 
     private static ActionOfPlayer instance;
 
-    public int unspentMana = 0;
-
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()

@@ -16273,16 +16273,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347eae74a56fb4c4186c8daeda76823b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handPlayer: {fileID: 1670523642}
-  handOpponent: {fileID: 1361169675}
   manaText: {fileID: 0}
   roundCounter: {fileID: 6266707}
   backfaceCard: {fileID: 21300000, guid: 068c73f8b63986b4e812e64db6f17f8f, type: 3}
+  handPlayer: {fileID: 1670523642}
+  handOpponent: {fileID: 1361169675}
   playerMana: 1
   enemyMana: 0
   currentMana: 1
-  selectCardOption: 0
   unspentMana: 0
+  selectCardOption: 0
 --- !u!114 &1428518176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16708,6 +16708,8 @@ MonoBehaviour:
   closeMenuButton: {fileID: 574519442}
   confirmMenuButton: {fileID: 386517583}
   buttonHolder: {fileID: 552819661}
+  choiceMenu: {fileID: 131555724}
+  choiceOpponentMenu: {fileID: 1687121619}
 --- !u!4 &1471679901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2dd5b59a16273fa4fa8f8c33887e7655, type: 3}
