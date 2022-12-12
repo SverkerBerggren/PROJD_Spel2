@@ -428,9 +428,6 @@ public class Choice : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
-
-        if (!gameState.isItMyTurn)
-            gameState.PassPriority();
     }
 
     private bool CheckIfChoice(WhichMethod theMethod)
