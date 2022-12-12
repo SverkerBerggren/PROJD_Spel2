@@ -544,8 +544,7 @@ public enum WhichMethod
 {
     switchChampionPlayer,
 	switchChampionEnemy,
-	switchChampionDied, 
-    switchChampionDiedDiedDied, 
+	switchChampionDied,
     discardCard,
     discardXCardsInMyHand,
     ShowGraveyard,
