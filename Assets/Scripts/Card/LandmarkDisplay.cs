@@ -35,6 +35,11 @@ public class LandmarkDisplay : Displays
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
 
+
+
+        if (previewLandmarkDisplay.gameObject.name.Equals(gameObject.name)) return;
+
+
         landmarkPrefab.SetActive(false);
     }
 
@@ -91,7 +96,7 @@ public class LandmarkDisplay : Displays
         }
     }
 
-    private void OnMouseEnter()
+    public void OnEnter()
     {
         if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(true);
@@ -102,7 +107,7 @@ public class LandmarkDisplay : Displays
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
-    private void OnMouseExit()
+    public void OnExit()
     {
         if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(false);

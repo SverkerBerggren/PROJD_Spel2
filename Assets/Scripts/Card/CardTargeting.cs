@@ -37,9 +37,11 @@ public class CardTargeting : MonoBehaviour
         mousePosition = cardMovement.mousePosition;
         cardDisplay.mouseDown = false;
 
+        cardDisplay.layoutElement.ignoreLayout = false;
+
         if (!playCardManager.CanCardBePlayed(cardDisplay))
         {
-            CardGoBackToStartingPosition();
+            cardDisplay.ResetSize();
             return;
         }
 
@@ -48,7 +50,7 @@ public class CardTargeting : MonoBehaviour
         Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
 
         if (CheckIfRaycastHitEnemy(hitEnemy) == TypeOfCardTargeting.None)
-            CardGoBackToStartingPosition();
+            cardDisplay.ResetSize();
         else
             playCardManager.PlayCard(typeOfCardTarget, gameObjectHit);
     }
@@ -66,9 +68,9 @@ public class CardTargeting : MonoBehaviour
         return typeOfCardTarget;
     }
 
-    private void CardGoBackToStartingPosition()
+/*    private void CardGoBackToStartingPosition()
     {
         gameObjectRectTransform.anchoredPosition = startposition;
-        cardDisplay.ResetSize();
-    }
+        
+    }*/
 }

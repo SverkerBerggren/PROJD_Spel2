@@ -28,12 +28,16 @@ public class CardMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-
+        print("Click");
     }
 
     public void OnDown()
     {
+        print("Click");
         cardDisplay.ResetSize();
+
+        cardDisplay.layoutElement.ignoreLayout = true;
+
         if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, false)) return;
         //offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 100));
         cardDisplay.mouseDown = true;
@@ -54,9 +58,9 @@ public class CardMovement : MonoBehaviour
 
        
 
-        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
+        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 30));
 
-        transform.position = mousePosition + offset;
+        transform.position = mousePosition;
     }
 
     private void Update()
@@ -65,7 +69,7 @@ public class CardMovement : MonoBehaviour
         if (clickedOnCard)
         {
             
-            mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
+            mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 30));
 
             transform.position = mousePosition + offset;
         }

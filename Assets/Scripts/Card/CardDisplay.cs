@@ -14,7 +14,8 @@ public class CardDisplay : Displays
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
-    
+
+    public LayoutElement layoutElement;
 
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
@@ -73,7 +74,7 @@ public class CardDisplay : Displays
 
     public void ResetSize()
     {
-        transform.localScale = originalSize;
+        transform.localScale = new Vector3(1,1,1);
     }
 
     public void MouseEnter()
@@ -82,8 +83,8 @@ public class CardDisplay : Displays
 
         if (!alreadyBig)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z - 1);
-            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.y + 0.5f, transform.localScale.z + 0.5f);
             alreadyBig = true;
         }
     }
@@ -94,7 +95,7 @@ public class CardDisplay : Displays
         if (!mouseDown)
         {
             alreadyBig = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z + 1);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
             ResetSize();
         }
     }

@@ -16,7 +16,6 @@ public class ActionOfPlayer : MonoBehaviour
 
 
     private int cardCost;
-    [SerializeField] private TMP_Text manaText;
     public TMP_Text roundCounter;
     public Sprite backfaceCard;
 
