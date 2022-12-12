@@ -5,17 +5,15 @@ using System;
 public class GameActionPlayCard : GameAction
 {
     public CardAndPlacement cardAndPlacement = new CardAndPlacement();
-    public int manaCost;
 
     public GameActionPlayCard()
     {
         Type = 10; 
     }
-    public GameActionPlayCard(CardAndPlacement cardToPlay, int manaCost)
+    public GameActionPlayCard(CardAndPlacement cardToPlay)
     {
         Type = 10;
 
         this.cardAndPlacement = cardToPlay;
-        this.manaCost = manaCost;
     }
 }

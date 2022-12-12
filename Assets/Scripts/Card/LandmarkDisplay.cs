@@ -15,15 +15,15 @@ public class LandmarkDisplay : Displays
     public bool opponentLandmarks = false;
     private GameObject landmarkPrefab;
     [NonSerialized] public bool landmarkEnabled = true;
-    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
+    [NonSerialized] public CardDisplayAtributes cardDisplayAtributes;
 
     [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
-    private CardDisplayAttributes previewCardDisplayAtributes;
+    private CardDisplayAtributes previewCardDisplayAtributes;
 
     private void Awake()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
-        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
         //cardDisplayAtributes.UpdateTextOnCard(this);
         landmarkPrefab = transform.GetChild(0).gameObject;
     }

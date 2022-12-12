@@ -575,7 +575,6 @@ MonoBehaviour:
   cardDissolve_VFX: {fileID: 524949597028176316}
   meshMaterial: {fileID: 262932640106156721}
   ram: {fileID: 5998125593330780860}
-  textCanvas: {fileID: 262932638914602545}
 --- !u!1 &262932640230691484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,10 +1281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightingRam
       objectReference: {fileID: 0}
-    - target: {fileID: 9036499239868703099, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
 --- !u!1 &5998125593330780860 stripped
@@ -1305,10 +1300,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 262932640106156723}
     m_Modifications:
-    - target: {fileID: 5225523165637070293, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1356,10 +1347,6 @@ PrefabInstance:
     - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_Name
       value: VFX_CardDissPS
-      objectReference: {fileID: 0}
-    - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}

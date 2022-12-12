@@ -86,7 +86,7 @@ public class PlayCardManager : MonoBehaviour
             if (TauntCard()) 
                 return TypeOfCardTargeting.Taunt;
 
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
             {
                 
                 return TypeOfCardTargeting.Targeted;
@@ -95,7 +95,7 @@ public class PlayCardManager : MonoBehaviour
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
             {
                 
                 return TypeOfCardTargeting.UnTargeted;
@@ -113,13 +113,13 @@ public class PlayCardManager : MonoBehaviour
         {
             if (landmarkDisplay.card == null) continue;
 
-            if (landmarkDisplay.card is TauntLandmark && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+            if (landmarkDisplay.card is TauntLandmark && actionOfPlayer.CheckIfCanPlayCard(cardDisplay))
             {
                 print("LandmarkTAUNT");
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
-                gameState.ShowPlayedCard(card, false);
                 card.PlayCard();
+                gameState.ShowPlayedCard(card, false);
                 graveyard.AddCardToGraveyard(card);
                 gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 return true;
@@ -140,9 +140,9 @@ public class PlayCardManager : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
-                    gameState.ShowPlayedCard(card, false);
                     card.PlayCard();
                     Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                    gameState.ShowPlayedCard(card, false);
 
                     break;
                 }
@@ -159,8 +159,8 @@ public class PlayCardManager : MonoBehaviour
         else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
             card.PlayCard();
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
@@ -172,8 +172,8 @@ public class PlayCardManager : MonoBehaviour
             card.Target = gameObjectTargeted.GetComponent<AvailableChampion>().champion;
 
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
             card.PlayCard();
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
 
@@ -181,8 +181,8 @@ public class PlayCardManager : MonoBehaviour
         {
             card.LandmarkTarget = gameObjectTargeted.GetComponent<LandmarkDisplay>();
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
             card.PlayCard();
+            gameState.ShowPlayedCard(card, false);
             gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }

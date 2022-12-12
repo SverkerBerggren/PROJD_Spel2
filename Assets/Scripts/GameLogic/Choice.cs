@@ -15,8 +15,12 @@ public class Choice : MonoBehaviour
     private ActionOfPlayer actionOfPlayer;
     private Graveyard graveyard;
     private WhichMethod whichMethod;
-    private Deck deck;
+    private GameObject choiceMenu;
+    private GameObject choiceOpponentMenu;
+    private List<GameObject> buttonsToDestroy = new List<GameObject>();
+    private bool isChoiceActive = false;
     private Card cardUsed;
+    private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
 
     [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private TMP_Text descriptionText;
@@ -44,7 +48,7 @@ public class Choice : MonoBehaviour
         gameState = GameState.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
         graveyard = Graveyard.Instance;
-        deck = Deck.Instance;
+        
 
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
@@ -73,10 +77,7 @@ public class Choice : MonoBehaviour
 
     private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
     {
-        if (!isChoiceActive)
-            yield return new WaitForSeconds(delay);
-        else
-            yield return null;
+        yield return new WaitForSeconds(delay);
 
         if(cardUsed != null)
             this.cardUsed = cardUsed;
@@ -109,25 +110,15 @@ public class Choice : MonoBehaviour
             }
 		}
 
-        if (listEnum.myHand && whichMethod == WhichMethod.TransformChampionCard)
-        {
-            print("kommer den till Transform delen");
-            descriptionText.text = "Choose a card to Transform";
-            for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
-            {               
-                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-                if (cardDisplay.card.championCard)
-                    MakeButtonOfCard(cardDisplay.card, listEnum, i);
-            }
-        }
-        else if(listEnum.myHand)
+        if(listEnum.myHand)
         {
             print("kommer den till discard delen");
             descriptionText.text = "Choose a card to discard";
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
-                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-
+                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i].GetComponent<CardDisplay>();
+                if (amountOfTargets == -1)
+                    confirmMenuButton.SetActive(true);
                 MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -148,9 +139,9 @@ public class Choice : MonoBehaviour
             SeersShack seersShack = (SeersShack)cardUsed;
 			for (int i = 0; i < seersShack.cardsShown; i++)
 			{
-                if (Deck.Instance.deckPlayer[i] != null)
+                if (actionOfPlayer.handPlayer.deck.deckPlayer[i] != null)
                 {
-				    MakeButtonOfCard(deck.deckPlayer[i], listEnum, i);
+				    MakeButtonOfCard(actionOfPlayer.handPlayer.deck.deckPlayer[i], listEnum, i);
 				    closeMenuButton.SetActive(true);
                 }
 			}
@@ -158,9 +149,9 @@ public class Choice : MonoBehaviour
         else if (listEnum.myDeck)
         {
             descriptionText.text = "Show Deck";
-            for (int i = 0; i < deck.deckPlayer.Count; i++)
+            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
             {
-                MakeButtonOfCard(deck.deckPlayer[i], listEnum, i);
+                MakeButtonOfCard(actionOfPlayer.handPlayer.deck.deckPlayer[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
@@ -188,15 +179,12 @@ public class Choice : MonoBehaviour
                 }
             }
         }
-
-        if (amountOfTargets == -1)
-            confirmMenuButton.SetActive(true);
     }
 
     private void MakeButtonOfCard(Card card, ListEnum listEnum, int index)
     {      
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        CardDisplayAttributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAttributes>();
+        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
@@ -222,6 +210,8 @@ public class Choice : MonoBehaviour
         if (amountOfTargets == 0)
             gO.GetComponent<Button>().interactable = false;
     }
+
+
 
     public void AddTargetInfo(TargetInfo targetInfo)
     {
@@ -258,7 +248,7 @@ public class Choice : MonoBehaviour
                     break;
 
                 case WhichMethod.ShowDeck:
-                    print("Card 1: " + deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + deck.deckPlayer[chosenTargets[1].index]);
+                    print("Card 1: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[1].index]);
                     break;
 
                 case WhichMethod.ShowLandmarks:
@@ -276,11 +266,14 @@ public class Choice : MonoBehaviour
                     TransformCard();
                     break;
             }
-
             ResetChoice();
             gameState.Refresh();
+
 			waitRoom.Remove(waitRoom[0]);
-			NextInWaitRoom();			
+			if (waitRoom.Count > 0)
+			{
+				NextInWaitRoom();
+			}
 		}
     }
 
@@ -319,6 +312,7 @@ public class Choice : MonoBehaviour
 
 	public void PressedConfirmButton()
     {
+
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
         {
             DiscardXCards();
@@ -326,11 +320,6 @@ public class Choice : MonoBehaviour
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
 
-
-        ResetChoice();
-        gameState.Refresh();
-        waitRoom.Remove(waitRoom[0]);
-        NextInWaitRoom();
     }
 
     public int HowManyChoicesWhereMade()
@@ -340,6 +329,7 @@ public class Choice : MonoBehaviour
 
     public void ResetChoice()
     {
+        isChoiceActive = false;
         closeMenuButton.SetActive(false);
         amountOfTargets = 0;
         chosenTargets.Clear();
@@ -436,7 +426,6 @@ public class Choice : MonoBehaviour
         switch (theMethod)
         {
             case WhichMethod.switchChampionPlayer:
-                descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
@@ -444,7 +433,6 @@ public class Choice : MonoBehaviour
                 break;
 
             case WhichMethod.switchChampionEnemy:
-                descriptionText.text = "Swap Your champion";
                 if (gameState.opponentChampions.Count <= 1)
 				{
 					return false;
@@ -452,7 +440,6 @@ public class Choice : MonoBehaviour
                 break;
             
             case WhichMethod.switchChampionDied:
-                descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1)
                 {
                     return false;
@@ -460,30 +447,25 @@ public class Choice : MonoBehaviour
                 break;
 
             case WhichMethod.discardCard:
-                descriptionText.text = "Choose a card to discard";
-                if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
+                if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
             case WhichMethod.discardXCardsInMyHand:
-                descriptionText.text = "Choose a card to discard and deal bonus damage based on the amount of cards discarded";
                 if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowGraveyard:
-                descriptionText.text = "Graveyard";
                 if (graveyard.graveyardPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowDeck:
-                descriptionText.text = "Deck";
-                if (deck.deckPlayer.Count <= 0)
+                if (actionOfPlayer.handPlayer.deck.deckPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowLandmarks:
-                descriptionText.text = "Landmarks";
                 bool checkIfLandmarkPlaced = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks)
                 {
@@ -495,7 +477,6 @@ public class Choice : MonoBehaviour
                 break;
 
 			case WhichMethod.DisableOpponentLandmark:
-                descriptionText.text = "Landmark to disable";
                 bool ifLandmarkExist = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
                 {
@@ -506,7 +487,6 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
             case WhichMethod.TransformChampionCard:
-                descriptionText.text = "Chose a card to Transform";
                 List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
                 bool thereIsAChampionCardToTransform = false;
                 for (int i = 0; i < cardsInHand.Count; i++)
@@ -519,10 +499,7 @@ public class Choice : MonoBehaviour
                     }
                 }
                 if (!thereIsAChampionCardToTransform)
-                {
-                    print("No Champion Card");
                     return false;
-                }
                 break;
         }
         return true;
@@ -530,43 +507,35 @@ public class Choice : MonoBehaviour
 
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed)
     {
-        ChoiceMenu(list,amountToTarget,theMethod,cardUsed, 0.01f);
-    }
-
-    public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
-    {
-        IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, cardUsed, delay);
-
+        
+        IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, cardUsed, 0.01f);
         Tuple<WhichMethod, IEnumerator> tuple = new Tuple<WhichMethod, IEnumerator>(theMethod, enumerator);
         waitRoom.Add(tuple);
-        
-        if (waitRoom[0].Item2 == tuple.Item2)       
-            NextInWaitRoom();       
-        else     
-            print("Choice not First");
-        
+        if (waitRoom[0] == tuple)
+        {
+            NextInWaitRoom();
+        }
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
     }
 
     private void NextInWaitRoom()
     {
-        if (waitRoom.Count == 0)
-        {
-            isChoiceActive = false;
-            if (!gameState.isItMyTurn && gameState.hasPriority)
-                gameState.PassPriority();
-            return;
-        }
-
         if (CheckIfChoice(waitRoom[0].Item1))
         {
+            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
+            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
+            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
+            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
             ResetChoice();
             StartCoroutine(waitRoom[0].Item2);
         }
         else
         {
             waitRoom.Remove(waitRoom[0]);
-            NextInWaitRoom();			
+            if (waitRoom.Count > 0)
+            {
+                NextInWaitRoom();
+			}
 		}
 	}
 }

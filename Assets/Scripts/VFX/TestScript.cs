@@ -8,7 +8,6 @@ public class TestScript : MonoBehaviour
     [SerializeField] private GameObject testObj;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private EffectController VFXController;
-    
 
 
     private void Start()
@@ -23,15 +22,10 @@ public class TestScript : MonoBehaviour
             //slash.SetActive(true);
             //builderAnim.Play("Attack");
             //StartCoroutine(SlashAttack());
-            //testObj.GetComponent<Animator>().Play("AttackMagic");
-            //VFXController.GainHealingEffect(testObj);
+            testObj.GetComponent<Animator>().Play("AttackMagic");
+            VFXController.GainHealingEffect(testObj);
 
-            // GetComponent<LowerDetail>().setUpLowerDetailBkg();
-            VFXController.DiscardCardEffect(testObj);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GetComponent<LowerDetail>().DefaultDetailShader();
+
         }
 
  

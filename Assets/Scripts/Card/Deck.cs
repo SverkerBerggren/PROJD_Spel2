@@ -7,7 +7,7 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
 
     public List<Card> deckPlayer = new List<Card>();
-    public List<Card> deckOpponent = new List<Card>();
+    private List<Card> deckOpponent = new List<Card>();
 
 
     private static Deck instance;
@@ -90,27 +90,14 @@ public class Deck : MonoBehaviour
         deckOpponent.Add(cardToAdd);
     }
 
-    public Card WhichCardToDrawPlayer(bool isPlayer)
+    public Card WhichCardToDrawPlayer()
     {
-        if (isPlayer)
+        if (deckPlayer.Count > 0)
         {
-            if (deckPlayer.Count > 0)
-            {
-                Card card = deckPlayer[0];
-                deckPlayer.RemoveAt(0);
-                return card;
-            }
+            Card card = deckPlayer[0];
+            deckPlayer.RemoveAt(0);
+            return card;
         }
-        else
-        {
-            if (deckOpponent.Count > 0)
-            {
-                Card card = deckOpponent[0];
-                deckOpponent.RemoveAt(0);
-                return card;
-            }
-        }
-        
 
         //GameState.Instance.Defeat();
         return null;

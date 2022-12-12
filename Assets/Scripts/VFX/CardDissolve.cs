@@ -9,8 +9,8 @@ public class CardDissolve : MonoBehaviour
     [SerializeField] private GameObject cardDissolve_VFX;
     [SerializeField] private Renderer meshMaterial;
     [SerializeField] private GameObject ram;
-    [SerializeField] private GameObject textCanvas;
    
+    private MaterialPropertyBlock m_PropetyBlock;
     private bool goDissolve;
     private float currentDiss;
     private float targetDiss;
@@ -20,6 +20,7 @@ public class CardDissolve : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_PropetyBlock = new MaterialPropertyBlock();
         currentDiss = targetDiss = 0;
         fullAlph = 100;
         startAlph = 0;
@@ -37,14 +38,12 @@ public class CardDissolve : MonoBehaviour
             //alphaclip starts with 0. 0 means no clip and 1 is all clip
             //make a smooth transition from 0 to 1
             ram.SetActive(false);
-            textCanvas.SetActive(false);
-            increaseAlpha(30);
+            increaseAlpha(20);
             StartCoroutine(PlayVFX());
             currentDiss = Mathf.Lerp(currentDiss, targetDiss, Time.deltaTime);
-            meshMaterial.material.SetFloat("_AlphaClipThreshold", currentDiss);
-            //m_PropetyBlock.SetFloat("_AlphaClipThreshold", currentDiss);
-            //meshMaterial.SetPropertyBlock(m_PropetyBlock);
-            if(startAlph == 100 && meshMaterial.material.GetFloat("_AlphaClipThreshold")>= 0.99f)
+            m_PropetyBlock.SetFloat("_AlphaClipThreshold", currentDiss);
+            meshMaterial.SetPropertyBlock(m_PropetyBlock);
+            if(startAlph == 100 && m_PropetyBlock.GetFloat("_AlphaClipThreshold")>= 0.99f)
             {
                 //Time to go
                 cardDissolve_VFX.SetActive(false);

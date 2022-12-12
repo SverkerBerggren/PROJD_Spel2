@@ -576,12 +576,11 @@ public class Server
 
     private ServerResponse HandlePlayCard(RequestPlayCard requestToHandle)
     {
-        ResponsePlayCard response = new ResponsePlayCard(requestToHandle.cardAndPlacement, requestToHandle.manaCost);
+        ResponsePlayCard response = new ResponsePlayCard(requestToHandle.cardAndPlacement);
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
-        response.manaCost = requestToHandle.manaCost;
 
-        GameActionPlayCard gameAction = new GameActionPlayCard(requestToHandle.cardAndPlacement, requestToHandle.manaCost);
+        GameActionPlayCard gameAction = new GameActionPlayCard(requestToHandle.cardAndPlacement);
 
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;

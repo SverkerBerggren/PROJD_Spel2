@@ -11,6 +11,6 @@ public class ChangeTextWithSlider : MonoBehaviour
 
     public void ChangeText()
     {       
-        textToChange.text = slider.value + "/" + slider.maxValue; 
+        textToChange.text = slider.value.ToString() + "/" + slider.maxValue.ToString(); 
     }
 }
