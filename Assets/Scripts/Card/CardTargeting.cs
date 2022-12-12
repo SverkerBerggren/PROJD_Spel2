@@ -31,7 +31,7 @@ public class CardTargeting : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    public void MouseUp()
     {
         cardMovement = GetComponent<CardMovement>();
         mousePosition = cardMovement.mousePosition;
@@ -52,8 +52,6 @@ public class CardTargeting : MonoBehaviour
         else
             playCardManager.PlayCard(typeOfCardTarget, gameObjectHit);
     }
-
-
 
     private TypeOfCardTargeting CheckIfRaycastHitEnemy(RaycastHit[] hitEnemy)
     {

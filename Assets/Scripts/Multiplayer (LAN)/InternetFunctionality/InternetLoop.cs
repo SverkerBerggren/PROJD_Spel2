@@ -205,7 +205,7 @@ public class InternetLoop : MonoBehaviour
                 {
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
                 }
-                else
+                else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
                 {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
@@ -213,6 +213,7 @@ public class InternetLoop : MonoBehaviour
                 gameState.ShowPlayedCard(cardPlayed, true);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+                actionOfPlayer.enemyMana -= castedAction.manaCost;
                 actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    
@@ -246,7 +247,7 @@ public class InternetLoop : MonoBehaviour
                 {   
                     ListEnum listEnum = new ListEnum();
                     listEnum.myHand = true;
-                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null);
+                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null, 2f);
                 }
             }  
             if (action  is GameActionGameSetup)
@@ -281,7 +282,7 @@ public class InternetLoop : MonoBehaviour
 
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
-                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+                Deck.Instance.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
 				ActionOfPlayer.Instance.DrawCardPlayer(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd], false);
             }
             if (action is GameActionPassPriority)

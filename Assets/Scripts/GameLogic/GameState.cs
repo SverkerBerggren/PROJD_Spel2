@@ -3,18 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameState : MonoBehaviour
 {
-
     private int amountOfCardsToStartWith = 5;
+    private bool firstTurn = true;
+    private Calculations calculations;
+    private ActionOfPlayer actionOfPlayer;
+    private CardRegister cardRegister;
+    private Setup setup;
+    private Deck deck;
 
-    [Header("Active Champions")]
-    public AvailableChampion playerChampion;
-    public AvailableChampion opponentChampion;
+    [Header("Win Screen")]
+    [SerializeField] private GameObject lostScreen;
+    [SerializeField] private GameObject wonScreen;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject healEffect;
+    [SerializeField] private GameObject cardRegisterPrefab;
+    [SerializeField] private YourTurnEffect yourTurnEffect;
+
+    [Header("EndTurnButton")]
+    [SerializeField] private Button endTurnBttn;
+
+
+    [NonSerialized] public GameObject targetingEffect;
+
+    [NonSerialized] public AvailableChampion playerChampion;
+    [NonSerialized] public AvailableChampion opponentChampion;
+    [NonSerialized] public List<Effects> removeEffects = new List<Effects>();
+    [NonSerialized] public List<Card> cardsPlayedThisTurn = new List<Card>();
+
+    [NonSerialized] public bool canSwap = true;
+    [NonSerialized] public bool isOnline = false;
+    [NonSerialized] public bool isItMyTurn;
+    [NonSerialized] public bool didIStart;
+
+    [NonSerialized] public int currentPlayerID = 0;
+    [NonSerialized] public int landmarkEffect = 1;
+    [NonSerialized] public int attacksPlayedThisTurn;
+    [NonSerialized] public int drawnCardsThisTurn = 0;
+    [NonSerialized] public int drawnCardsPreviousTurn = 0;
 
     [Header("ChampionLists")]
     public List<AvailableChampion> playerChampions = new List<AvailableChampion>();
@@ -24,58 +53,20 @@ public class GameState : MonoBehaviour
     public List<LandmarkDisplay> playerLandmarks = new List<LandmarkDisplay>();
     public List<LandmarkDisplay> opponentLandmarks = new List<LandmarkDisplay>();
 
+    [Header("EffectLists")]
     public List<Effects> playerEffects = new List<Effects>();
     public List<Effects> opponentEffects = new List<Effects>();
-    public List<Effects> removeEffects = new List<Effects>();
 
-    [Header("Have Friends?")]
-    public bool isOnline = false;
-
-    [Header("CardsPlayed")]
-    public List<Card> cardsPlayedThisTurn = new List<Card>();
-
-    [Header("Win Screen")]
-    [SerializeField] private GameObject lostScreen;
-    [SerializeField] private GameObject wonScreen;
-
-    [Header("Effect")]
-    [SerializeField] private GameObject healEffect;
-    [SerializeField] private YourTurnEffect yourTurnEffect;
-
-
-    [Header("UI Elements")]
+    [Header("ShowPlayedCard")]
     public GameObject playedCardGO;
-    public UnityEngine.UI.Button endTurnBttn;
 
-    [SerializeField] private GameObject cardRegisterPrefab;
-
-    [NonSerialized] public int currentPlayerID = 0;
+    [Header("ImportantStuff")]
     public bool hasPriority = true;
+    public int amountOfTurns = 1;
 
-    [NonSerialized] public bool isItMyTurn;
-    [NonSerialized] public bool didIStart;
-    public bool canSwap = true;
-    public int amountOfTurns;
-
-    [NonSerialized] public GameObject targetingEffect;
-
-    [NonSerialized] public int landmarkEffect = 1;
-    [NonSerialized] public int attacksPlayedThisTurn;
-
-
-    [NonSerialized] public int drawnCardsThisTurn = 0;
-    [NonSerialized] public int drawnCardsPreviousTurn = 0;
-
-    private bool firstTurn = true;
-    private Calculations calculations;
-    private ActionOfPlayer actionOfPlayer;
-    private CardRegister cardRegister;
-    private Setup setup;
 
     private static GameState instance;
     public static GameState Instance { get; set; }
-
-
 
     private void Awake()
     {
@@ -104,6 +95,7 @@ public class GameState : MonoBehaviour
         calculations = Calculations.Instance;
         cardRegister = CardRegister.Instance;
         setup = Setup.Instance;
+        deck = Deck.Instance;
 
         if (isOnline)
         {           
@@ -120,6 +112,8 @@ public class GameState : MonoBehaviour
             }
             AddChampions(setup.myChampions, true);
             AddChampions(setup.opponentChampions, false);
+            InstantiateCardsFromDeck(setup.playerDeckList);
+
             Deck.Instance.CreateDecks(setup.playerDeckList);
         }
         else
@@ -128,20 +122,56 @@ public class GameState : MonoBehaviour
             List<string> ha = new List<string>
             {
                 "Cultist",
-                "TheOneWhoDraws",
+                "Graverobber",
                 "Builder",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
+            InstantiateCardsFromDeck(deck.deckPlayer);
         }
         playerChampion = playerChampions[0];
         opponentChampion = opponentChampions[0];
 
-       
+
+        if (!didIStart)
+            actionOfPlayer.enemyMana++;
 
         DrawStartingCards();
     }
 
+    public void PlayCardRequest(CardAndPlacement cardPlacement)
+    {
+        CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
+        calculations.CalculateHandManaCost(cardDisplay);
+        RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
+        playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
+        ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
+
+        Refresh();
+    }
+
+
+    private void InstantiateCardsFromDeck(List<Card> listOfCards)
+    {
+        Dictionary<string, Card> cardReg = cardRegister.cardRegister;
+        List<Card> listToAdd = new List<Card>();
+        for (int i = 0; i < listOfCards.Count; i++)
+        {
+            Card card = Instantiate(cardRegister.cardRegister[listOfCards[i].cardName]);
+            if (isOnline)
+            {
+                deck.AddCardToDeckPlayer(card);
+                deck.AddCardToDeckOpponent(card);
+            }
+            listToAdd.Add(card);
+
+        }
+        if (!isOnline)
+        {
+            listOfCards.Clear();
+            listOfCards.AddRange(listToAdd);
+        }
+    }
     private void ChangeInteractabiltyEndTurn()
     {
         endTurnBttn.interactable = !endTurnBttn.interactable;
@@ -329,8 +359,9 @@ public class GameState : MonoBehaviour
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
+        CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         cardDisp.card = card;
-        cardDisp.previewCard = opponent;
+        cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
@@ -376,9 +407,18 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < amountToDiscard; i++)
+            if (discardCardsYourself)
             {
-				actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+                ListEnum listEnum = new ListEnum();
+                listEnum.myHand = true;
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
+            }
+            else
+            {
+                for (int i = 0; i < amountToDiscard; i++)
+                {
+                    actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+                }
             }
         }
     }
@@ -510,6 +550,7 @@ public class GameState : MonoBehaviour
         if (didIStart || !isOnline)
         {
             amountOfTurns++;
+            actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
         }
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
@@ -545,6 +586,9 @@ public class GameState : MonoBehaviour
         {
             cardDisplay.EndStep();
         }
+
+        actionOfPlayer.enemyMana = actionOfPlayer.playerMana;
+        actionOfPlayer.UpdateUnspentMana();
     }
 
 
@@ -571,6 +615,7 @@ public class GameState : MonoBehaviour
             TriggerUpKeep();
             yourTurnEffect.ActivateEffect();
         }
+
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
@@ -719,6 +764,8 @@ public class GameState : MonoBehaviour
             aC.UpdateTextOnCard();
         }
 
-        yourTurnEffect.ChangePicture(playerChampions[0]);
+
+        WhichManaCrystalsToShow.Instance.UpdateManaCrystals();
+        yourTurnEffect.ChangePicture(playerChampion);
     }
 }
