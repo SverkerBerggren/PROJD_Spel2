@@ -653,6 +653,7 @@ public class GameState : MonoBehaviour
 
     public void AddEffect(Effects effect)
     {
+        effect.AddEffect();
         playerEffects.Add(effect);
     }
 

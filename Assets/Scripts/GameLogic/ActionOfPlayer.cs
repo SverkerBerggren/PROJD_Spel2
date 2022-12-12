@@ -10,22 +10,24 @@ using UnityEngine.Networking.Types;
 
 public class ActionOfPlayer : MonoBehaviour
 {
-    public Hand handPlayer;
-    public Hand handOpponent;
+	private Choice choice;
+    private GameState gameState;
+    private Graveyard graveyard;
 
+
+    private int cardCost;
     [SerializeField] private TMP_Text manaText;
 	public Sprite backfaceCard;
 
-	private Choice choice;
+    public Hand handPlayer;
+    public Hand handOpponent;
 
-    private int cardCost;
     public int playerMana = 0;
     public int currentMana = 0;
     public readonly int maxMana = 10;
+    public int unspentMana = 0;
     public bool selectCardOption = false;
 
-    private GameState gameState;
-    private Graveyard graveyard;
     private static ActionOfPlayer instance;
 
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
@@ -97,7 +99,6 @@ public class ActionOfPlayer : MonoBehaviour
 		if (isPlayer)
         {
 			hand = handPlayer;
-            
             GameState.Instance.drawnCardsThisTurn += amountToDraw;
         }
 		else
@@ -127,7 +128,10 @@ public class ActionOfPlayer : MonoBehaviour
 					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
                     cardDisplay.gameObject.SetActive(true);
                     if (drawnCards == 0)
-                        cardDisplay.firstCardDrawn = true;
+                    {
+                        gameState.drawnCardsThisTurn -= 1;
+						cardDisplay.firstCardDrawn = true;
+                    }
 					drawnCards++;
 				}
 				else

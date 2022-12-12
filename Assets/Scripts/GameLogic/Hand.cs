@@ -19,13 +19,6 @@ public class Hand : MonoBehaviour
         GameState.Instance.Refresh();
     }
 
-
-    private void FixedUpdate()
-    {
-
-
-    }
-
     public void FixCardOrderInHand()
     {
         cardsInHand.Clear();

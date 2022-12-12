@@ -10,17 +10,11 @@ public class Choice : MonoBehaviour
     private List<TargetInfo> chosenTargets = new List<TargetInfo>();
     private int amountOfTargets = 0;
 
-    [SerializeField] private GameObject choiceButtonPrefab;
-    [SerializeField] private TMP_Text descriptionText;
-    [SerializeField] private GameObject closeMenuButton;
-    [SerializeField] private GameObject confirmMenuButton;
-    [SerializeField] private GameObject buttonHolder;
 
     private GameState gameState;
     private ActionOfPlayer actionOfPlayer;
     private Graveyard graveyard;
     private WhichMethod whichMethod;
-    private static Choice instance;
     private GameObject choiceMenu;
     private GameObject choiceOpponentMenu;
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
@@ -28,7 +22,13 @@ public class Choice : MonoBehaviour
     private Card cardUsed;
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
 
+    [SerializeField] private GameObject choiceButtonPrefab;
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private GameObject closeMenuButton;
+    [SerializeField] private GameObject confirmMenuButton;
+    [SerializeField] private GameObject buttonHolder;
 
+    private static Choice instance;
 	public static Choice Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()
