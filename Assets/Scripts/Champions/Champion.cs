@@ -20,6 +20,7 @@ public abstract class Champion : ScriptableObject
     public Sprite champBackground;
 
     public GameObject championMesh;
+    public Animator champAnimator;
 
 
     public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }

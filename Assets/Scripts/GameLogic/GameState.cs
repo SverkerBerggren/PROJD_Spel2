@@ -198,8 +198,10 @@ public class GameState : MonoBehaviour
         damage = calculations.CalculateDamage(damage, false);
         DealDamage(calculations.TargetAndAmountFromCard(cardUsed, damage));
 
+        print("BefAttack" + playerChampion.animator);
         if (playerChampion.animator != null)
         {
+            print("PlayAttack");
             playerChampion.animator.SetTrigger("Attack");
         }
     }

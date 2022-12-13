@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Rendering.HighDefinition;
 
 public class AvailableChampion : MonoBehaviour
 {
@@ -100,10 +101,15 @@ public class AvailableChampion : MonoBehaviour
         health = champion.health;
         maxHealth = champion.maxHealth;
 
-        meshToShow = Instantiate(champion.championMesh, transform);
+        if (gameState.playerChampion.champion == champion || gameState.opponentChampion.champion == champion)
+        {
+            meshToShow = Instantiate(champion.championMesh, transform);
 
-        if (meshToShow.GetComponentInChildren<Animator>() != null) 
-            animator = meshToShow.GetComponentInChildren<Animator>();
+            if (meshToShow.GetComponent<Animator>() != null)
+                animator = meshToShow.GetComponent<Animator>();
+        }
+
+
     }
 
     private void OnMouseEnter()
@@ -132,6 +138,9 @@ public class AvailableChampion : MonoBehaviour
     {
         Destroy(meshToShow);
         meshToShow = Instantiate(champion.championMesh, transform);
+
+        //if (meshToShow.GetComponent<Animator>() != null)
+            animator = meshToShow.GetComponent<Animator>();
     }
 
     public void UpdateTextOnCard()
@@ -145,7 +154,9 @@ public class AvailableChampion : MonoBehaviour
 
         currentSprite.sprite = champion.champBackground;
 
-        ChangeChampionMesh();
+        if (meshToShow != null && !champion.championMesh.name.Equals(meshToShow.name))
+            ChangeChampionMesh();
+
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
@@ -211,6 +222,12 @@ public class AvailableChampion : MonoBehaviour
     }
     public virtual void Death()
     {
+        print("BefDead");
+        if (animator != null)
+        {
+            print("PlayDead");
+            animator.SetTrigger("Dead");
+        }
         gameState.ChampionDeath(champion);
     }
 
