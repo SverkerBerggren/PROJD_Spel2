@@ -58,6 +58,9 @@ public class Deckbuilder : MonoBehaviour
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
 
         gO.GetComponent<DeckbuilderCardButton>().card = card;
+
+        
+
         cardButtons.Add(card, gO);
     }
 
@@ -65,8 +68,7 @@ public class Deckbuilder : MonoBehaviour
     {
         GameObject gO = Instantiate(championButton, buttonHolder.transform);
         gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = champion.artwork;
-        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+        gO.GetComponent<Image>().sprite = champion.artwork;        
         gO.GetComponentInChildren<DeckbuilderChampionButton>().champion = champion;
         championsButtons.Add(champion, gO);
     }

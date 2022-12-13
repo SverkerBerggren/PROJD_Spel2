@@ -22,7 +22,7 @@ public class CardDisplayAttributes : MonoBehaviour
     public GameObject cardPlayableEffect;
 
     [SerializeField] private GameObject nameBackground;
-    [SerializeField] private GameObject hpGameObject;
+    public GameObject hpGameObject;
 
 
     [System.NonSerialized] public int damageShow = 0;
