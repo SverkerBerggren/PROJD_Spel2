@@ -2418,17 +2418,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 55f1b4f5f02817c49b344dcee7b4e265, type: 3}
   m_PrefabInstance: {fileID: 137022967}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &137587968 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4933141262056775671, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
-  m_PrefabInstance: {fileID: 560718671}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &137587969 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4933141262056775676, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
   m_PrefabInstance: {fileID: 560718671}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137587968}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
@@ -2439,7 +2434,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4933141262056775678, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
   m_PrefabInstance: {fileID: 560718671}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137587968}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
@@ -2450,19 +2445,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933141262056775677, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
   m_PrefabInstance: {fileID: 560718671}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &137587977
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137587968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.7523465, y: 2.4496994, z: 0.08119018}
-  m_Center: {x: -0.0003347993, y: 0.72485113, z: 0.041520897}
 --- !u!1 &141591925
 GameObject:
   m_ObjectHideFlags: 0
@@ -3856,6 +3838,7 @@ MonoBehaviour:
   - {fileID: 631345497}
   - {fileID: 6133457}
   cardsInHand: []
+  playerHandStartPos: {x: 0, y: 0, z: 0}
 --- !u!224 &204286135
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10349,6 +10332,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4933141262056775675, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
     - {fileID: 4933141262056775674, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
+    - {fileID: 8254257188036739594, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
 --- !u!1 &563504645
 GameObject:
@@ -29141,6 +29125,7 @@ MonoBehaviour:
   - {fileID: 1467220289}
   - {fileID: 1577610397}
   cardsInHand: []
+  playerHandStartPos: {x: 15, y: 5, z: -77}
 --- !u!224 &1509753251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29168,7 +29153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.5}
+  m_AnchoredPosition: {x: 0, y: 5}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1512373215

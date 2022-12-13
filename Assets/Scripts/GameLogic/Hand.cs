@@ -8,6 +8,8 @@ public class Hand : MonoBehaviour
     public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
+    [SerializeField] private Vector3 playerHandStartPos;
+
     private void Start()
     {
         // Anledningen är load order
@@ -24,7 +26,7 @@ public class Hand : MonoBehaviour
     {
         cardsInHand.Clear();
         if (!cardSlotsInHand[0].opponentCard)
-            transform.position = new Vector3(15f, 4.5f, -77f);
+            transform.position = playerHandStartPos;
         for (int i = 0; i < cardSlotsInHand.Count; i++)
         {
             CardDisplay cardDisplay = cardSlotsInHand[i];
@@ -40,19 +42,8 @@ public class Hand : MonoBehaviour
             
             cardDisplay.UpdateTextOnCard();
 
+
             transform.position += new Vector3(-4f, 0, 0);
-        }
-
-        ResetHandPos();
-
-    }
-
-    private void ResetHandPos()
-    {
-        for (int i = 0; i < cardSlotsInHand.Count; i++)
-        {
-            CardDisplay cardDisplay = cardSlotsInHand[i];
-
             cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
         }
     }

@@ -22,6 +22,8 @@ public class CardDisplay : Displays
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
 
+    private CardMovement cardMovement;
+
     private void Awake()
     {
         if (!loadedSpriteRenderer && opponentCard)
@@ -41,7 +43,7 @@ public class CardDisplay : Displays
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-         
+        cardMovement = GetComponent<CardMovement>();
     }
 
 
@@ -84,10 +86,10 @@ public class CardDisplay : Displays
     {
         if (opponentCard) return;
 
-        if (!alreadyBig)
+        if (!alreadyBig && !cardMovement.clickedOnCard)
         {
-            displayTransform.localPosition += new Vector3(0, 0, -1);
-            displayTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            displayTransform.position += new Vector3(0, 7.5f, -1);
+            displayTransform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             alreadyBig = true;
         }
     }
@@ -98,7 +100,7 @@ public class CardDisplay : Displays
         if (!mouseDown)
         {
             alreadyBig = false;
-            displayTransform.localPosition += new Vector3(0, 0, 1);
+            displayTransform.position += new Vector3(0, -7.5f, 1);
             ResetSize();
         }
     }
