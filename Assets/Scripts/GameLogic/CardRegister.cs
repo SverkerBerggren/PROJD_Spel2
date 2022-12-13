@@ -15,8 +15,9 @@ public class CardRegister : MonoBehaviour
     public Dictionary<string, Effects> effectRegister = new Dictionary<string, Effects>();
 
     [SerializeField] private List<Champion> champions = new List<Champion>();
-
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
+    public Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
+
     public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
     public Dictionary<string, Card> attackCardRegister = new Dictionary<string, Card>();
     public Dictionary<string, Card> supportCardRegister = new Dictionary<string, Card>();
@@ -57,7 +58,9 @@ public class CardRegister : MonoBehaviour
         {
             cardRegister.Add(card.cardName, card);
 
-            if (card.typeOfCard == CardType.Landmark)
+            if (card.championCard) continue;
+
+				if (card.typeOfCard == CardType.Landmark)
                 landmarkRegister.Add(card.cardName, (Landmarks)card);
             else if (card.typeOfCard == CardType.Attack)
                 attackCardRegister.Add(card.cardName, card);
@@ -73,10 +76,11 @@ public class CardRegister : MonoBehaviour
         foreach (Champion champion in champions)
         {
             champRegister.Add(champion.championName, champion);
+            champCards.Add(champion, AddChampionsCards(champion));
         }
     }
 
-    public List<Card> GetChampionCards(Champion champion)
+    private List<Card> AddChampionsCards(Champion champion)
     {
         List<Card> cards = new List<Card>();
         foreach (Card card in cardRegister.Values)
@@ -84,10 +88,20 @@ public class CardRegister : MonoBehaviour
             if (card.championCard && card.championCardType == champion.championCardType)
             {
                 cards.Add(card);
-                if (card.typeOfCard == CardType.Attack)
-                {
-                    cards.Add(card);
-                }
+            }
+        }
+        return cards;
+    }
+
+    public List<Card> GetChampionCards(Champion champion)
+    {
+        List<Card> cards = champCards[champion];
+		foreach (Card c in champCards[champion])
+        {
+            if (c.typeOfCard == CardType.Attack)
+            {
+                cards.Add(c);
+                break;
             }
         }
         return cards;
