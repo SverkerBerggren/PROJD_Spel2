@@ -3,22 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+
 public class CardRegister : MonoBehaviour
 {
     private static CardRegister instance;
     public static CardRegister Instance { get; set; }
 
+    [Header("Cards")]
     [SerializeField] private List<Card> cards = new List<Card>();
     public Dictionary<string, Card> cardRegister = new Dictionary<string, Card>();
 
-    [SerializeField] private List<Effects> effects = new List<Effects>();
+	[Header("Effects")]
+	[SerializeField] private List<Effects> effects = new List<Effects>();
     public Dictionary<string, Effects> effectRegister = new Dictionary<string, Effects>();
 
-    [SerializeField] private List<Champion> champions = new List<Champion>();
+	[Header("Champions")]
+	[SerializeField] private List<Champion> champions = new List<Champion>();
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
-    public Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
+    private Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
 
-    public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
+	[Header("Type of cards")]
+	public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
     public Dictionary<string, Card> attackCardRegister = new Dictionary<string, Card>();
     public Dictionary<string, Card> supportCardRegister = new Dictionary<string, Card>();
     // Start is called before the first frame update
@@ -48,27 +55,43 @@ public class CardRegister : MonoBehaviour
         }
 
         InstantiateRegister();
-
         DontDestroyOnLoad(this);
     }
 
-    private void InstantiateRegister()
+	public void InstantiateRegister()
     {
+        InstantiateRegister(CardFilter.ManaCost, CardFilter.Name);
+	}
+
+	public void InstantiateRegister(CardFilter cardFilter, CardFilter championFilter)
+    {
+        ClearDictonaries();
+		cards.Sort(new CardComparer(cardFilter));
+        champions.Sort(new ChampionComparer(championFilter));
         foreach (Card card in cards)
         {
-            cardRegister.Add(card.cardName, card);
+			cardRegister.Add(card.cardName, card);
 
             if (card.championCard) continue;
 
-				if (card.typeOfCard == CardType.Landmark)
-                landmarkRegister.Add(card.cardName, (Landmarks)card);
-            else if (card.typeOfCard == CardType.Attack)
-                attackCardRegister.Add(card.cardName, card);
-            else if (card.typeOfCard == CardType.Spell)
-                supportCardRegister.Add(card.cardName, card);
-        }
+            switch (card.typeOfCard)
+            {
+                case CardType.Landmark:
+                    landmarkRegister.Add(card.cardName, (Landmarks)card);
+                    break;
 
-        foreach (Effects effect in effects)
+                case CardType.Attack:
+                    attackCardRegister.Add(card.cardName, card);
+                    break;
+
+                case CardType.Spell:
+                    supportCardRegister.Add(card.cardName, card);
+                    break;
+
+            }
+		}
+
+		foreach (Effects effect in effects)
         {
             effectRegister.Add(effect.name, effect);
         }
@@ -106,4 +129,14 @@ public class CardRegister : MonoBehaviour
         }
         return cards;
     }
+
+    private void ClearDictonaries()
+    {
+		cardRegister.Clear();
+		champRegister.Clear();
+		effectRegister.Clear();
+		attackCardRegister.Clear();
+		landmarkRegister.Clear();
+		supportCardRegister.Clear();
+	}
 }
