@@ -77,7 +77,7 @@ public class CardDisplay : Displays
 
     public void ResetSize()
     {
-        transform.localScale = new Vector3(1,1,1);
+        displayTransform.localScale = new Vector3(1,1,1);
     }
 
     public void MouseEnter()
@@ -86,7 +86,7 @@ public class CardDisplay : Displays
 
         if (!alreadyBig)
         {
-            displayTransform.localPosition += new Vector3(0, 1, -1);
+            displayTransform.localPosition += new Vector3(0, 0, -1);
             displayTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             alreadyBig = true;
         }
@@ -98,7 +98,7 @@ public class CardDisplay : Displays
         if (!mouseDown)
         {
             alreadyBig = false;
-            displayTransform.localPosition += new Vector3(0, -1, 1);
+            displayTransform.localPosition += new Vector3(0, 0, 1);
             ResetSize();
         }
     }
