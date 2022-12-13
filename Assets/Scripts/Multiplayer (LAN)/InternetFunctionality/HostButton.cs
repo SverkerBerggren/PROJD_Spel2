@@ -17,11 +17,6 @@ public class HostButton : MonoBehaviour
         clientConnection = FindObjectOfType<ClientConnection>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public static string LocalIPAddress()
     {
         IPHostEntry host;

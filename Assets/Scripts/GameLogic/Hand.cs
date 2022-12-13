@@ -5,7 +5,6 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
-    public Deck deck;
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
     private void Start()
@@ -24,7 +23,11 @@ public class Hand : MonoBehaviour
         cardsInHand.Clear();
         foreach (CardDisplay cardDisplay in cardSlotsInHand)
         {
-            if (cardDisplay.card == null) continue;          
+            if (cardDisplay.card == null)
+            {
+                cardDisplay.HideUnusedCard();
+                continue;
+            }
    
             if (!cardsInHand.Contains(cardDisplay))
                cardsInHand.Add(cardDisplay);  

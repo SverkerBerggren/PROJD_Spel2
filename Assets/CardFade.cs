@@ -6,19 +6,18 @@ using UnityEngine.UI;
 public class CardFade : MonoBehaviour
 {
     private float alphaColor;
-    private float alphaCanvas;
+    private CanvasGroup canvasGroup;
     
     // Start is called before the first frame update
     void Start()
     {
-                
+        alphaColor = GetComponentInParent<Button>().targetGraphic.canvasRenderer.GetColor().a;
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        alphaColor = GetComponentInParent<Button>().targetGraphic.canvasRenderer.GetColor().a;
-        this.GetComponent<CanvasGroup>().alpha = alphaColor;
-
+        canvasGroup.alpha = alphaColor;
     }
 }

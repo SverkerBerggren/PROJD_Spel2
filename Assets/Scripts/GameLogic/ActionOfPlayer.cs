@@ -16,13 +16,14 @@ public class ActionOfPlayer : MonoBehaviour
 
 
     private int cardCost;
-    [SerializeField] private TMP_Text manaText;
-	public Sprite backfaceCard;
+    public TMP_Text roundCounter;
+    public Sprite backfaceCard;
 
     public Hand handPlayer;
     public Hand handOpponent;
 
     public int playerMana = 0;
+    public int enemyMana = 0;
     public int currentMana = 0;
     public readonly int maxMana = 10;
     public int unspentMana = 0;
@@ -76,12 +77,19 @@ public class ActionOfPlayer : MonoBehaviour
 
     }
 
-    public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
+    public void UpdateUnspentMana()
+    {
+        unspentMana += currentMana;
+
+    }
+
+    public bool CheckIfCanPlayCard(CardDisplay cardDisplay, bool useMana)
     {
         cardCost = cardDisplay.manaCost;
         if (currentMana >= cardCost)
         {
-            currentMana -= cardCost;
+            if (useMana)
+                currentMana -= cardCost;
             return true;
         }
         else
@@ -118,7 +126,7 @@ public class ActionOfPlayer : MonoBehaviour
 				}
 
 				if (specificCard == null)
-					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
+					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
 				else               
 					cardDisplay.card = specificCard;
 
@@ -147,7 +155,7 @@ public class ActionOfPlayer : MonoBehaviour
 		{
 			for (; drawnCards < amountToDraw; drawnCards++)
 			{
-				Card c = hand.deck.WhichCardToDrawPlayer();
+				Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
 				if (isPlayer)
 					graveyard.AddCardToGraveyard(c);
 				else
