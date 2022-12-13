@@ -195,7 +195,7 @@ public class ActionOfPlayer : MonoBehaviour
             handOpponent.FixCardOrderInHand();
             return;
         }
-            
+
 
         int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay);
         CardDisplay cardDisplayToSwapTo;
@@ -203,8 +203,10 @@ public class ActionOfPlayer : MonoBehaviour
         cardDisplay.card = null;
         if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
         for (int i = index + 1; i < handPlayer.cardSlotsInHand.Count; i++)
-        {
+        {                    
             cardDisplayToSwapFrom = handPlayer.cardSlotsInHand[i].GetComponent<CardDisplay>();
+
+
             if (cardDisplayToSwapFrom.card != null)
             {
                 if (i - 1 < 0) continue;
@@ -218,7 +220,7 @@ public class ActionOfPlayer : MonoBehaviour
 
                     if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
                     {
-                        cardDisplayToSwapTo.cardDisplayAtributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAtributes.hpText.text;
+                        cardDisplayToSwapTo.cardDisplayAttributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAttributes.hpText.text;
                     }
                 }
 

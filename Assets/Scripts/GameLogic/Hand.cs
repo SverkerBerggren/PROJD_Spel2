@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,13 +17,18 @@ public class Hand : MonoBehaviour
     private void InvokeRefresh()
     {
         GameState.Instance.Refresh();
+        FixCardOrderInHand();
     }
 
     public void FixCardOrderInHand()
     {
         cardsInHand.Clear();
-        foreach (CardDisplay cardDisplay in cardSlotsInHand)
+        if (!cardSlotsInHand[0].opponentCard)
+            transform.position = new Vector3(15f, 4.5f, -77f);
+        for (int i = 0; i < cardSlotsInHand.Count; i++)
         {
+            CardDisplay cardDisplay = cardSlotsInHand[i];
+           
             if (cardDisplay.card == null)
             {
                 cardDisplay.HideUnusedCard();
@@ -33,12 +39,28 @@ public class Hand : MonoBehaviour
                cardsInHand.Add(cardDisplay);  
             
             cardDisplay.UpdateTextOnCard();
-		}
+
+            transform.position += new Vector3(-4f, 0, 0);
+        }
+
+        ResetHandPos();
+
     }
+
+    private void ResetHandPos()
+    {
+        for (int i = 0; i < cardSlotsInHand.Count; i++)
+        {
+            CardDisplay cardDisplay = cardSlotsInHand[i];
+
+            cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
+        }
+    }
+
 
     public Card DiscardRandomCardInHand()
     {
-        int cardIndex = Random.Range(0, cardsInHand.Count);
+        int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
         return CardToDiscard(cardsInHand[cardIndex]);
     }
 

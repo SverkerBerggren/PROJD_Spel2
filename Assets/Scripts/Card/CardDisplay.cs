@@ -12,8 +12,10 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
 
-    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
+    [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
+
+    [NonSerialized] public Transform displayTransform;
 
     public LayoutElement layoutElement;
 
@@ -39,7 +41,7 @@ public class CardDisplay : Displays
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-
+         
     }
 
 
@@ -61,7 +63,8 @@ public class CardDisplay : Displays
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        cardDisplayAttributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        displayTransform = cardDisplayAttributes.transform;
     }
 
     public void UpdateTextOnCard()
@@ -69,7 +72,7 @@ public class CardDisplay : Displays
         if (!loadedDisplayAttributes)
             LoadDisplayAttributesOnce();
 
-        cardDisplayAtributes.UpdateTextOnCard(this);
+        cardDisplayAttributes.UpdateTextOnCard(this);
     }
 
     public void ResetSize()
@@ -83,8 +86,8 @@ public class CardDisplay : Displays
 
         if (!alreadyBig)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.y + 0.5f, transform.localScale.z + 0.5f);
+            displayTransform.localPosition += new Vector3(0, 1, -1);
+            displayTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             alreadyBig = true;
         }
     }
@@ -95,7 +98,7 @@ public class CardDisplay : Displays
         if (!mouseDown)
         {
             alreadyBig = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+            displayTransform.localPosition += new Vector3(0, -1, 1);
             ResetSize();
         }
     }
