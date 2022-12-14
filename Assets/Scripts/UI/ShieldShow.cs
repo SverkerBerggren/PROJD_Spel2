@@ -12,12 +12,16 @@ public class ShieldShow : MonoBehaviour
     {
         if (gameObject.name.Equals("Shield"))
             animator.SetBool("ShieldOn", true);
+        else
+        {
+            animator.SetBool("ShieldOnInstantly", true);
+            animator.SetBool("ShieldOn", true);
+        }
     }
 
     private void OnDisable()
     {
-        if (gameObject.name.Equals("Shield"))
-            animator.SetBool("ShieldOn", false);
+        animator.SetBool("ShieldOn", false);
     }
     public void ChangeShieldTextTo(int amountOfShield)
     {
