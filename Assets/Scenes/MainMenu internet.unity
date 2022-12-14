@@ -772,16 +772,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ba14718e6b42e478f4eb385647aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myChampions:
-  - Shanker
-  - Builder
-  - Duelist
   playerDeckList:
   - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
   - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   maxCopies: 3
+  myChampions:
+  - Shanker
+  - Builder
+  - Duelist
   deckCount: 40
+  currentDeckSize: 0
 --- !u!4 &432332336
 Transform:
   m_ObjectHideFlags: 0
@@ -5444,7 +5445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 0}
   register: {fileID: 0}
-  loadScene: 3D_Scene_ImplementationOfUI
+  loadScene: Ny3DSpelplan
   hasJoinedLobby: 0
 --- !u!4 &2127124445
 Transform:
