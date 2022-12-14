@@ -36,6 +36,7 @@ public class CardTargeting : MonoBehaviour
         cardMovement = GetComponent<CardMovement>();
         mousePosition = cardMovement.mousePosition;
         cardDisplay.mouseDown = false;
+        cardDisplay.clickedOnCard = false;
 
         
 
@@ -54,8 +55,9 @@ public class CardTargeting : MonoBehaviour
         else
             playCardManager.PlayCard(typeOfCardTarget, gameObjectHit);
 
-
+        //Snapping the card back
         cardDisplay.displayTransform.localPosition = Vector3.zero;
+        cardDisplay.displayTransform.position += new Vector3(0, 7.5f, -1);
     }
 
     private TypeOfCardTargeting CheckIfRaycastHitEnemy(RaycastHit[] hitEnemy)

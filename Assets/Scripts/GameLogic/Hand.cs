@@ -42,9 +42,11 @@ public class Hand : MonoBehaviour
             
             cardDisplay.UpdateTextOnCard();
 
-
-            transform.position += new Vector3(-4f, 0, 0);
-            cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
+            if (!cardDisplay.opponentCard)
+            {
+                transform.position += new Vector3(-4f, 0, 0);
+                cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
+            }
         }
     }
 

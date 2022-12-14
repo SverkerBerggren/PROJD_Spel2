@@ -11,16 +11,19 @@ public class CardDisplay : Displays
     private Vector3 originalSize;
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
+    [SerializeField] private float scaleOnHover = 1.3f; 
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
 
     [NonSerialized] public Transform displayTransform;
 
+
     public LayoutElement layoutElement;
 
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
+    [NonSerialized] public bool clickedOnCard = false;
 
     private CardMovement cardMovement;
 
@@ -86,10 +89,10 @@ public class CardDisplay : Displays
     {
         if (opponentCard) return;
 
-        if (!alreadyBig && !cardMovement.clickedOnCard)
+        if (!alreadyBig && !clickedOnCard)
         {
             displayTransform.position += new Vector3(0, 7.5f, -1);
-            displayTransform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            displayTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             alreadyBig = true;
         }
     }
