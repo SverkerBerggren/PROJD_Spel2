@@ -160,10 +160,14 @@ public class CardDisplayAttributes : MonoBehaviour
     {
         calculations = Calculations.Instance;
 
-        if (display is CardDisplay)
+        if (!display.gameObject.name.Equals("PlayedCard"))
         {
-            Calculations.Instance.CalculateHandManaCost((CardDisplay)display);
+            if (display is CardDisplay)
+            {
+                Calculations.Instance.CalculateHandManaCost((CardDisplay)display);
+            }
         }
+
 
         UpdateVariables(display.card);
     }

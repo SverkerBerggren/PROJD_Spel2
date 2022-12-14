@@ -22,7 +22,7 @@ public class ShankerAttack : Spells
 
     public void WaitForChoices(int amountOfChoices)
     {
-        damage *= amountOfChoices;
+        damage *= (amountOfChoices + 1);
         GameState.Instance.CalculateAndDealDamage(damage, this);
     }
 }
