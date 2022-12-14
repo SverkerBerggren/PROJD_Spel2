@@ -10,12 +10,14 @@ public class ShieldShow : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        animator.SetBool("ShieldOn", true);
+        if (gameObject.name.Equals("Shield"))
+            animator.SetBool("ShieldOn", true);
     }
 
     private void OnDisable()
     {
-        animator.SetBool("ShieldOn", false);
+        if (gameObject.name.Equals("Shield"))
+            animator.SetBool("ShieldOn", false);
     }
     public void ChangeShieldTextTo(int amountOfShield)
     {

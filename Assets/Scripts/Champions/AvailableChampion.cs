@@ -255,6 +255,7 @@ public class AvailableChampion : MonoBehaviour
     {
         champion.shield += amountToBlock;
         sheildUIObject.SetActive(true);
+
         sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
     }
 }
