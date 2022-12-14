@@ -357,11 +357,13 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void ShowPlayedCard(Card card, bool opponent)
+    public void ShowPlayedCard(Card card, bool opponent, int manaCost)
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        if (manaCost != -1)
+            cardDisp.manaCost = manaCost;
         cardDisp.card = card;
         cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
@@ -521,7 +523,7 @@ public class GameState : MonoBehaviour
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
         landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
-        ShowPlayedCard(landmark, opponentPlayedLandmark);
+        ShowPlayedCard(landmark, opponentPlayedLandmark, -1);
         
         if (opponentPlayedLandmark)
         {
