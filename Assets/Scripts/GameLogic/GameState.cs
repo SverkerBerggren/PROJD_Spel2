@@ -6,7 +6,7 @@ using System;
 
 public class GameState : MonoBehaviour
 {
-    private int amountOfCardsToStartWith = 5;
+    [SerializeField] private int amountOfCardsToStartWith = 5;
     private bool firstTurn = true;
     private Calculations calculations;
     private ActionOfPlayer actionOfPlayer;
@@ -121,7 +121,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Cultist",
+                "Shanker",
                 "Graverobber",
                 "Builder",
             };

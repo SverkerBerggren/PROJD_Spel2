@@ -62,11 +62,32 @@ public class Hand : MonoBehaviour
         return CardToDiscard(cardsInHand[index]).cardName;
     }
 
+    public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
+    {
+        List<string> cards = new List<string>();
+        for (int i = 0; i < cardIndexes.Count; i++)
+        {
+            for (int j = i + 1; j < cardIndexes.Count; j++)
+            {
+                if (cardIndexes[j] > cardIndexes[i])
+                {
+                    cardIndexes[j]--;
+                }
+            }
+        }
+        for (int i = 0; i < cardIndexes.Count; i++)
+        {
+            cards.Add(CardToDiscard(cardsInHand[cardIndexes[i]]).cardName);
+        }      
+        return cards;
+    }
+
     private Card CardToDiscard(CardDisplay cardDisplay)
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
         Card c = cardDisplay.card;
-        cardDisplay.card = null;
+
+        ActionOfPlayer.Instance.ChangeCardOrder(true, cardDisplay);
         return c;
     }
 }

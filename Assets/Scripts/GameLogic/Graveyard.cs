@@ -11,7 +11,7 @@ public class Graveyard : MonoBehaviour
     private static Graveyard instance;
     public static Graveyard Instance { get { return instance; } }
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {

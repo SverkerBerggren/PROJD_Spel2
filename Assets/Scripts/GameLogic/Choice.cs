@@ -58,9 +58,9 @@ public class Choice : MonoBehaviour
     private void FixedUpdate()
     {
         if (!gameState.hasPriority && gameState.isItMyTurn)
-                ShowOpponentThinking();
+            ShowOpponentThinking();
         else
-                HideOpponentThinking();
+            HideOpponentThinking();
 
         if (!gameState.hasPriority && isChoiceActive)
             choiceMenu.SetActive(false);
@@ -132,6 +132,7 @@ public class Choice : MonoBehaviour
             {
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
 
+                choiceButtonPrefab.SetActive(true);
                 MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -323,7 +324,7 @@ public class Choice : MonoBehaviour
     {
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
         {
-            DiscardXCards();
+            DiscardCard();
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
@@ -396,31 +397,16 @@ public class Choice : MonoBehaviour
         }   
     }
 
-    private void DiscardXCards()
-    {
-        List<string> cards = new List<string>();
-        for (int i = 0; i < chosenTargets.Count; i++)
-        {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
-        }
-
-        if (gameState.isOnline)
-        {
-            RequestDiscardCard request = new RequestDiscardCard(cards, false);
-            request.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
-        }
-    }
-
     private void DiscardCard()
     {
-        List<string> cards = new List<string>();
+        List<int> indexes = new List<int>();
         for (int i = 0; i < chosenTargets.Count; i++)
         {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
+            int card = chosenTargets[i].index;
+            indexes.Add(card);
         }
+
+        List<string> cards = actionOfPlayer.handPlayer.DiscardCardListWithIndexes(indexes);
 
         if (gameState.isOnline)
         {
@@ -505,7 +491,7 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
             case WhichMethod.TransformChampionCard:
-                descriptionText.text = "Chose a card to Transform";
+                descriptionText.text = "Choose a card to Transform";
                 List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
                 bool thereIsAChampionCardToTransform = false;
                 for (int i = 0; i < cardsInHand.Count; i++)

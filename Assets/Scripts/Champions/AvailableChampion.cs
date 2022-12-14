@@ -153,9 +153,14 @@ public class AvailableChampion : MonoBehaviour
         shield = champion.shield;
 
         currentSprite.sprite = champion.champBackground;
+        if (meshToShow != null)
+        {
+            string[] nameOfChampion = meshToShow.name.Split("(");
+ 
+            if (!champion.championMesh.name.Equals(nameOfChampion[0]))
+                ChangeChampionMesh();
+        }
 
-        if (meshToShow != null && !champion.championMesh.name.Equals(meshToShow.name))
-            ChangeChampionMesh();
 
         champion.UpdatePassive();
         if (passiveEffect.text != null)
