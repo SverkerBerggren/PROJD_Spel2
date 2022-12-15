@@ -631,17 +631,15 @@ public class GameState : MonoBehaviour
 
  
 
-    public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
+    public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
     {
-        Card card = cardPlayed.card;
-        cardsPlayedThisTurn.Add(cardPlayed.card);
+        cardsPlayedThisTurn.Add(cardPlayed);
 
-        if (card.typeOfCard == CardType.Attack)
+        if (cardPlayed.typeOfCard == CardType.Attack)
         {
             attacksPlayedThisTurn++;
         }
-        playerChampion.champion.AmountOfCardsPlayed(card);
-        actionOfPlayer.ChangeCardOrder(true, cardPlayed);
+        playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
     }
 
     public void ChampionDeath(Champion deadChampion)

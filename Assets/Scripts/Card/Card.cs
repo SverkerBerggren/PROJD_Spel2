@@ -87,6 +87,7 @@ public abstract class Card : ScriptableObject
             gameState.AddEffect(effect);
 
         gameState.Refresh();
+        gameState.AddCardToPlayedCardsThisTurn(this);
         gameState.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    

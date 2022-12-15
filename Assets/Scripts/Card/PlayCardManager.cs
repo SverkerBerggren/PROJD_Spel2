@@ -111,7 +111,7 @@ public class PlayCardManager : MonoBehaviour
                 gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
-                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+                actionOfPlayer.ChangeCardOrder(true, cardDisplay);
                 return true;
             }
 
@@ -150,8 +150,8 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-        }
+			actionOfPlayer.ChangeCardOrder(true, cardDisplay);
+		}
     }
 
     public void PlayedATargetableCard(GameObject gameObjectTargeted)
@@ -163,7 +163,7 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
         }
 
         else if (gameObjectTargeted.CompareTag("LandmarkSlot") && gameObjectTargeted.GetComponent<LandmarkDisplay>().card != null)
@@ -172,13 +172,13 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
         }
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
-        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay);
+        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay.card);
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
