@@ -53,6 +53,8 @@ public class Hand : MonoBehaviour
 
     public Card DiscardRandomCardInHand()
     {
+        if (cardsInHand.Count <= 0)
+            return null;
         int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
         return CardToDiscard(cardsInHand[cardIndex]);
     }

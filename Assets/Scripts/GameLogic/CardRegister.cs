@@ -68,8 +68,6 @@ public class CardRegister : MonoBehaviour
         {
 			cardRegister.Add(card.cardName, card);
 
-            if (card.championCard) continue;
-
             switch (card.typeOfCard)
             {
                 case CardType.Landmark:
