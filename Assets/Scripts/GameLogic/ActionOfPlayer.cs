@@ -100,8 +100,7 @@ public class ActionOfPlayer : MonoBehaviour
     }
 
 	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
-	{
-        
+	{         
 		int drawnCards = 0;
 		Hand hand;
 		if (isPlayer)
@@ -120,50 +119,73 @@ public class ActionOfPlayer : MonoBehaviour
 			{
 				if (drawnCards >= amountToDraw) break;
 
-				if (!isPlayer)
-				{
+				if (!isPlayer)				
                     cardDisplay.SetBackfaceOnOpponentCards(backfaceCard);
-				}
-
+				
 				if (specificCard == null)
 					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
 				else               
 					cardDisplay.card = specificCard;
 
+                drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
 
-				if (cardDisplay.card != null)
-				{
-					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-                    cardDisplay.gameObject.SetActive(true);
-                    if (drawnCards == 0)
-                    {
-                        gameState.drawnCardsThisTurn -= 1;
-						cardDisplay.firstCardDrawn = true;
-                    }
-					drawnCards++;
-				}
-				else
-				{
-					print("Deck is empty or the drawn card is null!!!");
-					//gameState.Defeat();
-					break;
-				}
-			}
+                if (drawnCards == -1)
+                    break;
+            }
 		}
+        DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
+    } 
 
-		if (drawnCards < amountToDraw) //Discards overdrawn cards
-		{
-			for (; drawnCards < amountToDraw; drawnCards++)
-			{
-				Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
-				if (isPlayer)
-					graveyard.AddCardToGraveyard(c);
-				else
-					graveyard.AddCardToGraveyardOpponent(c);
-			}
-		}
+    private int CheckCardDrawn(CardDisplay cardDisplay, int drawnCards)
+    {
+        if (cardDisplay.card != null)
+        {
+            //cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+            cardDisplay.gameObject.SetActive(true);
+            if (drawnCards == 0)
+            {
+                gameState.drawnCardsThisTurn -= 1;
+                cardDisplay.firstCardDrawn = true;
+            }
+            drawnCards++;
+        }
+        else
+        {
+            print("Deck is empty or the drawn card is null!!!");
+            //gameState.Defeat();
+            return -1;
+        }
 
-	}
+        return drawnCards;
+    }
+
+    private void DiscardOverdrawnCards(int drawnCards, int amountToDraw, bool isPlayer)
+    {
+        if (drawnCards < amountToDraw) //Discards overdrawn cards
+        {
+            List<string> cardNames = new List<string>();
+            for (; drawnCards < amountToDraw; drawnCards++)
+            {
+                Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
+                if (isPlayer)
+                    graveyard.AddCardToGraveyard(c);
+                else
+                    graveyard.AddCardToGraveyardOpponent(c);
+
+                cardNames.Add(c.cardName);
+            }
+
+            if (gameState.isOnline)
+            {
+                RequestDiscardCard requesten = new RequestDiscardCard();
+                requesten.whichPlayer = ClientConnection.Instance.playerId;
+                requesten.listOfCardsDiscarded = cardNames;
+                requesten.discardCardToOpponentGraveyard = !isPlayer;
+                ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
+
+            }
+        }
+    }
 
 	public void IncreaseMana()
     {
