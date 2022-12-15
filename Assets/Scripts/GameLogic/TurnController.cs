@@ -6,9 +6,11 @@ using UnityEngine;
 public class TurnController : MonoBehaviour
 {
 	private GameState gameState;
-	public float playerTimer;
-	public float opponentTimer;
-	public MinuteHolder turnTimer;
+	private float turnTimer;
+
+	[SerializeField] private MinuteHolder time;
+	[SerializeField] private float playerTimer;
+	[SerializeField] private float opponentTimer;
 
 
 	private static TurnController instance;
@@ -25,13 +27,14 @@ public class TurnController : MonoBehaviour
 			Destroy(Instance);
 		}
 		gameState = GameState.Instance;
-		playerTimer = (turnTimer.minutes * MinuteHolder.secondsInMinute) + turnTimer.seconds;
-		opponentTimer = (turnTimer.minutes * MinuteHolder.secondsInMinute) + turnTimer.seconds;
+		turnTimer = (time.minutes * MinuteHolder.secondsInMinute) + time.seconds;
+		playerTimer = turnTimer;
+		opponentTimer = turnTimer;
 	}
 
 	void Update()
     {
-		//if (!gameState.isOnline) return;
+		if (!gameState.isOnline) return;
 
 		if (gameState.hasPriority)
 		{
@@ -43,6 +46,7 @@ public class TurnController : MonoBehaviour
 		}
     }
 
+	/*
 	public void AddTime(bool isPlayer, float time)
 	{
 		if (isPlayer)
@@ -54,6 +58,20 @@ public class TurnController : MonoBehaviour
 			opponentTimer += time;
 		}
 	}
+
+	public void ResetTimer(bool isPlayer)
+	{
+		if (isPlayer)
+		{
+			playerTimer = turnTimer;
+		}
+		else
+		{
+			opponentTimer = turnTimer;
+		}
+	}
+	*/
+
 }
 
 [Serializable]
