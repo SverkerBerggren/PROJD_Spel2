@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
-using Dapper;
 using System.Data;
-using System.Data.SQLite;
+
 
 public class Server
 {
@@ -682,28 +681,6 @@ public class Server
         m_Stopping = true;
     }
 
-    public void DataBasTest()
-    {
-        StreamWriter writer = File.CreateText("Assets/TestDatabas" + "/HejFranServern.txt");
-        writer.Write("Hur stor ar databasen  " + LoadTestet().Count);
-        writer.Close();
-    }
-
-    public List<Test> LoadTestet()
-    {
-        using (IDbConnection cnn = new SQLiteConnection("Data Source=.\\Assets\\TestDatabas\\TestDataBas.db;Version=3;"))
-        {
-
-            var output = cnn.Query<Test>("select * from Test", new DynamicParameters());
-
-
-
-
-            return output.ToList();
-
-        }
-    }
-
 
     public class OngoingGame
     {
@@ -745,20 +722,4 @@ public class Server
 
     }
 
-    public static List<test> LoadTest()
-    {
-        using (IDbConnection connection = new System.Data.SQLite.SQLiteConnection())
-        {
-            var output = connection.Query<test>("select * from test", new DynamicParameters());
-
-
-
-            return output.ToList();
-        }
-    }
-
-    public class test
-    {
-        public string namn = ""; 
-    }
 }
