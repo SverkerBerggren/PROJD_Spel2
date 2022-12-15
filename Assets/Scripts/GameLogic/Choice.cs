@@ -538,7 +538,7 @@ public class Choice : MonoBehaviour
         if (waitRoom.Count == 0)
         {
             isChoiceActive = false;
-            if (!gameState.isItMyTurn && gameState.hasPriority)
+            if (!gameState.isItMyTurn)
                 gameState.PassPriority();
             return;
         }
