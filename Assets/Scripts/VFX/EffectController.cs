@@ -50,8 +50,17 @@ public class EffectController : MonoBehaviour
                 foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
                     if(champOnField.champion.championName.Equals(availableChampion.Item1))  
-                    {
+                    {                      
                         shields[availableChampion].transform.position = champOnField.transform.position;
+                        
+                        if (GameState.Instance.playerChampion.champion.championName.Equals(availableChampion.Item1))
+                        {
+                            shields[availableChampion].gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            shields[availableChampion].gameObject.SetActive(false);
+                        }
                     }
                 }
             }
@@ -62,6 +71,15 @@ public class EffectController : MonoBehaviour
                     if(champOnField.champion.championName.Equals(availableChampion.Item1))  
                     {
                         shields[availableChampion].transform.position = champOnField.transform.position;
+
+                        if (GameState.Instance.opponentChampion.champion.championName.Equals(availableChampion.Item1))
+                        {
+                            shields[availableChampion].gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            shields[availableChampion].gameObject.SetActive(false);
+                        }
                     }
                 }
             }

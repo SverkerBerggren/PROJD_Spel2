@@ -36,6 +36,7 @@ public class AvailableChampion : MonoBehaviour
     private GameState gameState;
     //private ArmorEffect armorEffect;
     [SerializeField] private GameObject sheildUIObject;
+    [SerializeField] private ShieldShow shieldShow;
 
     [SerializeField] private TMP_Text passiveEffect;
 
@@ -172,7 +173,11 @@ public class AvailableChampion : MonoBehaviour
         if (shield == 0)        
             sheildUIObject.SetActive(false);
         else
+        {
             sheildUIObject.SetActive(true);
+            shieldShow.ChangeShieldTextTo(champion.shield);
+        }
+
 
         healthBarSlider.maxValue = maxHealth;
         if (health <= 0)
@@ -216,7 +221,7 @@ public class AvailableChampion : MonoBehaviour
             else
             {
                 champion.shield -= damage;
-                sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
+                shieldShow.ChangeShieldTextTo(champion.shield);
             }
         }
 
@@ -256,6 +261,6 @@ public class AvailableChampion : MonoBehaviour
         champion.shield += amountToBlock;
         sheildUIObject.SetActive(true);
 
-        sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
+        shieldShow.ChangeShieldTextTo(champion.shield);
     }
 }
