@@ -132,7 +132,8 @@ public class PlayCardManager : MonoBehaviour
                     PlaceLandmark(landmarkDisplay);
                     gameState.ShowPlayedCard(card, false, -1);
                     card.PlayCard();
-                    Landmarks landmark = (Landmarks)landmarkDisplay.card;
+					actionOfPlayer.ChangeCardOrder(true, cardDisplay);
+					Landmarks landmark = (Landmarks)landmarkDisplay.card;
                     break;
                 }
                 else
@@ -182,7 +183,7 @@ public class PlayCardManager : MonoBehaviour
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
-        if (GameState.Instance.isOnline)
+		if (GameState.Instance.isOnline)
         {
             RequestPlayLandmark request = new RequestPlayLandmark();
             request.whichPlayer = ClientConnection.Instance.playerId;
