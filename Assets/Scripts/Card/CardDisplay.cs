@@ -92,7 +92,7 @@ public class CardDisplay : Displays
         if (!alreadyBig && !clickedOnCard)
         {
             displayTransform.position += new Vector3(0, 7.5f, -1);
-            displayTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            displayTransform.localScale = new Vector3(scaleOnHover, scaleOnHover, scaleOnHover);
             alreadyBig = true;
         }
     }
