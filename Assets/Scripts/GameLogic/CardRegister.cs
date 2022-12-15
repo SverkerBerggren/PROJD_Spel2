@@ -8,8 +8,6 @@ using System.Runtime.ConstrainedExecution;
 
 public class CardRegister : MonoBehaviour
 {
-    private static CardRegister instance;
-    public static CardRegister Instance { get; set; }
 
     [Header("Cards")]
     [SerializeField] private List<Card> cards = new List<Card>();
@@ -29,6 +27,9 @@ public class CardRegister : MonoBehaviour
     public Dictionary<string, Card> attackCardRegister = new Dictionary<string, Card>();
     public Dictionary<string, Card> supportCardRegister = new Dictionary<string, Card>();
     // Start is called before the first frame update
+
+    private static CardRegister instance;
+    public static CardRegister Instance { get; set; }
 
     private void Awake()
     {
