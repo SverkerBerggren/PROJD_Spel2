@@ -40,9 +40,7 @@ public class PlayCardManager : MonoBehaviour
         if (gameState.isOnline)
         {
             if (!gameState.isItMyTurn || !gameState.hasPriority)
-            {
                 return false;
-            }
         }
 
         if (cardDisplay.opponentCard == true)
@@ -52,9 +50,7 @@ public class PlayCardManager : MonoBehaviour
         if (card.championCardType != ChampionCardType.All && card.championCard)
         {
             if (gameState.playerChampion.champion.championCardType != card.championCardType)
-            {
                 return false;
-            }
         }
 
         return true;
@@ -87,19 +83,13 @@ public class PlayCardManager : MonoBehaviour
                 return TypeOfCardTargeting.Taunt;
 
             if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-            {
-                
                 return TypeOfCardTargeting.Targeted;
-            }
 
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
             if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-            {
-                
                 return TypeOfCardTargeting.UnTargeted;
-            }
         }
         return TypeOfCardTargeting.None;
     }
@@ -121,7 +111,6 @@ public class PlayCardManager : MonoBehaviour
                 gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
-                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 return true;
             }
 
@@ -161,7 +150,6 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
 
@@ -174,7 +162,6 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
 
         else if (gameObjectTargeted.CompareTag("LandmarkSlot") && gameObjectTargeted.GetComponent<LandmarkDisplay>().card != null)
@@ -183,7 +170,6 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
 
