@@ -142,7 +142,7 @@ public class GameState : MonoBehaviour
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
-        calculations.CalculateHandManaCost(cardDisplay);
+        //calculations.CalculateHandManaCost(cardDisplay);
         RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
