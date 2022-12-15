@@ -4,8 +4,11 @@ using UnityEngine;
 
 public abstract class Effects : ScriptableObject
 {
+	protected GameState gameState;
 	public CardType cardTrigger;
 	public bool untilEndStep = false;
+
+	public abstract void AddEffect();
 	public virtual void UpKeep() { }
 	public virtual void EndStep()
 	{

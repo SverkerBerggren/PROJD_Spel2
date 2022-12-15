@@ -28,21 +28,21 @@ public class CardMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-
+        print("Click");
     }
 
     public void OnDown()
     {
-        cardDisplay.ResetSize();
         if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, false)) return;
+
         //offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 100));
         cardDisplay.mouseDown = true;
      
-
         if (gameState.targetingEffect != null && cardDisplay.card.typeOfCard == CardType.Attack)
             gameState.targetingEffect.SetActive(true);
-        if (actionOfPlayer.selectCardOption)
-            clickedOnCard = true;
+
+        cardDisplay.clickedOnCard = true;
+        cardDisplay.ResetSize();       
     }
 
     public void OnDrag()
@@ -52,49 +52,18 @@ public class CardMovement : MonoBehaviour
         if (cardDisplay.opponentCard == true) return;
         if (actionOfPlayer.selectCardOption) return;
 
-       
-
-        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
-
-        transform.position = mousePosition + offset;
+        cardDisplay.ResetSize();
+        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 30));
+        cardDisplay.displayTransform.position = mousePosition;
+        //transform.position = mousePosition;
     }
 
     private void Update()
-    {
-        
-        if (clickedOnCard)
-        {
-            
-            mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12));
-
+    {       
+        if (clickedOnCard && actionOfPlayer.selectCardOption)
+        {       
+            mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20));
             transform.position = mousePosition + offset;
         }
-    }
-
-    private void OnMouseDrag()
-    {
-
-
-
-
-        /*        RaycastHit hit;
-
-                Physics.Raycast(mousePosition, Vector3.forward * 1f, out hit, 10f);
-                Debug.DrawRay(mousePosition, Vector3.forward * 1f, Color.red, 100f);
-
-                if (hit.collider == null)
-                {
-                    //cardDisplay.border.SetActive(false);
-                    return;
-                }
-
-                if (hit.collider.gameObject.name.Equals("CardTriggerCollider"))
-                {
-                  //  cardDisplay.border.SetActive(true);
-                }
-                else
-                {
-                   // cardDisplay.border.SetActive(false);
-                }*/
     }
 }

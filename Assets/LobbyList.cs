@@ -16,12 +16,6 @@ public class LobbyList : MonoBehaviour
         StartCoroutine(ShowLobbiesEnumerator());
     }
 
-    private void FixedUpdate()
-    {
-
-
-    }
-
     public IEnumerator ShowLobbiesEnumerator()
     {   while(true)
         {

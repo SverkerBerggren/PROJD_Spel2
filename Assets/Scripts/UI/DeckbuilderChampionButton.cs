@@ -14,7 +14,7 @@ public class DeckbuilderChampionButton : MonoBehaviour
 	{
 		tapCount++;
 		//CancelInvoke();
-		Invoke(nameof(OnDoAction), 0.3f);
+		Invoke(nameof(OnDoAction), 0.2f);
 	}
 
 	private void OnDoAction()
@@ -23,7 +23,7 @@ public class DeckbuilderChampionButton : MonoBehaviour
 		{
 			Add();
 		}
-		else if (tapCount == 2)
+		else 
 		{
 			Remove();
 		}

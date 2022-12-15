@@ -35,11 +35,11 @@ public class GraverobberSpells : Spells
         ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
         Graveyard graveyard = Graveyard.Instance;
         GameState gameState = GameState.Instance;
-
+        int discardedCards = 0;
         for (int i = 0; i < 2; i++)
         {
-            Card cardToAdd = actionOfPlayer.handOpponent.DiscardRandomCardInHand();
-            graveyard.AddCardToGraveyard(cardToAdd);
+            if (actionOfPlayer.handOpponent.DiscardRandomCardInHand() != null)
+                discardedCards++;
         }
 
         if (gameState.isOnline)
@@ -47,7 +47,7 @@ public class GraverobberSpells : Spells
             //Discard for Opponent
             RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
             requesten.whichPlayer = ClientConnection.Instance.playerId;
-            requesten.amountOfCardsToDiscard = 2;
+            requesten.amountOfCardsToDiscard = discardedCards;
             requesten.isRandom = false;
             requesten.discardCardToOpponentGraveyard = true;
             ClientConnection.Instance.AddRequest(requesten, gameState.RequestEmpty);
@@ -56,11 +56,28 @@ public class GraverobberSpells : Spells
 
     private void Digging()
     {
+        List<TargetInfo> tIList = new List<TargetInfo>();
         for (int i = 0; i < amountOfCardsToReturn; i++)
         {
             Tuple<Card,int> cardToDraw = graveyard.RandomizeCardFromGraveyard();
+            if (cardToDraw == null) break;
+
+            TargetInfo tI = new TargetInfo();
+            tI.whichList.myGraveyard = true;
+            tI.index = cardToDraw.Item2;
+            tIList.Add(tI);
+
             GameState.Instance.DrawCard(1, cardToDraw.Item1);
         }
+
+        if (GameState.Instance.isOnline)
+        {
+            RequestRemoveCardsGraveyard requesten = new RequestRemoveCardsGraveyard();
+            requesten.whichPlayer = ClientConnection.Instance.playerId;
+            requesten.cardsToRemoveGraveyard = tIList;
+            ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
+        }
+        
     }
 
     public override string WriteOutCardInfo()

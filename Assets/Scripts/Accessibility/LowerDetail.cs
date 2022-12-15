@@ -21,12 +21,6 @@ public class LowerDetail : MonoBehaviour
         _camera = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void setUpLowerDetailBkg()
     {
         //do something here

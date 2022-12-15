@@ -210,7 +210,7 @@ public class InternetLoop : MonoBehaviour
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
 
-                gameState.ShowPlayedCard(cardPlayed, true);
+                gameState.ShowPlayedCard(cardPlayed, true, castedAction.manaCost);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                 actionOfPlayer.enemyMana -= castedAction.manaCost;
@@ -294,7 +294,7 @@ public class InternetLoop : MonoBehaviour
             {
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
                 gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
+                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true, -1);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
 

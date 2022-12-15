@@ -10,34 +10,27 @@ public class Choice : MonoBehaviour
     private List<TargetInfo> chosenTargets = new List<TargetInfo>();
     private int amountOfTargets = 0;
 
+
+    private GameState gameState;
+    private ActionOfPlayer actionOfPlayer;
+    private Graveyard graveyard;
+    private WhichMethod whichMethod;
+    private Deck deck;
+    private Card cardUsed;
+
     [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject confirmMenuButton;
     [SerializeField] private GameObject buttonHolder;
-
-    private GameState gameState;
-    private ActionOfPlayer actionOfPlayer;
-    private Graveyard graveyard;
-    private Deck deck;
-    private Card cardUsed;
-
-    private GameObject choiceMenu;
-    private GameObject choiceOpponentMenu;
+    [SerializeField] private GameObject choiceMenu;
+    [SerializeField] private GameObject choiceOpponentMenu;
+    private bool isChoiceActive;
 
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
-
-    private bool isChoiceActive = false;
-
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
 
-    private WhichMethod whichMethod;
-
-    private int amountOfWaitrooms = 0;
-
-    
     private static Choice instance;
-
 	public static Choice Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()
@@ -65,9 +58,9 @@ public class Choice : MonoBehaviour
     private void FixedUpdate()
     {
         if (!gameState.hasPriority && gameState.isItMyTurn)
-                ShowOpponentThinking();
+            ShowOpponentThinking();
         else
-                HideOpponentThinking();
+            HideOpponentThinking();
 
         if (!gameState.hasPriority && isChoiceActive)
             choiceMenu.SetActive(false);
@@ -135,19 +128,17 @@ public class Choice : MonoBehaviour
         }
         else if(listEnum.myHand)
         {
-            print("kommer den till discard delen");
-            descriptionText.text = "Choose a card to discard";
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
 
+                choiceButtonPrefab.SetActive(true);
                 MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
 
         if (listEnum.myGraveyard)
         {
-            descriptionText.text = "Show graveyard";
             for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
             {
                 MakeButtonOfCard(graveyard.graveyardPlayer[i], listEnum, i);
@@ -179,8 +170,7 @@ public class Choice : MonoBehaviour
         }
 
         if (listEnum.myLandmarks)
-        {
-            descriptionText.text = "Show landmarks";
+        { 
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
                 MakeButtonOfCard(gameState.playerLandmarks[i].card, listEnum, i);
@@ -334,7 +324,7 @@ public class Choice : MonoBehaviour
     {
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
         {
-            DiscardXCards();
+            DiscardCard();
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
@@ -407,31 +397,16 @@ public class Choice : MonoBehaviour
         }   
     }
 
-    private void DiscardXCards()
-    {
-        List<string> cards = new List<string>();
-        for (int i = 0; i < chosenTargets.Count; i++)
-        {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
-        }
-
-        if (gameState.isOnline)
-        {
-            RequestDiscardCard request = new RequestDiscardCard(cards, false);
-            request.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
-        }
-    }
-
     private void DiscardCard()
     {
-        List<string> cards = new List<string>();
+        List<int> indexes = new List<int>();
         for (int i = 0; i < chosenTargets.Count; i++)
         {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
+            int card = chosenTargets[i].index;
+            indexes.Add(card);
         }
+
+        List<string> cards = actionOfPlayer.handPlayer.DiscardCardListWithIndexes(indexes);
 
         if (gameState.isOnline)
         {
@@ -439,9 +414,6 @@ public class Choice : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
-
-        if (!gameState.isItMyTurn)
-            gameState.PassPriority();
     }
 
     private bool CheckIfChoice(WhichMethod theMethod)
@@ -519,7 +491,7 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
             case WhichMethod.TransformChampionCard:
-                descriptionText.text = "Chose a card to Transform";
+                descriptionText.text = "Choose a card to Transform";
                 List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
                 bool thereIsAChampionCardToTransform = false;
                 for (int i = 0; i < cardsInHand.Count; i++)
@@ -566,7 +538,7 @@ public class Choice : MonoBehaviour
         if (waitRoom.Count == 0)
         {
             isChoiceActive = false;
-            if (!gameState.isItMyTurn && gameState.hasPriority)
+            if (!gameState.isItMyTurn)
                 gameState.PassPriority();
             return;
         }
@@ -588,8 +560,7 @@ public enum WhichMethod
 {
     switchChampionPlayer,
 	switchChampionEnemy,
-	switchChampionDied, 
-    switchChampionDiedDiedDied, 
+	switchChampionDied,
     discardCard,
     discardXCardsInMyHand,
     ShowGraveyard,

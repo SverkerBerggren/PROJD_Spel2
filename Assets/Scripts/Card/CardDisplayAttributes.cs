@@ -22,7 +22,7 @@ public class CardDisplayAttributes : MonoBehaviour
     public GameObject cardPlayableEffect;
 
     [SerializeField] private GameObject nameBackground;
-    [SerializeField] private GameObject hpGameObject;
+    public GameObject hpGameObject;
 
 
     [System.NonSerialized] public int damageShow = 0;
@@ -34,11 +34,6 @@ public class CardDisplayAttributes : MonoBehaviour
     [System.NonSerialized] public bool previewCard = false;
 
     private Calculations calculations;
-
-    private void Start()
-    {
-        
-    }
 
     private void UpdateDependingOnCard(Displays display)
     {
@@ -165,10 +160,14 @@ public class CardDisplayAttributes : MonoBehaviour
     {
         calculations = Calculations.Instance;
 
-        if (display is CardDisplay)
+        if (!display.gameObject.name.Equals("PlayedCard"))
         {
-            Calculations.Instance.CalculateHandManaCost((CardDisplay)display);
+            if (display is CardDisplay)
+            {
+                Calculations.Instance.CalculateHandManaCost((CardDisplay)display);
+            }
         }
+
 
         UpdateVariables(display.card);
     }

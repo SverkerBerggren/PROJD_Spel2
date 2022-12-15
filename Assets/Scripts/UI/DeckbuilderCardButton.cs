@@ -12,7 +12,7 @@ public class DeckbuilderCardButton : MonoBehaviour
 	public void OnClick()
 	{
 		tapCount++;
-		Invoke(nameof(OnDoAction), 0.3f);
+		Invoke(nameof(OnDoAction), 0.2f);
 	}
 
 	private void OnDoAction()
@@ -21,7 +21,7 @@ public class DeckbuilderCardButton : MonoBehaviour
 		{
 			Add();
 		}
-		else if (tapCount == 2)
+		else 
 		{
 			Remove();
 		}

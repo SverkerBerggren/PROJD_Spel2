@@ -40,9 +40,7 @@ public class PlayCardManager : MonoBehaviour
         if (gameState.isOnline)
         {
             if (!gameState.isItMyTurn || !gameState.hasPriority)
-            {
                 return false;
-            }
         }
 
         if (cardDisplay.opponentCard == true)
@@ -52,9 +50,7 @@ public class PlayCardManager : MonoBehaviour
         if (card.championCardType != ChampionCardType.All && card.championCard)
         {
             if (gameState.playerChampion.champion.championCardType != card.championCardType)
-            {
                 return false;
-            }
         }
 
         return true;
@@ -87,19 +83,13 @@ public class PlayCardManager : MonoBehaviour
                 return TypeOfCardTargeting.Taunt;
 
             if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-            {
-                
                 return TypeOfCardTargeting.Targeted;
-            }
 
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-            {
-                
+            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true)) 
                 return TypeOfCardTargeting.UnTargeted;
-            }
         }
         return TypeOfCardTargeting.None;
     }
@@ -118,10 +108,10 @@ public class PlayCardManager : MonoBehaviour
                 print("LandmarkTAUNT");
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
-                gameState.ShowPlayedCard(card, false);
+                gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
-                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+                actionOfPlayer.ChangeCardOrder(true, cardDisplay);
                 return true;
             }
 
@@ -140,10 +130,10 @@ public class PlayCardManager : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
-                    gameState.ShowPlayedCard(card, false);
+                    gameState.ShowPlayedCard(card, false, -1);
                     card.PlayCard();
-                    Landmarks landmark = (Landmarks)landmarkDisplay.card;
-
+					actionOfPlayer.ChangeCardOrder(true, cardDisplay);
+					Landmarks landmark = (Landmarks)landmarkDisplay.card;
                     break;
                 }
                 else
@@ -159,41 +149,43 @@ public class PlayCardManager : MonoBehaviour
         else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
+            gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-        }
+			actionOfPlayer.ChangeCardOrder(true, cardDisplay);
+		}
     }
 
     public void PlayedATargetableCard(GameObject gameObjectTargeted)
     {
-        if (gameObjectTargeted.CompareTag("Champion"))
+        if (gameObjectTargeted.TryGetComponent(out AvailableChampion availableChampion))
         {
-            card.Target = gameObjectTargeted.GetComponent<AvailableChampion>().champion;
-
+            print("TargetChampion");
+            card.Target = availableChampion.champion;
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
+            gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
-        }
-
-        else if (gameObjectTargeted.CompareTag("LandmarkSlot") && gameObjectTargeted.GetComponent<LandmarkDisplay>().card != null)
+            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
+        }       
+        else if (gameObjectTargeted.TryGetComponent(out LandmarkDisplay landmarkDisplay))
         {
-            card.LandmarkTarget = gameObjectTargeted.GetComponent<LandmarkDisplay>();
+            print("TargetLandmark: " + landmarkDisplay.transform.parent.name);
+            if (landmarkDisplay.card == null) return;
+
+            card.LandmarkTarget = landmarkDisplay;
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false);
+            gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
-            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
+            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
         }
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)
     {
-        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay);
+        GameState.Instance.AddCardToPlayedCardsThisTurn(cardDisplay.card);
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.index, landmark, false);
 
-        if (GameState.Instance.isOnline)
+		if (GameState.Instance.isOnline)
         {
             RequestPlayLandmark request = new RequestPlayLandmark();
             request.whichPlayer = ClientConnection.Instance.playerId;

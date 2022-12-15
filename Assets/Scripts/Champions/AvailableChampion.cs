@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Rendering.HighDefinition;
 
 public class AvailableChampion : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class AvailableChampion : MonoBehaviour
     private GameState gameState;
     //private ArmorEffect armorEffect;
     [SerializeField] private GameObject sheildUIObject;
+    [SerializeField] private ShieldShow shieldShow;
 
     [SerializeField] private TMP_Text passiveEffect;
 
@@ -100,10 +102,15 @@ public class AvailableChampion : MonoBehaviour
         health = champion.health;
         maxHealth = champion.maxHealth;
 
-        meshToShow = Instantiate(champion.championMesh, transform);
+        if (gameState.playerChampion.champion == champion || gameState.opponentChampion.champion == champion)
+        {
+            meshToShow = Instantiate(champion.championMesh, transform);
 
-        if (meshToShow.GetComponentInChildren<Animator>() != null) 
-            animator = meshToShow.GetComponentInChildren<Animator>();
+            if (meshToShow.GetComponent<Animator>() != null)
+                animator = meshToShow.GetComponent<Animator>();
+        }
+
+
     }
 
     private void OnMouseEnter()
@@ -132,6 +139,9 @@ public class AvailableChampion : MonoBehaviour
     {
         Destroy(meshToShow);
         meshToShow = Instantiate(champion.championMesh, transform);
+
+        //if (meshToShow.GetComponent<Animator>() != null)
+            animator = meshToShow.GetComponent<Animator>();
     }
 
     public void UpdateTextOnCard()
@@ -144,8 +154,15 @@ public class AvailableChampion : MonoBehaviour
         shield = champion.shield;
 
         currentSprite.sprite = champion.champBackground;
+        if (meshToShow != null)
+        {
+            string[] nameOfChampion = meshToShow.name.Split("(");
+ 
+            if (!champion.championMesh.name.Equals(nameOfChampion[0]))
+                ChangeChampionMesh();
+        }
 
-        ChangeChampionMesh();
+
         champion.UpdatePassive();
         if (passiveEffect.text != null)
             passiveEffect.text = champion.passiveEffect;
@@ -156,7 +173,11 @@ public class AvailableChampion : MonoBehaviour
         if (shield == 0)        
             sheildUIObject.SetActive(false);
         else
+        {
             sheildUIObject.SetActive(true);
+            shieldShow.ChangeShieldTextTo(champion.shield);
+        }
+
 
         healthBarSlider.maxValue = maxHealth;
         if (health <= 0)
@@ -200,7 +221,7 @@ public class AvailableChampion : MonoBehaviour
             else
             {
                 champion.shield -= damage;
-                sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
+                shieldShow.ChangeShieldTextTo(champion.shield);
             }
         }
 
@@ -211,6 +232,12 @@ public class AvailableChampion : MonoBehaviour
     }
     public virtual void Death()
     {
+        print("BefDead");
+        if (animator != null)
+        {
+            print("PlayDead");
+            animator.SetTrigger("Dead");
+        }
         gameState.ChampionDeath(champion);
     }
 
@@ -233,6 +260,7 @@ public class AvailableChampion : MonoBehaviour
     {
         champion.shield += amountToBlock;
         sheildUIObject.SetActive(true);
-        sheildUIObject.GetComponent<ShieldShow>().ChangeShieldTextTo(champion.shield);
+
+        shieldShow.ChangeShieldTextTo(champion.shield);
     }
 }

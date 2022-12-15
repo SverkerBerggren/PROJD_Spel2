@@ -6,7 +6,7 @@ using System;
 
 public class GameState : MonoBehaviour
 {
-    private int amountOfCardsToStartWith = 5;
+    [SerializeField] private int amountOfCardsToStartWith = 5;
     private bool firstTurn = true;
     private Calculations calculations;
     private ActionOfPlayer actionOfPlayer;
@@ -121,8 +121,8 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Cultist",
                 "Shanker",
+                "Graverobber",
                 "Builder",
             };
             AddChampions(ha, true);
@@ -142,7 +142,7 @@ public class GameState : MonoBehaviour
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
-        calculations.CalculateHandManaCost(cardDisplay);
+        //calculations.CalculateHandManaCost(cardDisplay);
         RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
@@ -198,8 +198,10 @@ public class GameState : MonoBehaviour
         damage = calculations.CalculateDamage(damage, false);
         DealDamage(calculations.TargetAndAmountFromCard(cardUsed, damage));
 
+        print("BefAttack" + playerChampion.animator);
         if (playerChampion.animator != null)
         {
+            print("PlayAttack");
             playerChampion.animator.SetTrigger("Attack");
         }
     }
@@ -355,11 +357,13 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void ShowPlayedCard(Card card, bool opponent)
+    public void ShowPlayedCard(Card card, bool opponent, int manaCost)
     {
         playedCardGO.SetActive(true);
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        if (manaCost != -1)
+            cardDisp.manaCost = manaCost;
         cardDisp.card = card;
         cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
@@ -519,7 +523,7 @@ public class GameState : MonoBehaviour
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
         landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
-        ShowPlayedCard(landmark, opponentPlayedLandmark);
+        ShowPlayedCard(landmark, opponentPlayedLandmark, -1);
         
         if (opponentPlayedLandmark)
         {
@@ -627,17 +631,15 @@ public class GameState : MonoBehaviour
 
  
 
-    public void AddCardToPlayedCardsThisTurn(CardDisplay cardPlayed)
+    public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
     {
-        Card card = cardPlayed.card;
-        cardsPlayedThisTurn.Add(cardPlayed.card);
+        cardsPlayedThisTurn.Add(cardPlayed);
 
-        if (card.typeOfCard == CardType.Attack)
+        if (cardPlayed.typeOfCard == CardType.Attack)
         {
             attacksPlayedThisTurn++;
         }
-        playerChampion.champion.AmountOfCardsPlayed(card);
-        actionOfPlayer.ChangeCardOrder(true, cardPlayed);
+        playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
     }
 
     public void ChampionDeath(Champion deadChampion)
@@ -664,13 +666,13 @@ public class GameState : MonoBehaviour
 
         if (opponentChampion.champion == deadChampion)
         {
-            if (isOnline)
-                PassPriority();
-            else
+            if (!isOnline)
             {
                 SwapOnDeath(opponentChampion);
                 RemoveChampion(deadChampion);
             }
+            else
+                PassPriority();
         }
 	}
 
@@ -698,6 +700,7 @@ public class GameState : MonoBehaviour
 
     public void AddEffect(Effects effect)
     {
+        effect.AddEffect();
         playerEffects.Add(effect);
     }
 
@@ -745,11 +748,13 @@ public class GameState : MonoBehaviour
         ClearEffects();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            landmarkDisplay.UpdateTextOnCard();
+            if (landmarkDisplay.card != null)
+                landmarkDisplay.UpdateTextOnCard();
         }
         foreach (LandmarkDisplay landmarkDisplay in opponentLandmarks)
         {
-            landmarkDisplay.UpdateTextOnCard();
+            if (landmarkDisplay.card != null)
+                landmarkDisplay.UpdateTextOnCard();
         }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();

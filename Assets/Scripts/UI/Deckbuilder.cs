@@ -8,7 +8,8 @@ public class Deckbuilder : MonoBehaviour
 {
     private Setup setup;
     private CardRegister register;
-    private List<GameObject> buttons = new List<GameObject>();
+    private Dictionary<Card, GameObject> cardButtons = new Dictionary<Card, GameObject>();
+	private Dictionary<Champion, GameObject> championsButtons = new Dictionary<Champion, GameObject>();
 	private TMP_Text decklist;
     [SerializeField] private GameObject buttonHolder;
 	[SerializeField] private GameObject cardButton;
@@ -36,6 +37,7 @@ public class Deckbuilder : MonoBehaviour
         decklist = GetComponentInChildren<TMP_Text>();
         UpdateDeckList();
         register = CardRegister.Instance;
+		setup.StartDeckbuilder();
 		foreach (Champion champion in register.champRegister.Values)
 		{
 			MakeButtonsChampions(champion);
@@ -56,17 +58,30 @@ public class Deckbuilder : MonoBehaviour
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
 
         gO.GetComponent<DeckbuilderCardButton>().card = card;
-        buttons.Add(gO);
+
+        
+
+        cardButtons.Add(card, gO);
     }
+
     private void MakeButtonsChampions(Champion champion)
     {
         GameObject gO = Instantiate(championButton, buttonHolder.transform);
         gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = champion.artwork;
-        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+        gO.GetComponent<Image>().sprite = champion.artwork;        
         gO.GetComponentInChildren<DeckbuilderChampionButton>().champion = champion;
-        buttons.Add(gO);
+        championsButtons.Add(champion, gO);
     }
+
+    public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
+    {
+
+        foreach (Champion champion in championsButtons.Keys)
+        {
+
+        }
+
+	}
 
     public void UpdateDeckList()
     {
@@ -77,10 +92,10 @@ public class Deckbuilder : MonoBehaviour
             decklist.text += champion + "\n";
         }
         decklist.text += "\n";
-        decklist.text += "Cards " + setup.playerDeckList.Count + "/" + setup.deckCount + "\n";
-        foreach (Card card in setup.playerDeckList)
+        decklist.text += "Cards " + setup.currentDeckSize + "/" + setup.deckCount + "\n";
+        foreach (Card card in setup.amountOfCards.Keys)
         {
-            decklist.text += card.cardName + "\n";
+            decklist.text += card.cardName + " x" + setup.amountOfCards[card] + "\n";
         }
     }
 }

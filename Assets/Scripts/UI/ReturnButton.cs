@@ -21,14 +21,6 @@ public class ReturnButton : MonoBehaviour
         
     }
 
-    public void Update()
-    {
-    //    if(Input.GetKeyDown(KeyCode.Escape) && pauseMenuScript.isPauseMenuActive)
-    //    {
-    //        ReturnAStep();
-    //    }
-    }
-
     public void ChangeImageToReturn(bool changeImageToReturn)
     {
         if(changeImageToReturn)

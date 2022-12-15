@@ -8,17 +8,6 @@ public class EnalbeUIButton : MonoBehaviour
     public List<GameObject> gameObjectsToEnable = new List<GameObject>();
     public List<GameObject> gameObjectsToDisable = new List<GameObject>();
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ClickEnableObjects()
     {
         foreach( GameObject obj in gameObjectsToEnable)
