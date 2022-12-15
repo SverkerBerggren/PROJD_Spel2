@@ -88,7 +88,7 @@ public class PlayCardManager : MonoBehaviour
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true)) 
                 return TypeOfCardTargeting.UnTargeted;
         }
         return TypeOfCardTargeting.None;
@@ -111,6 +111,7 @@ public class PlayCardManager : MonoBehaviour
                 gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
+                gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
                 return true;
             }
 
@@ -132,7 +133,6 @@ public class PlayCardManager : MonoBehaviour
                     gameState.ShowPlayedCard(card, false, -1);
                     card.PlayCard();
                     Landmarks landmark = (Landmarks)landmarkDisplay.card;
-
                     break;
                 }
                 else
@@ -150,6 +150,7 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
 
@@ -162,6 +163,7 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
 
         else if (gameObjectTargeted.CompareTag("LandmarkSlot") && gameObjectTargeted.GetComponent<LandmarkDisplay>().card != null)
@@ -170,6 +172,7 @@ public class PlayCardManager : MonoBehaviour
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
+            gameState.AddCardToPlayedCardsThisTurn(cardDisplay);
         }
     }
 
