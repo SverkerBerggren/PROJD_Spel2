@@ -75,7 +75,7 @@ public class Deckbuilder : MonoBehaviour
 
     public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
     {
-        register.InstantiateRegister(cardFilter, championFilter);
+
         foreach (Champion champion in championsButtons.Keys)
         {
 

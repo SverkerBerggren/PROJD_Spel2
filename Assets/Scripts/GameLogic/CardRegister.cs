@@ -58,16 +58,11 @@ public class CardRegister : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-	public void InstantiateRegister()
-    {
-        InstantiateRegister(CardFilter.ManaCost, CardFilter.Name);
-	}
 
-	public void InstantiateRegister(CardFilter cardFilter, CardFilter championFilter)
+	private void InstantiateRegister()
     {
-        ClearDictonaries();
-		cards.Sort(new CardComparer(cardFilter));
-        champions.Sort(new ChampionComparer(championFilter));
+		cards.Sort(new CardComparer(CardFilter.ManaCost));
+        champions.Sort(new ChampionComparer(CardFilter.Name));
         foreach (Card card in cards)
         {
 			cardRegister.Add(card.cardName, card);
