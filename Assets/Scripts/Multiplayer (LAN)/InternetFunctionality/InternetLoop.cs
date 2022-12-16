@@ -215,7 +215,7 @@ public class InternetLoop : MonoBehaviour
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                 actionOfPlayer.enemyMana -= castedAction.manaCost;
-                actionOfPlayer.handOpponent.FixCardOrderInHand();
+             //   actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    
             if (action  is GameActionOpponentDiscardCard)
