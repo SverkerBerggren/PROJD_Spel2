@@ -71,16 +71,12 @@ public abstract class Card : ScriptableObject
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
 
-        if (typeOfCard != CardType.Landmark)
-        {
-            ListEnum tempEnum = new ListEnum();
-            tempEnum.myGraveyard = true;
-            placement.whichList = tempEnum;
-            placement.index = 100;
-        }
         if (purchasedFormShop)
-            placement.whichList.myGraveyard = false;
-
+            placement.whichList.opponentGraveyard = false;
+        else
+            placement.whichList.opponentGraveyard = true;
+        
+        cardPlacement.placement = placement;
 
         gameState.ShowPlayedCard(this, false, -1);
         if (gameState.isOnline)        

@@ -159,7 +159,7 @@ public class GameState : MonoBehaviour
         //calculations.CalculateHandManaCost(cardDisplay);
         RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-        playCardRequest.cardAndPlacement.placement.whichList.opponentGraveyard = true;
+        //playCardRequest.cardAndPlacement.placement.whichList.opponentGraveyard = true;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
 
         Refresh();
