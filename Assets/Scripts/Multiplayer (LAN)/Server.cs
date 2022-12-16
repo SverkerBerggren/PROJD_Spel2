@@ -230,6 +230,7 @@ public class Server
         {
             RequestDiscardCard castedRequest = (RequestDiscardCard)requestToHandle;
             castedRequest.whichPlayer = requestToHandle.whichPlayer;
+            
             return HandleDiscardCard(castedRequest);
         }
         if (requestToHandle is RequestHealing)
@@ -495,9 +496,9 @@ public class Server
         ResponseDiscardCard response = new ResponseDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded), requestToHandle.discardCardToOpponentGraveyard);
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
-
+        response.listEnum = requestToHandle.listEnum;
         GameActionDiscardCard gameAction = new GameActionDiscardCard(new List<string>(requestToHandle.listOfCardsDiscarded), requestToHandle.discardCardToOpponentGraveyard);
-
+        gameAction.listEnum = requestToHandle.listEnum;
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
     }

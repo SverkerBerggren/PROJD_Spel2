@@ -5,7 +5,7 @@ public class RequestDiscardCard : ClientRequest
 {
     public List<string> listOfCardsDiscarded = new List<string>();
     public bool discardCardToOpponentGraveyard = false;
-
+    public ListEnum listEnum = new ListEnum();
     public RequestDiscardCard() 
     {
         Type = 5; 
