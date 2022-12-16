@@ -338,11 +338,15 @@ public class Choice : MonoBehaviour
 				indexes.Add(card);
 			}
 			actionOfPlayer.handPlayer.FixMulligan(indexes);
+            isChoiceActive = false;
+            return;
 		}
 
 		ResetChoice();
         gameState.Refresh();
         waitRoom.Remove(waitRoom[0]);
+
+        if (whichMethod == WhichMethod.Mulligan) return;
         NextInWaitRoom();
     }
 
