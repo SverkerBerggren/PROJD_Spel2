@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GraveyardClick : MonoBehaviour
 {
-    private void OnMouseUp()
+    public void OnClick()
     {
         ListEnum lE = new ListEnum();
         lE.myGraveyard = true;

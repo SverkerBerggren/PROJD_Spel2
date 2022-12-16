@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -51,6 +52,8 @@ public abstract class Card : ScriptableObject
     public bool championCard = false;
     public ChampionCardType championCardType = ChampionCardType.None;
 
+    [NonSerialized] public bool purchasedFormShop = false;
+
   
     public Champion Target { get { return target; } set { target = value; } }
     public LandmarkDisplay LandmarkTarget { get { return landmarkTarget; } set { landmarkTarget = value; } }
@@ -74,7 +77,7 @@ public abstract class Card : ScriptableObject
             placement.index = 100;
         }
 
-        if (gameState.isOnline)        
+        if (gameState.isOnline && !purchasedFormShop)        
             gameState.PlayCardRequest(cardPlacement);
         
         if (amountOfCardsToDraw != 0)       

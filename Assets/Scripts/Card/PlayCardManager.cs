@@ -159,24 +159,18 @@ public class PlayCardManager : MonoBehaviour
     {
         if (gameObjectTargeted.TryGetComponent(out AvailableChampion availableChampion))
         {
-            print("TargetChampion");
             card.Target = availableChampion.champion;
-            Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
-            card.PlayCard();
-            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
-        }       
+        }
         else if (gameObjectTargeted.TryGetComponent(out LandmarkDisplay landmarkDisplay))
         {
-            print("TargetLandmark: " + landmarkDisplay.transform.parent.name);
             if (landmarkDisplay.card == null) return;
 
             card.LandmarkTarget = landmarkDisplay;
-            Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
-            card.PlayCard();
-            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
         }
+        Graveyard.Instance.AddCardToGraveyard(card);
+        gameState.ShowPlayedCard(card, false, -1);
+        card.PlayCard();
+        actionOfPlayer.ChangeCardOrder(true, cardDisplay);                   
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)

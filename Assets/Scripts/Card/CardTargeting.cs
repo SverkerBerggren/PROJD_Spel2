@@ -17,7 +17,7 @@ public class CardTargeting : MonoBehaviour
     private GameObject gameObjectHit;
 
     private TypeOfCardTargeting typeOfCardTarget;
-
+    private Camera mainCamera;
 
 
     void Start()
@@ -30,6 +30,7 @@ public class CardTargeting : MonoBehaviour
                 gameObjectRectTransform = GetComponent<RectTransform>();           
                 startposition = gameObjectRectTransform.anchoredPosition;
         }
+        mainCamera = Camera.main;
     }
 
     public void MouseUp()
@@ -39,8 +40,6 @@ public class CardTargeting : MonoBehaviour
         cardDisplay.mouseDown = false;
         cardDisplay.clickedOnCard = false;
 
-        
-
         if (!playCardManager.CanCardBePlayed(cardDisplay))
         {
             cardDisplay.ResetSize();
@@ -48,7 +47,7 @@ public class CardTargeting : MonoBehaviour
         }
 
         RaycastHit[] hitEnemy;
-        Vector3 dir = mousePosition - Camera.main.transform.position;
+        Vector3 dir = mousePosition - mainCamera.transform.position;
         hitEnemy = Physics.RaycastAll(mousePosition, dir, 200f);       
         Debug.DrawRay(mousePosition, dir, Color.blue, 100f);
 

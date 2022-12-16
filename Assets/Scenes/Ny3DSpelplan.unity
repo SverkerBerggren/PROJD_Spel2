@@ -623,6 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -3562,7 +3563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &183532620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9098,6 +9099,7 @@ GameObject:
   - component: {fileID: 498024650}
   - component: {fileID: 498024649}
   - component: {fileID: 498024648}
+  - component: {fileID: 498024653}
   m_Layer: 0
   m_Name: PlayerDeck
   m_TagString: DeckAndGraveyard
@@ -9211,6 +9213,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   howManyCardsPanel: {fileID: 1027489789}
   amountOfCardsText: {fileID: 1381867887}
+--- !u!114 &498024653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498024646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 498024648}
+          m_TargetAssemblyTypeName: DeckClicked, Assembly-CSharp
+          m_MethodName: OnClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &498319440
 GameObject:
   m_ObjectHideFlags: 0
@@ -11303,6 +11334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583458008}
   - component: {fileID: 583458009}
+  - component: {fileID: 583458010}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -11377,6 +11409,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &583458010
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583458007}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5999994, y: 5.000001, z: 0.20000005}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &590705946
 GameObject:
   m_ObjectHideFlags: 0
@@ -13450,7 +13495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &658863772
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22979,6 +23024,7 @@ GameObject:
   - component: {fileID: 1143229859}
   - component: {fileID: 1143229858}
   - component: {fileID: 1143229857}
+  - component: {fileID: 1143229862}
   m_Layer: 0
   m_Name: GraveyardPlayer
   m_TagString: DeckAndGraveyard
@@ -23091,6 +23137,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143229855}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1143229862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143229855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1143229857}
+          m_TargetAssemblyTypeName: GraveyardClick, Assembly-CSharp
+          m_MethodName: OnClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1143333502
 GameObject:
   m_ObjectHideFlags: 0
@@ -25381,7 +25456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1235531135
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28075,7 +28150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1373467234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30866,7 +30941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534293112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1000, y: -272.34805, z: -101.76344}
+  m_LocalPosition: {x: 341.4, y: 60, z: -101.76344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
