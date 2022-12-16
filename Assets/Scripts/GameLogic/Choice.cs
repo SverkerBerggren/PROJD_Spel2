@@ -339,7 +339,6 @@ public class Choice : MonoBehaviour
 			}
 			actionOfPlayer.handPlayer.FixMulligan(indexes);
             isChoiceActive = false;
-            return;
 		}
 
 		ResetChoice();
