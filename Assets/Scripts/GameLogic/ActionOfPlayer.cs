@@ -170,9 +170,10 @@ public class ActionOfPlayer : MonoBehaviour
                 Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
                 if (isPlayer)
                     graveyard.AddCardToGraveyard(c);
+                else if(!isPlayer && !gameState.isOnline)
+					graveyard.AddCardToGraveyardOpponent(c);
 
-
-                cardNames.Add(c.cardName);
+				cardNames.Add(c.cardName);
             }
 
             if (gameState.isOnline && isPlayer)
