@@ -77,7 +77,7 @@ public class InternetLoop : MonoBehaviour
                     
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     if(!theAction.listEnum.myDeck)
-                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0]);
                 }
 
             }
