@@ -157,19 +157,21 @@ public class PlayCardManager : MonoBehaviour
 
     public void PlayedATargetableCard(GameObject gameObjectTargeted)
     {
-        if (gameObjectTargeted.CompareTag("Champion"))
+        if (gameObjectTargeted.TryGetComponent(out AvailableChampion availableChampion))
         {
-            card.Target = gameObjectTargeted.GetComponent<AvailableChampion>().champion;
-
+            print("TargetChampion");
+            card.Target = availableChampion.champion;
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
             actionOfPlayer.ChangeCardOrder(true, cardDisplay);
-        }
-
-        else if (gameObjectTargeted.CompareTag("LandmarkSlot") && gameObjectTargeted.GetComponent<LandmarkDisplay>().card != null)
+        }       
+        else if (gameObjectTargeted.TryGetComponent(out LandmarkDisplay landmarkDisplay))
         {
-            card.LandmarkTarget = gameObjectTargeted.GetComponent<LandmarkDisplay>();
+            print("TargetLandmark: " + landmarkDisplay.transform.parent.name);
+            if (landmarkDisplay.card == null) return;
+
+            card.LandmarkTarget = landmarkDisplay;
             Graveyard.Instance.AddCardToGraveyard(card);
             gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();

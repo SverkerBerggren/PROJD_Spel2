@@ -12,11 +12,13 @@ public class EffectController : MonoBehaviour
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private GameObject healingPrefab;
     [SerializeField] private GameObject cultistAttackPrefab;
-  
+    [SerializeField] private Transform targetPos;
     
     private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
     private GameObject shieldToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
+    
+    
 
     private static EffectController instance;
 
@@ -34,7 +36,10 @@ public class EffectController : MonoBehaviour
         }
 
         shields = new Dictionary<Tuple<string, bool>, GameObject>();
-    }
+        //should have to know where to spwn Cultist attack effect 
+     
+
+     }
 
     private void FixedUpdate()
     {
@@ -121,10 +126,10 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
-    public void GainCultistAttackEffect(GameObject go)
+    public void GainCultistAttackEffect(Transform trans)
     {
        
-            Instantiate(cultistAttackPrefab, go.transform.position, Quaternion.identity);
+            Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
         
    
     }
@@ -140,9 +145,46 @@ public class EffectController : MonoBehaviour
     {
         go.GetComponent<Effect_GraveRobber>().SetDissolve(true);
     }
-    public void DestoryCultistEffect(GameObject go)
+    public void DestoryCultistEffect(AvailableChampion go)
     {
         go.GetComponent<Effect_Cultist>().SetDissolve(true);
     }
-    
+    public void PlayAttackEffect(AvailableChampion champ)
+    {
+        switch (champ.nameOfChampion)
+        {
+            case "Cultist":
+                GainCultistAttackEffect(targetPos);
+                break;
+            case "Builder":
+                champ.GetComponent<Effect_Builder>().PlayPS();
+                break;
+            case "Graverobber":
+                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                break;
+            default:
+                break;
+
+
+        }
+    }
+    public void PlayDeathEffect(AvailableChampion champ)
+    {
+        switch (champ.nameOfChampion)
+        {
+            case "Cultist":
+                DestoryCultistEffect(champ);
+                break;
+            case "Builder":
+                champ.GetComponent<Effect_Builder>().PlayPS();
+                break;
+            case "Graverobber":
+                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                break;
+            default:
+                break;
+
+
+        }
+    }
 }
