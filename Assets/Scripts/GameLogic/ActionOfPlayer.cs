@@ -131,7 +131,7 @@ public class ActionOfPlayer : MonoBehaviour
                 drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
 
                 if (drawnCards == -1)
-                    break;
+                    return;
             }
 		}
         DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
@@ -176,7 +176,7 @@ public class ActionOfPlayer : MonoBehaviour
                 cardNames.Add(c.cardName);
             }
 
-            if (gameState.isOnline)
+            if (gameState.isOnline && !isPlayer)
             {
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
