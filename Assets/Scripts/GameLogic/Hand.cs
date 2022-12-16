@@ -84,7 +84,31 @@ public class Hand : MonoBehaviour
         return cards;
     }
 
-    private Card CardToDiscard(CardDisplay cardDisplay)
+	public void FixMulligan(List<int> cardIndexes)
+	{
+		for (int i = 0; i < cardIndexes.Count; i++)
+		{
+			for (int j = i + 1; j < cardIndexes.Count; j++)
+			{
+				if (cardIndexes[j] > cardIndexes[i])
+				{
+					cardIndexes[j]--;
+				}
+			}
+		}
+        Deck deck = Deck.Instance;
+        for (int i = 0; i < cardIndexes.Count; i++)
+        {
+            Card card = cardsInHand[cardIndexes[i]].card;
+
+			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
+            deck.AddCardToDeckPlayer(card);
+		}
+        deck.ShuffleDeck();
+        ActionOfPlayer.Instance.DrawCardPlayer(cardIndexes.Count, null, true);
+	}
+
+	private Card CardToDiscard(CardDisplay cardDisplay)
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
         Card c = cardDisplay.card;

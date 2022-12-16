@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using TMPro;
 using System.Linq;
 using UnityEngine.Networking.Types;
+using System;
 
 public class ActionOfPlayer : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
+            choice.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionPlayer, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {

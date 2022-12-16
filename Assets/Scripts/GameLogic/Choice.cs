@@ -237,14 +237,14 @@ public class Choice : MonoBehaviour
         {
             switch(whichMethod)
             {
-                case WhichMethod.switchChampionPlayer:
+                case WhichMethod.SwitchChampionPlayer:
                     SwitchChamp(false);                   
                     break;
 
-                case WhichMethod.switchChampionDied:
+                case WhichMethod.SwitchChampionDied:
                     SwitchChamp(true);                    
                     break;
-                case WhichMethod.switchChampionEnemy:
+                case WhichMethod.SwitchChampionEnemy:
                     SwitchChamp(false);
                     break;
 
@@ -329,16 +329,21 @@ public class Choice : MonoBehaviour
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
 
+		if (whichMethod == WhichMethod.Mulligan)
+		{
+			List<int> indexes = new List<int>();
+			for (int i = 0; i < chosenTargets.Count; i++)
+			{
+				int card = chosenTargets[i].index;
+				indexes.Add(card);
+			}
+			actionOfPlayer.handPlayer.FixMulligan(indexes);
+		}
 
-        ResetChoice();
+		ResetChoice();
         gameState.Refresh();
         waitRoom.Remove(waitRoom[0]);
         NextInWaitRoom();
-    }
-
-    public int HowManyChoicesWhereMade()
-    {
-        return chosenTargets.Count;
     }
 
     public void ResetChoice()
@@ -420,7 +425,7 @@ public class Choice : MonoBehaviour
     {
         switch (theMethod)
         {
-            case WhichMethod.switchChampionPlayer:
+            case WhichMethod.SwitchChampionPlayer:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
@@ -428,7 +433,7 @@ public class Choice : MonoBehaviour
                 }
                 break;
 
-            case WhichMethod.switchChampionEnemy:
+            case WhichMethod.SwitchChampionEnemy:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.opponentChampions.Count <= 1)
 				{
@@ -436,7 +441,7 @@ public class Choice : MonoBehaviour
 				}
                 break;
             
-            case WhichMethod.switchChampionDied:
+            case WhichMethod.SwitchChampionDied:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1)
                 {
@@ -509,6 +514,10 @@ public class Choice : MonoBehaviour
                     return false;
                 }
                 break;
+
+                case WhichMethod.Mulligan:
+				descriptionText.text = "Mulligan";
+				break;
         }
         return true;
     }
@@ -558,9 +567,9 @@ public class Choice : MonoBehaviour
 
 public enum WhichMethod
 {
-    switchChampionPlayer,
-	switchChampionEnemy,
-	switchChampionDied,
+    SwitchChampionPlayer,
+	SwitchChampionEnemy,
+	SwitchChampionDied,
     discardCard,
     discardXCardsInMyHand,
     ShowGraveyard,
@@ -568,5 +577,6 @@ public enum WhichMethod
     ShowLandmarks,
     DisableOpponentLandmark,
 	SeersShack,
-    TransformChampionCard
+    TransformChampionCard,
+    Mulligan
 }

@@ -14,6 +14,8 @@ public class GameState : MonoBehaviour
     private Setup setup;
     private Deck deck;
 
+	[SerializeField] private bool mulligan = true;
+
     [Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
     [SerializeField] private GameObject wonScreen;
@@ -65,7 +67,7 @@ public class GameState : MonoBehaviour
     public int amountOfTurns = 1;
 
 
-    private static GameState instance;
+	private static GameState instance;
     public static GameState Instance { get; set; }
 
     private void Awake()
@@ -98,7 +100,8 @@ public class GameState : MonoBehaviour
         deck = Deck.Instance;
 
         if (isOnline)
-        {           
+        {
+            // Måste vara en request vem som ska start först int starting = UnityEngine.Random.Range(0, 1);
             if (ClientConnection.Instance.playerId == 0)
             {
                 isItMyTurn = true;
@@ -136,7 +139,18 @@ public class GameState : MonoBehaviour
         if (!didIStart)
             actionOfPlayer.enemyMana++;
 
+        StartMulligan();
+    }
+
+    private void StartMulligan()
+    {
         DrawStartingCards();
+        if (mulligan)
+        {
+            ListEnum listEnum = new ListEnum();
+            listEnum.myHand = true;
+            Choice.Instance.ChoiceMenu(listEnum, -1, WhichMethod.Mulligan, null, 0.05f);
+        }
     }
 
     public void PlayCardRequest(CardAndPlacement cardPlacement)
@@ -486,7 +500,7 @@ public class GameState : MonoBehaviour
 
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
-        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied, null);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionDied, null);
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
@@ -551,11 +565,8 @@ public class GameState : MonoBehaviour
         {
             actionOfPlayer.IncreaseMana();
         }
-        if (didIStart || !isOnline)
-        {
-            amountOfTurns++;
-            actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
-        }
+        amountOfTurns++;
+        actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
         playerChampion.champion.UpKeep();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
