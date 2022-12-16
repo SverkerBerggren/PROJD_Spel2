@@ -176,7 +176,7 @@ public class ActionOfPlayer : MonoBehaviour
                 cardNames.Add(c.cardName);
             }
 
-            if (gameState.isOnline && !isPlayer)
+            if (gameState.isOnline && isPlayer)
             {
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
