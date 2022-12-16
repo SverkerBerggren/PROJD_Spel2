@@ -77,14 +77,21 @@ public class PlayCardManager : MonoBehaviour
         if (target == null || target.CompareTag("DeckAndGraveyard")) 
             return TypeOfCardTargeting.None;
 
-        if (card.targetable && (target.CompareTag("Champion") || target.CompareTag("LandmarkSlot")))
-        {       
-            if (TauntCard()) 
-                return TypeOfCardTargeting.Taunt;
+        if (card.targetable)
+        {    
+            if (target.TryGetComponent(out AvailableChampion availableChampion))
+            {
+                if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+                    return TypeOfCardTargeting.Targeted;
+            }
+            else if (target.TryGetComponent(out LandmarkDisplay landmarkDisplay))
+            {
+                if (TauntCard())
+                    return TypeOfCardTargeting.Taunt;
 
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-                return TypeOfCardTargeting.Targeted;
-
+                if (landmarkDisplay.card != null && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+                    return TypeOfCardTargeting.Targeted;
+            }
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
