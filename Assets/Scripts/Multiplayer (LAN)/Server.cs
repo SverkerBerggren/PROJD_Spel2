@@ -4,7 +4,7 @@ using System.Threading;
 using System.Linq;
 using System.IO;
 using System.Data;
-
+using System.Net.Sockets;
 
 public class Server
 {
@@ -27,8 +27,50 @@ public class Server
 
     public Integer uniqueInteger = new Integer(1);
 
+    public TcpClient SQLServerConnection = new TcpClient();
 
-    
+    bool SQLServerIsConnected = false;
+
+    public void StartSQLServerConnection()
+    {
+        SQLServerConnection.Connect("mrboboget.se", 54000);
+
+        SQLServerIsConnected = SQLServerConnection.Connected;
+    }
+
+    public void WriteToServer(string message)
+    {
+        byte[] buf = new byte[4096];
+
+        if (!SQLServerIsConnected)
+            return;
+        lock(SQLServerConnection)
+        {
+            int messageLength = message.Length;
+            buf = new byte[messageLength +4];
+            char firstChar = (char)(messageLength >> 24);
+            char secondChar = (char)(messageLength >> 16);
+            char thirdChar = (char)(messageLength >> 8);
+            char fourthChar = (char)(messageLength);
+
+            buf[0] = (byte)firstChar;
+            buf[1] = (byte)secondChar;
+            buf[2] = (byte)thirdChar;
+            buf[3] = (byte)fourthChar;
+
+            for(int i = 0; i <messageLength; i++)
+            {
+                buf[4 + i] = message[i];
+            }
+
+            SQLServerConnection.GetStream().Write(buf,0,)
+
+        }
+    }
+
+
+
+
 
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
     {   
