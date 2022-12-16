@@ -131,7 +131,7 @@ public class ActionOfPlayer : MonoBehaviour
                 drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
 
                 if (drawnCards == -1)
-                    break;
+                    return;
             }
 		}
         DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
