@@ -768,6 +768,7 @@ public class GameState : MonoBehaviour
         }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
+        ActionOfPlayer.Instance.handOpponent.FixCardOrderInHand();
 
         foreach (AvailableChampion aC in playerChampions)
         {
