@@ -182,6 +182,7 @@ public class ActionOfPlayer : MonoBehaviour
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
                 requesten.listOfCardsDiscarded = cardNames;
                 requesten.discardCardToOpponentGraveyard = !isPlayer;
+                requesten.listEnum.myDeck = true;
                 ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
 
             }
