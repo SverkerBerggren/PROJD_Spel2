@@ -181,7 +181,7 @@ public class ActionOfPlayer : MonoBehaviour
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
                 requesten.listOfCardsDiscarded = cardNames;
-                requesten.discardCardToOpponentGraveyard = !isPlayer;
+                requesten.discardCardToOpponentGraveyard = false;
                 requesten.listEnum.myDeck = true;
                 ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
 

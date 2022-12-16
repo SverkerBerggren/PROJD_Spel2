@@ -440,15 +440,19 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void DrawCard(int amountToDraw, Card specificCard)
+    public void DrawCard(int amountToDraw, Card specificCard, bool isPlayer)
     {
-        if (isOnline)
+        if (isOnline && isPlayer)
         {
             RequestDrawCard request = new RequestDrawCard(amountToDraw);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
-        actionOfPlayer.DrawCardPlayer(amountToDraw, specificCard, true);
+        actionOfPlayer.DrawCardPlayer(amountToDraw, specificCard, isPlayer);
+    }
+    public void DrawCard(int amountToDraw, Card specificCard)
+    {
+        DrawCard(amountToDraw, specificCard, true);    
     }
 
     private void DrawStartingCards()
@@ -583,7 +587,9 @@ public class GameState : MonoBehaviour
 
     public void TriggerEndStep()
     {
+        DrawCard(1, null,false);
         playerChampion.champion.EndStep();
+
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
             if(landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
