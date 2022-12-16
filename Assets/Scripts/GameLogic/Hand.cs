@@ -66,17 +66,8 @@ public class Hand : MonoBehaviour
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
-        List<string> cards = new List<string>();
-        for (int i = 0; i < cardIndexes.Count; i++)
-        {
-            for (int j = i + 1; j < cardIndexes.Count; j++)
-            {
-                if (cardIndexes[j] > cardIndexes[i])
-                {
-                    cardIndexes[j]--;
-                }
-            }
-        }
+		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
+		List<string> cards = new List<string>();
         for (int i = 0; i < cardIndexes.Count; i++)
         {
             cards.Add(CardToDiscard(cardsInHand[cardIndexes[i]]).cardName);
@@ -86,17 +77,8 @@ public class Hand : MonoBehaviour
 
 	public void FixMulligan(List<int> cardIndexes)
 	{
-		for (int i = 0; i < cardIndexes.Count; i++)
-		{
-			for (int j = i + 1; j < cardIndexes.Count; j++)
-			{
-				if (cardIndexes[j] > cardIndexes[i])
-				{
-					cardIndexes[j]--;
-				}
-			}
-		}
-        Deck deck = Deck.Instance;
+		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
+		Deck deck = Deck.Instance;
         for (int i = 0; i < cardIndexes.Count; i++)
         {
             Card card = cardsInHand[cardIndexes[i]].card;
@@ -105,6 +87,21 @@ public class Hand : MonoBehaviour
 		}
         deck.ShuffleDeck();
         ActionOfPlayer.Instance.DrawCardPlayer(cardIndexes.Count, null, true);
+	}
+
+    private List<int> FixIndexesWhenRemovingCards(List<int> indexes)
+    {
+		for (int i = 0; i < indexes.Count; i++)
+		{
+			for (int j = i + 1; j < indexes.Count; j++)
+			{
+				if (indexes[j] > indexes[i])
+				{
+					indexes[j]--;
+				}
+			}
+		}
+        return indexes;
 	}
 
 	private Card CardToDiscard(CardDisplay cardDisplay)
