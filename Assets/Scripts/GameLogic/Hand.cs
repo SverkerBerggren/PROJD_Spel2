@@ -100,7 +100,6 @@ public class Hand : MonoBehaviour
         for (int i = 0; i < cardIndexes.Count; i++)
         {
             Card card = cardsInHand[cardIndexes[i]].card;
-
 			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
             deck.AddCardToDeckPlayer(card);
 		}
