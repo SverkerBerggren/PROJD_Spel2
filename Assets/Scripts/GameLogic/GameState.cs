@@ -586,8 +586,11 @@ public class GameState : MonoBehaviour
     }
 
     public void TriggerEndStep()
-    {
-        DrawCard(1, null,false);
+    {   
+        if(!isOnline)
+        {
+            DrawCard(1, null,false);
+        }
         playerChampion.champion.EndStep();
 
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
