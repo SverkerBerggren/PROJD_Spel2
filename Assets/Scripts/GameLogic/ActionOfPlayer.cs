@@ -170,8 +170,7 @@ public class ActionOfPlayer : MonoBehaviour
                 Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
                 if (isPlayer)
                     graveyard.AddCardToGraveyard(c);
-                else
-                    graveyard.AddCardToGraveyardOpponent(c);
+
 
                 cardNames.Add(c.cardName);
             }
