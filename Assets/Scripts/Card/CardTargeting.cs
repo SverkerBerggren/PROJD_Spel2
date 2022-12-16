@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -47,8 +48,9 @@ public class CardTargeting : MonoBehaviour
         }
 
         RaycastHit[] hitEnemy;
-        hitEnemy = Physics.RaycastAll(mousePosition, Vector3.forward * 100 + Vector3.down * 55, 200f);
-        Debug.DrawRay(mousePosition, Vector3.forward * 100 + Vector3.down * 55, Color.red, 100f);
+        Vector3 dir = mousePosition - Camera.main.transform.position;
+        hitEnemy = Physics.RaycastAll(mousePosition, dir, 200f);       
+        Debug.DrawRay(mousePosition, dir, Color.blue, 100f);
 
         if (CheckIfRaycastHitEnemy(hitEnemy) == TypeOfCardTargeting.None)
             cardDisplay.ResetSize();
