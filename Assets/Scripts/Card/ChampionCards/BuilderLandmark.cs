@@ -5,29 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/BuilderLandmark")]
 public class BuilderLandmark : Landmarks
 {
-    public int damagePerLandmark = 10;
     public bool slaughterhouse = false;
     public bool factory = false;
-    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag) { }
-
-    public override void PlaceLandmark()
-    {
-        base.PlaceLandmark();
-        if (factory)
-            GameState.Instance.factory++;
+    public BuilderLandmark(BuilderLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield) 
+    { 
+        championCard = true;
+        championCardType = ChampionCardType.Builder;
     }
 
-    public override void LandmarkEffectTakeBack()
+    public override int CalculateManaCost(CardDisplay cardDisplay)
     {
-        if (factory)
-            GameState.Instance.factory--;
+        if (factory && LandmarksActive() >= 3)
+            return base.CalculateManaCost(cardDisplay) - 2;            
+        
+        return base.CalculateManaCost(cardDisplay);
+    }
+
+    private int LandmarksActive()
+    {
+        int amountOfLandmarksActive = 0;
+        foreach (LandmarkDisplay lD in GameState.Instance.playerLandmarks)
+        {
+            if (lD.card != null)
+                amountOfLandmarksActive++;
+        }
+        return amountOfLandmarksActive;
     }
 
     public override int DealDamageAttack(int damage)
-    {
+    {   
         if (slaughterhouse)
         {
-            return damage + damagePerLandmark;
+            return damage + (this.damage * LandmarksActive());
         }
 
         return base.DealDamageAttack(damage) ;

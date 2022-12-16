@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/TauntLandmark")]
 public class TauntLandmark : Landmarks
 {    
-    public TauntLandmark(TauntLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
+    public TauntLandmark(TauntLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
         
     }
@@ -15,12 +15,6 @@ public class TauntLandmark : Landmarks
     public override void PlaceLandmark()
     {
         base.PlaceLandmark();
-
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-        base.LandmarkEffectTakeBack();
 
     }
 }

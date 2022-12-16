@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
 public class AttackSpell : Spells
 {
-    public int damage = 10;
     public bool destroyLandmark = false;
     public bool damageEqualsToYourChampionHP = false;
     public bool damageToBothActiveChampions = false;
@@ -23,27 +22,34 @@ public class AttackSpell : Spells
         gameState = GameState.Instance;
         if (damageEqualsToYourChampionHP)
             DamageAsYourChampionHP();
-        if (Target != null || LandmarkTarget)
-            gameState.CalculateBonusDamage(damage, this);
-
-        
-        if (destroyLandmark)
-        {
-            DestroyLandmark();
-        }
 
         if (damageToBothActiveChampions)
         {
             DamageToBothActiveChampions();
+            return;
         }
+
+        if (Target != null || LandmarkTarget)
+            gameState.CalculateAndDealDamage(damage, this);
+
+        
+        if (destroyLandmark)
+        {
+            ListEnum lE = new ListEnum();
+            lE.myLandmarks = true;
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
+            //DestroyLandmark();
+        }
+
     }
 
     private void DamageToBothActiveChampions()
     {
         Target = gameState.opponentChampion.champion;
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
+
         Target = gameState.playerChampion.champion;
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
     }
 
     private void DestroyLandmark()

@@ -7,11 +7,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/DamageLandmark")]
 public class DamageLandmark : Landmarks
 {
-    public int damage = 10;
     public bool isPyromancyHut = false;
-    public DamageLandmark(DamageLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
+    public DamageLandmark(DamageLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
-        this.damage = card.damage;
+        damage = card.damage;
     }
 
     public override int DealDamageAttack(int damage)
@@ -28,7 +27,6 @@ public class DamageLandmark : Landmarks
         lE.opponentChampions = true;
         TargetInfo tI = new TargetInfo(lE, 0);
         TargetAndAmount taa = new TargetAndAmount(tI, damage);
-
         GameState.Instance.DealDamage(taa);
     }
 }

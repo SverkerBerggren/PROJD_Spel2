@@ -5,8 +5,8 @@ using System;
 public class ResponseDestroyLandmark : ServerResponse
 {
     public List<TargetInfo> landmarksToDestroy = new List<TargetInfo>();
-
-    public ResponseDestroyLandmark()
+	public bool sacrificeLandmark = false;
+	public ResponseDestroyLandmark()
     {
         Type = 8;
     }

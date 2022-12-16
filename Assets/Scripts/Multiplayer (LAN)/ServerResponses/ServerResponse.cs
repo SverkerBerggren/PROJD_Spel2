@@ -5,17 +5,10 @@ using System;
 public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
 {
     public  int Type = 0;
-  
     public  int whichPlayer = 100;
-
-    public bool cardPlayed = false;
-
     public List<GameAction> OpponentActions = new List<GameAction>();
-
     public string message = "";
-
-    public int cardId  = 0; 
-
+    public int gameId = 0; 
     public Type GetType(int IntegerToConvert)
     {   if(IntegerToConvert == 0)
         {
@@ -76,6 +69,26 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         if (IntegerToConvert == 14)
         {
             return (typeof(ResponsePassPriority));
+        }
+        if (IntegerToConvert == 15)
+        {
+            return (typeof(ResponseAvailableLobbies));
+        }
+        if (IntegerToConvert == 16)
+        {
+            return (typeof(ResponseHostLobby));
+        }
+        if (IntegerToConvert == 17)
+        {
+            return (typeof(ResponseJoinLobby));
+        }
+        if (IntegerToConvert == 18)
+        {
+            return (typeof(ResponseUniqueInteger));
+        }
+        if(IntegerToConvert == 19)
+        {
+            return (typeof(ResponseStopSwapping));
         }
         return (typeof(ServerResponse));
     }

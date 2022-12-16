@@ -13,7 +13,7 @@ public abstract class Spells : Card
     {   
         base.PlayCard();
         PlaySpell();
-        
+        GameState.Instance.Refresh();
     }
 
    

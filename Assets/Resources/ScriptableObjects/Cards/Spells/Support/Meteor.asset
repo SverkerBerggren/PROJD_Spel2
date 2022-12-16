@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f33a27f3ff8a6d4d8b7e35fb43ab65d, type: 3}
+  m_Name: Meteor
+  m_EditorClassIdentifier: 
+  cardName: Meteor
+  typeOfCard: 0
+  description: <color="red">Destroy<color="black"> a landmark
+  artwork: {fileID: 21300000, guid: ae445b1fe99153b40a0648c4bad3dbb0, type: 3}
+  maxManaCost: 2
+  tag: DestoryLandmark
+  damage: 0
+  amountToHeal: 0
+  amountToShield: 0
+  amountOfCardsToDraw: 0
+  amountOfCardsToDiscard: 0
+  discardCardsYourself: 1
+  targetable: 1
+  championCard: 0
+  championCardType: 0

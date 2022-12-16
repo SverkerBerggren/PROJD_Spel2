@@ -5,27 +5,49 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Cultist")]
 public class CultistCard : Spells
 {
-    [Header("RitualSacrifice")]
-    public int selfInflictDamage = 0;
-    [Header("Deluge")]
-    public bool damageToAllOpponentCards;
-    public int damageToDealToAllOpponent = 0;
+    public bool deluge = false;
+    public bool ritualSactifice = false;
+
+    private GameState gameState;
+    public CultistCard()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Cultist;
+    }
     public override void PlaySpell()
     {
-        GameState gameState = GameState.Instance;
-        Target = gameState.playerChampion.champion;
-        gameState.CalculateBonusDamage(selfInflictDamage, this);
-
-        if (damageToAllOpponentCards)
+        gameState = GameState.Instance;
+        if (deluge)
         {
-            Target = gameState.opponentChampion.champion;
-            gameState.CalculateBonusDamage(damageToDealToAllOpponent, this);
-
-            /* MÅste fixa så att den targetar landmarks */
-            foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
-            {
-                gameState.CalculateBonusDamage(damageToDealToAllOpponent, this);
-            }           
+            Deluge();
         }
+        else if (ritualSactifice)
+        {
+            RitualSacrifice();
+        }
+
+        
+        
+    }
+
+    private void Deluge()
+    {
+        Target = gameState.opponentChampion.champion;
+        gameState.CalculateAndDealDamage(damage, this);
+        Target = null;
+
+        /* MÅste fixa så att den targetar landmarks */
+        foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
+        {
+            if (landmark.card == null) continue;
+
+            LandmarkTarget = landmark;
+            gameState.CalculateAndDealDamage(damage, this);
+        }
+    }
+    private void RitualSacrifice()
+    {
+        Target = gameState.playerChampion.champion;
+        gameState.CalculateAndDealDamage(damage, this);
     }
 }

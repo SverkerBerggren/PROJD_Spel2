@@ -5,19 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/Builder")]
 public class BuilderCard : Spells
 {
-    public int damage = 0;
+    public BuilderCard()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Builder;
+    }
     public override void PlaySpell()
     {
         GameState gameState = GameState.Instance;
-
-        for (int i = 0; i < gameState.playerLandmarks.Count; i++)
+        int calculated = damage;
+        foreach (LandmarkDisplay display in gameState.playerLandmarks)
         {
-            damage += 10;
+            if (display.card == null) continue;
+
+            calculated += damage;
             gameState.DrawCard(1, null);
-        }       
-        if (Target != null)
-            //Target.TakeDamage(damage);
-        if (LandmarkTarget != null)
-            LandmarkTarget.TakeDamage(damage);       
+        }
+
+        gameState.CalculateAndDealDamage(calculated, this);
     }
 }

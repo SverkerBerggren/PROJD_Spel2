@@ -8,43 +8,26 @@ public class Cultist : Champion
 	public int perMissingHP = 20;
 	public int damagePerMissingHP = 10;
 
-	public int currentBonusDamage = 0;
-
-	public Cultist(Cultist c) : base(c.name, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect) 
-	{
-		perMissingHP = c.perMissingHP;
-		damagePerMissingHP = c.damagePerMissingHP;
-		currentBonusDamage = c.currentBonusDamage;
-	}
-
-	public override void Awake()
+    public override void Awake()
 	{
 		base.Awake();
-		passiveEffect = currentBonusDamage + "+";
-	}
+		UpdatePassive();
+
+    }
 
 	public override int DealDamageAttack(int damage)
 	{
-		return damage + currentBonusDamage;
+        return damage + CalculateBonusDamage();
 	}
 
-	public override void TakeDamage(int damage, GameObject gO)
+	private int CalculateBonusDamage()
 	{
-		base.TakeDamage(damage, gO);
-		ChangeBonusDamage();
-	}
+        int difference = (maxHealth - health) / perMissingHP;
+        return damagePerMissingHP * difference;
+    }
 
-	public override void HealChampion(int amountToHeal)
+	public override void UpdatePassive()
 	{
-		base.HealChampion(amountToHeal);
-		ChangeBonusDamage();
-	}
-
-	private void ChangeBonusDamage()
-	{
-		int difference = (maxHealth - health) / perMissingHP;
-		currentBonusDamage = damagePerMissingHP * difference;
-		passiveEffect = currentBonusDamage + "+";
-		
-	}
+        passiveEffect = CalculateBonusDamage() + "+ Extra damage";
+    }
 }

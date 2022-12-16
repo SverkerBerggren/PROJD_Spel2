@@ -3,129 +3,113 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay : Displays
 {
-    public SpriteRenderer artworkSpriteRenderer;
+    private bool alreadyBig = false;
+    private Vector3 originalSize;
+    private bool loadedSpriteRenderer = false;
+    private bool loadedDisplayAttributes = false;
+    [SerializeField] private float scaleOnHover = 1.3f; 
 
-    public Card card;  
+    [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
+    [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
 
-    [Header("CardAtributes")]
-    public TMP_Text cardName;
-    public TMP_Text description;
-    public TMP_Text manaText;
-    public int manaCost;
-
-    [Header("CardMaterial")]
-    public MeshRenderer artworkMeshRenderer;
-
-    public Material attackCardMaterial;
-    public Material spellCardMaterial;
-    public Material landmarkCardMaterial;
-
-    public GameObject cardPlayableEffect;
-
-    public GameObject nameBackground;
-    public GameObject hpGameObject;
-    public TMP_Text hpText;
-
-    public GameObject border;
-    [System.NonSerialized] public bool opponentCard;
-    public bool mouseDown = false;
-    public bool alreadyBig = false;
-    public Vector3 originalSize;
+    [NonSerialized] public Transform displayTransform;
 
 
-    private void Start()
+    public LayoutElement layoutElement;
+
+    [NonSerialized] public bool firstCardDrawn = false;
+    [NonSerialized] public bool mouseDown = false;
+    [NonSerialized] public bool clickedOnCard = false;
+
+    private CardMovement cardMovement;
+
+    private void Awake()
+    {
+        if (!loadedSpriteRenderer && opponentCard)
+            LoadSpriteRendererOnce();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
+        Invoke(nameof(LoadInvoke), 0.01f);       
+    }
+
+    public void HideUnusedCard()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+    private void LoadInvoke()
     {
         originalSize = transform.localScale;
-    }
-
-    private void UpdateTextOnCard()
-    {
-        if (card == null) return;
-        
-        
-        if (!opponentCard)
-        {
-            UpdateMaterialOnCard();
-
-            cardName.text = card.cardName;
-            manaText.text = manaCost.ToString();
-            description.text = card.description;
-
-            if (cardPlayableEffect != null)
-            {
-                if (ActionOfPlayer.Instance.currentMana >= manaCost && GameState.Instance.isItMyTurn)
-                    cardPlayableEffect.SetActive(true);
-                else
-                    cardPlayableEffect.SetActive(false);
-            }
-        }
-            
-
-        
-       
-        //manaText.text = card.manaCost.ToString();
-    }
-
-    private void UpdateMaterialOnCard()
-    {
-        switch (card.typeOfCard)
-        {
-            case CardType.Attack:
-                nameBackground.SetActive(false);
-                hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = attackCardMaterial;
-                break;
-            case CardType.Spell:
-                nameBackground.SetActive(false);
-                hpGameObject.SetActive(false);
-                artworkMeshRenderer.material = spellCardMaterial;
-                break;
-            case CardType.Landmark:
-                nameBackground.SetActive(true);
-                hpGameObject.SetActive(true);
-                Landmarks landmarkCard = (Landmarks)card;
-                hpText.text = landmarkCard.minionHealth.ToString();
-                artworkMeshRenderer.material = landmarkCardMaterial;
-                break;
-
-        }
+        cardTargeting = GetComponent<CardTargeting>();
+        cardMovement = GetComponent<CardMovement>();
     }
 
 
-    private void FixedUpdate()
+    public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
-        UpdateTextOnCard();    
-        
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
+        opponentCard = true;
+        artworkSpriteRenderer.sprite = backfaceCard;
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private void LoadSpriteRendererOnce()
+    {
+        loadedSpriteRenderer = true;
+        artworkSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+    }
+
+    private void LoadDisplayAttributesOnce()
+    {
+        loadedDisplayAttributes = true;
+        cardDisplayAttributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        displayTransform = cardDisplayAttributes.transform;
+    }
+
+    public void UpdateTextOnCard()
+    {
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
+
+        cardDisplayAttributes.UpdateTextOnCard(this);
     }
 
     public void ResetSize()
     {
-        transform.localScale = originalSize;
+        displayTransform.localScale = new Vector3(1,1,1);
     }
 
-    private void OnMouseEnter()
+    public void MouseEnter()
     {
         if (opponentCard) return;
-       
-        if (!alreadyBig)
+
+        if (!alreadyBig && !clickedOnCard)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z - 1);
-            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+            displayTransform.position += new Vector3(0, 7.5f, -1);
+            displayTransform.localScale = new Vector3(scaleOnHover, scaleOnHover, scaleOnHover);
             alreadyBig = true;
         }
     }
-    private void OnMouseExit()
+
+    public void MouseExit()
     {
         if (opponentCard) return;
         if (!mouseDown)
         {
             alreadyBig = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z + 1);
+            displayTransform.position += new Vector3(0, -7.5f, 1);
             ResetSize();
         }
+    }
 
+    public void EndStep()
+    {
+        firstCardDrawn = false;
     }
 }

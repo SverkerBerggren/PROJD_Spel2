@@ -5,19 +5,31 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/DuelistLandmark")]
 public class DuelistLandmark : Landmarks
 {
-    public DuelistLandmark(DuelistLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.tag)
+    public DuelistLandmark(DuelistLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
-
+        championCard = true;
+        championCardType = ChampionCardType.Duelist;
     }
 
     public override void PlaceLandmark()
     {
-        base.PlaceLandmark();
+        GameState gameState = GameState.Instance;
+        if (gameState.isOnline)
+        {
+            RequestStopSwapping stopSwapRequest = new RequestStopSwapping(false);
+            stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(stopSwapRequest, gameState.RequestEmpty);
+        }
     }
 
-    public override void LandmarkEffectTakeBack()
+    public override void WhenLandmarksDie()
     {
-        base.LandmarkEffectTakeBack();
-
+        GameState gameState = GameState.Instance;
+        if (gameState.isOnline)
+        {
+            RequestStopSwapping stopSwapRequest = new RequestStopSwapping(true);
+            stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;
+            ClientConnection.Instance.AddRequest(stopSwapRequest, gameState.RequestEmpty);
+        }
     }
 }

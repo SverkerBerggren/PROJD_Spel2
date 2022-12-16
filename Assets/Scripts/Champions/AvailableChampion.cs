@@ -4,58 +4,66 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Rendering.HighDefinition;
 
 public class AvailableChampion : MonoBehaviour
 {
 	// Start is called before the first frame update
 	public Champion champion;
 
-	public new string name;
+	public string nameOfChampion;
     public int health;
 	public int maxHealth;
     public int shield;
 
+    public bool isOpponent = false;
+
     public GameObject meshToShow;
-    private GameObject builderMesh;
-    private GameObject cultistMesh;
-    private GameObject graverobberMesh;
-    private GameObject theOneDrawsMesh;
-    private GameObject shankerMesh;
-    private GameObject duelistMesh;
+
+    private GameObject passiveTextPlayer;
+    private GameObject passiveTextOpponent;
+    public Image currentSprite;
+
+	public Animator animator;
+
 	private bool wantToSeInfoOnChamp = false;
 
     private float timer = 0f;
     private float timeBeforeShowing = 0.5f;
 
+
     public SpriteRenderer champCard;
+    private GameState gameState;
     //private ArmorEffect armorEffect;
+    [SerializeField] private GameObject sheildUIObject;
+    [SerializeField] private ShieldShow shieldShow;
 
-    private GameObject prevGO = null; 
-
-    [SerializeField] private TMP_Text healthText;
-    [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text passiveEffect;
 
     [NonSerialized] public GameObject targetingEffect;
 
+    public GameObject imageHolder;
+
+
+    [SerializeField] private GameObject healthBar;
+    private Slider healthBarSlider;
+    private TMP_Text healthBarText;
+
     //public SpriteRenderer artwork;
 
     private void Awake()
-	{
-        name = champion.name;
-        //artwork.sprite = champion.artwork;
-        passiveEffect.text = champion.passiveEffect;
-        health = champion.health;
-        maxHealth = champion.maxHealth;
-		//InvokeRepeating(nameof(Deal5Damage), 5, 2);
-	}
+    {
+        SetupHealthBar();
+    }
 
-	private void Start()
+    private void Start()
 	{
+        gameState = GameState.Instance;
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
-        Invoke(nameof(SetWichMeshToShowOnStart),0.05f);
+
+        
 
         if (transform.Find("TargetingEffect") != null)
         {
@@ -64,93 +72,127 @@ public class AvailableChampion : MonoBehaviour
             GameState.Instance.targetingEffect = targetingEffect;
         }
 
-        GetAllMeshes();
-    }
-    private void GetAllMeshes()
-    {
-        builderMesh = transform.Find("Builder").gameObject;
-        cultistMesh = transform.Find("Cultist").gameObject;
-        graverobberMesh = transform.Find("Graverobber").gameObject;
-        theOneDrawsMesh = transform.Find("TheOneWhoDraws").gameObject;
-        shankerMesh = transform.Find("Shanker").gameObject;
-        duelistMesh = transform.Find("Duelist").gameObject;
+        passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
+        passiveTextOpponent = GameObject.Find("ChampionPlayerPassive");
+
+        currentSprite = imageHolder.GetComponent<Image>();
+
+
+        SetupChampion();
+        //GetAllMeshes();
+
+        /*        if ((gameState.playerChampion == this || gameState.opponentChampion == this))*/
+
     }
 
-    private void SetWichMeshToShowOnStart()
+
+    private void SetupHealthBar()
     {
-        switch(meshToShow.name)
+        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+        healthBarSlider = healthBar.GetComponent<Slider>();
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = maxHealth;
+    }
+
+    private void SetupChampion()
+    {
+        nameOfChampion = champion.championName;
+        //artwork.sprite = champion.artwork;
+        passiveEffect.text = champion.passiveEffect;
+        health = champion.health;
+        maxHealth = champion.maxHealth;
+
+        if (gameState.playerChampion.champion == champion || gameState.opponentChampion.champion == champion)
         {
-            case "Builder":
-                builderMesh.SetActive(true);
-                champion.animator = builderMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Cultist":
-                cultistMesh.SetActive(true);
-                champion.animator = cultistMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Graverobber":
-                graverobberMesh.SetActive(true);
-                champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
-                break;
-            case "Duelist":
-                duelistMesh.SetActive(true);
-                break;
-			case "TheOneWhoDraws":
-				theOneDrawsMesh.SetActive(true);
-				break;
-			case "Shanker":
-				shankerMesh.SetActive(true);
-				break;
-		}
-    }
+            meshToShow = Instantiate(champion.championMesh, transform);
 
-    /*
-    public void ChangeChampion(Champion champion, int currentHealth, int currentShield)
-    {
-        this.champion = champion;
-        Awake();
-        health = currentHealth;
-        shield = currentShield;
+            if (meshToShow.GetComponent<Animator>() != null)
+                animator = meshToShow.GetComponent<Animator>();
+        }
+
+
     }
-    */
 
     private void OnMouseEnter()
     {
+        if (GameState.Instance.playerChampion == champion || GameState.Instance.opponentChampion == champion)
+        {
+            passiveTextOpponent.SetActive(false);
+            passiveTextPlayer.SetActive(false);
+        }
         wantToSeInfoOnChamp = true;
     }
 
     private void OnMouseExit()
     {
+        if (GameState.Instance.playerChampion == champion || GameState.Instance.opponentChampion == champion)
+        {
+            passiveTextOpponent.SetActive(true);
+            passiveTextPlayer.SetActive(true);
+        }
         wantToSeInfoOnChamp = false;
         champCard.sprite = null;
         timer = 0f;
     }
 
-    private void UpdateTextOnCard()
+    private void ChangeChampionMesh()
+    {
+        Destroy(meshToShow);
+        meshToShow = Instantiate(champion.championMesh, transform);
+
+        //if (meshToShow.GetComponent<Animator>() != null)
+            animator = meshToShow.GetComponent<Animator>();
+    }
+
+    public void UpdateTextOnCard()
     {
         if (champion == null) return;
 
-        name = champion.name;
+        nameOfChampion = champion.championName;
         health = champion.health;
         maxHealth = champion.maxHealth;
         shield = champion.shield;
-        passiveEffect.text = champion.passiveEffect;
-        healthText.text = health + "/" + maxHealth;
-        //shieldText.text = shield + "";
+
+        currentSprite.sprite = champion.champBackground;
+        if (meshToShow != null)
+        {
+            string[] nameOfChampion = meshToShow.name.Split("(");
+ 
+            if (!champion.championMesh.name.Equals(nameOfChampion[0]))
+                ChangeChampionMesh();
+        }
+
+
+        champion.UpdatePassive();
+        if (passiveEffect.text != null)
+            passiveEffect.text = champion.passiveEffect;
+
+        if (healthBarSlider == null)
+            SetupHealthBar();
+
+        if (shield == 0)        
+            sheildUIObject.SetActive(false);
+        else
+        {
+            sheildUIObject.SetActive(true);
+            shieldShow.ChangeShieldTextTo(champion.shield);
+        }
+
+
+        healthBarSlider.maxValue = maxHealth;
+        if (health <= 0)
+        {
+            healthBarSlider.value = 0;
+            // Show X on dead champ here
+        }
+        else
+            healthBarSlider.value = health;
+
+        healthBarText.text = health.ToString() + "/" + maxHealth.ToString();
 	}
 
     public void FixedUpdate()
 	{
-        if (champion.destroyShield)
-        {
-            //armorEffect.DamageArmor(10);
-            print("RUns");
-        }
-            
-		UpdateTextOnCard();
-
-        SwapMesh();
-
         if (wantToSeInfoOnChamp)
         {
             timer += Time.fixedDeltaTime;
@@ -158,73 +200,67 @@ public class AvailableChampion : MonoBehaviour
                 champCard.sprite = champion.artwork;
         }
 	}
-    
-    private void SwapMesh()
+
+    public virtual void TakeDamage(int damage)
     {
-        switch (champion.name)
+        if (champion.shield == 0)
         {
-            case "Builder":
-                builderMesh.SetActive(true);
-                cultistMesh.SetActive(false);
-                graverobberMesh.SetActive(false);
-                duelistMesh.SetActive(false);
-                shankerMesh.SetActive(false);
-                theOneDrawsMesh.SetActive(false);
-                champion.animator = builderMesh.GetComponentInChildren<Animator>();
-                meshToShow = builderMesh;
-                break;
+            champion.health -= damage;
+        }
+        else
+        {
+            if (damage >= champion.shield)
+            {
+                int differenceAfterShieldDamage = damage - champion.shield;
+                champion.shield = 0;
+                sheildUIObject.SetActive(false);
+                ShieldEffectDestroy();
 
-            case "Cultist":
-                builderMesh.SetActive(false);
-                cultistMesh.SetActive(true);
-                graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				champion.animator = cultistMesh.GetComponentInChildren<Animator>();
-                meshToShow = cultistMesh;
-                break;
+                champion.health -= differenceAfterShieldDamage;
+            }
+            else
+            {
+                champion.shield -= damage;
+                shieldShow.ChangeShieldTextTo(champion.shield);
+            }
+        }
 
-            case "Graverobber":
-                builderMesh.SetActive(false);               
-                cultistMesh.SetActive(false);
-                graverobberMesh.SetActive(true);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				champion.animator = graverobberMesh.GetComponentInChildren<Animator>();
-                meshToShow = graverobberMesh;
-                break;
+        if (champion.health <= 0)
+        {
+            Death();
+        }
+    }
+    public virtual void Death()
+    {
+        print("BefDead");
+        if (animator != null)
+        {
+            print("PlayDead");
+            animator.SetTrigger("Dead");
+        }
+        gameState.ChampionDeath(champion);
+    }
 
-			case "Duelist":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(true);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(false);
-				meshToShow = duelistMesh;
-				break;
+    private void ShieldEffectDestroy()
+    {
+        Tuple<string, bool> tuple = new Tuple<string, bool>(champion.championName, isOpponent);
+        EffectController.Instance.DestroyShield(tuple);
+    }
 
-			case "Shanker":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(true);
-				theOneDrawsMesh.SetActive(false);
-				meshToShow = shankerMesh;
-				break;
+    public virtual void HealChampion(int amountToHeal)
+    {
+        champion.health += amountToHeal;
+        if (champion.health > champion.maxHealth)
+        {
+            champion.health = maxHealth;
+        }
 
-			case "TheOneWhoDraws":
-				builderMesh.SetActive(false);
-				cultistMesh.SetActive(false);
-				graverobberMesh.SetActive(false);
-				duelistMesh.SetActive(false);
-				shankerMesh.SetActive(false);
-				theOneDrawsMesh.SetActive(true);
-				meshToShow = theOneDrawsMesh;
-				break;
-		}
+    }
+    public virtual void GainShield(int amountToBlock)
+    {
+        champion.shield += amountToBlock;
+        sheildUIObject.SetActive(true);
+
+        shieldShow.ChangeShieldTextTo(champion.shield);
     }
 }

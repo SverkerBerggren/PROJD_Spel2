@@ -5,19 +5,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/DuelistAttack")]
 public class DuelistAttack : Spells
 {
-    public int damage = 30;
     private GameState gameState;
+
+    public DuelistAttack()
+    {
+        championCard = true;
+        championCardType = ChampionCardType.Duelist;
+    }
+
     public override void PlaySpell()
     {
         gameState = GameState.Instance;
-
-        gameState.CalculateBonusDamage(damage, this);
+        int newDamage = Calculations.Instance.CalculateDamage(damage, false);
+        //if (Target == null && newDamage >= Target.)
+        gameState.CalculateAndDealDamage(damage, this);
 
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
 
-        Choise.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionDied);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.switchChampionEnemy, null);
 
-        gameState.CalculateBonusDamage(damage, this);
+        gameState.CalculateAndDealDamage(damage, this);
     }
 }

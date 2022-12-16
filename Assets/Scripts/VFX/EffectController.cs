@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EffectController : MonoBehaviour
@@ -9,11 +11,14 @@ public class EffectController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private GameObject healingPrefab;
-  
+    [SerializeField] private GameObject cultistAttackPrefab;
+    [SerializeField] private Transform targetPos;
     
-    private Dictionary<string, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
-    private GameObject shiledToGo;
+    private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
+    private GameObject shieldToGo;
     //for controlling propety in shader graph, for simulate a fade out effec
+    
+    
 
     private static EffectController instance;
 
@@ -30,19 +35,65 @@ public class EffectController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        shields = new Dictionary<string, GameObject>();
+        shields = new Dictionary<Tuple<string, bool>, GameObject>();
+        //should have to know where to spwn Cultist attack effect 
+     
 
+     }
+
+    private void FixedUpdate()
+    {
+        ShieldPosition();   
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ShieldPosition()
     {
+        foreach(Tuple<string,bool> availableChampion in shields.Keys)
+        {
+            if(availableChampion.Item2 == false)
+            {
+                foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
+                {
+                    if(champOnField.champion.championName.Equals(availableChampion.Item1))  
+                    {                      
+                        shields[availableChampion].transform.position = champOnField.transform.position;
+                        
+                        if (GameState.Instance.playerChampion.champion.championName.Equals(availableChampion.Item1))
+                        {
+                            shields[availableChampion].gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            shields[availableChampion].gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach(AvailableChampion champOnField in GameState.Instance.opponentChampions)
+                {
+                    if(champOnField.champion.championName.Equals(availableChampion.Item1))  
+                    {
+                        shields[availableChampion].transform.position = champOnField.transform.position;
 
+                        if (GameState.Instance.opponentChampion.champion.championName.Equals(availableChampion.Item1))
+                        {
+                            shields[availableChampion].gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            shields[availableChampion].gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
+        }      
     }
 
     //two parameters, which champion should have shiled and how much  
     //the shield shall only has tre state, on, half-on, and disappear
-    public void ActiveShield(GameObject champions, int shiledAmount)
+    public void ActiveShield(Tuple<string,bool> tupleShields, int shieldAmount, GameObject gameObject)
     {
         //shiled effect 100 procent
         //Set upp shield effect here at champions position 
@@ -50,17 +101,24 @@ public class EffectController : MonoBehaviour
         //if the champion doesn't has any shield before, instantiate a new
         //otherwise change shiled value from invisible to visible
         //ALT: set shiled as child to champion
-        Vector3 shiledPos = new Vector3(champions.transform.position.x, champions.transform.position.y + 3, champions.transform.position.z);
-        GameObject toStore = Instantiate(shieldPrefab, shiledPos, Quaternion.identity); //the GO should have Shieldeffect script
-        if(!shields.ContainsKey(champions.name))
-            shields.Add(champions.name, toStore);
+
+
+        if (!shields.ContainsKey(tupleShields))
+        {
+            Vector3 shieldPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 3, gameObject.transform.position.z);
+            GameObject toStore = Instantiate(shieldPrefab, shieldPos, Quaternion.identity); //the GO should have Shieldeffect script
+            shields.Add(tupleShields, toStore);            
+        }
+            
         //champions.shield = shiledAmount;
     }
-    public void DestoryShield(GameObject champion)
+    public void DestroyShield(Tuple<string,bool> champion)
     {   //shiled effect 0 procent
         //this champion's shiled should be destroys 
-        shiledToGo = shields[champion.name];
-        shiledToGo.GetComponent<Shieldeffect>().Disslove(); 
+        
+        shieldToGo = shields[champion];
+        shieldToGo.GetComponent<Shieldeffect>().Disslove(); 
+        shields.Remove(champion);
         //apply the fade out effect
     }
 
@@ -68,6 +126,65 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
+    public void GainCultistAttackEffect(Transform trans)
+    {
+       
+            Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
+        
+   
+    }
+    public void DiscardCardEffect(GameObject card)
+    {
+        card.GetComponent<CardDissolve>().SetDissolveState(true);
+    }
+    public void DestoryBuilderEffect(GameObject go)
+    {
+        go.GetComponent<Effect_Builder>().SetDissolve(true);
+    }
+    public void DestoryGraveRoEffect(GameObject go)
+    {
+        go.GetComponent<Effect_GraveRobber>().SetDissolve(true);
+    }
+    public void DestoryCultistEffect(AvailableChampion go)
+    {
+        go.GetComponent<Effect_Cultist>().SetDissolve(true);
+    }
+    public void PlayAttackEffect(AvailableChampion champ)
+    {
+        switch (champ.nameOfChampion)
+        {
+            case "Cultist":
+                GainCultistAttackEffect(targetPos);
+                break;
+            case "Builder":
+                champ.GetComponent<Effect_Builder>().PlayPS();
+                break;
+            case "Graverobber":
+                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                break;
+            default:
+                break;
 
 
+        }
+    }
+    public void PlayDeathEffect(AvailableChampion champ)
+    {
+        switch (champ.nameOfChampion)
+        {
+            case "Cultist":
+                DestoryCultistEffect(champ);
+                break;
+            case "Builder":
+                champ.GetComponent<Effect_Builder>().PlayPS();
+                break;
+            case "Graverobber":
+                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                break;
+            default:
+                break;
+
+
+        }
+    }
 }

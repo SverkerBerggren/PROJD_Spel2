@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class Landmarks : Card
 {
+    [Header("Landmark")]
     public int minionHealth;
 
-    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, string tag) : base()
+    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, int damage, int amountToHeal, int amountToShield) : base()
     {
-        this.minionHealth = mH;
-        this.cardName = name;
-        this.description = desc;
-        this.artwork = art;
-        this.tag = tag;
-        this.typeOfCard = CardType.Landmark;
+        minionHealth = mH;
+        cardName = name;
+        description = desc;
+        artwork = art;
+        typeOfCard = CardType.Landmark;
         maxManaCost = maxMana;
+
+        this.amountToHeal = amountToHeal;
+        this.amountToShield = amountToShield;
+        this.damage = damage;
     }
 
     public override void PlayCard()
     {
+        //base.PlayCard();
         PlaceLandmark();
+        GameState.Instance.Refresh();
     }
 
     public void TakeDamage(int damageToTake)
@@ -29,11 +35,7 @@ public class Landmarks : Card
 
     public virtual void PlaceLandmark() {}
 
-    public virtual void LandmarkEffectTakeBack() { }
-
-    public virtual void DrawCard() { }
-
-    public virtual void AmountOfCardsPlayed() { }
+    public virtual void AmountOfCardsPlayed(Card card) { }
 
     public virtual int DealDamageAttack(int damage) { return damage; }
 
@@ -48,4 +50,14 @@ public class Landmarks : Card
     public virtual void WhenCurrentChampion() { }
 
     public virtual void WhenLandmarksDie() { }
+
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
+
+
+    public override string WriteOutCardInfo()
+    {
+        string lineToWriteOut = base.WriteOutCardInfo();
+        lineToWriteOut += "\nMinionHealth: " + minionHealth;
+        return lineToWriteOut;
+    }
 }

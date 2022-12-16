@@ -6,7 +6,7 @@ public class GameActionDestroyLandmark : GameAction
 {
     public List<TargetInfo> landmarksToDestroy = new List<TargetInfo>();
 
-    
+    public bool sacrificeLandmark = false;
     public GameActionDestroyLandmark()
     {
         Type = 8; 
