@@ -5,6 +5,8 @@ using System.Diagnostics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+
 public enum CardType
 {
     Spell,
@@ -76,10 +78,12 @@ public abstract class Card : ScriptableObject
             placement.whichList = tempEnum;
             placement.index = 100;
         }
+        if (purchasedFormShop)
+            placement.whichList.myGraveyard = false;
 
 
         gameState.ShowPlayedCard(this, false, -1);
-        if (gameState.isOnline && !purchasedFormShop)        
+        if (gameState.isOnline)        
             gameState.PlayCardRequest(cardPlacement);
         
         if (amountOfCardsToDraw != 0)       
