@@ -18,8 +18,8 @@ public class Hand : MonoBehaviour
     
     private void InvokeRefresh()
     {
-        GameState.Instance.Refresh();
         FixCardOrderInHand();
+        GameState.Instance.Refresh();
     }
 
     public void FixCardOrderInHand()
