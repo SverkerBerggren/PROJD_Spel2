@@ -122,7 +122,7 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {               
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-                if (cardDisplay.card.championCard)
+                if (cardDisplay.card.championCard && cardDisplay.card.championCardType != ChampionCardType.All)
                     MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -505,7 +505,7 @@ public class Choice : MonoBehaviour
                 for (int i = 0; i < cardsInHand.Count; i++)
                 {
                     Card card = cardsInHand[i].card;
-                    if (card.championCard)
+                    if (card.championCard && card.championCardType != ChampionCardType.All)
                     {
                         thereIsAChampionCardToTransform = true;
                         break;

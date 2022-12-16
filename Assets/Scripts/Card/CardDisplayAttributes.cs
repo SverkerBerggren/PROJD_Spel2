@@ -177,7 +177,7 @@ public class CardDisplayAttributes : MonoBehaviour
     {
         calculations = Calculations.Instance;
 
-        if (!display.gameObject.name.Equals("PlayedCard"))
+        if (!previewCard)
         {
             if (display is CardDisplay)
             {

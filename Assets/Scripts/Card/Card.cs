@@ -77,6 +77,8 @@ public abstract class Card : ScriptableObject
             placement.index = 100;
         }
 
+
+        gameState.ShowPlayedCard(this, false, -1);
         if (gameState.isOnline && !purchasedFormShop)        
             gameState.PlayCardRequest(cardPlacement);
         

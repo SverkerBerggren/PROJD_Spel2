@@ -108,7 +108,7 @@ public class PlayCardManager : MonoBehaviour
                 print("LandmarkTAUNT");
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
-                gameState.ShowPlayedCard(card, false, -1);
+                //gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
                 actionOfPlayer.ChangeCardOrder(true, cardDisplay);
@@ -130,7 +130,7 @@ public class PlayCardManager : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
-                    gameState.ShowPlayedCard(card, false, -1);
+                    //gameState.ShowPlayedCard(card, false, -1);
                     card.PlayCard();
 					actionOfPlayer.ChangeCardOrder(true, cardDisplay);
 					Landmarks landmark = (Landmarks)landmarkDisplay.card;
@@ -149,7 +149,7 @@ public class PlayCardManager : MonoBehaviour
         else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
+            //gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
 			actionOfPlayer.ChangeCardOrder(true, cardDisplay);
 		}
@@ -168,7 +168,7 @@ public class PlayCardManager : MonoBehaviour
             card.LandmarkTarget = landmarkDisplay;
         }
         Graveyard.Instance.AddCardToGraveyard(card);
-        gameState.ShowPlayedCard(card, false, -1);
+        //gameState.ShowPlayedCard(card, false, -1);
         card.PlayCard();
         actionOfPlayer.ChangeCardOrder(true, cardDisplay);                   
     }
