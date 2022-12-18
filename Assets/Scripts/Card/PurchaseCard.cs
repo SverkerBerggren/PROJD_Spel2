@@ -13,6 +13,7 @@ public class PurchaseCard : MonoBehaviour
         if (actionOfPlayer.unspentMana >= costOfUnspentMana)
         {
             print("Should Purchase Card");
+            cardPurchased.purchasedFormShop = true;
             cardPurchased.PlayCard();
             actionOfPlayer.unspentMana -= costOfUnspentMana;
         }

@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+
 public enum CardType
 {
     Spell,
@@ -51,6 +54,8 @@ public abstract class Card : ScriptableObject
     public bool championCard = false;
     public ChampionCardType championCardType = ChampionCardType.None;
 
+    [NonSerialized] public bool purchasedFormShop = false;
+
   
     public Champion Target { get { return target; } set { target = value; } }
     public LandmarkDisplay LandmarkTarget { get { return landmarkTarget; } set { landmarkTarget = value; } }
@@ -66,14 +71,14 @@ public abstract class Card : ScriptableObject
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
 
-        if (typeOfCard != CardType.Landmark)
-        {
-            ListEnum tempEnum = new ListEnum();
-            tempEnum.myGraveyard = true;
-            placement.whichList = tempEnum;
-            placement.index = 100;
-        }
+        if (purchasedFormShop)
+            placement.whichList.opponentGraveyard = false;
+        else
+            placement.whichList.opponentGraveyard = true;
+        
+        cardPlacement.placement = placement;
 
+        gameState.ShowPlayedCard(this, false, -1);
         if (gameState.isOnline)        
             gameState.PlayCardRequest(cardPlacement);
         

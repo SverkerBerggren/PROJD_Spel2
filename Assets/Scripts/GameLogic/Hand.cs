@@ -8,7 +8,7 @@ public class Hand : MonoBehaviour
     public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
-    [SerializeField] private Vector3 playerHandStartPos;
+    [SerializeField] private Vector3 handStartPoition;
 
     private void Start()
     {
@@ -18,15 +18,15 @@ public class Hand : MonoBehaviour
     
     private void InvokeRefresh()
     {
-        GameState.Instance.Refresh();
         FixCardOrderInHand();
+        GameState.Instance.Refresh();
     }
 
     public void FixCardOrderInHand()
     {
         cardsInHand.Clear();
         if (!cardSlotsInHand[0].opponentCard)
-            transform.position = playerHandStartPos;
+            transform.position = handStartPoition;
         for (int i = 0; i < cardSlotsInHand.Count; i++)
         {
             CardDisplay cardDisplay = cardSlotsInHand[i];

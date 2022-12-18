@@ -56,7 +56,11 @@ public class GraverobberSpells : Spells
 
     private void Digging()
     {
-        List<TargetInfo> tIList = new List<TargetInfo>();
+		Deck deck = Deck.Instance;
+		List<TargetInfo> tIList = new List<TargetInfo>();
+
+        graveyard.FindAndRemoveCardInGraveyard(this);
+
         for (int i = 0; i < amountOfCardsToReturn; i++)
         {
             Tuple<Card,int> cardToDraw = graveyard.RandomizeCardFromGraveyard();
@@ -70,7 +74,9 @@ public class GraverobberSpells : Spells
             GameState.Instance.DrawCard(1, cardToDraw.Item1);
         }
 
-        if (GameState.Instance.isOnline)
+		graveyard.AddCardToGraveyard(this);
+
+		if (GameState.Instance.isOnline)
         {
             RequestRemoveCardsGraveyard requesten = new RequestRemoveCardsGraveyard();
             requesten.whichPlayer = ClientConnection.Instance.playerId;

@@ -124,9 +124,9 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
+                "Builder",
                 "Shanker",
                 "Graverobber",
-                "Builder",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
@@ -159,6 +159,7 @@ public class GameState : MonoBehaviour
         //calculations.CalculateHandManaCost(cardDisplay);
         RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
+        //playCardRequest.cardAndPlacement.placement.whichList.opponentGraveyard = true;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
 
         Refresh();
@@ -212,10 +213,8 @@ public class GameState : MonoBehaviour
         damage = calculations.CalculateDamage(damage, false);
         DealDamage(calculations.TargetAndAmountFromCard(cardUsed, damage));
 
-        print("BefAttack" + playerChampion.animator);
         if (playerChampion.animator != null)
         {
-            print("PlayAttack");
             playerChampion.animator.SetTrigger("Attack");
         }
     }
@@ -441,15 +440,19 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void DrawCard(int amountToDraw, Card specificCard)
+    public void DrawCard(int amountToDraw, Card specificCard, bool isPlayer)
     {
-        if (isOnline)
+        if (isOnline && isPlayer)
         {
             RequestDrawCard request = new RequestDrawCard(amountToDraw);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
-        actionOfPlayer.DrawCardPlayer(amountToDraw, specificCard, true);
+        actionOfPlayer.DrawCardPlayer(amountToDraw, specificCard, isPlayer);
+    }
+    public void DrawCard(int amountToDraw, Card specificCard)
+    {
+        DrawCard(amountToDraw, specificCard, true);    
     }
 
     private void DrawStartingCards()
@@ -583,8 +586,13 @@ public class GameState : MonoBehaviour
     }
 
     public void TriggerEndStep()
-    {
+    {   
+        if(!isOnline)
+        {
+            DrawCard(1, null,false);
+        }
         playerChampion.champion.EndStep();
+
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
             if(landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
@@ -769,6 +777,7 @@ public class GameState : MonoBehaviour
         }
         
         ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
+        ActionOfPlayer.Instance.handOpponent.FixCardOrderInHand();
 
         foreach (AvailableChampion aC in playerChampions)
         {
