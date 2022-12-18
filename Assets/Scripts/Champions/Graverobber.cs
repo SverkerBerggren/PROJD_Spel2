@@ -18,6 +18,7 @@ public class Graverobber : Champion
 			TargetInfo targetInfo = new TargetInfo();
 			targetInfo.whichList.myGraveyard = true;
 			targetInfo.index = info.Item2;
+
 			RequestRemoveCardsGraveyard request = new RequestRemoveCardsGraveyard();
 			request.whichPlayer = ClientConnection.Instance.playerId;
 			List<TargetInfo> list = new List<TargetInfo>();

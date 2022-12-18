@@ -4,6 +4,7 @@ public class GameActionDiscardCard : GameAction
 {
     public List<string> listOfCardsDiscarded = new List<string>();
     public bool discardCardToOpponentGraveyard = false;
+    public ListEnum listEnum = new ListEnum();
     public GameActionDiscardCard()
     {
         Type = 4; 

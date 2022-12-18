@@ -122,7 +122,7 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {               
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-                if (cardDisplay.card.championCard)
+                if (cardDisplay.card.championCard && cardDisplay.card.championCardType != ChampionCardType.All)
                     MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -226,6 +226,11 @@ public class Choice : MonoBehaviour
             gO.GetComponent<Button>().interactable = false;
     }
 
+    public void RemoveTargetInfo(TargetInfo targetInfo)
+    {
+        chosenTargets.Remove(targetInfo);
+    }
+
     public void AddTargetInfo(TargetInfo targetInfo)
     {
         chosenTargets.Add(targetInfo);
@@ -237,14 +242,14 @@ public class Choice : MonoBehaviour
         {
             switch(whichMethod)
             {
-                case WhichMethod.switchChampionPlayer:
+                case WhichMethod.SwitchChampionPlayer:
                     SwitchChamp(false);                   
                     break;
 
-                case WhichMethod.switchChampionDied:
+                case WhichMethod.SwitchChampionDied:
                     SwitchChamp(true);                    
                     break;
-                case WhichMethod.switchChampionEnemy:
+                case WhichMethod.SwitchChampionEnemy:
                     SwitchChamp(false);
                     break;
 
@@ -329,16 +334,24 @@ public class Choice : MonoBehaviour
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
 
+		if (whichMethod == WhichMethod.Mulligan)
+		{
+			List<int> indexes = new List<int>();
+			for (int i = 0; i < chosenTargets.Count; i++)
+			{
+				int card = chosenTargets[i].index;
+				indexes.Add(card);
+			}
+			actionOfPlayer.handPlayer.FixMulligan(indexes);
+            isChoiceActive = false;
+		}
 
-        ResetChoice();
+		ResetChoice();
         gameState.Refresh();
         waitRoom.Remove(waitRoom[0]);
-        NextInWaitRoom();
-    }
 
-    public int HowManyChoicesWhereMade()
-    {
-        return chosenTargets.Count;
+        if (whichMethod == WhichMethod.Mulligan) return;
+        NextInWaitRoom();
     }
 
     public void ResetChoice()
@@ -420,7 +433,7 @@ public class Choice : MonoBehaviour
     {
         switch (theMethod)
         {
-            case WhichMethod.switchChampionPlayer:
+            case WhichMethod.SwitchChampionPlayer:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
@@ -428,7 +441,7 @@ public class Choice : MonoBehaviour
                 }
                 break;
 
-            case WhichMethod.switchChampionEnemy:
+            case WhichMethod.SwitchChampionEnemy:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.opponentChampions.Count <= 1)
 				{
@@ -436,7 +449,7 @@ public class Choice : MonoBehaviour
 				}
                 break;
             
-            case WhichMethod.switchChampionDied:
+            case WhichMethod.SwitchChampionDied:
                 descriptionText.text = "Swap Your champion";
                 if (gameState.playerChampions.Count <= 1)
                 {
@@ -497,7 +510,7 @@ public class Choice : MonoBehaviour
                 for (int i = 0; i < cardsInHand.Count; i++)
                 {
                     Card card = cardsInHand[i].card;
-                    if (card.championCard)
+                    if (card.championCard && card.championCardType != ChampionCardType.All)
                     {
                         thereIsAChampionCardToTransform = true;
                         break;
@@ -509,6 +522,10 @@ public class Choice : MonoBehaviour
                     return false;
                 }
                 break;
+
+                case WhichMethod.Mulligan:
+				descriptionText.text = "Mulligan";
+				break;
         }
         return true;
     }
@@ -558,9 +575,9 @@ public class Choice : MonoBehaviour
 
 public enum WhichMethod
 {
-    switchChampionPlayer,
-	switchChampionEnemy,
-	switchChampionDied,
+    SwitchChampionPlayer,
+	SwitchChampionEnemy,
+	SwitchChampionDied,
     discardCard,
     discardXCardsInMyHand,
     ShowGraveyard,
@@ -568,5 +585,6 @@ public enum WhichMethod
     ShowLandmarks,
     DisableOpponentLandmark,
 	SeersShack,
-    TransformChampionCard
+    TransformChampionCard,
+    Mulligan
 }

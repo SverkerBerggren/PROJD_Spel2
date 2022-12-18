@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,10 +23,13 @@ public class CardDisplayAttributes : MonoBehaviour
     public GameObject cardPlayableEffect;
 
     [SerializeField] private GameObject nameBackground;
+	[SerializeField] private GameObject championBorder;
+	[SerializeField] private Image currentSprite;
     public GameObject hpGameObject;
+	[NonSerialized] public GameObject championCardHolder;
 
 
-    [System.NonSerialized] public int damageShow = 0;
+	[System.NonSerialized] public int damageShow = 0;
     [System.NonSerialized] public int amountToHealShow = 0;
     [System.NonSerialized] public int amountToShieldShow = 0;
     [System.NonSerialized] public int amountOfCardsToDrawShow = 0;
@@ -47,10 +51,24 @@ public class CardDisplayAttributes : MonoBehaviour
             CardDisplay cardDisplay = (CardDisplay)display;
             if (!cardDisplay.opponentCard)
             {
-                UpdateMaterialOnCard(cardDisplay.card);
+                Card card = cardDisplay.card;
+                UpdateMaterialOnCard(card);
                 if (cardPlayableEffect != null)
                 {
                     ShowCardPlayableEffect(cardDisplay);
+                }
+
+                if (card.championCard && card.championCardType != ChampionCardType.All)
+                {
+                    championBorder.gameObject.SetActive(true);
+                    currentSprite.gameObject.SetActive(true);
+                    currentSprite.sprite = CardRegister.Instance.championTypeRegister[card.championCardType].champBackground;
+
+                }
+                else
+                {
+					currentSprite.gameObject.SetActive(false);
+					championBorder.gameObject.SetActive(false);
                 }
             }
             else
@@ -58,8 +76,7 @@ public class CardDisplayAttributes : MonoBehaviour
                 cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
             }
         }
-
-        description.text = display.card.description;
+		description.text = display.card.description;
         manaText.text = display.manaCost.ToString();
         cardName.text = display.card.cardName;
     }
@@ -160,7 +177,7 @@ public class CardDisplayAttributes : MonoBehaviour
     {
         calculations = Calculations.Instance;
 
-        if (!display.gameObject.name.Equals("PlayedCard"))
+        if (!previewCard)
         {
             if (display is CardDisplay)
             {

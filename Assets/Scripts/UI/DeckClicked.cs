@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeckClicked : MonoBehaviour
 {
-    private void OnMouseUp()
+    public void OnClick()
     {
         ListEnum lE = new ListEnum();
         lE.myDeck = true;

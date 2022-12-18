@@ -63,6 +63,10 @@ public class Deck : MonoBehaviour
         deckOpponent.AddRange(importedDeck);
     }
 
+    public void ShuffleDeck()
+    {
+        Shuffle(deckPlayer);
+    }
 
 	private static void Shuffle(List<Card> list)
     {

@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using TMPro;
 using System.Linq;
 using UnityEngine.Networking.Types;
+using System;
 
 public class ActionOfPlayer : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampionPlayer, null);
+            choice.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionPlayer, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -130,7 +131,7 @@ public class ActionOfPlayer : MonoBehaviour
                 drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
 
                 if (drawnCards == -1)
-                    break;
+                    return;
             }
 		}
         DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
@@ -169,18 +170,19 @@ public class ActionOfPlayer : MonoBehaviour
                 Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
                 if (isPlayer)
                     graveyard.AddCardToGraveyard(c);
-                else
-                    graveyard.AddCardToGraveyardOpponent(c);
+                else if(!isPlayer && !gameState.isOnline)
+					graveyard.AddCardToGraveyardOpponent(c);
 
-                cardNames.Add(c.cardName);
+				cardNames.Add(c.cardName);
             }
 
-            if (gameState.isOnline)
+            if (gameState.isOnline && isPlayer)
             {
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
                 requesten.listOfCardsDiscarded = cardNames;
-                requesten.discardCardToOpponentGraveyard = !isPlayer;
+                requesten.discardCardToOpponentGraveyard = false;
+                requesten.listEnum.myDeck = true;
                 ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
 
             }

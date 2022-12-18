@@ -232,10 +232,8 @@ public class AvailableChampion : MonoBehaviour
     }
     public virtual void Death()
     {
-        print("BefDead");
         if (animator != null)
         {
-            print("PlayDead");
             animator.SetTrigger("Dead");
         }
         gameState.ChampionDeath(champion);

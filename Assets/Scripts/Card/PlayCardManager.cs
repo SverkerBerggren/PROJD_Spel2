@@ -77,14 +77,21 @@ public class PlayCardManager : MonoBehaviour
         if (target == null || target.CompareTag("DeckAndGraveyard")) 
             return TypeOfCardTargeting.None;
 
-        if (card.targetable && (target.CompareTag("Champion") || target.CompareTag("LandmarkSlot")))
-        {       
-            if (TauntCard()) 
-                return TypeOfCardTargeting.Taunt;
+        if (card.targetable)
+        {    
+            if (target.TryGetComponent(out AvailableChampion availableChampion))
+            {
+                if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+                    return TypeOfCardTargeting.Targeted;
+            }
+            else if (target.TryGetComponent(out LandmarkDisplay landmarkDisplay))
+            {
+                if (TauntCard())
+                    return TypeOfCardTargeting.Taunt;
 
-            if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-                return TypeOfCardTargeting.Targeted;
-
+                if (landmarkDisplay.card != null && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+                    return TypeOfCardTargeting.Targeted;
+            }
         }
         else if (!card.targetable && target.CompareTag("NonTargetCollider"))
         {
@@ -108,7 +115,7 @@ public class PlayCardManager : MonoBehaviour
                 print("LandmarkTAUNT");
                 card.Target = null;
                 card.LandmarkTarget = landmarkDisplay;
-                gameState.ShowPlayedCard(card, false, -1);
+                //gameState.ShowPlayedCard(card, false, -1);
                 card.PlayCard();
                 graveyard.AddCardToGraveyard(card);
                 actionOfPlayer.ChangeCardOrder(true, cardDisplay);
@@ -130,7 +137,7 @@ public class PlayCardManager : MonoBehaviour
                 if (landmarkDisplay.card == null)
                 {
                     PlaceLandmark(landmarkDisplay);
-                    gameState.ShowPlayedCard(card, false, -1);
+                    //gameState.ShowPlayedCard(card, false, -1);
                     card.PlayCard();
 					actionOfPlayer.ChangeCardOrder(true, cardDisplay);
 					Landmarks landmark = (Landmarks)landmarkDisplay.card;
@@ -149,7 +156,7 @@ public class PlayCardManager : MonoBehaviour
         else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
+            //gameState.ShowPlayedCard(card, false, -1);
             card.PlayCard();
 			actionOfPlayer.ChangeCardOrder(true, cardDisplay);
 		}
@@ -159,24 +166,18 @@ public class PlayCardManager : MonoBehaviour
     {
         if (gameObjectTargeted.TryGetComponent(out AvailableChampion availableChampion))
         {
-            print("TargetChampion");
             card.Target = availableChampion.champion;
-            Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
-            card.PlayCard();
-            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
-        }       
+        }
         else if (gameObjectTargeted.TryGetComponent(out LandmarkDisplay landmarkDisplay))
         {
-            print("TargetLandmark: " + landmarkDisplay.transform.parent.name);
             if (landmarkDisplay.card == null) return;
 
             card.LandmarkTarget = landmarkDisplay;
-            Graveyard.Instance.AddCardToGraveyard(card);
-            gameState.ShowPlayedCard(card, false, -1);
-            card.PlayCard();
-            actionOfPlayer.ChangeCardOrder(true, cardDisplay);
         }
+        Graveyard.Instance.AddCardToGraveyard(card);
+        //gameState.ShowPlayedCard(card, false, -1);
+        card.PlayCard();
+        actionOfPlayer.ChangeCardOrder(true, cardDisplay);                   
     }
 
     private void PlaceLandmark(LandmarkDisplay landmarkSlot)

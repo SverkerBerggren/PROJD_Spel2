@@ -9,7 +9,15 @@ public class ChoiceButton : MonoBehaviour
     [SerializeField] private GameObject clickedEffect;
     public void OnClick()
     {
-        Choice.Instance.AddTargetInfo(targetInfo);
-        clickedEffect.SetActive(true);
+        if (clickedEffect.activeSelf)
+        {
+            Choice.Instance.RemoveTargetInfo(targetInfo);
+            clickedEffect.SetActive(false);
+        }
+        else
+        {
+            Choice.Instance.AddTargetInfo(targetInfo);
+            clickedEffect.SetActive(true);
+        }
     }
 }
