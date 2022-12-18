@@ -3,76 +3,32 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
-using System.Data;
-using System.Net.Sockets;
+
 
 public class Server
 {
     System.Net.Sockets.TcpListener m_Listener;
     bool m_Stopping = false;
 
-   // public Dictionary<int, bool> hasPLayedCard = new Dictionary<int, bool>();
+    // public Dictionary<int, bool> hasPLayedCard = new Dictionary<int, bool>();
 
     public bool playingFromServer = false;
 
     public Dictionary<int, OngoingGame> onGoingGames = new Dictionary<int, OngoingGame>();
 
-    public Integer currentGameId = new Integer(0); 
- //   public Integer lobbyId = new Integer(0);
+    public Integer currentGameId = new Integer(0);
+    //   public Integer lobbyId = new Integer(0);
 
 
-    public Dictionary<int ,HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
+    public Dictionary<int, HostedLobby> hostedLobbys = new Dictionary<int, HostedLobby>();
 
- //   public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
+    //   public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
 
     public Integer uniqueInteger = new Integer(1);
 
-    public TcpClient SQLServerConnection = new TcpClient();
-
-    bool SQLServerIsConnected = false;
-
-    public void StartSQLServerConnection()
-    {
-        SQLServerConnection.Connect("mrboboget.se", 54000);
-
-        SQLServerIsConnected = SQLServerConnection.Connected;
-    }
-
- //  public void WriteToServer(string message)
- //  {
- //      byte[] buf = new byte[4096];
- //
- //      if (!SQLServerIsConnected)
- //          return;
- //      lock(SQLServerConnection)
- //      {
- //          int messageLength = message.Length;
- //          buf = new byte[messageLength +4];
- //          char firstChar = (char)(messageLength >> 24);
- //          char secondChar = (char)(messageLength >> 16);
- //          char thirdChar = (char)(messageLength >> 8);
- //          char fourthChar = (char)(messageLength);
- //
- //          buf[0] = (byte)firstChar;
- //          buf[1] = (byte)secondChar;
- //          buf[2] = (byte)thirdChar;
- //          buf[3] = (byte)fourthChar;
- //
- //          for(int i = 0; i <messageLength; i++)
- //          {
- //              buf[4 + i] = message[i];
- //          }
- //
- //
- //      }
- //  }
-
-
-
-
 
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
-    {   
+    {
         Int32 ReturnValue = 0;
         if (BytesToParse.Length < ByteOffset + 4)
         {
@@ -94,8 +50,8 @@ public class Server
         }
     }
     public static MBJson.JSONObject ParseJsonObject(System.IO.Stream Stream)
-    {   
-        
+    {
+
         MBJson.JSONObject ReturnValue = new MBJson.JSONObject();
         byte[] LengthBuffer = new byte[4];
         int ReadBytes = Stream.Read(LengthBuffer, 0, 4);
@@ -125,18 +81,18 @@ public class Server
             uniqueInteger.value += 1;
         }
         try
-        {   
+        {
             while (Connection.Connected)
             {
                 ClientRequest NewRequest = MBJson.JSONObject.DeserializeObject<ClientRequest>(ParseJsonObject(Connection.GetStream()));
                 ServerResponse response = new ServerResponse();
-                if(NewRequest is RequestUniqueInteger)
+                if (NewRequest is RequestUniqueInteger)
                 {
                     ResponseUniqueInteger temp = new ResponseUniqueInteger();
                     temp.UniqueInteger = localUniqueInteger;
                     response = temp;
                 }
-                else if(NewRequest is RequestHostLobby)
+                else if (NewRequest is RequestHostLobby)
                 {
                     StreamWriter temp = File.CreateText("Debug.txt");
                     temp.Write("kommer den hit");
@@ -144,7 +100,7 @@ public class Server
 
                     ResponseHostLobby responseHostLobby = new ResponseHostLobby();
                     RequestHostLobby castedRequest = (RequestHostLobby)NewRequest;
-                    lock(hostedLobbys)
+                    lock (hostedLobbys)
                     {
                         if (hostedLobbys.ContainsKey(castedRequest.uniqueInteger))
                         {
@@ -175,7 +131,7 @@ public class Server
 
 
                             hostedLobbys.Add(localUniqueInteger, lobbyTohost);
-                            
+
                         }
                     }
 
@@ -190,14 +146,14 @@ public class Server
                 byte[] BytesToSend = SerializeJsonObject(MBJson.JSONObject.SerializeObject(response));
 
 
-                Connection.GetStream().Write(BytesToSend,0,BytesToSend.Length);
+                Connection.GetStream().Write(BytesToSend, 0, BytesToSend.Length);
             }
         }
         catch (Exception e)
-        {   
-            lock(hostedLobbys)
+        {
+            lock (hostedLobbys)
             {
-                if(hostedLobbys.ContainsKey(localUniqueInteger))
+                if (hostedLobbys.ContainsKey(localUniqueInteger))
                 {
                     hostedLobbys.Remove(localUniqueInteger);
                 }
@@ -274,7 +230,7 @@ public class Server
         {
             RequestDiscardCard castedRequest = (RequestDiscardCard)requestToHandle;
             castedRequest.whichPlayer = requestToHandle.whichPlayer;
-            
+
             return HandleDiscardCard(castedRequest);
         }
         if (requestToHandle is RequestHealing)
@@ -365,7 +321,7 @@ public class Server
         }
         if (requestToHandle is RequestStopSwapping)
         {
-			RequestStopSwapping testRequest = (RequestStopSwapping)requestToHandle;
+            RequestStopSwapping testRequest = (RequestStopSwapping)requestToHandle;
             testRequest.whichPlayer = requestToHandle.whichPlayer;
             return HandleRequestStopSwapping(testRequest);
         }
@@ -473,14 +429,14 @@ public class Server
         //    return response;
         return null;
     }
-    
+
     private ServerResponse HandleJoinLobby(RequestJoinLobby requestToHandle)
     {
         ResponseJoinLobby response = new ResponseJoinLobby();
         //response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
-        int temp = 0; 
-        lock(currentGameId)
+        int temp = 0;
+        lock (currentGameId)
         {
             response.gameId = currentGameId.value;
 
@@ -493,8 +449,8 @@ public class Server
 
 
         OngoingGame newGame = new OngoingGame();
-        
-        lock(onGoingGames)
+
+        lock (onGoingGames)
         {
 
             onGoingGames.Add(temp, newGame);
@@ -524,7 +480,7 @@ public class Server
         response.gameId = requestToHandle.gameId;
         response.whichPlayer = requestToHandle.whichPlayer;
 
-        lock(hostedLobbys)
+        lock (hostedLobbys)
         {
             hostedLobbys.Remove(requestToHandle.lobbyId);
         }
@@ -649,10 +605,10 @@ public class Server
         ServerResponse response = new ServerResponse();
         response.gameId = requestToHandle.gameId;
 
-        
+
 
         int player = requestToHandle.whichPlayer == 0 ? 1 : 0;
-        lock(onGoingGames)
+        lock (onGoingGames)
         {
             if (player == 1)
             {
@@ -681,9 +637,9 @@ public class Server
     {
         ResponseAvailableLobbies response = new ResponseAvailableLobbies();
         response.Lobbies = hostedLobbys.Values.ToList<HostedLobby>();
-        
 
-        return response; 
+
+        return response;
     }
     private ServerResponse HandleRequestStopSwapping(RequestStopSwapping requestToHandle)
     {
@@ -694,16 +650,16 @@ public class Server
 
         GameActionStopSwapping gameAction = new GameActionStopSwapping(requestToHandle.canSwap);
 
-        
 
-		AddGameAction(response, gameAction, requestToHandle.gameId);
-		return response; 
+
+        AddGameAction(response, gameAction, requestToHandle.gameId);
+        return response;
     }
 
     private void AddGameAction(ServerResponse response, GameAction gameAction, int gameId)
     {
 
-        lock(onGoingGames)
+        lock (onGoingGames)
         {
 
             if (response.whichPlayer == 1)
@@ -724,6 +680,7 @@ public class Server
     }
 
 
+
     public class OngoingGame
     {
 
@@ -741,7 +698,7 @@ public class Server
     }
 
     public class HostedLobby
-    {   
+    {
         public int lobbyId = 0;
         public bool anotherPlayerJoind = false;
 
@@ -755,13 +712,12 @@ public class Server
     }
     public class Integer
     {
-        public int value = 0; 
-        
+        public int value = 0;
+
         public Integer(int value)
         {
             this.value = value;
         }
 
     }
-
 }
