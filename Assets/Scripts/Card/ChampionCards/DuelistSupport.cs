@@ -14,28 +14,50 @@ public class DuelistSupport : Spells
     {      
         List<AvailableChampion> enemyChamps = GameState.Instance.opponentChampions;
 
-        AvailableChampion champToSwapTo;
         int index = 0;
 
-        for (int i = enemyChamps.Count; i > 0; i++)
+        for (int i = enemyChamps.Count - 1; i > 0; i--)
         {
+            
             if (enemyChamps[i].champion.health > enemyChamps[i-1].champion.health)
             {
-                champToSwapTo = enemyChamps[i - 1];
                 index = i - 1;
             }
             else
             {
-                champToSwapTo = enemyChamps[i];
                 index = i;
             }
         }
+        //I Do
+        ListEnum lEOpponenent = new ListEnum();
+        lEOpponenent.opponentChampions = true;
+        TargetInfo tIForOpponent = new TargetInfo(lEOpponenent, index);
 
-        ListEnum lE = new ListEnum();
-        lE.opponentChampions = true;
+        GameState.Instance.SwapChampionWithTargetInfo(tIForOpponent, false);
 
-        TargetInfo tI = new TargetInfo(lE, index);
+        if (GameState.Instance.isOnline)
+        {
+            RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tIForOpponent);
+            request.whichPlayer = ClientConnection.Instance.playerId;
 
-        GameState.Instance.SwapChampionWithTargetInfo(tI, false);
+            ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+        }
+
+
+        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+        foreach (Card card in Deck.Instance.deckPlayer)
+        {
+            if (card is AttackSpell)
+            {
+                actionOfPlayer.DrawCardPlayer(1, card, true);
+                Deck.Instance.RemoveCardFromDeck(card);
+                if (GameState.Instance.isOnline)
+                {
+                    RequestDrawCard request = new RequestDrawCard(1);
+                    ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+                }
+                break;
+            }
+        }
     }
 }

@@ -14,17 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Slaughterhouse
   typeOfCard: 1
-  description: 
+  description: Your attack cards deal 10 more damage for each landmark you control
   artwork: {fileID: 21300000, guid: 8db3af9afb2c98a49adc5cf80f2cdf8e, type: 3}
   maxManaCost: 5
-  tag: BuilderLandmark
+  damage: 10
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 0
   targetable: 0
   championCard: 1
   championCardType: 2
   minionHealth: 40
-  damagePerLandmark: 0
   slaughterhouse: 1
   factory: 0

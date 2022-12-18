@@ -18,13 +18,15 @@ MonoBehaviour:
     champ
   artwork: {fileID: 21300000, guid: 414382805f6cef944a57457f55b9035a, type: 3}
   maxManaCost: 3
-  tag: AttackSpell
+  damage: 10
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
   targetable: 0
   championCard: 1
   championCardType: 3
-  selfInflictDamage: 0
-  damageToAllOpponentCards: 1
-  damageToDealToAllOpponent: 10
+  deluge: 1
+  ritualSactifice: 0

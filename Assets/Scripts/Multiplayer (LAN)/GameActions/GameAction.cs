@@ -6,7 +6,7 @@ public class GameAction : MBJson.JSONDeserializeable, MBJson.JSONTypeConverter
 {
     public int Type = 0;
     public string errorMessage = "";
-    
+    public int gameId = 0; 
     public GameAction() { }// denna far inte tas bort, kravs for parsingen 
     public Type GetType(int IntegerToConvert)
     {   
@@ -74,6 +74,10 @@ public class GameAction : MBJson.JSONDeserializeable, MBJson.JSONTypeConverter
         {
             return typeof(GameActionPassPriority);
         }  
+        if (IntegerToConvert == 16)
+        {
+            return typeof(GameActionStopSwapping);
+        }    
         return (typeof(GameAction));
     }
     public object Deserialize(MBJson.JSONObject ObjectToParse)

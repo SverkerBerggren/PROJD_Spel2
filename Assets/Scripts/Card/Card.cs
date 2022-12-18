@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+
 public enum CardType
 {
     Spell,
@@ -32,8 +35,6 @@ public abstract class Card : ScriptableObject
     public Sprite artwork;
     public int maxManaCost;
 
-    public string tag;
-
     private Champion target;
     private LandmarkDisplay landmarkTarget;
 
@@ -53,6 +54,8 @@ public abstract class Card : ScriptableObject
     public bool championCard = false;
     public ChampionCardType championCardType = ChampionCardType.None;
 
+    [NonSerialized] public bool purchasedFormShop = false;
+
   
     public Champion Target { get { return target; } set { target = value; } }
     public LandmarkDisplay LandmarkTarget { get { return landmarkTarget; } set { landmarkTarget = value; } }
@@ -68,39 +71,28 @@ public abstract class Card : ScriptableObject
         TargetInfo placement = new TargetInfo();
         placement.whichList = new ListEnum();
 
-        if (typeOfCard != CardType.Landmark)
-        {
-            ListEnum tempEnum = new ListEnum();
-            tempEnum.myGraveyard = true;
-            placement.whichList = tempEnum;
-            placement.index = 100;
-        }
-
-        if (gameState.isOnline)
-        {
-            RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement);
-            playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(playCardRequest, gameState.RequestEmpty);
-        }
+        if (purchasedFormShop)
+            placement.whichList.opponentGraveyard = false;
+        else
+            placement.whichList.opponentGraveyard = true;
         
-        if (amountOfCardsToDraw != 0)
-        {
+        cardPlacement.placement = placement;
+
+        gameState.ShowPlayedCard(this, false, -1);
+        if (gameState.isOnline)        
+            gameState.PlayCardRequest(cardPlacement);
+        
+        if (amountOfCardsToDraw != 0)       
             gameState.DrawCard(amountOfCardsToDraw, null);
-            gameState.Refresh();
-        }
-
-        if (amountOfCardsToDiscard != 0)
-        {
+        
+        if (amountOfCardsToDiscard != 0)     
             gameState.DiscardCard(amountOfCardsToDiscard, discardCardsYourself);
-            gameState.Refresh();
-        }
-
+        
         if (effect != null)
-        {
             gameState.AddEffect(effect);
-            gameState.Refresh();
-        }
 
+        gameState.Refresh();
+        gameState.AddCardToPlayedCardsThisTurn(this);
         gameState.playerChampion.champion.AmountOfCardsPlayed(this);
     }
    
@@ -108,7 +100,7 @@ public abstract class Card : ScriptableObject
     {
         string lineToWriteOut = null;
         lineToWriteOut = "Cardname: " +cardName + "\nDescription:  " + description + "\nTypeOfCard: " + typeOfCard + "\nMaxMana: " + maxManaCost + 
-            "\nTag: " + tag + "\nAmountOfDamage: " + damage + "\nAmountOfHealing: " + amountToHeal + "\nAmountToShield: " + amountToShield + 
+            "\nAmountOfDamage: " + damage + "\nAmountOfHealing: " + amountToHeal + "\nAmountToShield: " + amountToShield + 
             "\nAmountOfCardsToDraw: " + amountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + amountOfCardsToDiscard + "\nDiscardCardsYourself: " + discardCardsYourself + 
             "\nTargetable: " + targetable + "\nChampionCard: " + championCard + "\nChampionCardType: " + championCardType;
         return lineToWriteOut; 

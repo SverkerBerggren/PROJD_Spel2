@@ -3,39 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 
 public class Choice : MonoBehaviour
 {
-    public List<TargetInfo> chosenTargets = new List<TargetInfo>();
+    private List<TargetInfo> chosenTargets = new List<TargetInfo>();
     private int amountOfTargets = 0;
-    public GameObject choiceButtonPrefab;
 
-    public TMP_Text descriptionText;
-    [SerializeField] private GameObject closeMenuButton;
-    [SerializeField] private GameObject confirmMenuButton;
-    public GameObject buttonHolder;
 
     private GameState gameState;
     private ActionOfPlayer actionOfPlayer;
     private Graveyard graveyard;
-
     private WhichMethod whichMethod;
-
-    private static Choice instance;
-
-    private GameObject choiceMenu;
-    private GameObject choiceOpponentMenu;
-
-    private List<GameObject> buttonsToDestroy = new List<GameObject>();
-
-    private bool isChoiceActive = false;
-
-    private CardDisplayAtributes cardDisplayAtributes;
-
+    private Deck deck;
     private Card cardUsed;
 
-    public static Choice Instance { get { return instance; } set { instance = value; } }
+    [SerializeField] private GameObject choiceButtonPrefab;
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private GameObject closeMenuButton;
+    [SerializeField] private GameObject confirmMenuButton;
+    [SerializeField] private GameObject buttonHolder;
+    [SerializeField] private GameObject choiceMenu;
+    [SerializeField] private GameObject choiceOpponentMenu;
+    private bool isChoiceActive;
+
+    private List<GameObject> buttonsToDestroy = new List<GameObject>();
+    private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
+
+    private static Choice instance;
+	public static Choice Instance { get { return instance; } set { instance = value; } }
 
     private void Awake()
     {
@@ -54,7 +50,7 @@ public class Choice : MonoBehaviour
         gameState = GameState.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
         graveyard = Graveyard.Instance;
-        
+        deck = Deck.Instance;
 
         choiceMenu = transform.GetChild(0).gameObject;
         choiceOpponentMenu = transform.GetChild(1).gameObject;
@@ -62,19 +58,14 @@ public class Choice : MonoBehaviour
     private void FixedUpdate()
     {
         if (!gameState.hasPriority && gameState.isItMyTurn)
-                ShowOpponentThinking();
+            ShowOpponentThinking();
         else
-                HideOpponentThinking();
+            HideOpponentThinking();
 
         if (!gameState.hasPriority && isChoiceActive)
-        {
-
             choiceMenu.SetActive(false);
-        }
         else if(isChoiceActive)
-        {
-            choiceMenu.SetActive(true); 
-        }
+            choiceMenu.SetActive(true);
     }
 
     public void ShowOpponentThinking()
@@ -86,9 +77,15 @@ public class Choice : MonoBehaviour
         choiceOpponentMenu.SetActive(false);
     }
 
-    private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, float delay)
+    private IEnumerator ShowChoiceMenu(ListEnum listEnum, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        if (!isChoiceActive)
+            yield return new WaitForSeconds(delay);
+        else
+            yield return null;
+
+        if(cardUsed != null)
+            this.cardUsed = cardUsed;
 
         choiceMenu.SetActive(true);
         isChoiceActive = true;
@@ -104,7 +101,7 @@ public class Choice : MonoBehaviour
                 AvailableChampion champ = gameState.playerChampions[i];
                 if (champ == gameState.playerChampion) continue;
 
-                MakeButtonsChampions(champ.champion.artwork, listEnum, i);
+                MakeButtonOfChampion(champ.champion.artwork, listEnum, i);
             }
         }
 
@@ -114,58 +111,95 @@ public class Choice : MonoBehaviour
 			{
 				Sprite champSprite = gameState.opponentChampions[i].champion.artwork;
 
-                MakeButtonsChampions(champSprite, listEnum, i);
+                MakeButtonOfChampion(champSprite, listEnum, i);
             }
 		}
 
-        if(listEnum.myHand)
+        if (listEnum.myHand && whichMethod == WhichMethod.TransformChampionCard)
         {
-            print("kommer den till discard delen");
-            descriptionText.text = "Choose a card to discard";
+            print("kommer den till Transform delen");
+            descriptionText.text = "Choose a card to Transform";
+            for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
+            {               
+                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
+                if (cardDisplay.card.championCard && cardDisplay.card.championCardType != ChampionCardType.All)
+                    MakeButtonOfCard(cardDisplay.card, listEnum, i);
+            }
+        }
+        else if(listEnum.myHand)
+        {
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {
-                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i].GetComponent<CardDisplay>();
-                if (amountOfTargets == -1)
-                    confirmMenuButton.SetActive(true);
-                MakeButtonsCards(cardDisplay.card, listEnum, i);
+                CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
+
+                choiceButtonPrefab.SetActive(true);
+                MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
 
         if (listEnum.myGraveyard)
         {
-            descriptionText.text = "Show graveyard";
             for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
             {
-                MakeButtonsCards(graveyard.graveyardPlayer[i], listEnum, i);
+                MakeButtonOfCard(graveyard.graveyardPlayer[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
 
-        if (listEnum.myDeck)
+        if (listEnum.myDeck && whichMethod == WhichMethod.SeersShack)
+        {
+			descriptionText.text = "Seers Shack";
+            SeersShack seersShack = (SeersShack)cardUsed;
+			for (int i = 0; i < seersShack.cardsShown; i++)
+			{
+                if (Deck.Instance.deckPlayer[i] != null)
+                {
+				    MakeButtonOfCard(deck.deckPlayer[i], listEnum, i);
+				    closeMenuButton.SetActive(true);
+                }
+			}
+		}
+        else if (listEnum.myDeck)
         {
             descriptionText.text = "Show Deck";
-            for (int i = 0; i < actionOfPlayer.handPlayer.deck.deckPlayer.Count; i++)
+            for (int i = 0; i < deck.deckPlayer.Count; i++)
             {
-                MakeButtonsCards(actionOfPlayer.handPlayer.deck.deckPlayer[i], listEnum, i);
+                MakeButtonOfCard(deck.deckPlayer[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
 
         if (listEnum.myLandmarks)
-        {
-            descriptionText.text = "Show landmarks";
+        { 
             for (int i = 0; i < gameState.playerLandmarks.Count; i++)
             {
-                MakeButtonsCards(gameState.playerLandmarks[i].card, listEnum, i);
+                MakeButtonOfCard(gameState.playerLandmarks[i].card, listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
+
+
+        if (listEnum.opponentLandmarks)
+        {
+            descriptionText.text = "Show opponent landmarks";
+            for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
+            {
+                if (gameState.opponentLandmarks[i].landmarkEnabled)
+                {
+                    MakeButtonOfCard(gameState.opponentLandmarks[i].card, listEnum, i);
+                    closeMenuButton.SetActive(true);
+                }
+            }
+        }
+
+        if (amountOfTargets == -1)
+            confirmMenuButton.SetActive(true);
     }
 
-    private void MakeButtonsCards(Card card, ListEnum listEnum, int index)
+    private void MakeButtonOfCard(Card card, ListEnum listEnum, int index)
     {      
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
+        CardDisplayAttributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAttributes>();
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
@@ -174,7 +208,7 @@ public class Choice : MonoBehaviour
             gO.GetComponent<Button>().interactable = false;
     }
 
-    private void MakeButtonsChampions(Sprite championSprite, ListEnum listEnum, int index)
+    private void MakeButtonOfChampion(Sprite championSprite, ListEnum listEnum, int index)
     {
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);       
         gO.GetComponent<Image>().enabled = true;
@@ -183,7 +217,8 @@ public class Choice : MonoBehaviour
 
         gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
 
-        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+
+        gO.transform.GetChild(0).gameObject.SetActive(false);
 
         gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
@@ -191,7 +226,10 @@ public class Choice : MonoBehaviour
             gO.GetComponent<Button>().interactable = false;
     }
 
-
+    public void RemoveTargetInfo(TargetInfo targetInfo)
+    {
+        chosenTargets.Remove(targetInfo);
+    }
 
     public void AddTargetInfo(TargetInfo targetInfo)
     {
@@ -204,57 +242,120 @@ public class Choice : MonoBehaviour
         {
             switch(whichMethod)
             {
-                case WhichMethod.switchChampion:
+                case WhichMethod.SwitchChampionPlayer:
                     SwitchChamp(false);                   
                     break;
 
-                case WhichMethod.switchChampionDied:
+                case WhichMethod.SwitchChampionDied:
                     SwitchChamp(true);                    
+                    break;
+                case WhichMethod.SwitchChampionEnemy:
+                    SwitchChamp(false);
                     break;
 
                 case WhichMethod.discardCard:
                     DiscardCard();
                     break;
+
                 case WhichMethod.discardXCardsInMyHand:
 
                     break;
+
                 case WhichMethod.ShowGraveyard:
 
                     break;
+
                 case WhichMethod.ShowDeck:
-                    print("Card 1: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + actionOfPlayer.handPlayer.deck.deckPlayer[chosenTargets[1].index]);
+                    print("Card 1: " + deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + deck.deckPlayer[chosenTargets[1].index]);
                     break;
+
                 case WhichMethod.ShowLandmarks:
-                    
                     gameState.DestroyLandmark(chosenTargets[0]);
                     break;
+
+                case WhichMethod.DisableOpponentLandmark:
+                    DisableChosenLandmark();
+                    break;
+
+                case WhichMethod.SeersShack:
+                    SeersShackAbility();
+                    break;
+                case WhichMethod.TransformChampionCard:
+                    TransformCard();
+                    break;
             }
+
             ResetChoice();
             gameState.Refresh();
-        }
-
+			waitRoom.Remove(waitRoom[0]);
+			NextInWaitRoom();			
+		}
     }
 
-    public void PressedConfirmButton()
+    private void TransformCard()
     {
+        CardDisplay cardToTransform = ActionOfPlayer.Instance.handPlayer.cardsInHand[chosenTargets[0].index];
+        cardToTransform.card.championCardType = ChampionCardType.All;
+    }
 
+	private void SeersShackAbility()
+	{
+        Deck deck = Deck.Instance;
+        Card card = deck.deckPlayer[chosenTargets[0].index];
+        deck.deckPlayer.RemoveAt(chosenTargets[0].index);
+        deck.deckPlayer.Add(card);
+	}
+
+	private void DisableChosenLandmark()
+	{
+        gameState.ChangeLandmarkStatus(chosenTargets[0], false);
+        if (cardUsed is DisableCardLandmark)
+        {
+            DisableCardLandmark card = (DisableCardLandmark)cardUsed;
+            if (chosenTargets[0].whichList.opponentLandmarks)
+            {
+                Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets[0].index].card;
+                card.disabledLandmark = landmark;
+            }
+        }
+
+		if (gameState.isOnline)
+		{
+            //Ny request
+		}
+    }
+
+	public void PressedConfirmButton()
+    {
         if (whichMethod == WhichMethod.discardXCardsInMyHand)
         {
-            DiscardXCards();
+            DiscardCard();
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
 
-    }
+		if (whichMethod == WhichMethod.Mulligan)
+		{
+			List<int> indexes = new List<int>();
+			for (int i = 0; i < chosenTargets.Count; i++)
+			{
+				int card = chosenTargets[i].index;
+				indexes.Add(card);
+			}
+			actionOfPlayer.handPlayer.FixMulligan(indexes);
+            isChoiceActive = false;
+		}
 
-    public int HowManyChoicesWhereMade()
-    {
-        return chosenTargets.Count;
+		ResetChoice();
+        gameState.Refresh();
+        waitRoom.Remove(waitRoom[0]);
+
+        if (whichMethod == WhichMethod.Mulligan) return;
+        NextInWaitRoom();
     }
 
     public void ResetChoice()
     {
-        isChoiceActive = false;
         closeMenuButton.SetActive(false);
         amountOfTargets = 0;
         chosenTargets.Clear();
@@ -268,9 +369,7 @@ public class Choice : MonoBehaviour
 
     private void SwitchChamp(bool died)
     {
-        gameState.SwitchMyChampions(chosenTargets[0]);
-        if(died)
-            gameState.RemoveChampion(gameState.playerChampions[chosenTargets[0].index].champion);
+        gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
 
         if (gameState.isOnline)
         {
@@ -311,78 +410,78 @@ public class Choice : MonoBehaviour
         }   
     }
 
-    private void DiscardXCards()
-    {
-        List<string> cards = new List<string>();
-        for (int i = 0; i < chosenTargets.Count; i++)
-        {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
-        }
-
-        if (gameState.isOnline)
-        {
-            RequestDiscardCard request = new RequestDiscardCard(cards);
-            request.whichPlayer = ClientConnection.Instance.playerId;
-            ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
-        }
-    }
-
     private void DiscardCard()
     {
-        List<string> cards = new List<string>();
+        List<int> indexes = new List<int>();
         for (int i = 0; i < chosenTargets.Count; i++)
         {
-            string card = actionOfPlayer.handPlayer.DiscardSpecificCardWithIndex(chosenTargets[i].index);
-            cards.Add(card);
+            int card = chosenTargets[i].index;
+            indexes.Add(card);
         }
+
+        List<string> cards = actionOfPlayer.handPlayer.DiscardCardListWithIndexes(indexes);
 
         if (gameState.isOnline)
         {
-            RequestDiscardCard request = new RequestDiscardCard(cards);
+            RequestDiscardCard request = new RequestDiscardCard(cards, false);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }
-
-        if (!gameState.isItMyTurn)
-            gameState.PassPriority();
     }
 
-    private bool CheckIfChoice(WhichMethod theMethod, ListEnum list)
+    private bool CheckIfChoice(WhichMethod theMethod)
     {
         switch (theMethod)
         {
-            case WhichMethod.switchChampion:
-                if (list.myChampions == true && gameState.playerChampions.Count <= 1)
+            case WhichMethod.SwitchChampionPlayer:
+                descriptionText.text = "Swap Your champion";
+                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
                 }
-                else if (list.opponentChampions == true && gameState.opponentChampions.Count <= 1)
+                break;
+
+            case WhichMethod.SwitchChampionEnemy:
+                descriptionText.text = "Swap Your champion";
+                if (gameState.opponentChampions.Count <= 1)
+				{
+					return false;
+				}
+                break;
+            
+            case WhichMethod.SwitchChampionDied:
+                descriptionText.text = "Swap Your champion";
+                if (gameState.playerChampions.Count <= 1)
                 {
                     return false;
                 }
                 break;
 
             case WhichMethod.discardCard:
-                if(actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
+                descriptionText.text = "Choose a card to discard";
+                if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
             case WhichMethod.discardXCardsInMyHand:
+                descriptionText.text = "Choose a card to discard and deal bonus damage based on the amount of cards discarded";
                 if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowGraveyard:
+                descriptionText.text = "Graveyard";
                 if (graveyard.graveyardPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowDeck:
-                if (actionOfPlayer.handPlayer.deck.deckPlayer.Count <= 0)
+                descriptionText.text = "Deck";
+                if (deck.deckPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowLandmarks:
+                descriptionText.text = "Landmarks";
                 bool checkIfLandmarkPlaced = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks)
                 {
@@ -392,38 +491,100 @@ public class Choice : MonoBehaviour
                 if (!checkIfLandmarkPlaced)
                     return false;
                 break;
+
+			case WhichMethod.DisableOpponentLandmark:
+                descriptionText.text = "Landmark to disable";
+                bool ifLandmarkExist = false;
+                foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
+                {
+                    if (landmarks.card != null && landmarks.landmarkEnabled)
+                        ifLandmarkExist = true;
+                }
+                if (!ifLandmarkExist)
+                    return false;
+                break;
+            case WhichMethod.TransformChampionCard:
+                descriptionText.text = "Choose a card to Transform";
+                List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
+                bool thereIsAChampionCardToTransform = false;
+                for (int i = 0; i < cardsInHand.Count; i++)
+                {
+                    Card card = cardsInHand[i].card;
+                    if (card.championCard && card.championCardType != ChampionCardType.All)
+                    {
+                        thereIsAChampionCardToTransform = true;
+                        break;
+                    }
+                }
+                if (!thereIsAChampionCardToTransform)
+                {
+                    print("No Champion Card");
+                    return false;
+                }
+                break;
+
+                case WhichMethod.Mulligan:
+				descriptionText.text = "Mulligan";
+				break;
         }
         return true;
     }
 
     public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed)
     {
+        ChoiceMenu(list,amountToTarget,theMethod,cardUsed, 0.01f);
+    }
+
+    public void ChoiceMenu(ListEnum list, int amountToTarget, WhichMethod theMethod, Card cardUsed, float delay)
+    {
+        IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, cardUsed, delay);
+
+        Tuple<WhichMethod, IEnumerator> tuple = new Tuple<WhichMethod, IEnumerator>(theMethod, enumerator);
+        waitRoom.Add(tuple);
+        
+        if (waitRoom[0].Item2 == tuple.Item2)       
+            NextInWaitRoom();       
+        else     
+            print("Choice not First");
         
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
-        print("vad blir checken " + CheckIfChoice(theMethod, list));
-        if (CheckIfChoice(theMethod, list))
-        {
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            ResetChoice();
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            /* KAN SKAPA PROPLEM S� JAG F�RS�KER G�RA DEN L�TT ATT SE*/
-            if (cardUsed != null)
-                this.cardUsed = cardUsed;
-            IEnumerator enumerator = ShowChoiceMenu(list, amountToTarget, theMethod, 0.01f);
-            StartCoroutine(enumerator);
-        }
     }
+
+    private void NextInWaitRoom()
+    {
+        if (waitRoom.Count == 0)
+        {
+            isChoiceActive = false;
+            if (!gameState.isItMyTurn)
+                gameState.PassPriority();
+            return;
+        }
+
+        if (CheckIfChoice(waitRoom[0].Item1))
+        {
+            ResetChoice();
+            StartCoroutine(waitRoom[0].Item2);
+        }
+        else
+        {
+            waitRoom.Remove(waitRoom[0]);
+            NextInWaitRoom();			
+		}
+	}
 }
 
 public enum WhichMethod
 {
-    switchChampion, 
-    switchChampionDied, 
-    switchChampionDiedDiedDied, 
+    SwitchChampionPlayer,
+	SwitchChampionEnemy,
+	SwitchChampionDied,
     discardCard,
     discardXCardsInMyHand,
     ShowGraveyard,
     ShowDeck,
-    ShowLandmarks
+    ShowLandmarks,
+    DisableOpponentLandmark,
+	SeersShack,
+    TransformChampionCard,
+    Mulligan
 }

@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 using UnityEditor;
 using System.IO;
 
-
 public class SpreadsheetUpdater 
 {
     private List<AttackSpell> attackSpellsObjects;
@@ -68,11 +67,13 @@ public class SpreadsheetUpdater
         }
     }
 
-    public async Task ProcessRepositoriesAsync(HttpClient client)
+    public async Task UpdateCardsResources(HttpClient client)
     {   
         Debug.ClearDeveloperConsole();
         var jsonHowBigSpreadsheet = await client.GetStringAsync(
             "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=M2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+        
+        
 
         string stringToAppend = ""; 
         try
@@ -91,12 +92,13 @@ public class SpreadsheetUpdater
             attackSpellsObjects = new List<AttackSpell>(Resources.LoadAll<AttackSpell>("ScriptableObjects/Cards/Spells/Attacks"));
             landmarkObjects = new List<Landmarks>(Resources.LoadAll<Landmarks>("ScriptableObjects/Cards/Landmarks"));
             spellObjects = new List<Spells>(Resources.LoadAll<Spells>("ScriptableObjects/Cards/Spells/Support"));
+
+            
             
 
             cards = new List<Card>(attackSpellsObjects);
             cards.AddRange(landmarkObjects);
             cards.AddRange(spellObjects);
-
             CheckCardList();
 
         }
@@ -105,7 +107,72 @@ public class SpreadsheetUpdater
             Debug.LogError(ex.Message.ToString());   
         }
     }
-    
+
+    public async Task UpdateCardReferences(List<Card> cardsInput)
+    {
+        var jsonHowBigSpreadsheet = await client.GetStringAsync(
+            "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=M2&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k");
+
+        string stringToAppend = "";
+        try
+        {
+            SpreadsheetData parseJsonHowBigSpreadsheet = JsonConvert.DeserializeObject<SpreadsheetData>(jsonHowBigSpreadsheet);
+
+            stringToAppend = parseJsonHowBigSpreadsheet.valueRanges[0].values[0][0].ToString();
+            string key = "&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k";
+
+            var json = await client.GetStringAsync(
+                "https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=ROWS&ranges=A2:J" + stringToAppend + key);
+            //https://sheets.googleapis.com/v4/spreadsheets/1qpkI_uNGf4TVIzgs8FyVeXSVlQOkfZR4z9SArJuQJww/values:batchGet?majorDimension=COLUMNS&ranges=A1&key=AIzaSyCeFExPhC-xWNxyQT7KCBMisahAYTg1I0k
+
+            
+
+            spreadsheetData = new SpreadsheetData();
+            spreadsheetData = JsonConvert.DeserializeObject<SpreadsheetData>(json);
+
+            cards = cardsInput;
+            UpdateCardsBuilded();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message.ToString());
+        }
+    }
+
+    private void UpdateCardsBuilded()
+    {
+
+        for (int i = 0; i < spreadsheetData.valueRanges.Count; i++)
+        {
+            for (int z = 0; z < spreadsheetData.valueRanges[0].values.Count; z++)
+            {
+                List<string> currentCard = spreadsheetData.valueRanges[0].values[z];
+
+                ChangeCardsBuilded(currentCard);
+            }
+        }
+    }
+
+    private void ChangeCardsBuilded(List<string> currentCard)
+    {
+        Card scriptableObject = (Card)FindCardFromName(cards.Cast<Card>().ToList(), currentCard[0]);
+        string textName = currentCard[cardNameIndex] + ".txt";
+
+        if (scriptableObject != null)
+        {
+
+            List<int> indexChanges = ChangeVariables(scriptableObject, currentCard);
+
+
+            if (indexChanges.Count <= 0) return;
+            amountOfCardsChanged += 1;
+        }
+    }
+
+
+
+
     private Card FindCardFromName(List<Card> listToSearch, string name)
     {
         foreach(Card spell in listToSearch)
@@ -299,7 +366,7 @@ public class SpreadSheetUpdatetWindow : EditorWindow
 
         if (GUILayout.Button("Update cards"))
         {
-            Task theTask = spreadsheetUpdater.ProcessRepositoriesAsync(spreadsheetUpdater.client);
+            Task theTask = spreadsheetUpdater.UpdateCardsResources(spreadsheetUpdater.client);
         }
         if (GUILayout.Button("Clear TextFiles"))
         {

@@ -9,7 +9,9 @@ using UnityEngine.XR;
 public class CardParser : MonoBehaviour
 {
     [SerializeField] private string[] keywords;
-    public Dictionary<string, Func<Displays, string>> actions = new Dictionary<string, Func<Displays, string>>();
+    public Dictionary<string, Func<string>> actions = new Dictionary<string, Func<string>>();
+
+    private CardDisplayAttributes cardDisplayAttributes;
 
     private static CardParser instance;
     public static CardParser Instance { get; set; }
@@ -31,7 +33,7 @@ public class CardParser : MonoBehaviour
     {
 		foreach (string keyword in keywords)
 		{
-			Func<Displays, string> action = null;
+			Func<string> action = null;
 			switch (keyword)
 			{
 				case "*Damage*":
@@ -58,61 +60,57 @@ public class CardParser : MonoBehaviour
 		}
 	}
 
-    public void CheckKeyword(Displays display)
+    public string CheckKeyword(CardDisplayAttributes cardDisplayAttributes)
     {
-/*        if (display is CardDisplay)       
-            display = (CardDisplay)display;
-        
-        else if (display is LandmarkDisplay)      
-            display = (LandmarkDisplay)display;*/
+        this.cardDisplayAttributes = cardDisplayAttributes;
 
-        string[] s = display.cardDisplayAtributes.description.text.Split(" ");
+        string[] s = cardDisplayAttributes.description.text.Split(" ");
         string returnString = "";
         for (int i = 0; i < s.Length; i++)
         {
             if (actions.Keys.Contains(s[i]))
             {   
-                s[i] = actions[s[i]](display);
+                s[i] = actions[s[i]]();
             }
             returnString += s[i];
             if(i + 1 != s.Length)
                 returnString += " ";
         }
-        display.cardDisplayAtributes.description.text = returnString;
+        return returnString;
     }
 
-    public string Attack(Displays display)
+    public string Attack()
     {
-		return "Deal <b><color=#2564FF>" + display.damageShow.ToString() + "</color></b> damage";
+		return "Deal <b><color=#2564FF>" + cardDisplayAttributes.damageShow + "</color></b> damage";
     }
 
-    public string Shield(Displays display)
+    public string Shield()
     {
-		return "<b><color=#2564FF>" + display.amountToShieldShow.ToString() + "</color></b> shield";
+		return "<b><color=#2564FF>" + cardDisplayAttributes.amountToShieldShow + "</color></b> shield";
     }
 
-    public string Heal(Displays display)
+    public string Heal()
     {
-        return "Heal <b><color=#2564FF>" + display.amountToHealShow.ToString() + "</color></b>";
+        return "Heal <b><color=#2564FF>" + cardDisplayAttributes.amountToHealShow + "</color></b>";
     }
 
-    public string Draw(Displays display)
+    public string Draw()
     {
-        int amountOfCardsToDraw = display.amountOfCardsToDrawShow;
+        int amountOfCardsToDraw = cardDisplayAttributes.amountOfCardsToDrawShow;
         if (amountOfCardsToDraw == 1)
         {
             return "Draw a card";
         }
-        return "Draw <b><color=#2564FF>" + amountOfCardsToDraw.ToString() + "</color></b> cards";
+        return "Draw <b><color=#2564FF>" + amountOfCardsToDraw + "</color></b> cards";
     }
 
-    public string Discard(Displays display)
+    public string Discard()
     {
-        int amountOfCardsToDiscard = display.amountOfCardsToDiscardShow;
+        int amountOfCardsToDiscard = cardDisplayAttributes.amountOfCardsToDiscardShow;
         if (amountOfCardsToDiscard == 1)
         {
             return "Discard a card";
         }
-        return "Discard <b><color=#2564FF>" + amountOfCardsToDiscard.ToString() + "</color></b> cards";
+        return "Discard <b><color=#2564FF>" + amountOfCardsToDiscard + "</color></b> cards";
     }
 }

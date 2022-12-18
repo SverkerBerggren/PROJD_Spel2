@@ -4,6 +4,8 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine;
 using TMPro;
+using System.Threading;
+
 public class HostButton : MonoBehaviour
 {
     // public Server server = new Server(); 
@@ -15,11 +17,6 @@ public class HostButton : MonoBehaviour
         clientConnection = FindObjectOfType<ClientConnection>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public static string LocalIPAddress()
     {
         IPHostEntry host;
@@ -44,6 +41,27 @@ public class HostButton : MonoBehaviour
         ipAdressText.gameObject.SetActive(true);
         ipAdressText.text = LocalIPAddress();
 
-        clientConnection.isHost = true; 
+        Thread connectThread = new Thread(ConnectToServer);
+        connectThread.Start();
+
+
+   //     clientConnection.isHost = true;
+        clientConnection.gameId = 0;
+        RequestUniqueInteger request = new RequestUniqueInteger();
+
+        clientConnection.AddRequest(request, UniqueIntegerCallback);
+
+        
+    }
+    public void UniqueIntegerCallback(ServerResponse response)
+    {
+        ResponseUniqueInteger castedResponse = (ResponseUniqueInteger)response;
+
+        clientConnection.uniqueInteger = castedResponse.UniqueInteger;
+    }
+
+    private void ConnectToServer()
+    {
+        clientConnection.ConnectToServer(LocalIPAddress(), 63000);
     }
 }

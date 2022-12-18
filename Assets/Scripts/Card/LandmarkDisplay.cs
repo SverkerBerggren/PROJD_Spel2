@@ -7,31 +7,40 @@ using UnityEngine;
 public class LandmarkDisplay : Displays
 {  
     public int health;
-    public Landmarks landmark;
-	public GameObject landmarkPrefab;
-
-    public bool occultGathering = false;
-    [NonSerialized] public int tenExtraDamage;
+    //public Landmarks landmark;
+	//public GameObject landmarkPrefab;
     private GameState gameState;
     private Graveyard graveyard;
     public int index;
     public bool opponentLandmarks = false;
+    private GameObject landmarkPrefab;
+    [NonSerialized] public bool landmarkEnabled = true;
+    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
 
     [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
-    private CardDisplayAtributes previewCardDisplayAtributes;
+    private CardDisplayAttributes previewCardDisplayAtributes;
 
     private void Awake()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
-        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAtributes>();
-        cardDisplayAtributes.UpdateTextOnCard(this);
+        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        //cardDisplayAtributes.UpdateTextOnCard(this);
+        landmarkPrefab = transform.GetChild(0).gameObject;
+
+        
     }
 
     private void Start()
     {
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
-        landmark = (Landmarks)card;
+
+
+
+        if (previewLandmarkDisplay.gameObject.name.Equals(gameObject.name)) return;
+
+
+        landmarkPrefab.SetActive(false);
     }
 
     public void DestroyLandmark()
@@ -71,11 +80,10 @@ public class LandmarkDisplay : Displays
         {
             graveyard.AddCardToGraveyard(card);
         }
-
-        landmark.LandmarkEffectTakeBack();
+        Landmarks landmark = (Landmarks)card;
         landmark.WhenLandmarksDie();
+        landmarkPrefab.SetActive(false);
         card = null;
-        landmark = null;
     }
 
     public void TakeDamage(int amount)
@@ -88,30 +96,39 @@ public class LandmarkDisplay : Displays
         }
     }
 
-    private void OnMouseEnter()
+    public void OnEnter()
     {
-        if (landmark == null) return;
+        if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(true);
         previewLandmarkDisplay.card = card;
-        previewLandmarkDisplay.landmark = landmark;
         previewLandmarkDisplay.manaCost = manaCost;
         previewLandmarkDisplay.health = health;
 
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
-    private void OnMouseExit()
+    public void OnExit()
     {
-        if (landmark == null) return;
+        if (card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(false);
         previewLandmarkDisplay.card = null;
-        previewLandmarkDisplay.landmark = null;
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     public void UpdateTextOnCard()
     {
+        landmarkPrefab.SetActive(true);
         cardDisplayAtributes.UpdateTextOnCard(this);
+    }
+
+    public void DisableLandmark()
+    {
+        landmarkEnabled = false;
+    }
+
+    public void EnableLandmark()
+    {
+        landmarkEnabled = true;
     }
 }
 

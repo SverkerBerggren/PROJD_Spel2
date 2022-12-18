@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Landmarks : Card
 {
+    [Header("Landmark")]
     public int minionHealth;
 
-    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, string tag, int damage, int amountToHeal, int amountToShield) : base()
+    public Landmarks(int mH, string name, string desc, Sprite art, int maxMana, int damage, int amountToHeal, int amountToShield) : base()
     {
         minionHealth = mH;
         cardName = name;
@@ -14,7 +15,7 @@ public class Landmarks : Card
         artwork = art;
         typeOfCard = CardType.Landmark;
         maxManaCost = maxMana;
-        this.tag = tag;
+
         this.amountToHeal = amountToHeal;
         this.amountToShield = amountToShield;
         this.damage = damage;
@@ -34,10 +35,6 @@ public class Landmarks : Card
     }
 
     public virtual void PlaceLandmark() {}
-
-    public virtual void LandmarkEffectTakeBack() { }
-
-    public virtual void DrawCard() { }
 
     public virtual void AmountOfCardsPlayed(Card card) { }
 

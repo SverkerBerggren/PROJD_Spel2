@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4103209467207882374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2578418178340532935}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2578418178340532935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4103209467207882374}
+  m_LocalRotation: {x: 0.24361496, y: -0, z: -0, w: 0.96987206}
+  m_LocalPosition: {x: -2373.9402, y: 6268.8667, z: -2385.1777}
+  m_LocalScale: {x: 10.8, y: 10.8, z: 10.8}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5576498782315105810}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3344721596665155134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,6 +38,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2067166485, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952587934380869683, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208638879021872128, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3601134005427730836, guid: 016af1976ab5a8147956335667a48d85, type: 3}
       propertyPath: textureImage
       value: 
@@ -19,6 +62,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -297
       objectReference: {fileID: 0}
+    - target: {fileID: 3709094719336162294, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3942875812194309017, guid: 016af1976ab5a8147956335667a48d85, type: 3}
       propertyPath: textureImage
       value: 
@@ -27,6 +74,14 @@ PrefabInstance:
       propertyPath: textureImage
       value: 
       objectReference: {fileID: 2800000, guid: db20c845aaeb890439865425aa6c2fa9, type: 3}
+    - target: {fileID: 5421507255266716594, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942298647586995766, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7136343433207578668, guid: 016af1976ab5a8147956335667a48d85, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -111,9 +166,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8496398857995815809, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8739313496365424722, guid: 016af1976ab5a8147956335667a48d85, type: 3}
       propertyPath: m_Name
-      value: PauseMenuV2
+      value: PauseMenuV2 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092813371820027068, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+--- !u!224 &5576498782315105810 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7136343433207578668, guid: 016af1976ab5a8147956335667a48d85, type: 3}
+  m_PrefabInstance: {fileID: 3344721596665155134}
+  m_PrefabAsset: {fileID: 0}

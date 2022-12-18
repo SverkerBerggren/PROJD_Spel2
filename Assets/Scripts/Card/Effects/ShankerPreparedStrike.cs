@@ -6,6 +6,9 @@ using UnityEngine;
 public class ShankerPreparedStrike : Effects
 {
 	public int manaReduce = 1;
+
+	public override void AddEffect() {}
+
 	public override int CalculateManaCost(CardDisplay cardDisplay)
 	{
 		if (cardDisplay.card.typeOfCard == cardTrigger)

@@ -11,7 +11,7 @@ public class Graveyard : MonoBehaviour
     private static Graveyard instance;
     public static Graveyard Instance { get { return instance; } }
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -30,6 +30,8 @@ public class Graveyard : MonoBehaviour
 
     public Tuple<Card,int> RandomizeCardFromGraveyard()
     {
+        if (graveyardPlayer.Count <= 0)
+            return null;
         int index = UnityEngine.Random.Range(0, graveyardPlayer.Count);
         return new Tuple<Card, int>(FindAndRemoveCardInGraveyard(graveyardPlayer[index]), index);
     }

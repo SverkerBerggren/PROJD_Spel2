@@ -7,25 +7,29 @@ using UnityEngine.XR;
 using TMPro;
 using System.Linq;
 using UnityEngine.Networking.Types;
+using System;
 
 public class ActionOfPlayer : MonoBehaviour
 {
+	private Choice choice;
+    private GameState gameState;
+    private Graveyard graveyard;
+
+
+    private int cardCost;
+    public TMP_Text roundCounter;
+    public Sprite backfaceCard;
+
     public Hand handPlayer;
     public Hand handOpponent;
 
-    [SerializeField] private TMP_Text manaText;
-	public Sprite backfaceCard;
-
-	private Choice choice;
-
-    private int cardCost;
     public int playerMana = 0;
+    public int enemyMana = 0;
     public int currentMana = 0;
     public readonly int maxMana = 10;
+    public int unspentMana = 0;
     public bool selectCardOption = false;
 
-    private GameState gameState;
-    private Graveyard graveyard;
     private static ActionOfPlayer instance;
 
     public static ActionOfPlayer Instance { get { return instance; } set { instance = value; } }
@@ -40,12 +44,11 @@ public class ActionOfPlayer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        gameState = GameState.Instance;
     }
 
 	private void Start()
 	{
-
-        gameState = GameState.Instance;
         choice = Choice.Instance;
 		graveyard = Graveyard.Instance;
 	}
@@ -66,7 +69,7 @@ public class ActionOfPlayer : MonoBehaviour
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
-            choice.ChoiceMenu(lE, 1, WhichMethod.switchChampion, null);
+            choice.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionPlayer, null);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -75,21 +78,19 @@ public class ActionOfPlayer : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    public void UpdateUnspentMana()
     {
-        manaText.text = "Mana: " + currentMana.ToString();
+        unspentMana += currentMana;
+
     }
 
-    public bool CheckIfCanPlayCard(CardDisplay cardDisplay)
+    public bool CheckIfCanPlayCard(CardDisplay cardDisplay, bool useMana)
     {
         cardCost = cardDisplay.manaCost;
-        if (gameState.factory > 0)        
-            if (gameState.playerLandmarks.Count >= 3)
-                cardCost -= (2 * gameState.factory);
-
         if (currentMana >= cardCost)
         {
-            currentMana -= cardCost;
+            if (useMana)
+                currentMana -= cardCost;
             return true;
         }
         else
@@ -100,11 +101,14 @@ public class ActionOfPlayer : MonoBehaviour
     }
 
 	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
-	{
+	{         
 		int drawnCards = 0;
 		Hand hand;
 		if (isPlayer)
+        {
 			hand = handPlayer;
+            GameState.Instance.drawnCardsThisTurn += amountToDraw;
+        }
 		else
 			hand = handOpponent;
 
@@ -116,46 +120,74 @@ public class ActionOfPlayer : MonoBehaviour
 			{
 				if (drawnCards >= amountToDraw) break;
 
-				if (!isPlayer)
-				{
+				if (!isPlayer)				
                     cardDisplay.SetBackfaceOnOpponentCards(backfaceCard);
-				}
-
+				
 				if (specificCard == null)
-					cardDisplay.card = hand.deck.WhichCardToDrawPlayer();
-				else
+					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
+				else               
 					cardDisplay.card = specificCard;
 
-				if (cardDisplay.card != null)
-				{
-					cardDisplay.manaCost = cardDisplay.card.maxManaCost;
-                    cardDisplay.gameObject.SetActive(true);
-                    if (drawnCards == 0)
-                        cardDisplay.firstCardDrawn = true;
-					drawnCards++;
-				}
-				else
-				{
-					print("Deck is empty or the drawn card is null!!!");
-					//gameState.Defeat();
-					break;
-				}
-			}
-		}
+                drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
 
-		if (drawnCards < amountToDraw)
-		{
-			for (; drawnCards < amountToDraw; drawnCards++)
-			{
-				Card c = hand.deck.WhichCardToDrawPlayer();
-				if (isPlayer)
-					graveyard.AddCardToGraveyard(c);
-				else
+                if (drawnCards == -1)
+                    return;
+            }
+		}
+        DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
+    } 
+
+    private int CheckCardDrawn(CardDisplay cardDisplay, int drawnCards)
+    {
+        if (cardDisplay.card != null)
+        {
+            //cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+            cardDisplay.gameObject.SetActive(true);
+            if (drawnCards == 0)
+            {
+                gameState.drawnCardsThisTurn -= 1;
+                cardDisplay.firstCardDrawn = true;
+            }
+            drawnCards++;
+        }
+        else
+        {
+            print("Deck is empty or the drawn card is null!!!");
+            //gameState.Defeat();
+            return -1;
+        }
+
+        return drawnCards;
+    }
+
+    private void DiscardOverdrawnCards(int drawnCards, int amountToDraw, bool isPlayer)
+    {
+        if (drawnCards < amountToDraw) //Discards overdrawn cards
+        {
+            List<string> cardNames = new List<string>();
+            for (; drawnCards < amountToDraw; drawnCards++)
+            {
+                Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
+                if (isPlayer)
+                    graveyard.AddCardToGraveyard(c);
+                else if(!isPlayer && !gameState.isOnline)
 					graveyard.AddCardToGraveyardOpponent(c);
-			}
-		}
 
-	}
+				cardNames.Add(c.cardName);
+            }
+
+            if (gameState.isOnline && isPlayer)
+            {
+                RequestDiscardCard requesten = new RequestDiscardCard();
+                requesten.whichPlayer = ClientConnection.Instance.playerId;
+                requesten.listOfCardsDiscarded = cardNames;
+                requesten.discardCardToOpponentGraveyard = false;
+                requesten.listEnum.myDeck = true;
+                ClientConnection.Instance.AddRequest(requesten, GameState.Instance.RequestEmpty);
+
+            }
+        }
+    }
 
 	public void IncreaseMana()
     {
@@ -187,16 +219,22 @@ public class ActionOfPlayer : MonoBehaviour
             handOpponent.FixCardOrderInHand();
             return;
         }
-            
+
 
         int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay);
         CardDisplay cardDisplayToSwapTo;
         CardDisplay cardDisplayToSwapFrom = null;
         cardDisplay.card = null;
-        if (selectCardOption) cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
+
+        if (selectCardOption) 
+            cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
+
+
         for (int i = index + 1; i < handPlayer.cardSlotsInHand.Count; i++)
-        {
+        {                    
             cardDisplayToSwapFrom = handPlayer.cardSlotsInHand[i].GetComponent<CardDisplay>();
+
+
             if (cardDisplayToSwapFrom.card != null)
             {
                 if (i - 1 < 0) continue;
@@ -210,7 +248,7 @@ public class ActionOfPlayer : MonoBehaviour
 
                     if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
                     {
-                        cardDisplayToSwapTo.cardDisplayAtributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAtributes.hpText.text;
+                        cardDisplayToSwapTo.cardDisplayAttributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAttributes.hpText.text;
                     }
                 }
 

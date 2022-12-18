@@ -17,10 +17,14 @@ MonoBehaviour:
   description: You can discard any number of cards and for each you discard this
     card deals 10 damage
   artwork: {fileID: 21300000, guid: c69e8e8e557d02e4bb53a1590a6adddc, type: 3}
-  manaCost: 5
   maxManaCost: 5
-  tag: AttackSpell
+  damage: 10
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
-  damage: 10
+  targetable: 1
+  championCard: 1
+  championCardType: 5

@@ -8,12 +8,12 @@ public class Deckbuilder : MonoBehaviour
 {
     private Setup setup;
     private CardRegister register;
-    private List<GameObject> buttons = new List<GameObject>();
+    private Dictionary<Card, GameObject> cardButtons = new Dictionary<Card, GameObject>();
+	private Dictionary<Champion, GameObject> championsButtons = new Dictionary<Champion, GameObject>();
+	private TMP_Text decklist;
     [SerializeField] private GameObject buttonHolder;
-    public GameObject cardButton;
-    private TMP_Text decklist;
-    [SerializeField] private int maxCopies = 3;
-    [SerializeField] private int deckCount = 40;
+	[SerializeField] private GameObject cardButton;
+	[SerializeField] private GameObject championButton;
 
     private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
@@ -29,49 +29,59 @@ public class Deckbuilder : MonoBehaviour
         {
             Destroy(Instance);
         }
-        setup = Setup.Instance;
-        decklist = GetComponentInChildren<TMP_Text>();
-        UpdateDeckList();
 	}
 
     void Start()
     {
+        setup = Setup.Instance;
+        decklist = GetComponentInChildren<TMP_Text>();
+        UpdateDeckList();
         register = CardRegister.Instance;
+		setup.StartDeckbuilder();
+		foreach (Champion champion in register.champRegister.Values)
+		{
+			MakeButtonsChampions(champion);
+		}
         foreach (Card card in register.cardRegister.Values)
         {
             if (!card.championCard)    
             MakeButtonsCards(card);
         }
-        //MakeButtonsChampions();
-    }
+	}
 
 	private void MakeButtonsCards(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
-        CardDisplayAtributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAtributes>();
+        CardDisplayAttributes cardDisplayAtributes = gO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+
+        cardDisplayAtributes.previewCard = true;
         cardDisplayAtributes.UpdateTextOnCardWithCard(card);
+
         gO.GetComponent<DeckbuilderCardButton>().card = card;
-        buttons.Add(gO);
+
+        
+
+        cardButtons.Add(card, gO);
     }
 
-    /*
-    private void MakeButtonsChampions(Sprite championSprite, ListEnum listEnum, int index)
+    private void MakeButtonsChampions(Champion champion)
     {
-        GameObject gO = Instantiate(cardButton, buttonHolder.transform);
+        GameObject gO = Instantiate(championButton, buttonHolder.transform);
         gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = championSprite;
-        gO.transform.localScale = new Vector3(1.3f, 1, 0.4f);
-
-        gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
-
-        gO.transform.Find("Landmark_Prefab").gameObject.SetActive(false);
-
-        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
-        buttons.Add(gO);
-        //if (amountOfTargets == 0)
-            gO.GetComponent<Button>().interactable = false;
+        gO.GetComponent<Image>().sprite = champion.artwork;        
+        gO.GetComponentInChildren<DeckbuilderChampionButton>().champion = champion;
+        championsButtons.Add(champion, gO);
     }
-    */
+
+    public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
+    {
+
+        foreach (Champion champion in championsButtons.Keys)
+        {
+
+        }
+
+	}
 
     public void UpdateDeckList()
     {
@@ -82,10 +92,10 @@ public class Deckbuilder : MonoBehaviour
             decklist.text += champion + "\n";
         }
         decklist.text += "\n";
-        decklist.text += "Cards " + setup.playerDeckList.Count + "/" + deckCount + "\n";
-        foreach (Card card in setup.playerDeckList)
+        decklist.text += "Cards " + setup.currentDeckSize + "/" + setup.deckCount + "\n";
+        foreach (Card card in setup.amountOfCards.Keys)
         {
-            decklist.text += card.cardName + "\n";
+            decklist.text += card.cardName + " x" + setup.amountOfCards[card] + "\n";
         }
     }
 }

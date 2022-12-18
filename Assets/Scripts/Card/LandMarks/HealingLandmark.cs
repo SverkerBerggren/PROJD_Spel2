@@ -13,25 +13,15 @@ public class HealingLandmark : Landmarks
 
     private GameState gameState;
 
-    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.tag, card.damage, card.amountToHeal, card.amountToShield)
+    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
     {
         doubleHealingEffect = card.doubleHealingEffect;
         healEachRound = card.healEachRound;
     }
 
-    public static void CreateInstance(HealingLandmark card)
-    {
-        new HealingLandmark(card);
-    }
-
     public override void PlaceLandmark()
     {
         base.PlaceLandmark();
-    }
-
-    public override void LandmarkEffectTakeBack()
-    {
-        base.LandmarkEffectTakeBack();
     }
 
     public override int HealingEffect(int healing)

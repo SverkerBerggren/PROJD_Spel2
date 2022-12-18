@@ -9,84 +9,103 @@ public class CardDisplay : Displays
 {
     private bool alreadyBig = false;
     private Vector3 originalSize;
+    private bool loadedSpriteRenderer = false;
+    private bool loadedDisplayAttributes = false;
+    [SerializeField] private float scaleOnHover = 1.3f; 
 
+    [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
-    
+
+    [NonSerialized] public Transform displayTransform;
+
+
+    public LayoutElement layoutElement;
 
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
+    [NonSerialized] public bool clickedOnCard = false;
+
+    private CardMovement cardMovement;
 
     private void Awake()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAtributes>();
+        if (!loadedSpriteRenderer && opponentCard)
+            LoadSpriteRendererOnce();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
-    private void Start()
+    public void HideUnusedCard()
     {
-        
+        gameObject.SetActive(false);
     }
 
-    private void FixedUpdate()
-    {
-        if (card == null)
-            gameObject.SetActive(false);
-    }
 
     private void LoadInvoke()
     {
         originalSize = transform.localScale;
         cardTargeting = GetComponent<CardTargeting>();
-        
+        cardMovement = GetComponent<CardMovement>();
     }
+
 
     public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
     {
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
         opponentCard = true;
-        artworkSpriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         artworkSpriteRenderer.sprite = backfaceCard;
-        transform.Find("Landmark_Prefab").gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private void LoadSpriteRendererOnce()
+    {
+        loadedSpriteRenderer = true;
+        artworkSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+    }
+
+    private void LoadDisplayAttributesOnce()
+    {
+        loadedDisplayAttributes = true;
+        cardDisplayAttributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        displayTransform = cardDisplayAttributes.transform;
     }
 
     public void UpdateTextOnCard()
-    {       
-        cardDisplayAtributes.UpdateTextOnCard(this);
-    }
-
-    public override void UpdateVariables()
     {
-        Calculations.Instance.CalculateHandManaCost(this);
-        base.UpdateVariables();
+        if (!loadedDisplayAttributes)
+            LoadDisplayAttributesOnce();
+
+        cardDisplayAttributes.UpdateTextOnCard(this);
     }
-
-
 
     public void ResetSize()
     {
-        transform.localScale = originalSize;
+        displayTransform.localScale = new Vector3(1,1,1);
     }
 
-    private void OnMouseEnter()
+    public void MouseEnter()
     {
         if (opponentCard) return;
-       
-        if (!alreadyBig)
+
+        if (!alreadyBig && !clickedOnCard)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 7, transform.position.z - 1);
-            transform.localScale = new Vector3(transform.localScale.x + 0.5f, transform.localScale.x + 0.5f, transform.localScale.x + 0.5f);
+            displayTransform.position += new Vector3(0, 7.5f, -1);
+            displayTransform.localScale = new Vector3(scaleOnHover, scaleOnHover, scaleOnHover);
             alreadyBig = true;
         }
     }
-    private void OnMouseExit()
+
+    public void MouseExit()
     {
         if (opponentCard) return;
         if (!mouseDown)
         {
             alreadyBig = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y - 7, transform.position.z + 1);
+            displayTransform.position += new Vector3(0, -7.5f, 1);
             ResetSize();
         }
-
     }
 
     public void EndStep()

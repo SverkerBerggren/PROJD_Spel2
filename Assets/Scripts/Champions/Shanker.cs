@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting.FullSerializer;
 
 [CreateAssetMenu(fileName = "Shanker", menuName = "Champion/Shanker", order = 1)]
 public class Shanker : Champion
@@ -9,14 +10,7 @@ public class Shanker : Champion
 	public int attackCardsToPlay = 3;
 	public int cardsToDraw = 3;
 
-	//public AudioClip attackSound; 
-	public Shanker(Shanker c) : base(c.championName, c.health, c.maxHealth, c.shield, c.artwork, c.passiveEffect, ChampionCardType.Shanker)
-	{
-		attackCardsToPlay = c.attackCardsToPlay;
-		cardsToDraw = c.cardsToDraw;
-	}
-
-	public override void EndStep()
+    public override void EndStep()
 	{
 		base.EndStep();
 		if (gameState.attacksPlayedThisTurn >= attackCardsToPlay)

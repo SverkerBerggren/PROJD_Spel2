@@ -13,6 +13,11 @@ public class RadialLayout : LayoutGroup
         base.OnEnable();    
         CalculateRadial(); 
     }
+
+    protected override void Awake()
+    {
+        CalculateRadial();
+    }
     public override void SetLayoutHorizontal()
     {
     }

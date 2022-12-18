@@ -20,6 +20,8 @@ public class SoundSystem : MonoBehaviour
         EventHandler.RegisterListener<PlaySoundEvent>(PlaySound);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = PlayerPrefs.GetFloat("EffectsVolume");
+
+        InvokeRepeating(nameof(ClearBuffer), 0, 0.5f);
     }
 
     public void SetVolume(float volume)
@@ -48,14 +50,6 @@ public class SoundSystem : MonoBehaviour
     public void StopAudio()
     {
         audioSource.Stop();
-    }
-
-    void Update()
-    {
-        // Clear sound buffer every half-second
-        // This means that if more than maxBufferSize-amount of sounds are added to the buffer within half a second,
-        // only the maxBufferSize-amount of them are played
-        InvokeRepeating(nameof(ClearBuffer), 0, 0.5f);
     }
 
     void ClearBuffer()

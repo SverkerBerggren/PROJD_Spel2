@@ -6,8 +6,18 @@ using UnityEngine;
 public class ChoiceButton : MonoBehaviour
 {
     public TargetInfo targetInfo;
+    [SerializeField] private GameObject clickedEffect;
     public void OnClick()
     {
-        Choice.Instance.AddTargetInfo(targetInfo);
+        if (clickedEffect.activeSelf)
+        {
+            Choice.Instance.RemoveTargetInfo(targetInfo);
+            clickedEffect.SetActive(false);
+        }
+        else
+        {
+            Choice.Instance.AddTargetInfo(targetInfo);
+            clickedEffect.SetActive(true);
+        }
     }
 }

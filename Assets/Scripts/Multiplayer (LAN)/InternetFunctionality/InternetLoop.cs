@@ -32,9 +32,16 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
+        print("kommer den in i perfrom opponents actions");
+
+        if(!response.message.Equals(""))
+        {
+            print("Reponse message: " + response.message);
+        }
 
         foreach (GameAction action in response.OpponentActions)
         {
+            
             print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
@@ -59,9 +66,18 @@ public class InternetLoop : MonoBehaviour
 
                 foreach(string card in theAction.listOfCardsDiscarded)
                 {
-                    Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    if (theAction.discardCardToOpponentGraveyard)
+                    {
+                        Graveyard.Instance.AddCardToGraveyard(register.cardRegister[card]);
+                    }
+                    else
+                    {
+                        Graveyard.Instance.AddCardToGraveyardOpponent(register.cardRegister[card]);
+                    }
+                    
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                    //actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0].GetComponent<CardDisplay>());
+                    if(!theAction.listEnum.myDeck)
+                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0]);
                 }
 
             }
@@ -144,7 +160,7 @@ public class InternetLoop : MonoBehaviour
             {
                 GameActionSwitchActiveChamp castedAction = (GameActionSwitchActiveChamp)action;
 
-                gameState.SwapChampionWithTargetInfo(castedAction.targetToSwitch,castedAction.championDied);
+                gameState.SwapChampionOnline(castedAction.targetToSwitch,castedAction.championDied);
 
                 if (castedAction.targetToSwitch.whichList.opponentChampions)               
                     gameState.playerChampion.champion.WhenCurrentChampion();
@@ -190,24 +206,17 @@ public class InternetLoop : MonoBehaviour
                 {
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
                 }
-                else
+                else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
                 {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
                 }
 
-                print("kommer den hit  1");
-                if (cardPlayed.typeOfCard == CardType.Landmark)
-                    gameState.ShowPlayedCardLandmark((Landmarks)cardPlayed);
-                else
-                    gameState.ShowPlayedCard(cardPlayed);
-                print("kommer den hit  2");
+                gameState.ShowPlayedCard(cardPlayed, true, castedAction.manaCost);
+
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-
-                print("kommer den hit  3");
-                actionOfPlayer.handOpponent.FixCardOrderInHand();
-                print("kommer den hit  4");
+                actionOfPlayer.enemyMana -= castedAction.manaCost;
+             //   actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
-
             }    
             if (action  is GameActionOpponentDiscardCard)
             {   
@@ -219,12 +228,19 @@ public class InternetLoop : MonoBehaviour
                     {
                         if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
                         {
-
-                            discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                            if (castedAction.discardCardToOpponentGraveyard)
+                            {
+                                discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(false));
+                            }
+                            else
+                            {
+                                discardedCards.Add(ActionOfPlayer.Instance.DiscardWhichCard(true));
+                            }
+                            
                         }
                     }
 
-                    RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards);
+                    RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards, castedAction.discardCardToOpponentGraveyard);
                     discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
                     ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
                 }
@@ -232,7 +248,7 @@ public class InternetLoop : MonoBehaviour
                 {   
                     ListEnum listEnum = new ListEnum();
                     listEnum.myHand = true;
-                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null);
+                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null, 2f);
                 }
             }  
             if (action  is GameActionGameSetup)
@@ -267,7 +283,7 @@ public class InternetLoop : MonoBehaviour
 
                 GameActionAddSpecificCardToHand castedAction = (GameActionAddSpecificCardToHand)action; 
 
-                ActionOfPlayer.Instance.handOpponent.deck.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
+                Deck.Instance.AddCardToDeckOpponent(CardRegister.Instance.cardRegister[castedAction.cardToAdd]);
 				ActionOfPlayer.Instance.DrawCardPlayer(1, CardRegister.Instance.cardRegister[castedAction.cardToAdd], false);
             }
             if (action is GameActionPassPriority)
@@ -278,11 +294,19 @@ public class InternetLoop : MonoBehaviour
             if (action is GameActionPlayLandmark)
             {
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
-
                 gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-                gameState.ShowPlayedCardLandmark((Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName]);
+                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true, -1);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
+
+            if (action is GameActionStopSwapping)
+            {
+
+                print("den swappar ej");
+                GameActionStopSwapping castedAction = (GameActionStopSwapping)action;
+
+                gameState.canSwap = castedAction.canSwap;
+            }
 
             if (gameState != null)
                 gameState.Refresh();
@@ -305,16 +329,21 @@ public class InternetLoop : MonoBehaviour
     {   if(hasJoinedLobby && !hasEstablishedEnemurator)
         {
            StartCoroutine(SendRequest());
+            hasEstablishedEnemurator = true;
         }
     }
     
     private IEnumerator SendRequest()
     {
-        RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
 
-        clientConnection.AddRequest(request, PerformOpponentsActions);
-       
-        yield return new WaitForSeconds(0);
+        while(true)
+        {
+            RequestOpponentActions request = new RequestOpponentActions(ClientConnection.Instance.playerId, true);
+
+            clientConnection.AddRequest(request, PerformOpponentsActions);
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void EmptyRequest(ServerResponse response) {}
