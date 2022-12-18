@@ -226,6 +226,11 @@ public class Choice : MonoBehaviour
             gO.GetComponent<Button>().interactable = false;
     }
 
+    public void RemoveTargetInfo(TargetInfo targetInfo)
+    {
+        chosenTargets.Remove(targetInfo);
+    }
+
     public void AddTargetInfo(TargetInfo targetInfo)
     {
         chosenTargets.Add(targetInfo);
