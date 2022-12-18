@@ -149,7 +149,7 @@ public class GameState : MonoBehaviour
         {
             ListEnum listEnum = new ListEnum();
             listEnum.myHand = true;
-            Choice.Instance.ChoiceMenu(listEnum, -1, WhichMethod.Mulligan, null, 0.05f);
+            Choice.Instance.ChoiceMenu(listEnum, -1, WhichMethod.Mulligan, null, 0.1f);
         }
     }
 
