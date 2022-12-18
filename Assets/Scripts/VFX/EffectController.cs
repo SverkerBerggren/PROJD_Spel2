@@ -137,18 +137,8 @@ public class EffectController : MonoBehaviour
     {
         card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
-    public void DestoryBuilderEffect(GameObject go)
-    {
-        go.GetComponent<Effect_Builder>().SetDissolve(true);
-    }
-    public void DestoryGraveRoEffect(GameObject go)
-    {
-        go.GetComponent<Effect_GraveRobber>().SetDissolve(true);
-    }
-    public void DestoryCultistEffect(AvailableChampion go)
-    {
-        go.GetComponent<Effect_Cultist>().SetDissolve(true);
-    }
+
+
     public void PlayAttackEffect(AvailableChampion champ)
     {
         switch (champ.nameOfChampion)
@@ -157,10 +147,10 @@ public class EffectController : MonoBehaviour
                 GainCultistAttackEffect(targetPos);
                 break;
             case "Builder":
-                champ.GetComponent<Effect_Builder>().PlayPS();
+                champ.GetComponentInChildren<Effect_Builder>().PlayPS();
                 break;
             case "Graverobber":
-                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                champ.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
                 break;
             default:
                 break;
@@ -173,13 +163,14 @@ public class EffectController : MonoBehaviour
         switch (champ.nameOfChampion)
         {
             case "Cultist":
-                DestoryCultistEffect(champ);
+                champ.GetComponentInChildren<Effect_Cultist>().SetDissolve(true);
                 break;
             case "Builder":
-                champ.GetComponent<Effect_Builder>().PlayPS();
+                champ.GetComponentInChildren<Effect_Builder>().SetDissolve(true);
                 break;
             case "Graverobber":
-                champ.GetComponent<Effect_GraveRobber>().PlayEffect();
+                champ.GetComponentInChildren<Effect_GraveRobber>().SetDissolve(true);    
+              
                 break;
             default:
                 break;
