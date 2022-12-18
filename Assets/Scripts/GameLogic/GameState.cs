@@ -202,6 +202,7 @@ public class GameState : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
+        AudioManager.Instance.PlayClickSound();
 
         PassPriority();
 
@@ -287,6 +288,8 @@ public class GameState : MonoBehaviour
         amount = calculations.CalculateHealing(amount, false);
         Invoke(nameof(TakeAwayHealEffect), 3f);
         HealTarget(calculations.TargetAndAmountFromCard(cardUsed, amount));
+
+        AudioManager.Instance.PlayHealSound();
     }
 
     private void TakeAwayHealEffect()
