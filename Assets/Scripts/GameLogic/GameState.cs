@@ -124,7 +124,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Builder",
+                "TheOneWhoDraws",
                 "Shanker",
                 "Graverobber",
             };
@@ -568,9 +568,14 @@ public class GameState : MonoBehaviour
         {
             actionOfPlayer.IncreaseMana();
         }
-        amountOfTurns++;
-        actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
+
+        if (firstTurn)
+        {
+            amountOfTurns++;
+        }
+
         playerChampion.champion.UpKeep();
+
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
             if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
@@ -591,7 +596,13 @@ public class GameState : MonoBehaviour
         {
             DrawCard(1, null,false);
         }
-        playerChampion.champion.EndStep();
+
+		if (!firstTurn)
+		{
+			amountOfTurns++;
+		}
+
+		playerChampion.champion.EndStep();
 
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
@@ -622,6 +633,7 @@ public class GameState : MonoBehaviour
             TriggerEndStep();
             TriggerUpKeep();
             yourTurnEffect.ActivateEffect();
+			actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
 			Refresh();
 			return;
         }
@@ -639,6 +651,7 @@ public class GameState : MonoBehaviour
             yourTurnEffect.ActivateEffect();
         }
 
+        actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
@@ -757,9 +770,6 @@ public class GameState : MonoBehaviour
         Champion temp = list[i].champion;
         list[i].champion = list[j].champion;
         list[j].champion = temp;
-
-/*        list[j].champion.health = list[i].champion.health;
-        list[j].champion.shield = list[i].champion.shield;*/
     }
 
     public void Refresh()
