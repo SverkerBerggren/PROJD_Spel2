@@ -277,9 +277,6 @@ public class Choice : MonoBehaviour
                     DisableChosenLandmark();
                     break;
 
-                case WhichMethod.SeersShack:
-                    SeersShackAbility();
-                    break;
                 case WhichMethod.TransformChampionCard:
                     TransformCard();
                     break;
@@ -301,9 +298,13 @@ public class Choice : MonoBehaviour
 	private void SeersShackAbility()
 	{
         Deck deck = Deck.Instance;
-        Card card = deck.deckPlayer[chosenTargets[0].index];
-        deck.deckPlayer.RemoveAt(chosenTargets[0].index);
-        deck.deckPlayer.Add(card);
+        Card card;
+        for (int i = 0; i < chosenTargets.Count; i++)
+        {
+            card = deck.deckPlayer[chosenTargets[i].index - i];
+            deck.deckPlayer.RemoveAt(chosenTargets[i].index - i);
+            deck.deckPlayer.Add(card);
+        }
 	}
 
 	private void DisableChosenLandmark()
@@ -327,30 +328,42 @@ public class Choice : MonoBehaviour
 
 	public void PressedConfirmButton()
     {
-        if (whichMethod == WhichMethod.discardXCardsInMyHand)
+        switch (whichMethod)
         {
+            case WhichMethod.discardXCardsInMyHand:
             DiscardCard();
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
-        }
-		else if (whichMethod == WhichMethod.Mulligan)
-		{
-			List<int> indexes = new List<int>();
-			for (int i = 0; i < chosenTargets.Count; i++)
-			{
-				int card = chosenTargets[i].index;
-				indexes.Add(card);
-			}
-			actionOfPlayer.handPlayer.FixMulligan(indexes);
-            isChoiceActive = false;
-		}
+                break;
 
-		ResetChoice();
+            case WhichMethod.Mulligan:
+                Mulligan();
+            break;
+
+            case WhichMethod.SeersShack:
+                SeersShackAbility();
+                break;
+
+        }
+
+        ResetChoice();
         gameState.Refresh();
         waitRoom.Remove(waitRoom[0]);
-
+        confirmMenuButton.SetActive(false);
         if (whichMethod == WhichMethod.Mulligan) return;
         NextInWaitRoom();
+    }
+
+    private void Mulligan()
+    {
+        List<int> indexes = new List<int>();
+        for (int i = 0; i < chosenTargets.Count; i++)
+        {
+            int card = chosenTargets[i].index;
+            indexes.Add(card);
+        }
+        actionOfPlayer.handPlayer.FixMulligan(indexes);
+        isChoiceActive = false;
     }
 
     public void ResetChoice()
@@ -528,7 +541,11 @@ public class Choice : MonoBehaviour
                 }
                 break;
 
-                case WhichMethod.Mulligan:
+                case WhichMethod.SeersShack:
+                descriptionText.text = "Choose which cards to put at the bottom of the deck";
+                break;
+
+            case WhichMethod.Mulligan:
 				descriptionText.text = "Mulligan";
 				break;
         }
