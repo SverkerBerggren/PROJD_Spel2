@@ -7,6 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
 public class AttackSpell : Spells
 {
+    private GameState gameState;
+    private AudioManager audioManager;
+
     public bool destroyLandmark = false;
     public bool damageEqualsToYourChampionHP = false;
     public bool damageToBothActiveChampions = false;
@@ -17,10 +20,11 @@ public class AttackSpell : Spells
         targetable = true;
     }
 
-    private GameState gameState;
     public override void PlaySpell()
     {
         gameState = GameState.Instance;
+        audioManager = AudioManager.Instance;
+
         if (damageEqualsToYourChampionHP)
             DamageAsYourChampionHP();
 
@@ -43,18 +47,19 @@ public class AttackSpell : Spells
         }
         //PlaySoundEvent hej = new PlaySoundEvent("hej", null); 
 
-            Debug.Log("kommer den hit?1");
-        if(GameState.Instance.playerChampion.champion.championName == "Shanker")
-        { 
-            AudioManager.Instance.PlayShankerAttack();
-        }
-        if(GameState.Instance.playerChampion.champion.championName == "Builder")
-        { 
-            AudioManager.Instance.PlayBuilderAttackSound();
-        }
-        if(GameState.Instance.playerChampion.champion.championName == "Graverobber")
-        { 
-            AudioManager.Instance.PlayGraveDiggerAttackSound();
+        switch (gameState.playerChampion.champion.championName)
+        {
+            case "Shanker":
+            audioManager.PlayShankerAttack();
+            break;
+
+            case "Builder":
+            audioManager.PlayBuilderAttackSound();
+            break;
+
+            case "Graverobber":
+            audioManager.PlayGraveDiggerAttackSound();
+            break;
         }
     }
 
