@@ -267,6 +267,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6988890064235615818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1467710476907677906}
+  - component: {fileID: 392131951780790284}
+  - component: {fileID: 6671657159940774542}
+  m_Layer: 5
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1467710476907677906
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988890064235615818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1752151982902585898}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &392131951780790284
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988890064235615818}
+  m_CullTransparentMesh: 1
+--- !u!114 &6671657159940774542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988890064235615818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 100
 --- !u!1001 &1396618412905652433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -304,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6902329940035890461, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 6902329940035890461, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
       propertyPath: m_LocalRotation.w
@@ -339,6 +415,10 @@ PrefabInstance:
       value: LightingRam
       objectReference: {fileID: 0}
     - target: {fileID: 9036499239868703099, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036499239868703099, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -361,6 +441,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4087350943102769215}
     m_Modifications:
+    - target: {fileID: 262932638914602547, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 262932640102151964, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_SizeDelta.x
       value: 100
@@ -384,6 +468,10 @@ PrefabInstance:
     - target: {fileID: 262932640102151964, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.3829
+      objectReference: {fileID: 0}
+    - target: {fileID: 262932640102151966, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156719, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_Name
@@ -423,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 262932640106156723, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_LocalRotation.w
@@ -521,6 +609,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -4
       objectReference: {fileID: 0}
+    - target: {fileID: 262932640447029328, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 262932640787948388, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -597,6 +689,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8809972492459987017, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
 --- !u!114 &1752151981020852094 stripped
@@ -646,6 +742,11 @@ MonoBehaviour:
   championName: {fileID: 3021331918162486060}
   description: {fileID: 1752151981603266182}
   hpText: {fileID: 1752151981020852094}
+--- !u!224 &1752151982902585898 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 262932638914602546, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
+  m_PrefabInstance: {fileID: 2015074025989721112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3021331918162486060 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3610504236449935156, guid: 5db10bc90031e344295c979e7ae34caa, type: 3}
@@ -686,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4128754639771816722, guid: f66cf69ecc439e9408dd3b748e068f87, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4846869459246958421, guid: f66cf69ecc439e9408dd3b748e068f87, type: 3}
       propertyPath: m_Layer
@@ -742,7 +843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5584313266007552909, guid: f66cf69ecc439e9408dd3b748e068f87, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 5584313266007552909, guid: f66cf69ecc439e9408dd3b748e068f87, type: 3}
       propertyPath: m_LocalRotation.w
