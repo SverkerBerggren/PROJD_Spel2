@@ -45,7 +45,6 @@ public class AttackSpell : Spells
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
             //DestroyLandmark();
         }
-        //PlaySoundEvent hej = new PlaySoundEvent("hej", null); 
 
         switch (gameState.playerChampion.champion.championName)
         {
