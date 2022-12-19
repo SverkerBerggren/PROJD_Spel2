@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class EffectController : MonoBehaviour
@@ -13,6 +11,7 @@ public class EffectController : MonoBehaviour
     [SerializeField] private GameObject healingPrefab;
     [SerializeField] private GameObject cultistAttackPrefab;
     [SerializeField] private Transform targetPos;
+    [SerializeField] private ParticleSystem onHit;
     
     private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
     private GameObject shieldToGo;
@@ -24,7 +23,7 @@ public class EffectController : MonoBehaviour
 
     public static EffectController Instance { get { return instance; } set { instance = value; } }
 
-    void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -34,12 +33,13 @@ public class EffectController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    void Start()
+    {
         shields = new Dictionary<Tuple<string, bool>, GameObject>();
         //should have to know where to spwn Cultist attack effect 
-     
-
-     }
+    }
 
     private void FixedUpdate()
     {
@@ -126,55 +126,47 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
+
     public void GainCultistAttackEffect(Transform trans)
     {
-       
-            Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
-        
-   
+        Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
     }
+
     public void DiscardCardEffect(GameObject card)
     {
         card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
 
 
-    public void PlayAttackEffect(AvailableChampion champ)
+    public void PlayAttackEffect(AvailableChampion holder)
     {
-        switch (champ.nameOfChampion)
+        switch (holder.champion.championName)
         {
             case "Cultist":
                 GainCultistAttackEffect(targetPos);
                 break;
             case "Builder":
-                champ.GetComponentInChildren<Effect_Builder>().PlayPS();
+               holder.GetComponentInChildren<Effect_Builder>().PlayPS();
                 break;
             case "Graverobber":
-                champ.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
+                holder.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
                 break;
-            default:
-                break;
-
-
         }
+        onHit.Play();
     }
-    public void PlayDeathEffect(AvailableChampion champ)
+    public void PlayDeathEffect(AvailableChampion holder)
     {
-        switch (champ.nameOfChampion)
+        switch (holder.nameOfChampion)
         {
             case "Cultist":
-                champ.GetComponentInChildren<Effect_Cultist>().SetDissolve(true);
+                holder.GetComponentInChildren<Effect_Cultist>().StartDisolve();
                 break;
             case "Builder":
-                champ.GetComponentInChildren<Effect_Builder>().SetDissolve(true);
+                holder.GetComponentInChildren<Effect_Builder>().StartDisolve();
                 break;
             case "Graverobber":
-                champ.GetComponentInChildren<Effect_GraveRobber>().SetDissolve(true);    
-              
+                holder.GetComponentInChildren<Effect_GraveRobber>().StartDisolve();    
                 break;
-            default:
-                break;
-
 
         }
     }

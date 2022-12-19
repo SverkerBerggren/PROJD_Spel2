@@ -34,6 +34,7 @@ public class AvailableChampion : MonoBehaviour
 
     public SpriteRenderer champCard;
     private GameState gameState;
+    private EffectController effectController;
     //private ArmorEffect armorEffect;
     [SerializeField] private GameObject sheildUIObject;
     [SerializeField] private ShieldShow shieldShow;
@@ -59,6 +60,7 @@ public class AvailableChampion : MonoBehaviour
     private void Start()
 	{
         gameState = GameState.Instance;
+        effectController = EffectController.Instance;
         maxHealth = health;
         if (transform.Find("ArmorEffect") != null)
            // armorEffect = transform.Find("ArmorEffect").GetComponent<ArmorEffect>();
@@ -235,9 +237,8 @@ public class AvailableChampion : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Dead");
-            //call death effect
-            EffectController.Instance.PlayDeathEffect(this);
         }
+        effectController.PlayDeathEffect(this);
         gameState.ChampionDeath(champion);
     }
 

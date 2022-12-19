@@ -19,17 +19,12 @@ public class Effect_Cultist : MonoBehaviour
         if (mainMesh != null) mainMaterial = mainMesh.material;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartDisolve()
     {
-        if (goDissolve)
-        {
-            StartCoroutine(DissolveCo());
-        }
+        StartCoroutine(DissolveCo());
     }
 
-
-    IEnumerator DissolveCo()
+    private IEnumerator DissolveCo()
     {
         goDissolve = false;
         deathEffect.Play();
@@ -46,11 +41,5 @@ public class Effect_Cultist : MonoBehaviour
             Debug.Log("Time to go");
             }
 
-    }
-
-    
-    public void SetDissolve(bool bo)
-    {
-        goDissolve = bo;
     }
 }

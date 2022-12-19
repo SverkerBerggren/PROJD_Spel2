@@ -59,11 +59,6 @@ public class Hand : MonoBehaviour
         return CardToDiscard(cardsInHand[cardIndex]);
     }
 
-    public string DiscardSpecificCardWithIndex(int index)
-    {
-        return CardToDiscard(cardsInHand[index]).cardName;
-    }
-
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
 		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
@@ -107,9 +102,9 @@ public class Hand : MonoBehaviour
 	private Card CardToDiscard(CardDisplay cardDisplay)
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
-        Card c = cardDisplay.card;
+        Card card = cardDisplay.card;
+        cardDisplay.cardDissolve.SetDissolveState(true);
 
-        ActionOfPlayer.Instance.ChangeCardOrder(true, cardDisplay);
-        return c;
+        return card;
     }
 }

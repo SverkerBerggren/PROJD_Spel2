@@ -11,6 +11,7 @@ public class CardDisplay : Displays
     private Vector3 originalSize;
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
+    private CardMovement cardMovement;
     [SerializeField] private float scaleOnHover = 1.3f; 
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
@@ -18,14 +19,13 @@ public class CardDisplay : Displays
 
     [NonSerialized] public Transform displayTransform;
 
-
     public LayoutElement layoutElement;
 
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
     [NonSerialized] public bool clickedOnCard = false;
 
-    private CardMovement cardMovement;
+    public CardDissolve cardDissolve;
 
     private void Awake()
     {
@@ -39,6 +39,7 @@ public class CardDisplay : Displays
     private void Start()
     {
         displayTransform = transform.GetChild(0).transform;
+        cardDissolve = GetComponentInChildren<CardDissolve>();
     }
 
     public void HideUnusedCard()

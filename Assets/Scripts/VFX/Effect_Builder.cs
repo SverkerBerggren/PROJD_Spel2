@@ -22,19 +22,16 @@ public class Effect_Builder : MonoBehaviour
         if( mainMesh != null) skinnerMaterial = mainMesh.material;
         if (hammerMesh != null) vapenMaterial = hammerMesh.material;
     }
-    private void Update()
+
+    public void StartDisolve()
     {
-        if (goDissolve)
-        {
-            StartCoroutine(DissolveCo());
-        }
+        StartCoroutine(DissolveCo());
     }
 
-    IEnumerator DissolveCo()
+    private IEnumerator DissolveCo()
     {
         if(skinnerMaterial != null && vapenMaterial != null)
         {
-            goDissolve = false;
             float counter = 0;
             deathPS.Play();
             while (skinnerMaterial.GetFloat("_DissolvedAmount") < 1 && vapenMaterial.GetFloat("_DissolvedAmount")<1)
@@ -59,11 +56,6 @@ public class Effect_Builder : MonoBehaviour
     public void PlayPS()
     {
         PS_Slash.Play();
-    }
-
-    public void SetDissolve(bool bo)
-    {
-        goDissolve = bo;
     }
 
 }
