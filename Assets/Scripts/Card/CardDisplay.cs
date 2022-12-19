@@ -38,6 +38,7 @@ public class CardDisplay : Displays
 
     private void Start()
     {
+        displayTransform = transform.GetChild(0).transform;
         cardDissolve = GetComponentInChildren<CardDissolve>();
     }
 
