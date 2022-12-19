@@ -17,6 +17,7 @@ public class Cultist : Champion
 
 	public override int DealDamageAttack(int damage)
 	{
+		base.DealDamageAttack(damage);
         return damage + CalculateBonusDamage();
 	}
 

@@ -217,8 +217,6 @@ public class GameState : MonoBehaviour
         if (playerChampion.animator != null)
         {
             playerChampion.animator.SetTrigger("Attack");
-            //play attack vfx
-            EffectController.Instance.PlayAttackEffect(playerChampion);
         }
     }
 

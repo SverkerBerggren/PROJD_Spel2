@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class EffectController : MonoBehaviour
@@ -126,55 +124,46 @@ public class EffectController : MonoBehaviour
     {
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
+
     public void GainCultistAttackEffect(Transform trans)
     {
-       
-            Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
-        
-   
+        Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
     }
+
     public void DiscardCardEffect(GameObject card)
     {
         card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
 
 
-    public void PlayAttackEffect(AvailableChampion champ)
+    public void PlayAttackEffect(Champion champ)
     {
-        switch (champ.nameOfChampion)
+        switch (champ.championName)
         {
             case "Cultist":
                 GainCultistAttackEffect(targetPos);
                 break;
             case "Builder":
-                champ.GetComponentInChildren<Effect_Builder>().PlayPS();
+                champ.championMesh.GetComponentInChildren<Effect_Builder>().PlayPS();
                 break;
             case "Graverobber":
-                champ.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
+                champ.championMesh.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
                 break;
-            default:
-                break;
-
-
         }
     }
-    public void PlayDeathEffect(AvailableChampion champ)
+    public void PlayDeathEffect(Champion champ)
     {
-        switch (champ.nameOfChampion)
+        switch (champ.championName)
         {
             case "Cultist":
-                champ.GetComponentInChildren<Effect_Cultist>().SetDissolve(true);
+                champ.championMesh.GetComponentInChildren<Effect_Cultist>().SetDissolve(true);
                 break;
             case "Builder":
-                champ.GetComponentInChildren<Effect_Builder>().SetDissolve(true);
+                champ.championMesh.GetComponentInChildren<Effect_Builder>().SetDissolve(true);
                 break;
             case "Graverobber":
-                champ.GetComponentInChildren<Effect_GraveRobber>().SetDissolve(true);    
-              
+                champ.championMesh.GetComponentInChildren<Effect_GraveRobber>().SetDissolve(true);    
                 break;
-            default:
-                break;
-
 
         }
     }
