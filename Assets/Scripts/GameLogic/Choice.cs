@@ -333,8 +333,7 @@ public class Choice : MonoBehaviour
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
         }
-
-		if (whichMethod == WhichMethod.Mulligan)
+		else if (whichMethod == WhichMethod.Mulligan)
 		{
 			List<int> indexes = new List<int>();
 			for (int i = 0; i < chosenTargets.Count; i++)
@@ -370,6 +369,12 @@ public class Choice : MonoBehaviour
     private void SwitchChamp(bool died)
     {
         gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
+
+        if (cardUsed is DuelistAttack)
+        {
+            DuelistAttack duelistAttack = (DuelistAttack)cardUsed;
+            duelistAttack.WaitForChoice();
+        }
 
         if (gameState.isOnline)
         {
@@ -586,5 +591,5 @@ public enum WhichMethod
     DisableOpponentLandmark,
 	SeersShack,
     TransformChampionCard,
-    Mulligan
+    Mulligan,
 }

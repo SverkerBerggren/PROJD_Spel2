@@ -16,15 +16,15 @@ public class DuelistAttack : Spells
     public override void PlaySpell()
     {
         gameState = GameState.Instance;
-        int newDamage = Calculations.Instance.CalculateDamage(damage, false);
-        //if (Target == null && newDamage >= Target.)
         gameState.CalculateAndDealDamage(damage, this);
 
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
-
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
+    }
 
+    public void WaitForChoice()
+    {
         gameState.CalculateAndDealDamage(damage, this);
     }
 }
