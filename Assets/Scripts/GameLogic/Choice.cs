@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class Choice : MonoBehaviour
 {
@@ -21,14 +22,15 @@ public class Choice : MonoBehaviour
     [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private GameObject closeMenuButton;
-    [SerializeField] private GameObject confirmMenuButton;
-    [SerializeField] private GameObject buttonHolder;
     [SerializeField] private GameObject choiceMenu;
     [SerializeField] private GameObject choiceOpponentMenu;
     private bool isChoiceActive;
 
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
+
+    public GameObject confirmMenuButton;
+    public GameObject buttonHolder;
 
     private static Choice instance;
 	public static Choice Instance { get { return instance; } set { instance = value; } }
@@ -93,6 +95,19 @@ public class Choice : MonoBehaviour
         whichMethod = theMethod;
         amountOfTargets = amountToTarget;
 
+        if (listEnum.opponentChampions && listEnum.opponentLandmarks)
+        {
+            MakeButtonOfChampion(gameState.opponentChampion.champion, listEnum, 0);
+            listEnum.opponentChampions = false;
+            for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
+            {
+                LandmarkDisplay landmarkDisplay = gameState.opponentLandmarks[i];
+                if (landmarkDisplay.card == null) continue;
+                
+                MakeButtonOfCard(landmarkDisplay.card, listEnum, i + 1);
+            }
+            yield return null;
+        }
 
         if (listEnum.myChampions)
         {
@@ -101,7 +116,7 @@ public class Choice : MonoBehaviour
                 AvailableChampion champ = gameState.playerChampions[i];
                 if (champ == gameState.playerChampion) continue;
 
-                MakeButtonOfChampion(champ.champion.artwork, listEnum, i);
+                MakeButtonOfChampion(champ.champion, listEnum, i);
             }
         }
 
@@ -109,9 +124,7 @@ public class Choice : MonoBehaviour
 		{
 			for (int i = 0; i < gameState.opponentChampions.Count; i++)
 			{
-				Sprite champSprite = gameState.opponentChampions[i].champion.artwork;
-
-                MakeButtonOfChampion(champSprite, listEnum, i);
+                MakeButtonOfChampion(gameState.opponentChampions[i].champion, listEnum, i);
             }
 		}
 
@@ -199,29 +212,30 @@ public class Choice : MonoBehaviour
     private void MakeButtonOfCard(Card card, ListEnum listEnum, int index)
     {      
         GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
-        CardDisplayAttributes cardDisplayAtributes = gO.GetComponentInChildren<CardDisplayAttributes>();
-        cardDisplayAtributes.UpdateTextOnCardWithCard(card);
+        ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
+        choiceButton.cardPrefab.SetActive(true);
+        gO.GetComponentInChildren<CardDisplayAttributes>().UpdateTextOnCardWithCard(card);
 
-        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
+        choiceButton.targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
+
         if (amountOfTargets == 0)
             gO.GetComponent<Button>().interactable = false;
     }
 
-    private void MakeButtonOfChampion(Sprite championSprite, ListEnum listEnum, int index)
+    private void MakeButtonOfChampion(Champion champion, ListEnum listEnum, int index)
     {
-        GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);       
-        gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = championSprite;
-        gO.transform.localScale = new Vector3(1.3f, 1, 0.4f);
+        GameObject gO = Instantiate(choiceButtonPrefab, buttonHolder.transform);
+        ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
 
-        gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
+        //gO.GetComponentInParent<GridLayoutGroup>().spacing = new Vector2(100, -100);
+        ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
+        championAttributes.UpdateChampionCard(champion);
+        choiceButton.championPrefab.SetActive(true);
 
-
-        gO.transform.GetChild(0).gameObject.SetActive(false);
-
-        gO.GetComponent<ChoiceButton>().targetInfo = new TargetInfo(listEnum, index);
+        choiceButton.targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
+
         if (amountOfTargets == 0)
             gO.GetComponent<Button>().interactable = false;
     }
@@ -283,6 +297,9 @@ public class Choice : MonoBehaviour
                 case WhichMethod.TransformChampionCard:
                     TransformCard();
                     break;
+                case WhichMethod.OneSwitchTarget:
+                    OneSwitchTarget();
+                    break;
             }
 
             ResetChoice();
@@ -292,9 +309,17 @@ public class Choice : MonoBehaviour
 		}
     }
 
+    private void OneSwitchTarget()
+    {
+        if (chosenTargets[0].whichList.opponentChampions)
+            cardUsed.Target = gameState.opponentChampion.champion;
+        else
+            cardUsed.LandmarkTarget = gameState.opponentLandmarks[chosenTargets[0].index - 1];
+    }
+
     private void TransformCard()
     {
-        CardDisplay cardToTransform = ActionOfPlayer.Instance.handPlayer.cardsInHand[chosenTargets[0].index];
+        CardDisplay cardToTransform = actionOfPlayer.handPlayer.cardsInHand[chosenTargets[0].index];
         cardToTransform.card.championCardType = ChampionCardType.All;
     }
 
@@ -592,4 +617,5 @@ public enum WhichMethod
 	SeersShack,
     TransformChampionCard,
     Mulligan,
+    OneSwitchTarget,
 }

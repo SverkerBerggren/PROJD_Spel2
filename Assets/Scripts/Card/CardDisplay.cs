@@ -36,6 +36,11 @@ public class CardDisplay : Displays
         Invoke(nameof(LoadInvoke), 0.01f);       
     }
 
+    private void Start()
+    {
+        displayTransform = transform.GetChild(0).transform;
+    }
+
     public void HideUnusedCard()
     {
         gameObject.SetActive(false);
