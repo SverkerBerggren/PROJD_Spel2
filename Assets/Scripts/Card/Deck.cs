@@ -119,17 +119,4 @@ public class Deck : MonoBehaviour
         //GameState.Instance.Defeat();
         return null;
     }
-
-    public Card WhichCardToDrawOpponent()
-    {
-        if (deckOpponent.Count > 0)
-        {
-            Card card = deckOpponent[0];
-            deckOpponent.RemoveAt(0);
-            return card;
-        }
-
-        //GameState.Instance.Victory();
-        return null;
-    }
 }
