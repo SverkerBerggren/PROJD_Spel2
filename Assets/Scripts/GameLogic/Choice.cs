@@ -385,6 +385,7 @@ public class Choice : MonoBehaviour
 
         if (cardUsed is DuelistAttack)
         {
+            print("fsafasf");
             DuelistAttack duelistAttack = (DuelistAttack)cardUsed;
             duelistAttack.WaitForChoice();
         }
@@ -453,7 +454,7 @@ public class Choice : MonoBehaviour
         {
             case WhichMethod.SwitchChampionPlayer:
                 descriptionText.text = "Swap Your champion";
-                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
+                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap || gameState.playedCardGO.GetComponent<CardDisplay>().card is DuelistAttack)
                 {
                     return false;
                 }

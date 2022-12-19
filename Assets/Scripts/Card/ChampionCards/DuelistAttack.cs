@@ -25,6 +25,7 @@ public class DuelistAttack : Spells
 
     public void WaitForChoice()
     {
+        Target = gameState.opponentChampion.champion;
         gameState.CalculateAndDealDamage(damage, this);
     }
 }

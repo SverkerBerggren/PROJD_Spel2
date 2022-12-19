@@ -17,10 +17,14 @@ MonoBehaviour:
   description: Deal 30 damage then swap the active champion and deal 30 damage to
     it
   artwork: {fileID: 21300000, guid: 92d9c05163cad6d4b9d9288f2cf5decf, type: 3}
-  manaCost: 4
   maxManaCost: 4
-  tag: AttackSpell
+  damage: 30
+  amountToHeal: 0
+  amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
-  damage: 30
+  targetable: 1
+  championCard: 1
+  championCardType: 1
