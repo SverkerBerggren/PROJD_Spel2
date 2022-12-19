@@ -1753,7 +1753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7205571081393248047}
   - component: {fileID: 3827910614667775317}
-  - component: {fileID: 8596175153263332086}
+  - component: {fileID: 5558116757636681591}
   m_Layer: 0
   m_Name: GraveRobber_prefab
   m_TagString: Untagged
@@ -1802,7 +1802,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8596175153263332086
+--- !u!114 &5558116757636681591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1811,16 +1811,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7544800498746248597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8c28b1c542c0243a5ed132c3b77c39, type: 3}
+  m_Script: {fileID: 11500000, guid: 34bf45b2cd415824ca4ebb1fe0f67f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slashEffect: {fileID: 4832989590807767881}
-  mainMesh: {fileID: 241991950536333290}
-  shieldMesh: {fileID: 3121744821786656365}
-  vapenMesh: {fileID: 5177079031497200968}
+  materials:
+  - {fileID: 2100000, guid: eb4a7b3f7f962424899018639adfd22e, type: 2}
+  - {fileID: 2100000, guid: 5471f1b0afbfc5441a4c3286cdff07d4, type: 2}
+  - {fileID: 2100000, guid: c2fd8571ae2d4cc47a0285f0b27a78e5, type: 2}
+  - {fileID: 2100000, guid: e031501712de43b449187bc3eebd6380, type: 2}
   deathPS: {fileID: 6949951344995433176}
-  dissolveRate: 0.0125
-  refreshRate: 0.025
 --- !u!1 &7699250285777961508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,11 +2155,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
---- !u!2083052967 &4832989590807767881 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
-  m_PrefabInstance: {fileID: 4423224939800222010}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4832989591516306220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9110863172181262870, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}

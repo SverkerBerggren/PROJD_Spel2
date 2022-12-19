@@ -18,10 +18,7 @@ public class TestScript : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           cardPrefab.GetComponent<CardDissolve>().StartDisolve();
-        }
+  
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);
             //builderAnim.Play("Attack");
