@@ -235,6 +235,8 @@ public class AvailableChampion : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Dead");
+            //call death effect
+            EffectController.Instance.PlayDeathEffect(this);
         }
         gameState.ChampionDeath(champion);
     }
