@@ -126,9 +126,9 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Builder",
-                "Graverobber",
                 "Duelist",
+                "Graverobber",
+                "Shanker",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
@@ -383,6 +383,7 @@ public class GameState : MonoBehaviour
         CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         if (manaCost != -1)
             cardDisp.manaCost = manaCost;
+
         cardDisp.card = card;
         cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
@@ -509,7 +510,7 @@ public class GameState : MonoBehaviour
 
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
-        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionDied, null, 1.5f);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionDied, null);
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)

@@ -32,7 +32,6 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
-        print("kommer den in i perfrom opponents actions");
 
         if(!response.message.Equals(""))
         {
@@ -42,7 +41,7 @@ public class InternetLoop : MonoBehaviour
         foreach (GameAction action in response.OpponentActions)
         {
             
-            print("vilket object typ ar grejen " + action.GetType() + action.Type);
+            //print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
                 gameState.EndTurn();
@@ -206,13 +205,9 @@ public class InternetLoop : MonoBehaviour
                 Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.cardName];
 
                 if (castedAction.cardAndPlacement.placement.whichList.myGraveyard)
-                {
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
-                }
                 else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
-                {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
-                }
 
                 gameState.ShowPlayedCard(cardPlayed, true, castedAction.manaCost);
 
@@ -223,7 +218,6 @@ public class InternetLoop : MonoBehaviour
                 {
                     EffectController.Instance.PlayAttackEffect(gameState.opponentChampion);
                 }
-                //   actionOfPlayer.handOpponent.FixCardOrderInHand();
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    
             if (action  is GameActionOpponentDiscardCard)

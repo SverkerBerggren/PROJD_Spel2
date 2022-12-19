@@ -5,14 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Duelist", menuName = "Champion/Duelist", order = 1)]
 public class Duelist : Champion
 {
+	private ListEnum lE = new ListEnum();
     public override void WhenCurrentChampion()
 	{
 		base.WhenCurrentChampion();
-		ListEnum lE = new ListEnum();
 		lE.opponentChampions = true;
         if (gameState.isOnline)
         {
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
+            Wait();
         }
         else
         {
@@ -20,4 +20,15 @@ public class Duelist : Champion
                 Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
         }
 	}
+
+    private void Wait()
+    {
+        gameState.StartCoroutine(WaitForOpponent());
+    }
+
+    private IEnumerator WaitForOpponent()
+    {
+        yield return new WaitUntil(() => gameState.opponentChampion.champion.health > 0);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
+    }
 }

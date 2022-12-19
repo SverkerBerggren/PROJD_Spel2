@@ -43,11 +43,10 @@ public class Choice : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        gameState = GameState.Instance;
     }
     private void Start()
     {
-        gameState = GameState.Instance;
         actionOfPlayer = ActionOfPlayer.Instance;
         graveyard = Graveyard.Instance;
         deck = Deck.Instance;
@@ -84,9 +83,7 @@ public class Choice : MonoBehaviour
         else
             yield return null;
 
-        if(cardUsed != null)
-            this.cardUsed = cardUsed;
-
+        this.cardUsed = cardUsed;
         choiceMenu.SetActive(true);
         isChoiceActive = true;
 
@@ -281,7 +278,7 @@ public class Choice : MonoBehaviour
                     TransformCard();
                     break;
             }
-
+            cardUsed = null;
             ResetChoice();
             gameState.Refresh();
 			waitRoom.Remove(waitRoom[0]);
@@ -350,6 +347,7 @@ public class Choice : MonoBehaviour
         gameState.Refresh();
         waitRoom.Remove(waitRoom[0]);
         confirmMenuButton.SetActive(false);
+        cardUsed = null;
         if (whichMethod == WhichMethod.Mulligan) return;
         NextInWaitRoom();
     }
@@ -383,13 +381,6 @@ public class Choice : MonoBehaviour
     {
         gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
 
-        if (cardUsed is DuelistAttack)
-        {
-            print("fsafasf");
-            DuelistAttack duelistAttack = (DuelistAttack)cardUsed;
-            duelistAttack.WaitForChoice();
-        }
-
         if (gameState.isOnline)
         {
             RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(chosenTargets[0]);
@@ -397,6 +388,12 @@ public class Choice : MonoBehaviour
             request.championDied = died;
 
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
+        }
+
+        if (cardUsed is DuelistAttack)
+        {
+            DuelistAttack duelistAttack = (DuelistAttack)cardUsed;
+            duelistAttack.WaitForChoice();
         }
 
         PriorityForSwap();
@@ -414,8 +411,10 @@ public class Choice : MonoBehaviour
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
             }
+            /*
             if (gameState.hasPriority && chosenTargets[0].whichList.opponentChampions)
                 gameState.PassPriority();
+            */
         }
         else
         {
@@ -454,7 +453,7 @@ public class Choice : MonoBehaviour
         {
             case WhichMethod.SwitchChampionPlayer:
                 descriptionText.text = "Swap Your champion";
-                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap || gameState.playedCardGO.GetComponent<CardDisplay>().card is DuelistAttack)
+                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
                 }
@@ -462,7 +461,7 @@ public class Choice : MonoBehaviour
 
             case WhichMethod.SwitchChampionEnemy:
                 descriptionText.text = "Swap Your champion";
-                if (gameState.opponentChampions.Count <= 1)
+                if (gameState.opponentChampions.Count < 1)
 				{
 					return false;
 				}
