@@ -191,7 +191,6 @@ public class Choice : MonoBehaviour
 
         if (listEnum.opponentLandmarks)
         {
-            descriptionText.text = "Show opponent landmarks";
             for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
             {
                 if (gameState.opponentLandmarks[i].landmarkEnabled)
@@ -293,6 +292,9 @@ public class Choice : MonoBehaviour
                     break;
                 case WhichMethod.OneSwitchTarget:
                     OneSwitchTarget();
+                    break;
+                case WhichMethod.DestroyLandmark:
+                    gameState.opponentLandmarks[chosenTargets[0].index].DestroyLandmark();
                     break;
             }
             cardUsed = null;
@@ -573,6 +575,17 @@ public class Choice : MonoBehaviour
             case WhichMethod.Mulligan:
 				descriptionText.text = "Mulligan";
 				break;
+            case WhichMethod.DestroyLandmark:
+                descriptionText.text = "Choose a landmark to destroy";
+                bool anyLandmarksToDestory = false;
+                foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
+                {
+                    if (landmarks.card != null)
+                        anyLandmarksToDestory = true;
+                }
+                if (!anyLandmarksToDestory)
+                    return false;
+                break;
         }
         return true;
     }
@@ -635,4 +648,5 @@ public enum WhichMethod
     TransformChampionCard,
     Mulligan,
     OneSwitchTarget,
+    DestroyLandmark,
 }
