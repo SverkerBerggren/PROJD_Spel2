@@ -103,7 +103,7 @@ public class Hand : MonoBehaviour
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
         Card card = cardDisplay.card;
-        cardDisplay.cardDissolve.SetDissolveState(true);
+        cardDisplay.cardDissolve.StartDisolve();
 
         return card;
     }

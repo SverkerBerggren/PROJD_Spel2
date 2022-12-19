@@ -134,7 +134,7 @@ public class EffectController : MonoBehaviour
 
     public void DiscardCardEffect(GameObject card)
     {
-        card.GetComponent<CardDissolve>().SetDissolveState(true);
+      //  card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
 
 

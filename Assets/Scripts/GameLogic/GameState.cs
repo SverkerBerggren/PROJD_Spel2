@@ -126,7 +126,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Duelist",
+                "Shanker",
                 "Graverobber",
                 "Shanker",
             };
