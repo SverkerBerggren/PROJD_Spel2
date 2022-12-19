@@ -508,7 +508,7 @@ public class GameState : MonoBehaviour
 
         ListEnum lE = new ListEnum();
         lE.myChampions = true;
-        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionDied, null);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionDied, null, 1.5f);
     }
 
     public void SwapChampionWithTargetInfo(TargetInfo targetInfo, bool championDied)
