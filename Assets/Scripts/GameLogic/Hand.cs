@@ -8,7 +8,7 @@ public class Hand : MonoBehaviour
     public List<CardDisplay> cardSlotsInHand = new List<CardDisplay>();
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
-    [SerializeField] private Vector3 playerHandStartPos;
+    [SerializeField] private Vector3 handStartPoition;
 
     private void Start()
     {
@@ -18,15 +18,15 @@ public class Hand : MonoBehaviour
     
     private void InvokeRefresh()
     {
-        GameState.Instance.Refresh();
         FixCardOrderInHand();
+        GameState.Instance.Refresh();
     }
 
     public void FixCardOrderInHand()
     {
         cardsInHand.Clear();
         if (!cardSlotsInHand[0].opponentCard)
-            transform.position = playerHandStartPos;
+            transform.position = handStartPoition;
         for (int i = 0; i < cardSlotsInHand.Count; i++)
         {
             CardDisplay cardDisplay = cardSlotsInHand[i];
@@ -66,17 +66,8 @@ public class Hand : MonoBehaviour
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
-        List<string> cards = new List<string>();
-        for (int i = 0; i < cardIndexes.Count; i++)
-        {
-            for (int j = i + 1; j < cardIndexes.Count; j++)
-            {
-                if (cardIndexes[j] > cardIndexes[i])
-                {
-                    cardIndexes[j]--;
-                }
-            }
-        }
+		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
+		List<string> cards = new List<string>();
         for (int i = 0; i < cardIndexes.Count; i++)
         {
             cards.Add(CardToDiscard(cardsInHand[cardIndexes[i]]).cardName);
@@ -84,7 +75,36 @@ public class Hand : MonoBehaviour
         return cards;
     }
 
-    private Card CardToDiscard(CardDisplay cardDisplay)
+	public void FixMulligan(List<int> cardIndexes)
+	{
+		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
+		Deck deck = Deck.Instance;
+        for (int i = 0; i < cardIndexes.Count; i++)
+        {
+            Card card = cardsInHand[cardIndexes[i]].card;
+			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
+            deck.AddCardToDeckPlayer(card);
+		}
+        deck.ShuffleDeck();
+        ActionOfPlayer.Instance.DrawCardPlayer(cardIndexes.Count, null, true);
+	}
+
+    private List<int> FixIndexesWhenRemovingCards(List<int> indexes)
+    {
+		for (int i = 0; i < indexes.Count; i++)
+		{
+			for (int j = i + 1; j < indexes.Count; j++)
+			{
+				if (indexes[j] > indexes[i])
+				{
+					indexes[j]--;
+				}
+			}
+		}
+        return indexes;
+	}
+
+	private Card CardToDiscard(CardDisplay cardDisplay)
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
         Card c = cardDisplay.card;

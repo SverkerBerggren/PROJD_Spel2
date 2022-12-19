@@ -53,7 +53,7 @@ public class CardMovement : MonoBehaviour
         if (actionOfPlayer.selectCardOption) return;
 
         cardDisplay.ResetSize();
-        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 30));
+        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50));
         cardDisplay.displayTransform.position = mousePosition;
         //transform.position = mousePosition;
     }

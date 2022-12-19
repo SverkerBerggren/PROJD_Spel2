@@ -20,7 +20,8 @@ public class CardRegister : MonoBehaviour
 	[Header("Champions")]
 	[SerializeField] private List<Champion> champions = new List<Champion>();
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
-    private Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
+	public Dictionary<ChampionCardType, Champion> championTypeRegister = new Dictionary<ChampionCardType, Champion>();
+	private Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
 
 	[Header("Type of cards")]
 	public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
@@ -33,7 +34,6 @@ public class CardRegister : MonoBehaviour
 
     private void Awake()
     {
-        bool updateCardsInterent = true;
 
         if (Instance == null)
         {
@@ -43,17 +43,11 @@ public class CardRegister : MonoBehaviour
         {
             Destroy(Instance);
         }
-        #if UNITY_EDITOR
-        updateCardsInterent = false;    
-        #endif
-        
 
-        if(updateCardsInterent)
-        {
+        #if UNITY_EDITOR  
             SpreadsheetUpdater updater = new SpreadsheetUpdater();
-
             Task tasket =  updater.UpdateCardReferences(cards);
-        }
+        #endif
 
         InstantiateRegister();
         DontDestroyOnLoad(this);
@@ -94,7 +88,8 @@ public class CardRegister : MonoBehaviour
         {
             champRegister.Add(champion.championName, champion);
             champCards.Add(champion, AddChampionsCards(champion));
-        }
+            AddChampionType(champion);
+        }    
     }
 
     private List<Card> AddChampionsCards(Champion champion)
@@ -110,6 +105,41 @@ public class CardRegister : MonoBehaviour
         return cards;
     }
 
+    private void AddChampionType(Champion champion)
+    {
+		ChampionCardType type = ChampionCardType.None;
+		switch (champion)
+		{
+			case Cultist:
+				type = ChampionCardType.Cultist;
+				break;
+
+			case Duelist:
+				type = ChampionCardType.Duelist;
+				break;
+
+			case Graverobber:
+				type = ChampionCardType.Graverobber;
+				break;
+
+			case TheOneWhoDraws:
+				type = ChampionCardType.TheOneWhoDraws;
+				break;
+
+			case Shanker:
+				type = ChampionCardType.Shanker;
+				break;
+
+			case Builder:
+				type = ChampionCardType.Builder;
+				break;
+
+			default:
+				Debug.LogError("The Champion doesnt exist in the register");
+				break;
+		}
+		championTypeRegister.Add(type, champion);
+	}
     public List<Card> GetChampionCards(Champion champion)
     {
         List<Card> cards = champCards[champion];
@@ -123,14 +153,4 @@ public class CardRegister : MonoBehaviour
         }
         return cards;
     }
-
-    private void ClearDictonaries()
-    {
-		cardRegister.Clear();
-		champRegister.Clear();
-		effectRegister.Clear();
-		attackCardRegister.Clear();
-		landmarkRegister.Clear();
-		supportCardRegister.Clear();
-	}
 }

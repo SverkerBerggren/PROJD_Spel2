@@ -4,6 +4,7 @@ public class ResponseDiscardCard : ServerResponse
 {
     public List<string> listOfCardsDiscarded = new List<string>();
     public bool discardCardToOpponentGraveyard = false;
+    public ListEnum listEnum = new ListEnum();
 
     public ResponseDiscardCard()
     {

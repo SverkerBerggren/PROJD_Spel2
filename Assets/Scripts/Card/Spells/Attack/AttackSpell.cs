@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
 public class AttackSpell : Spells
 {
+    private GameState gameState;
+    private AudioManager audioManager;
+
     public bool destroyLandmark = false;
     public bool damageEqualsToYourChampionHP = false;
     public bool damageToBothActiveChampions = false;
@@ -16,10 +20,11 @@ public class AttackSpell : Spells
         targetable = true;
     }
 
-    private GameState gameState;
     public override void PlaySpell()
     {
         gameState = GameState.Instance;
+        audioManager = AudioManager.Instance;
+
         if (damageEqualsToYourChampionHP)
             DamageAsYourChampionHP();
 
@@ -40,7 +45,22 @@ public class AttackSpell : Spells
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
             //DestroyLandmark();
         }
+        //PlaySoundEvent hej = new PlaySoundEvent("hej", null); 
 
+        switch (gameState.playerChampion.champion.championName)
+        {
+            case "Shanker":
+            audioManager.PlayShankerAttack();
+            break;
+
+            case "Builder":
+            audioManager.PlayBuilderAttackSound();
+            break;
+
+            case "Graverobber":
+            audioManager.PlayGraveDiggerAttackSound();
+            break;
+        }
     }
 
     private void DamageToBothActiveChampions()

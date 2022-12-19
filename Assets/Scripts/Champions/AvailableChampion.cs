@@ -232,11 +232,11 @@ public class AvailableChampion : MonoBehaviour
     }
     public virtual void Death()
     {
-        print("BefDead");
         if (animator != null)
         {
-            print("PlayDead");
             animator.SetTrigger("Dead");
+            //call death effect
+            EffectController.Instance.PlayDeathEffect(this);
         }
         gameState.ChampionDeath(champion);
     }

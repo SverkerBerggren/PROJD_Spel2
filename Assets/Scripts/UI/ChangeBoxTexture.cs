@@ -29,6 +29,8 @@ public class ChangeBoxTexture : MonoBehaviour
     public void OnClick()
     {
        // parentImage.texture = texturePanel;
+
+        
         if(textureImage != null)
         {
             imageToChange.texture = textureImage;

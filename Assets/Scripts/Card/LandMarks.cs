@@ -26,6 +26,7 @@ public class Landmarks : Card
         //base.PlayCard();
         PlaceLandmark();
         GameState.Instance.Refresh();
+        AudioManager.Instance.PlayLandmarkSound();
     }
 
     public void TakeDamage(int damageToTake)
