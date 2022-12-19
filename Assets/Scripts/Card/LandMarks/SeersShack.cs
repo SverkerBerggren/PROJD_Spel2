@@ -18,7 +18,7 @@ public class SeersShack : Landmarks
 		base.UpKeep();
 		ListEnum lE = new ListEnum();
 		lE.myDeck = true;
-		Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SeersShack, this);
+		Choice.Instance.ChoiceMenu(lE, -1, WhichMethod.SeersShack, this);
 	}
 }
 

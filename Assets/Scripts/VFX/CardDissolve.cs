@@ -10,7 +10,10 @@ public class CardDissolve : MonoBehaviour
     [SerializeField] private Renderer meshMaterial;
     [SerializeField] private GameObject ram;
     [SerializeField] private GameObject textCanvas;
-   
+    [SerializeField] private string alpha = "_AlphaClipThreshold";
+
+    private ActionOfPlayer actionOfPlayer;
+    private CardDisplay display;
     private bool goDissolve;
     private float currentDiss;
     private float targetDiss;
@@ -20,10 +23,11 @@ public class CardDissolve : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        actionOfPlayer = ActionOfPlayer.Instance;
         currentDiss = targetDiss = 0;
         fullAlph = 100;
         startAlph = 0;
-
+        display = GetComponentInParent<CardDisplay>();
 
     }
 
@@ -38,39 +42,44 @@ public class CardDissolve : MonoBehaviour
             //make a smooth transition from 0 to 1
             ram.SetActive(false);
             textCanvas.SetActive(false);
-            increaseAlpha(30);
+            increaseAlpha(100);
             StartCoroutine(PlayVFX());
             currentDiss = Mathf.Lerp(currentDiss, targetDiss, Time.deltaTime);
-            meshMaterial.material.SetFloat("_AlphaClipThreshold", currentDiss);
+            meshMaterial.material.SetFloat(alpha, currentDiss);
             //m_PropetyBlock.SetFloat("_AlphaClipThreshold", currentDiss);
             //meshMaterial.SetPropertyBlock(m_PropetyBlock);
-            if(startAlph == 100 && meshMaterial.material.GetFloat("_AlphaClipThreshold")>= 0.99f)
+            if(startAlph == 100 && meshMaterial.material.GetFloat(alpha) >= 0.99f)
             {
                 //Time to go
+               //TO DO
                 cardDissolve_VFX.SetActive(false);
-                Destroy(gameObject);
+                meshMaterial.material.SetFloat(alpha, 0);
+                ram.SetActive(true);
+                textCanvas.SetActive(true);
+                actionOfPlayer.ChangeCardOrder(true, display);
+                goDissolve = false;
+                //Destroy(gameObject);
             }
-            
-            
-
         }
     }
+
     IEnumerator PlayVFX()
     {
         yield return new WaitForSeconds(1f);
         cardDissolve_VFX.SetActive(true);
-
-
     }
+
     private void increaseAlpha(int i)
     {
         SetDissolveValue(Mathf.Min(startAlph+i,100));
     }
+
     private void SetDissolveValue(int j)
     {
         startAlph = j;
         targetDiss = (float)startAlph / fullAlph;
     }
+
     public void SetDissolveState(bool bo)
     {
         goDissolve = bo;

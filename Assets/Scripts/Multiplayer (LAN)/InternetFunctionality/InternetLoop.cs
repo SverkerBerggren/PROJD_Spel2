@@ -32,7 +32,6 @@ public class InternetLoop : MonoBehaviour
     {   
         gameState = GameState.Instance;
         register = CardRegister.Instance;
-        print("kommer den in i perfrom opponents actions");
 
         if(!response.message.Equals(""))
         {
@@ -42,7 +41,7 @@ public class InternetLoop : MonoBehaviour
         foreach (GameAction action in response.OpponentActions)
         {
             
-            print("vilket object typ ar grejen " + action.GetType() + action.Type);
+            //print("vilket object typ ar grejen " + action.GetType() + action.Type);
             if (action is GameActionEndTurn )
             {
                 gameState.EndTurn();
@@ -78,6 +77,10 @@ public class InternetLoop : MonoBehaviour
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     if(!theAction.listEnum.myDeck)
                         actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0]);
+                    else
+                    {
+                        Deck.Instance.WhichCardToDrawPlayer(false);
+                    }
                 }
 
             }
@@ -104,9 +107,8 @@ public class InternetLoop : MonoBehaviour
             if (action is GameActionDamage)
             {
                 GameActionDamage castedAction = (GameActionDamage)action;
-				
 
-				foreach (TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
+                foreach (TargetAndAmount targetAndAmount in castedAction.targetsToDamage)
                 {
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
@@ -203,19 +205,19 @@ public class InternetLoop : MonoBehaviour
                 Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.cardName];
 
                 if (castedAction.cardAndPlacement.placement.whichList.myGraveyard)
-                {
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
-                }
                 else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
-                {
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
-                }
 
                 gameState.ShowPlayedCard(cardPlayed, true, castedAction.manaCost);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                 actionOfPlayer.enemyMana -= castedAction.manaCost;
-             //   actionOfPlayer.handOpponent.FixCardOrderInHand();
+
+                if (cardPlayed is AttackSpell)
+                {
+                    EffectController.Instance.PlayAttackEffect(gameState.opponentChampion);
+                }
                 actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    
             if (action  is GameActionOpponentDiscardCard)

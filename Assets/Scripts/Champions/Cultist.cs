@@ -12,13 +12,9 @@ public class Cultist : Champion
 	{
 		base.Awake();
 		UpdatePassive();
-
     }
 
-	public override int DealDamageAttack(int damage)
-	{
-        return damage + CalculateBonusDamage();
-	}
+	public override int DealDamageAttack(int damage) { return damage + CalculateBonusDamage(); }
 
 	private int CalculateBonusDamage()
 	{

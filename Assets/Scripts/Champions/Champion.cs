@@ -11,6 +11,7 @@ public abstract class Champion : ScriptableObject
     protected GameState gameState;
 
     public string championName;
+    public string description;
     public int health = 100;
     [NonSerialized] public int maxHealth;
     [NonSerialized] public int shield = 0;
