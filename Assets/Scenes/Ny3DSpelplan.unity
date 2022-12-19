@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 7528.9023, g: 8268.162, b: 10220.398, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -161,6 +161,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &6133458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &20061362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6400,6 +6402,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &344974269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11270,6 +11273,7 @@ MonoBehaviour:
   healingPrefab: {fileID: 4250885045825998455, guid: c54af6505c484194bb5eab90e60db6e9, type: 3}
   cultistAttackPrefab: {fileID: 2532345445923353870, guid: a14ffceb7c42d0643921973713fdc7c9, type: 3}
   targetPos: {fileID: 502036124}
+  onHit: {fileID: 1067586139}
 --- !u!4 &572738295
 Transform:
   m_ObjectHideFlags: 0
@@ -11760,6 +11764,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &601170532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12903,6 +12908,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &631345498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17655,6 +17661,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!4 &876286367
 Transform:
   m_ObjectHideFlags: 0
@@ -21928,6 +21935,105 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067508939}
   m_CullTransparentMesh: 1
+--- !u!1001 &1067586137
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1562643778}
+    m_Modifications:
+    - target: {fileID: 362798172238823977, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662927162055297093, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 662927162055297093, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794698526058159003, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794698526058159003, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865135680892780373, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+      propertyPath: m_Name
+      value: PS_HItUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+--- !u!4 &1067586138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1756733178922748181, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+  m_PrefabInstance: {fileID: 1067586137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1067586139 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2794698526058159003, guid: 183ad64b649bfb64786c3e4e27590332, type: 3}
+  m_PrefabInstance: {fileID: 1067586137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1072794520 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8718959617357517346, guid: ae9e350d68f969d4aa208bd2f659ad85, type: 3}
@@ -28408,6 +28514,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &1389671540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31349,6 +31456,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 326072442}
+  - {fileID: 1067586138}
   m_Father: {fileID: 254097297}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31446,6 +31554,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &1564163109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33673,6 +33782,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &1673928808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34218,6 +34328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPlayer:
+  - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
@@ -34504,6 +34615,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &1731128544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39999,6 +40111,7 @@ MonoBehaviour:
   manaCost: 0
   scaleOnHover: 1.3
   layoutElement: {fileID: 0}
+  cardDissolve: {fileID: 0}
 --- !u!114 &1978138853
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,11 +31,7 @@ public abstract class Champion : ScriptableObject
 
     public virtual void AmountOfCardsPlayed(Card card) {}
 
-    public virtual int DealDamageAttack(int damage) 
-    {
-        EffectController.Instance.PlayAttackEffect(this);
-        return damage;
-    }
+    public virtual int DealDamageAttack(int damage) { return damage; }
 
     public virtual void UpKeep() {}
 

@@ -13,6 +13,7 @@ public class GameState : MonoBehaviour
     private CardRegister cardRegister;
     private Setup setup;
     private Deck deck;
+    private EffectController effectController;
 
 	[SerializeField] private bool mulligan = true;
 
@@ -98,6 +99,7 @@ public class GameState : MonoBehaviour
         cardRegister = CardRegister.Instance;
         setup = Setup.Instance;
         deck = Deck.Instance;
+        effectController = EffectController.Instance;
 
         if (isOnline)
         {
@@ -124,9 +126,9 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
+                "Shanker",
                 "Graverobber",
                 "Duelist",
-                "Graverobber",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
@@ -218,6 +220,7 @@ public class GameState : MonoBehaviour
         {
             playerChampion.animator.SetTrigger("Attack");
         }
+        EffectController.Instance.PlayAttackEffect(playerChampion);
     }
 
     public void DealDamage(TargetAndAmount targetAndAmount) // TargetAndAmount
