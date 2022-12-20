@@ -65,31 +65,31 @@ public class Hand : MonoBehaviour
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
-        List<int> cardIndexesCopy = new List<int>();
+        List<string> cards = new List<string>();
         List<CardDisplay> cardDisp = new List<CardDisplay>();
+
         for (int i = 0; i < cardIndexes.Count; i++)
         {
+            
             cardDisp.Add(cardsInHand[cardIndexes[i]]);
-            cardIndexesCopy.Add(cardIndexes[i]);
+            cards.Add(cardDisp[i].card.cardName);
         }
         dissolveDone = false;
         Dissolve(cardDisp);
 
-        StartCoroutine(test(cardIndexesCopy));
+        StartCoroutine(RemoveCards(cardIndexes));
         print("FML");
         return cards;
     }
-    private List<string> cards = new List<string>();
+    
 
-    IEnumerator test(List<int> cardIndexesCopy)
+    private IEnumerator RemoveCards(List<int> cardIndexes)
     {
         yield return new WaitUntil(() => dissolveDone == true);
-        print("RUns");
-        cardIndexesCopy = FixIndexesWhenRemovingCards(cardIndexesCopy);
-        
+        List<int> cardIndexesCopy = new List<int>(cardIndexes);
+        cardIndexesCopy = FixIndexesWhenRemovingCards(cardIndexesCopy);     
         for (int i = 0; i < cardIndexesCopy.Count; i++)
-        {
-            cards.Add(CardToDiscard(cardsInHand[cardIndexesCopy[i]]).cardName);
+        {            
             ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexesCopy[i]]);
         }
     }
