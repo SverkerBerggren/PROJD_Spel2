@@ -298,7 +298,7 @@ public class Choice : MonoBehaviour
             whichMethod = WhichMethod.Null;
 			ResetChoice();
             gameState.Refresh();
-			waitRoom.Remove(waitRoom[0]);
+			//waitRoom.Remove(waitRoom[0]);
 			NextInWaitRoom();			
 		}
     }
@@ -367,10 +367,10 @@ public class Choice : MonoBehaviour
                 break;
 
         }
-
+        
         ResetChoice();
         gameState.Refresh();
-        waitRoom.Remove(waitRoom[0]);
+        
         confirmMenuButton.SetActive(false);
         cardUsed = null;
         whichMethod = WhichMethod.Null;
@@ -393,8 +393,12 @@ public class Choice : MonoBehaviour
 	}
 
     public void ResetChoice()
-    {
+    {   
+        if(waitRoom.Count > 0)
+            waitRoom.Remove(waitRoom[0]);
+        
         closeMenuButton.SetActive(false);
+        isChoiceActive = false;
         amountOfTargets = 0;
         chosenTargets.Clear();
         foreach(GameObject obj in buttonsToDestroy)
@@ -631,7 +635,7 @@ public class Choice : MonoBehaviour
 
         if (CheckIfChoice(waitRoom[0].Item1))
         {
-            ResetChoice();
+            //isChoiceActive = true;
             StartCoroutine(waitRoom[0].Item2);
         }
         else
