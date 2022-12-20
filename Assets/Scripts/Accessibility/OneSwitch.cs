@@ -46,6 +46,8 @@ public class OneSwitch : MonoBehaviour
             cardDisplayPrevious.MouseExit();
         if (targetableRightNow[prevIndex].TryGetComponent(out ChoiceButton choiceButtonPrev))
             choiceButtonPrev.OneSwitchHoverChoice();
+        if (targetableRightNow[prevIndex].TryGetComponent(out PurchaseCard purchaseCardPrev))
+            purchaseCardPrev.OneSwitchHover();
         prevIndex = index;
     }
     private void ShowTarget()
@@ -56,6 +58,8 @@ public class OneSwitch : MonoBehaviour
             choiceButton.OneSwitchHoverChoice();
         if (targetableRightNow[index].TryGetComponent(out Button confirmButton))
             confirmButton.Select();
+        if (targetableRightNow[index].TryGetComponent(out PurchaseCard purchaseCardPrev))
+            purchaseCardPrev.OneSwitchHover();
     }
 
     private void ResetLast()
@@ -67,6 +71,8 @@ public class OneSwitch : MonoBehaviour
             cardDisplayLastReset.MouseExit();
         if (targetableRightNow[length].TryGetComponent(out ChoiceButton choiceButtonLastReset))
             choiceButtonLastReset.OneSwitchHoverChoice();
+        if (targetableRightNow[length].TryGetComponent(out PurchaseCard purchaseCardPrev))
+            purchaseCardPrev.OneSwitchHover();
 
         eventSystem.SetSelectedGameObject(null);
     }
