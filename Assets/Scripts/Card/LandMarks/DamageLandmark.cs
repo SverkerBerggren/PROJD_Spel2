@@ -15,6 +15,8 @@ public class DamageLandmark : Landmarks
 
     public override int DealDamageAttack(int damage)
     {
+        if (isPyromancyHut) return damage;
+           
         return this.damage + damage;
     }
 
