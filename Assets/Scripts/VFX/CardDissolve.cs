@@ -56,10 +56,10 @@ public class CardDissolve : MonoBehaviour
             
             await Task.Delay(refreshRate);            
         }
-        actionOfPlayer.ChangeCardOrder(true, display);
+        //actionOfPlayer.ChangeCardOrder(true, display);
     }
 
-    private IEnumerator DissolveCoro()
+/*    private IEnumerator DissolveCoro()
     {
         //alphaclip starts with 0. 0 means no clip and 1 is all clip
         //make a smooth transition from 0 to 1
@@ -88,7 +88,7 @@ public class CardDissolve : MonoBehaviour
             }
             yield return new WaitForSeconds(refreshRate);
         }
-    }
+    }*/
        
 
    
