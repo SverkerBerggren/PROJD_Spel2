@@ -487,6 +487,7 @@ public class Server
         GameActionGameSetup gameAction = new GameActionGameSetup();
         gameAction.reciprocate = requestToHandle.reciprocate;
         gameAction.opponentChampions = requestToHandle.opponentChampions;
+        gameAction.firstTurn = requestToHandle.firstTurn;
         AddGameAction(response, gameAction, requestToHandle.gameId);
         return response;
     }

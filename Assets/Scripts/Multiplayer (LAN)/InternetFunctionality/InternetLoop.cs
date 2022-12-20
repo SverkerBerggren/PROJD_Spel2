@@ -250,7 +250,7 @@ public class InternetLoop : MonoBehaviour
                 {   
                     ListEnum listEnum = new ListEnum();
                     listEnum.myHand = true;
-                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.discardCard, null, 2f);
+                    Choice.Instance.ChoiceMenu(listEnum, castedAction.amountOfCardsToDiscard, WhichMethod.DiscardCard, null, 2f);
                 }
             }  
             if (action  is GameActionGameSetup)
@@ -272,6 +272,8 @@ public class InternetLoop : MonoBehaviour
 					request.whichPlayer = ClientConnection.Instance.playerId;
 					request.reciprocate = false;
                     request.opponentChampions = Setup.Instance.myChampions;
+
+                    Setup.Instance.shouldStartGame = !castedAction.firstTurn;
 
 					ClientConnection.Instance.AddRequest(request, EmptyRequest);
 				}

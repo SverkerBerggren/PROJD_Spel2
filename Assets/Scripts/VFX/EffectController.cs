@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EffectController : MonoBehaviour
 {
@@ -134,26 +135,28 @@ public class EffectController : MonoBehaviour
 
     public void DiscardCardEffect(GameObject card)
     {
-        card.GetComponent<CardDissolve>().SetDissolveState(true);
+      //  card.GetComponent<CardDissolve>().SetDissolveState(true);
     }
 
 
     public void PlayAttackEffect(AvailableChampion holder)
     {
+    
         switch (holder.champion.championName)
         {
             case "Cultist":
                 GainCultistAttackEffect(targetPos);
                 break;
-            case "Builder":
-               holder.GetComponentInChildren<Effect_Builder>().PlayPS();
+            case "builder":
+                holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
-            case "Graverobber":
-                holder.GetComponentInChildren<Effect_GraveRobber>().PlayEffect();
+            case "graverobber":
+                holder.GetComponentInChildren<VisualEffect>().Play();
                 break;
         }
         onHit.Play();
     }
+
     public void PlayDeathEffect(AvailableChampion holder)
     {
         switch (holder.nameOfChampion)

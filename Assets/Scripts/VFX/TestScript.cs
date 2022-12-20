@@ -8,17 +8,20 @@ public class TestScript : MonoBehaviour
     [SerializeField] private GameObject testObj;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private EffectController VFXController;
+    [SerializeField] private GameObject cardPrefab;
     
 
 
     private void Start()
     {
-
+     
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            testObj.GetComponent<Effect_Champions>().StartDisolve();
+        }
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);
             //builderAnim.Play("Attack");
@@ -27,15 +30,15 @@ public class TestScript : MonoBehaviour
             //VFXController.GainHealingEffect(testObj);
 
             // GetComponent<LowerDetail>().setUpLowerDetailBkg();
-            VFXController.DiscardCardEffect(testObj);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GetComponent<LowerDetail>().DefaultDetailShader();
-        }
+            //    VFXController.DiscardCardEffect(testObj);
+            //}
+            //if (Input.GetKeyDown(KeyCode.K))
+            //{
+            //    GetComponent<LowerDetail>().DefaultDetailShader();
+            //}
 
- 
-    }
+
+        }
 
     //IEnumerator SlashAttack()
     //{

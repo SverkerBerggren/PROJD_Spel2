@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7549.171, g: 8296.652, b: 10284.57, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2783,6 +2783,88 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142064976}
   m_CullTransparentMesh: 1
+--- !u!1001 &144098991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1628134718}
+    m_Modifications:
+    - target: {fileID: 8061785087724751200, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_Name
+      value: ShopIcon_Glow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751200, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061785087724751215, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+--- !u!4 &144098992 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8061785087724751201, guid: 6e136e48da4c44c44b35402580b21fe6, type: 3}
+  m_PrefabInstance: {fileID: 144098991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &147513234
 GameObject:
   m_ObjectHideFlags: 0
@@ -8438,7 +8520,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Swap your active champ with a benched one
+  m_text: "\rMake a champion card playable at all times "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14605,7 +14687,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698962099}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd631a1d3c229549a05bf7f454889bf, type: 3}
   m_Name: 
@@ -23844,7 +23926,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1618755105}
   m_HandleRect: {fileID: 0}
@@ -33254,7 +33336,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 144098992}
   m_Father: {fileID: 1669928097}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34486,8 +34569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPlayer:
-  - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}

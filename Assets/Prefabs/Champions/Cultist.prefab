@@ -177,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5473876995105016235}
   - component: {fileID: 2096200177400878033}
-  - component: {fileID: 5695595476083445348}
+  - component: {fileID: 5181003401618241693}
   m_Layer: 0
   m_Name: Cultist
   m_TagString: Untagged
@@ -223,7 +223,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5695595476083445348
+--- !u!114 &5181003401618241693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,11 +232,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4664830417287418641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02e0bc3d5406344f8927f5da5b8d1d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 34bf45b2cd415824ca4ebb1fe0f67f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMesh: {fileID: 4084165431940328414}
-  deathEffect: {fileID: 7884103756164532222}
+  skinneMaterials:
+  - {fileID: 4084165431940328414}
+  meshMaterials: []
+  deathPS: {fileID: 7884103756164532222}
 --- !u!1 &4963790869776022453
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,15 +889,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.x
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.y
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.z
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[1].m_Value

@@ -12,7 +12,7 @@ public class Effect_Cultist : MonoBehaviour
     private const float DISOLVERATE = 0.0125f;
     private const float REFRESHRATE = 0.025f;
 
-    private bool goDissolve;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,6 @@ public class Effect_Cultist : MonoBehaviour
 
     private IEnumerator DissolveCo()
     {
-        goDissolve = false;
         deathEffect.Play();
         float counter = 0;
 

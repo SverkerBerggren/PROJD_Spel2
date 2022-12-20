@@ -17,7 +17,7 @@ public class ShankerAttack : Spells
         ListEnum lE = new ListEnum();
         lE.myHand = true;
 
-        Choice.Instance.ChoiceMenu(lE, -1, WhichMethod.discardXCardsInMyHand, this);        
+        Choice.Instance.ChoiceMenu(lE, -1, WhichMethod.DiscardXCards, this);        
     }
 
     public void WaitForChoices(int amountOfChoices)

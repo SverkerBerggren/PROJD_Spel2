@@ -7,6 +7,8 @@ public class DestroyLandmark : Spells
 {
     public override void PlaySpell()
     {
-        LandmarkTarget.DestroyLandmark();
+        ListEnum lE = new ListEnum();
+        lE.opponentLandmarks = true;
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmarkEnemy, this);
     }
 }
