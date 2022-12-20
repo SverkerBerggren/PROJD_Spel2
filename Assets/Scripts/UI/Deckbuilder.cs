@@ -13,7 +13,6 @@ public class Deckbuilder : MonoBehaviour
 	private TMP_Text decklist;
     [SerializeField] private GameObject buttonHolder;
 	[SerializeField] private GameObject cardButton;
-	[SerializeField] private GameObject championButton;
 
     private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
@@ -40,37 +39,33 @@ public class Deckbuilder : MonoBehaviour
 		setup.StartDeckbuilder();
 		foreach (Champion champion in register.champRegister.Values)
 		{
-			MakeButtonsChampions(champion);
+            MakeButtonOfChampion(champion);
 		}
         foreach (Card card in register.cardRegister.Values)
         {
-            if (!card.championCard)    
-            MakeButtonsCards(card);
+            if (!card.championCard)
+                MakeButtonOfCard(card);
         }
 	}
 
-	private void MakeButtonsCards(Card card)
+    private void MakeButtonOfCard(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
-        CardDisplayAttributes cardDisplayAtributes = gO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
-
-        cardDisplayAtributes.previewCard = true;
-        cardDisplayAtributes.UpdateTextOnCardWithCard(card);
-
-        gO.GetComponent<DeckbuilderCardButton>().card = card;
-
-        
-
-        cardButtons.Add(card, gO);
+        ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
+        choiceButton.cardPrefab.SetActive(true);
+        CardDisplayAttributes cardDisplayAttributes = gO.GetComponentInChildren<CardDisplayAttributes>();
+        cardDisplayAttributes.previewCard = true;
+        cardDisplayAttributes.UpdateTextOnCardWithCard(card);
     }
 
-    private void MakeButtonsChampions(Champion champion)
+    private void MakeButtonOfChampion(Champion champion)
     {
-        GameObject gO = Instantiate(championButton, buttonHolder.transform);
-        gO.GetComponent<Image>().enabled = true;
-        gO.GetComponent<Image>().sprite = champion.artwork;        
-        gO.GetComponentInChildren<DeckbuilderChampionButton>().champion = champion;
-        championsButtons.Add(champion, gO);
+        GameObject gO = Instantiate(cardButton, buttonHolder.transform);
+        ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
+
+        ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
+        championAttributes.UpdateChampionCard(champion);
+        choiceButton.championPrefab.SetActive(true);
     }
 
     public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
