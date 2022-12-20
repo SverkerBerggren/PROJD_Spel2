@@ -26,11 +26,6 @@ public class CardMovement : MonoBehaviour
         gameState = GameState.Instance;
     }
 
-    private void OnMouseDown()
-    {
-        print("Click");
-    }
-
     public void OnDown()
     {
         if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, false)) return;
@@ -40,7 +35,7 @@ public class CardMovement : MonoBehaviour
      
         if (gameState.targetingEffect != null && cardDisplay.card.typeOfCard == CardType.Attack)
             gameState.targetingEffect.SetActive(true);
-
+        mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50));
         cardDisplay.clickedOnCard = true;
         cardDisplay.ResetSize();       
     }
