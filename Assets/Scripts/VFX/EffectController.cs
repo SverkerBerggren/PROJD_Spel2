@@ -162,7 +162,9 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
-        
+        if (holder.champion.championName.Equals("Shanker"))
+            return;
+
            holder.GetComponentInChildren<Effect_Champions>().StartDisolve();
 
     }
