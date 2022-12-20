@@ -430,9 +430,7 @@ public class Choice : MonoBehaviour
             gameState.playerChampion.champion.WhenCurrentChampion();
 
         if (whichMethod == WhichMethod.SwitchChampionMulligan)
-        {
             gameState.PassPriority();
-        }
     }
 
     private void PriorityForSwap()
