@@ -135,7 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinneMaterials:
   - {fileID: 6945849108040282602}
-  meshMaterials: []
+  meshMaterials:
+  - {fileID: 4237063206074231497}
   deathPS: {fileID: 3405406046079487898}
 --- !u!1 &709495937529429343
 GameObject:
@@ -576,7 +577,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 475e352315cf8d244bfbf2ea8c91fc1e, type: 2}
+  - {fileID: 2100000, guid: 9f38f7b4556a73441b5080887c604f24, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1579,7 +1580,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 475e352315cf8d244bfbf2ea8c91fc1e, type: 2}
+  - {fileID: 2100000, guid: 9f38f7b4556a73441b5080887c604f24, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1972,7 +1973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.x
-      value: 0
+      value: -4.137
       objectReference: {fileID: 0}
     - target: {fileID: 1407083424576320900, guid: 609c28c1b676f674b84a8180385d11fa, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.x
