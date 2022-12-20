@@ -20,7 +20,8 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            testObj.GetComponent<Effect_Champions>().StartDisolve();
+            testObj.GetComponent<Animator>().Play("Attack");
+            testObj.GetComponentInChildren<ParticleSystem>().Play();
         }
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);
