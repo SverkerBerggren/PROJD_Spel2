@@ -87,14 +87,15 @@ public class OneSwitch : MonoBehaviour
             case WhatShouldBeOneSwitch.Settings:
                 break;
         }
+
         oneSwitchActivePrevious = oneSwitchActiveNow;
     }
     
 
     private void CurrentTarget()
     {
-        if (oneSwitchActivePrevious != oneSwitchActiveNow)
-            ChangeOneSwitch();
+
+        ChangeOneSwitch();
 
         index++;
 
@@ -103,6 +104,7 @@ public class OneSwitch : MonoBehaviour
             if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
             {
                 if (cardDisplay.card == null) continue;
+                if (!cardDisplay.cardDisplayAttributes.cardPlayableEffect.activeSelf) continue;
             }
 
             break;
@@ -173,9 +175,9 @@ public class OneSwitch : MonoBehaviour
 
                 if (targetableRightNow[index].gameObject.name.Equals("ConfirmButton"))
                 {
-                    oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
                     index = -1;
                     prevIndex = 0;
+                    ChoiceAllternatives();
                 }
             }
             else
@@ -215,6 +217,8 @@ public class OneSwitch : MonoBehaviour
 
     private void ChoiceAllternatives()
     {
+        if (!choice.buttonHolder.activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
         targetableRightNow = choice.buttonHolder.GetComponentsInChildren<Targetable>().ToList();
         targetableRightNow.Add(choice.confirmMenuButton.GetComponent<Targetable>());
     }

@@ -690,6 +690,7 @@ public class GameState : MonoBehaviour
     public void ChampionDeath(Champion deadChampion)
     {
         SearchDeadChampion(deadChampion);
+        print(opponentChampions.Count);
         if (playerChampions.Count == 0)
         {
             Defeat();
