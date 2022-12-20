@@ -21,7 +21,7 @@ public class LowerDetail : MonoBehaviour
         _camera = Camera.main;
     }
 
-    public void setUpLowerDetailBkg()
+    public void SetUpLowerDetailBkg()
     {
         //do something here
         //change ground_low base color to black
@@ -34,7 +34,7 @@ public class LowerDetail : MonoBehaviour
         }
     }
 
-    public void setUpDefaultDetailBkg()
+    public void DefaultDetailBkg()
     {
         //do something here
       
@@ -48,7 +48,7 @@ public class LowerDetail : MonoBehaviour
         }
         baseColors.Clear();
     }
-    public void lowerDetailShader()
+    public void LowerDetailShader()
     {
         float factor = Mathf.Pow(0.2f, intensity);
         foreach (Material m in shaders)
