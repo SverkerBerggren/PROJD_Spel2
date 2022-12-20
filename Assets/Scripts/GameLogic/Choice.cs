@@ -507,7 +507,7 @@ public class Choice : MonoBehaviour
 
             case WhichMethod.SwitchChampionEnemy:
                 descriptionText.text = "Swap the opponent champion";
-                if (gameState.opponentChampions.Count < 1)
+                if (gameState.opponentChampions.Count <= 1)
 				{
 					return false;
 				}
