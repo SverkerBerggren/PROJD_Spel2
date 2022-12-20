@@ -13,6 +13,9 @@ public class OneSwitch : MonoBehaviour
     [SerializeField] private List<Targetable> targetableRightNow = new List<Targetable>();
     [SerializeField] private Targetable[] thingsToTargetInNormalSituation;
     [SerializeField] private Targetable[] thingsToTargetWithCard;
+    [SerializeField] private Targetable[] thingsToTargetShop;
+    [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
+    [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
     [SerializeField] private EventSystem eventSystem;
 
     [SerializeField] private GameObject[] whatToCheck; 
@@ -79,15 +82,18 @@ public class OneSwitch : MonoBehaviour
                 ChoiceAllternatives();
                 break;
             case WhatShouldBeOneSwitch.Shop:
+                targetableRightNow = thingsToTargetShop.ToList();
                 break;
             case WhatShouldBeOneSwitch.CardTarget:
                 targetableRightNow = thingsToTargetWithCard.ToList();
                 break;
             case WhatShouldBeOneSwitch.OptionMenu:
+                targetableRightNow = thingsToTargetOptionsMenu.ToList();
                 break;
             case WhatShouldBeOneSwitch.RuleBook:
                 break;
             case WhatShouldBeOneSwitch.Settings:
+                targetableRightNow = thingsToTargetSettingsMenu.ToList();
                 break;
             case WhatShouldBeOneSwitch.EnemyTurn:
                 targetableRightNow.Clear();
@@ -247,16 +253,16 @@ public class OneSwitch : MonoBehaviour
     {
         choice = Choice.Instance;
         //Choice
-        if (whatToCheck[0].activeSelf)
+        if (whatToCheck[0].activeInHierarchy)
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;      
-        else if (whatToCheck[1].activeSelf)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
-        else if (whatToCheck[2].activeSelf)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Settings;
-        else if (whatToCheck[3].activeSelf)
+        else if (whatToCheck[1].activeInHierarchy)
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Shop;
-        else if (whatToCheck[3].activeSelf)
+        else if (whatToCheck[2].activeInHierarchy)
             oneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
+        else if (whatToCheck[3].activeInHierarchy)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Settings;
+        else if (whatToCheck[4].activeInHierarchy)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
         else
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
 

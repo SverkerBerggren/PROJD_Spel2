@@ -16081,12 +16081,26 @@ MonoBehaviour:
   - {fileID: 1243133522}
   - {fileID: 2117364354}
   - {fileID: 2027277481}
+  thingsToTargetShop:
+  - {fileID: 1628134723}
+  - {fileID: 1045028641}
+  - {fileID: 1211598118}
+  thingsToTargetSettingsMenu:
+  - {fileID: 2122244176}
+  - {fileID: 946431374}
+  - {fileID: 1957278759}
+  - {fileID: 7302523632901612203}
+  thingsToTargetOptionsMenu:
+  - {fileID: 9098372307607683789}
+  - {fileID: 8230675307078516143}
+  - {fileID: 7302523632901612203}
   eventSystem: {fileID: 383818128}
   whatToCheck:
   - {fileID: 259351858}
-  - {fileID: 6278741084801444170}
   - {fileID: 1965229625}
   - {fileID: 1564927299}
+  - {fileID: 2041054152}
+  - {fileID: 6278741084801444170}
   oneSwitchActiveNow: 0
 --- !u!114 &698962104
 MonoBehaviour:
@@ -21126,6 +21140,7 @@ GameObject:
   - component: {fileID: 946431371}
   - component: {fileID: 946431370}
   - component: {fileID: 946431373}
+  - component: {fileID: 946431374}
   m_Layer: 5
   m_Name: OnOffButtonOneSwitch
   m_TagString: Untagged
@@ -21263,6 +21278,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkImage: {fileID: 546100899}
+--- !u!114 &946431374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946431368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &950961824
 GameObject:
   m_ObjectHideFlags: 0
@@ -23769,6 +23796,7 @@ GameObject:
   - component: {fileID: 1045028639}
   - component: {fileID: 1045028638}
   - component: {fileID: 1045028637}
+  - component: {fileID: 1045028641}
   m_Layer: 5
   m_Name: RetreatCard
   m_TagString: Untagged
@@ -23924,6 +23952,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045028635}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1045028641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045028635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1057474836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5930002168094892978, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
@@ -26820,6 +26860,7 @@ GameObject:
   - component: {fileID: 1211598116}
   - component: {fileID: 1211598115}
   - component: {fileID: 1211598114}
+  - component: {fileID: 1211598118}
   m_Layer: 5
   m_Name: Transform
   m_TagString: Untagged
@@ -26975,6 +27016,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211598112}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1211598118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211598112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1214036956
 GameObject:
   m_ObjectHideFlags: 0
@@ -35109,6 +35162,7 @@ GameObject:
   - component: {fileID: 1628134720}
   - component: {fileID: 1628134722}
   - component: {fileID: 1628134719}
+  - component: {fileID: 1628134723}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -35217,6 +35271,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopMenu: {fileID: 1965229625}
+--- !u!114 &1628134723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628134717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1629756871
 GameObject:
   m_ObjectHideFlags: 0
@@ -42415,6 +42481,7 @@ GameObject:
   - component: {fileID: 1957278757}
   - component: {fileID: 1957278756}
   - component: {fileID: 1957278755}
+  - component: {fileID: 1957278759}
   m_Layer: 5
   m_Name: OnOffShader
   m_TagString: Untagged
@@ -42552,6 +42619,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957278753}
   m_CullTransparentMesh: 1
+--- !u!114 &1957278759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957278753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1958443809
 GameObject:
   m_ObjectHideFlags: 0
@@ -45416,6 +45495,7 @@ GameObject:
   - component: {fileID: 2122244173}
   - component: {fileID: 2122244172}
   - component: {fileID: 2122244175}
+  - component: {fileID: 2122244176}
   m_Layer: 5
   m_Name: OnOffButtonLowerDetails
   m_TagString: Untagged
@@ -45553,6 +45633,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkImage: {fileID: 2123797992}
+--- !u!114 &2122244176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122244170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2122812012
 GameObject:
   m_ObjectHideFlags: 0
@@ -47425,6 +47517,7 @@ GameObject:
   - component: {fileID: 3175100731065672582}
   - component: {fileID: 588918181837631122}
   - component: {fileID: 6743956165803705571}
+  - component: {fileID: 7302523632901612203}
   m_Layer: 5
   m_Name: ReturnButton
   m_TagString: Untagged
@@ -51148,6 +51241,7 @@ GameObject:
   - component: {fileID: 7991587985159315981}
   - component: {fileID: 8230675307078516142}
   - component: {fileID: 2457415624457304748}
+  - component: {fileID: 8230675307078516143}
   m_Layer: 5
   m_Name: RuleViewerButton
   m_TagString: Untagged
@@ -54593,6 +54687,18 @@ RectTransform:
   m_AnchoredPosition: {x: 602, y: 326}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7302523632901612203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581904016521764272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7393335338408359710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55128,6 +55234,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8230675307078516143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4470414582912148219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8296405913284344482
 GameObject:
   m_ObjectHideFlags: 0
@@ -55505,6 +55623,7 @@ GameObject:
   - component: {fileID: 7765979567553024174}
   - component: {fileID: 842716454304692243}
   - component: {fileID: 9098372307607683788}
+  - component: {fileID: 9098372307607683789}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -55529,6 +55648,18 @@ MonoBehaviour:
   gameObjectsToEnable:
   - {fileID: 2041054152}
   returnButton: {fileID: 6743956165803705571}
+--- !u!114 &9098372307607683789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9098372307607683787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9119341223585739947
 MonoBehaviour:
   m_ObjectHideFlags: 0
