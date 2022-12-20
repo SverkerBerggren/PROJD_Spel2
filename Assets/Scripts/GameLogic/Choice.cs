@@ -440,7 +440,7 @@ public class Choice : MonoBehaviour
         if (chosenTargets[0].whichList.myChampions)
             gameState.playerChampion.champion.WhenCurrentChampion();
 
-        if (whichMethod == WhichMethod.SwitchChampionMulligan && !(gameState.playerChampion.champion is Duelist))
+        if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.champion is not Duelist)
             gameState.PassPriority();
     }
 
