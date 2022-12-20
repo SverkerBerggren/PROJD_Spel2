@@ -455,7 +455,7 @@ public class Choice : MonoBehaviour
                 gameState.PassPriority();
             }
         }
-        else if (gameState.opponentChampion.health <= 0 || whichMethod == WhichMethod.Mulligan)
+        else if (gameState.opponentChampion.health <= 0 || (whichMethod == WhichMethod.Mulligan && gameState.playerChampion.champion is Duelist))
             gameState.PassPriority();
 
         if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.championName.Equals("Duelist"))
