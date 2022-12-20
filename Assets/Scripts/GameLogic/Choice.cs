@@ -454,16 +454,9 @@ public class Choice : MonoBehaviour
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
             }
-            /*
-            if (gameState.hasPriority && chosenTargets[0].whichList.opponentChampions)
-                gameState.PassPriority();
-            */
         }
-        else
-        {
-            if (gameState.opponentChampion.health <= 0)
-                gameState.PassPriority();
-        }
+        else if (gameState.opponentChampion.health <= 0 || whichMethod == WhichMethod.Mulligan)
+            gameState.PassPriority();
 
         if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.championName.Equals("Duelist"))
         {
