@@ -201,7 +201,7 @@ public class Choice : MonoBehaviour
         {
             for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
             {
-                if (gameState.opponentLandmarks[i].landmarkEnabled)
+                if (gameState.opponentLandmarks[i].landmarkEnabled && gameState.opponentLandmarks[i].card != null)
                 {
                     MakeButtonOfCard(gameState.opponentLandmarks[i].card, listEnum, i);
                     closeMenuButton.SetActive(true);
