@@ -5,7 +5,8 @@ using UnityEngine.VFX;
 
 public  class Effect_Champions : MonoBehaviour
 {
-    public Material[] materials;
+    public SkinnedMeshRenderer[] skinneMaterials;
+    public MeshRenderer[] meshMaterials;
     private const float DISOLVERATE = 0.0125f;
     private const float REFRESHRATE = 0.025f;
     [SerializeField] private VisualEffect deathPS;
@@ -18,37 +19,50 @@ public  class Effect_Champions : MonoBehaviour
 
     private IEnumerator DissolveCo()
     {
-        if (materials != null )
+        if (skinneMaterials != null || meshMaterials != null)
         {
             float counter = 0;
             deathPS.Play();
-            while (materials[0].GetFloat("_DissolvedAmount") < 1)
+            while ((skinneMaterials.Length > 0 && skinneMaterials[0].material.GetFloat("_DissolvedAmount") < 1) || (meshMaterials.Length > 0 && meshMaterials[0].material.GetFloat("_DissolvedAmount") < 1))
             {
                 //decrease
                 counter += DISOLVERATE;
-                foreach(Material m in materials)
+                foreach(SkinnedMeshRenderer sMR in skinneMaterials)
                 {
-                    m.SetFloat("_DissolvedAmount", counter);
+                    foreach (Material ma in sMR.materials)
+                    {
+                        ma.SetFloat("_DissolvedAmount", counter);
+                    }
                 }
-   
+
+                foreach (MeshRenderer mr in meshMaterials)
+                {
+                    foreach (Material ma in mr.materials)
+                    {
+                        ma.SetFloat("_DissolvedAmount", counter);
+                    }
+                }
+                //can this up to destory object
+                if ((skinneMaterials.Length > 0 && skinneMaterials[0].material.GetFloat("_DissolvedAmount") > 0.99f) || (meshMaterials.Length > 0 && meshMaterials[0].material.GetFloat("_DissolvedAmount") > 0.99f))
+                {
+                    
+                    Debug.Log("Time to go");
+                    break;
+                    //Destory Champ?
+                }
 
                 yield return new WaitForSeconds(REFRESHRATE);
             }
-            //can this up to destory object
-            if (materials[0].GetFloat("_DissolvedAmount") > 0.99f)
-            {
-                Debug.Log("Time to go");
-                //Destory Champ?
-            }
+           
         }
     }
 
 
-    private void OnApplicationQuit()
-    {
-        foreach (Material m in materials)
-        {
-            m.SetFloat("_DissolvedAmount", 0);
-        }
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    foreach (Material m in materials)
+    //    {
+    //        m.SetFloat("_DissolvedAmount", 0);
+    //    }
+    //}
 }
