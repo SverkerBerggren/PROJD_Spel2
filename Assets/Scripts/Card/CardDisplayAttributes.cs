@@ -57,26 +57,27 @@ public class CardDisplayAttributes : MonoBehaviour
                 {
                     ShowCardPlayableEffect(cardDisplay);
                 }
-
-                if (card.championCard && card.championCardType != ChampionCardType.All)
-                {
-                    championBorder.gameObject.SetActive(true);
-                    currentSprite.gameObject.SetActive(true);
-                    currentSprite.sprite = CardRegister.Instance.championTypeRegister[card.championCardType].champBackground;
-
-                }
-                else
-                {
-					currentSprite.gameObject.SetActive(false);
-					championBorder.gameObject.SetActive(false);
-                }
             }
             else
             {
                 cardDisplay.SetBackfaceOnOpponentCards(ActionOfPlayer.Instance.backfaceCard);
+                return;
             }
         }
-		description.text = display.card.description;
+
+        if (display.card.championCard && display.card.championCardType != ChampionCardType.All)
+        {
+            championBorder.gameObject.SetActive(true);
+            currentSprite.gameObject.SetActive(true);
+            currentSprite.sprite = CardRegister.Instance.championTypeRegister[display.card.championCardType].champBackground;
+        }
+        else
+        {
+            currentSprite.gameObject.SetActive(false);
+            championBorder.gameObject.SetActive(false);
+        }
+
+        description.text = display.card.description;
         manaText.text = display.manaCost.ToString();
         cardName.text = display.card.cardName;
     }
@@ -92,6 +93,20 @@ public class CardDisplayAttributes : MonoBehaviour
     public void UpdateTextOnCardWithCard(Card card)
     {
         if (card == null) return;
+
+        if (card.championCard && card.championCardType != ChampionCardType.All)
+        {
+            championBorder.gameObject.SetActive(true);
+            currentSprite.gameObject.SetActive(true);
+            currentSprite.sprite = CardRegister.Instance.championTypeRegister[card.championCardType].champBackground;
+        }
+        else
+        {
+            currentSprite.gameObject.SetActive(false);
+            championBorder.gameObject.SetActive(false);
+        }
+
+
 
         UpdateMaterialOnCard(card);
 

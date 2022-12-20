@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7536.6094, g: 8277.09, b: 10234.289, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3921,6 +3921,10 @@ PrefabInstance:
       propertyPath: previewLandmarkDisplay
       value: 
       objectReference: {fileID: 1433447890}
+    - target: {fileID: 6111486696246209301, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
 --- !u!1 &189714528
@@ -34023,7 +34027,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1370841887089055499, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1697021432753263368, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
       propertyPath: m_IsActive
@@ -35927,6 +35931,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf4b25fc0f7f1c248a462ba53001fb23, type: 2}
   - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
   - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
+  - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
