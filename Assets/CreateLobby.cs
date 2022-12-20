@@ -19,7 +19,11 @@ public class CreateLobby : MonoBehaviour
         RequestHostLobby requestHostLobby = new RequestHostLobby();
 
         requestHostLobby.whichPlayer = ClientConnection.Instance.playerId;
-        requestHostLobby.lobbyName = "HEJ TESt";
+
+        if (inputField.text.Equals(""))
+            requestHostLobby.lobbyName = "Lobby";
+        else
+            requestHostLobby.lobbyName = inputField.text;
 
         ClientConnection.Instance.isHost = true;
         ClientConnection.Instance.playerId = 0;
