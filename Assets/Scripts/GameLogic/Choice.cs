@@ -388,8 +388,7 @@ public class Choice : MonoBehaviour
         actionOfPlayer.handPlayer.FixMulligan(indexes);
         isChoiceActive = false;
 
-		if (!gameState.isItMyTurn)
-			gameState.PassPriority();
+	    gameState.PassPriority();
 	}
 
     public void ResetChoice()
