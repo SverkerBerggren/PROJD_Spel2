@@ -111,6 +111,7 @@ public class GameState : MonoBehaviour
             }
             else
             {
+                hasPriority = false;
                 isItMyTurn = false;
                 didIStart = false;
                 ChangeInteractabiltyEndTurn();
@@ -170,7 +171,7 @@ public class GameState : MonoBehaviour
     {
         if (!isItMyTurn)
         {
-            hasPriority = false;
+            //hasPriority = false;
         }
     }
 

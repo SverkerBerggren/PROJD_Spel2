@@ -395,8 +395,8 @@ public class Choice : MonoBehaviour
         }
         actionOfPlayer.handPlayer.FixMulligan(indexes);
         isChoiceActive = false;
-
-        gameState.StartGame();
+        gameState.PassPriority();
+        //gameState.StartGame();
 
     }
 
