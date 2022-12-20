@@ -429,7 +429,7 @@ public class Choice : MonoBehaviour
         if (chosenTargets[0].whichList.myChampions)
             gameState.playerChampion.champion.WhenCurrentChampion();
 
-        if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.isItMyTurn)
+        if (whichMethod == WhichMethod.SwitchChampionMulligan)
         {
             gameState.PassPriority();
         }
