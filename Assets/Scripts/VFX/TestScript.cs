@@ -21,6 +21,7 @@ public class TestScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             testObj.GetComponent<Effect_Champions>().StartDisolve();
+            attackObj.GetComponent<Effect_Champions>().StartDisolve();
         }
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);

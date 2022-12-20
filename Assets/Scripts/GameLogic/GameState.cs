@@ -126,9 +126,12 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Duelist",
-                "Graverobber",
                 "Shanker",
+                "Graverobber",
+                "TheOneWhoDraws",
+                //"Duelist",
+                //"Builder",
+                //"Cultist",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
@@ -814,5 +817,11 @@ public class GameState : MonoBehaviour
 
         WhichManaCrystalsToShow.Instance.UpdateManaCrystals();
         yourTurnEffect.ChangePicture(playerChampion);
+
+
+        if (playerChampions.Count <= 0)
+            Defeat();
+        else if (opponentChampions.Count <= 0)
+            Victory();
     }
 }

@@ -148,6 +148,8 @@ public class EffectController : MonoBehaviour
                 GainCultistAttackEffect(targetPos);
                 break;
             case "builder":
+            case "TheOneWhoDraws":
+            case "Duelist":
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
             case "graverobber":
@@ -159,18 +161,9 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
-        switch (holder.nameOfChampion)
-        {
-            case "Cultist":
-                holder.GetComponentInChildren<Effect_Cultist>().StartDisolve();
-                break;
-            case "Builder":
-                holder.GetComponentInChildren<Effect_Builder>().StartDisolve();
-                break;
-            case "Graverobber":
-                holder.GetComponentInChildren<Effect_GraveRobber>().StartDisolve();    
-                break;
+        
+           holder.GetComponentInChildren<Effect_Champions>().StartDisolve();
 
-        }
     }
+    
 }

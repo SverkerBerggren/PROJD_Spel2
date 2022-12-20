@@ -23,7 +23,6 @@ public class ChoiceButton : MonoBehaviour
         }
         else
         {
-            print("Effect");
             Choice.Instance.AddTargetInfo(targetInfo);
             clickedEffect.SetActive(true);
         }
