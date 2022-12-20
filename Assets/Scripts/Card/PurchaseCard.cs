@@ -8,6 +8,8 @@ public class PurchaseCard : MonoBehaviour
     private ActionOfPlayer actionOfPlayer;
     public void CardToPurchase(Card cardPurchased)
     {
+        if (!(GameState.Instance.hasPriority) || !(GameState.Instance.isItMyTurn) || (Choice.Instance.isChoiceActive)) return;
+
         actionOfPlayer = ActionOfPlayer.Instance;
         
         if (actionOfPlayer.unspentMana >= costOfUnspentMana)

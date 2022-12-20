@@ -24,7 +24,7 @@ public class Choice : MonoBehaviour
     [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject choiceMenu;
     [SerializeField] private GameObject choiceOpponentMenu;
-    private bool isChoiceActive;
+    public bool isChoiceActive;
 
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();

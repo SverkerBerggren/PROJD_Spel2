@@ -10,12 +10,9 @@ public class ShowHowManyCardsInDeck : MonoBehaviour
 
     private Deck deck;
 
-
-    private void Awake()
+    private void Start()
     {
-        if (transform.parent.GetComponent<Deck>() != null)
-            deck = transform.parent.GetComponent<Deck>();
-
+        deck = Deck.Instance;
     }
 
     private void OnMouseEnter()

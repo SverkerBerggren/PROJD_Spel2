@@ -204,7 +204,7 @@ public class GameState : MonoBehaviour
     }
 
     public void EndTurnButtonClick()
-    {
+    {   if (Choice.Instance.isChoiceActive) return;
         if (!hasPriority) return;
 
         if (isOnline)
