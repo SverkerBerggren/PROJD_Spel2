@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -9,6 +11,8 @@ public class Hand : MonoBehaviour
     public List<CardDisplay> cardsInHand = new List<CardDisplay>();
 
     [SerializeField] private Vector3 handStartPoition;
+
+    private bool dissolveDone = false;
 
     private void Start()
     {
@@ -61,13 +65,33 @@ public class Hand : MonoBehaviour
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
-		cardIndexes = FixIndexesWhenRemovingCards(cardIndexes);
-		List<string> cards = new List<string>();
+        List<int> cardIndexesCopy = new List<int>();
+        List<CardDisplay> cardDisp = new List<CardDisplay>();
         for (int i = 0; i < cardIndexes.Count; i++)
         {
-            cards.Add(CardToDiscard(cardsInHand[cardIndexes[i]]).cardName);
-        }      
+            cardDisp.Add(cardsInHand[cardIndexes[i]]);
+            cardIndexesCopy.Add(cardIndexes[i]);
+        }
+        dissolveDone = false;
+        Dissolve(cardDisp);
+
+        StartCoroutine(test(cardIndexesCopy));
+        print("FML");
         return cards;
+    }
+    private List<string> cards = new List<string>();
+
+    IEnumerator test(List<int> cardIndexesCopy)
+    {
+        yield return new WaitUntil(() => dissolveDone == true);
+        print("RUns");
+        cardIndexesCopy = FixIndexesWhenRemovingCards(cardIndexesCopy);
+        
+        for (int i = 0; i < cardIndexesCopy.Count; i++)
+        {
+            cards.Add(CardToDiscard(cardsInHand[cardIndexesCopy[i]]).cardName);
+            ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexesCopy[i]]);
+        }
     }
 
 	public void FixMulligan(List<int> cardIndexes)
@@ -101,10 +125,21 @@ public class Hand : MonoBehaviour
 
 	private Card CardToDiscard(CardDisplay cardDisplay)
     {
-        Graveyard.Instance.AddCardToGraveyard(cardDisplay.card);
-        Card card = cardDisplay.card;
-        cardDisplay.cardDissolve.StartDisolve();
+        Graveyard.Instance.AddCardToGraveyard(cardDisplay.card); 
+        return cardDisplay.card;
+    }
 
-        return card;
+    private async void Dissolve(List<CardDisplay> cardDisplays)
+    {
+        Task[] tasks = new Task[cardDisplays.Count];
+
+        for (int i= 0; i <cardDisplays.Count; i++) 
+        {
+            await Task.Delay(50);
+            tasks[i] = cardDisplays[i].cardDissolve.DissolveCard();
+        }
+
+        await Task.WhenAll(tasks);
+        dissolveDone = true;
     }
 }
