@@ -166,18 +166,6 @@ public class GameState : MonoBehaviour
 		}
     }
 
-    public void StartGame()
-    {
-        if (Setup.Instance.shouldStartGame)
-        {
-            isItMyTurn = true;
-        }
-        else
-        {
-            isItMyTurn = false;
-        }
-    }
-
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
