@@ -147,6 +147,7 @@ public class GameState : MonoBehaviour
     private void StartMulligan()
     {
         DrawStartingCards();
+
         if (mulligan)
         {
             ListEnum listEnum = new ListEnum();
