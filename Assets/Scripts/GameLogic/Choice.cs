@@ -58,7 +58,7 @@ public class Choice : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if ((!gameState.hasPriority && gameState.isItMyTurn) || whichMethod == WhichMethod.SwitchChampionMulligan && !gameState.hasPriority)
+        if ((!gameState.hasPriority && gameState.isItMyTurn) || whichMethod == WhichMethod.SwitchChampionMulligan && !gameState.hasPriority || whichMethod == WhichMethod.Mulligan && !gameState.hasPriority)
             ShowOpponentThinking();
         else
             HideOpponentThinking();
