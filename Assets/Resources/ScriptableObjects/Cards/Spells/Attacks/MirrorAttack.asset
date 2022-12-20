@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Mirror attack
   typeOfCard: 2
-  description: '*Damage* (does damage equal to your active champion current HP)'
+  description: Deals damage equal to your active champion current HP
   artwork: {fileID: 21300000, guid: a085cb97d13558c458ce15f8d209f5b1, type: 3}
   maxManaCost: 8
-  tag: AttackSpell
   damage: 0
   amountToHeal: 0
   amountToShield: 0
   amountOfCardsToDraw: 0
   amountOfCardsToDiscard: 0
+  effect: {fileID: 0}
   discardCardsYourself: 1
   targetable: 1
   championCard: 0
