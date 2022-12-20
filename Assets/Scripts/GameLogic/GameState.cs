@@ -657,8 +657,8 @@ public class GameState : MonoBehaviour
         if (isItMyTurn)
         {
             isItMyTurn = false;
-            firstTurn = false;
             TriggerEndStep();
+            firstTurn = false;
         }
         else
         {       
