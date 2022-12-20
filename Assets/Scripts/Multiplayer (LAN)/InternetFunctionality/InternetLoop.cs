@@ -273,6 +273,8 @@ public class InternetLoop : MonoBehaviour
 					request.reciprocate = false;
                     request.opponentChampions = Setup.Instance.myChampions;
 
+                    Setup.Instance.shouldStartGame = !castedAction.firstTurn;
+
 					ClientConnection.Instance.AddRequest(request, EmptyRequest);
 				}
 

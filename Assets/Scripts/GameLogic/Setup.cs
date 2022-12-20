@@ -15,6 +15,7 @@ public class Setup : MonoBehaviour
 	public int deckCount = 40;
     public int currentDeckSize = 0;
 
+    public bool shouldStartGame = false;
 
 	private static Setup instance;
     public static Setup Instance { get { return instance; } set { instance = value; } }

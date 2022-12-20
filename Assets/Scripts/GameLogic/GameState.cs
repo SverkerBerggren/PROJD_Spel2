@@ -71,6 +71,8 @@ public class GameState : MonoBehaviour
 	private static GameState instance;
     public static GameState Instance { get; set; }
 
+    public bool shouldStartGame = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -104,7 +106,7 @@ public class GameState : MonoBehaviour
         if (isOnline)
         {
             // Måste vara en request vem som ska start först int starting = UnityEngine.Random.Range(0, 1);
-            if (ClientConnection.Instance.playerId == 0)
+            if (Setup.Instance.shouldStartGame)
             {
                 isItMyTurn = true;
                 didIStart = true;
