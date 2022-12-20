@@ -6,16 +6,10 @@ using UnityEngine.UI;
 public class TutorialV4 : MonoBehaviour
 {
     Animator animTutorial;
-    public Button[] bArray;
-
+    
     private void Start(){
         animTutorial = GetComponent<Animator>();
 
-        foreach(Button b in bArray) {
-            b.interactable = false;
-        }
-        Time.timeScale = 0f;
-   
     }
 
     void ChangeAnimation() {
