@@ -15738,7 +15738,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698962099}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd631a1d3c229549a05bf7f454889bf, type: 3}
   m_Name: 
@@ -15764,6 +15764,12 @@ MonoBehaviour:
   - {fileID: 2117364354}
   - {fileID: 2027277481}
   eventSystem: {fileID: 383818128}
+  whatToCheck:
+  - {fileID: 259351858}
+  - {fileID: 6278741084801444170}
+  - {fileID: 1965229625}
+  - {fileID: 1564927299}
+  oneSwitchActiveNow: 0
 --- !u!114 &698962104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35494,10 +35500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPlayer:
-  - {fileID: 11400000, guid: cf4b25fc0f7f1c248a462ba53001fb23, type: 2}
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
-  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
-  - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
+  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}

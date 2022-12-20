@@ -14,13 +14,16 @@ public class OneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetInNormalSituation;
     [SerializeField] private Targetable[] thingsToTargetWithCard;
     [SerializeField] private EventSystem eventSystem;
+
+    [SerializeField] private GameObject[] whatToCheck; 
+
     private int index = -1;
     private int prevIndex = 0;
     private int indexTargets = 0; 
     private bool clicked = false;
     private bool firstTime = true;
 
-    [NonSerialized] public WhatShouldBeOneSwitch oneSwitchActiveNow;
+    public WhatShouldBeOneSwitch oneSwitchActiveNow;
     private WhatShouldBeOneSwitch oneSwitchActivePrevious;
 
     private PlayCardManager playCardManager;
@@ -86,6 +89,9 @@ public class OneSwitch : MonoBehaviour
                 break;
             case WhatShouldBeOneSwitch.Settings:
                 break;
+            case WhatShouldBeOneSwitch.EnemyTurn:
+                targetableRightNow.Clear();
+                break;
         }
 
         oneSwitchActivePrevious = oneSwitchActiveNow;
@@ -96,6 +102,8 @@ public class OneSwitch : MonoBehaviour
     {
 
         ChangeOneSwitch();
+
+        if (targetableRightNow.Count <= 0) return;
 
         index++;
 
@@ -177,8 +185,10 @@ public class OneSwitch : MonoBehaviour
                 {
                     index = -1;
                     prevIndex = 0;
-                    ChoiceAllternatives();
+                   // ChoiceAllternatives();
                 }
+                else if (targetableRightNow[index].gameObject.name.Equals("EndTurn"))
+                    oneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
             }
             else
             {
@@ -217,7 +227,7 @@ public class OneSwitch : MonoBehaviour
 
     private void ChoiceAllternatives()
     {
-        if (!choice.buttonHolder.activeSelf)
+        if (!whatToCheck[0].activeSelf)
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
         targetableRightNow = choice.buttonHolder.GetComponentsInChildren<Targetable>().ToList();
         targetableRightNow.Add(choice.confirmMenuButton.GetComponent<Targetable>());
@@ -237,14 +247,19 @@ public class OneSwitch : MonoBehaviour
     {
         choice = Choice.Instance;
         //Choice
-        if (choice.buttonHolder.activeSelf)
-        {
-            ChoiceAllternatives();
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
-        }
+        if (whatToCheck[0].activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;      
+        else if (whatToCheck[1].activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
+        else if (whatToCheck[2].activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Settings;
+        else if (whatToCheck[3].activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Shop;
+        else if (whatToCheck[3].activeSelf)
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
+        else
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
 
-        if (targetableRightNow.Count < 0)
-            targetableRightNow = thingsToTargetInNormalSituation.ToList();
         InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
 
@@ -257,5 +272,6 @@ public class OneSwitch : MonoBehaviour
         OptionMenu,
         RuleBook,
         Settings,
+        EnemyTurn,
     }
 }
