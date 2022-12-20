@@ -20,6 +20,10 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            testObj.GetComponent<Animator>().Play("Death");
+            attackObj.GetComponent<Animator>().Play("Death");
+
+
             testObj.GetComponent<Effect_Champions>().StartDisolve();
             attackObj.GetComponent<Effect_Champions>().StartDisolve();
         }

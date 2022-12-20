@@ -153,6 +153,7 @@ public class EffectController : MonoBehaviour
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
             case "graverobber":
+            case "Shanker":
                 holder.GetComponentInChildren<VisualEffect>().Play();
                 break;
         }
