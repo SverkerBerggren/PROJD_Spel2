@@ -126,7 +126,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Shanker",
+                "Cultist",
                 "Graverobber",
                 "TheOneWhoDraws",
                 //"Duelist",
@@ -204,7 +204,7 @@ public class GameState : MonoBehaviour
     }
 
     public void EndTurnButtonClick()
-    {
+    {   if (Choice.Instance.isChoiceActive) return;
         if (!hasPriority) return;
 
         if (isOnline)

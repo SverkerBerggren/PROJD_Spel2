@@ -24,7 +24,7 @@ public class Choice : MonoBehaviour
     [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject choiceMenu;
     [SerializeField] private GameObject choiceOpponentMenu;
-    private bool isChoiceActive;
+    public bool isChoiceActive;
 
     private List<GameObject> buttonsToDestroy = new List<GameObject>();
     private List<Tuple<WhichMethod, IEnumerator>> waitRoom = new List<Tuple<WhichMethod, IEnumerator>>();
@@ -152,6 +152,14 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < graveyard.graveyardPlayer.Count; i++)
             {
                 MakeButtonOfCard(graveyard.graveyardPlayer[i], listEnum, i);
+                closeMenuButton.SetActive(true);
+            }
+        }
+        if (listEnum.opponentGraveyard)
+        {
+            for (int i = 0; i < graveyard.graveyardOpponent.Count; i++)
+            {
+                MakeButtonOfCard(graveyard.graveyardOpponent[i], listEnum, i);
                 closeMenuButton.SetActive(true);
             }
         }
@@ -298,7 +306,7 @@ public class Choice : MonoBehaviour
             whichMethod = WhichMethod.Null;
 			ResetChoice();
             gameState.Refresh();
-			waitRoom.Remove(waitRoom[0]);
+			//waitRoom.Remove(waitRoom[0]);
 			NextInWaitRoom();			
 		}
     }
@@ -367,10 +375,10 @@ public class Choice : MonoBehaviour
                 break;
 
         }
-
+        
         ResetChoice();
         gameState.Refresh();
-        waitRoom.Remove(waitRoom[0]);
+        
         confirmMenuButton.SetActive(false);
         cardUsed = null;
         whichMethod = WhichMethod.Null;
@@ -392,8 +400,12 @@ public class Choice : MonoBehaviour
 	}
 
     public void ResetChoice()
-    {
+    {   
+        if(waitRoom.Count > 0)
+            waitRoom.Remove(waitRoom[0]);
+        
         closeMenuButton.SetActive(false);
+        isChoiceActive = false;
         amountOfTargets = 0;
         chosenTargets.Clear();
         foreach(GameObject obj in buttonsToDestroy)
@@ -527,6 +539,12 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
 
+            case WhichMethod.ShowOpponentGraveyard:
+                descriptionText.text = "Opponent Graveyard";
+                if (graveyard.graveyardOpponent.Count <= 0)
+                    return false;
+                break;
+
             case WhichMethod.ShowDeck:
                 descriptionText.text = "Player Deck";
                 if (deck.deckPlayer.Count <= 0)
@@ -630,7 +648,7 @@ public class Choice : MonoBehaviour
 
         if (CheckIfChoice(waitRoom[0].Item1))
         {
-            ResetChoice();
+            //isChoiceActive = true;
             StartCoroutine(waitRoom[0].Item2);
         }
         else
@@ -659,4 +677,5 @@ public enum WhichMethod
     Mulligan,
     OneSwitchTarget,
     DestroyLandmarkEnemy,
+    ShowOpponentGraveyard
 }
