@@ -12,4 +12,9 @@ public class LoadScene : MonoBehaviour
         ClientConnection.Instance = null;
         SceneManager.LoadScene(sceneToLoad);
     }
+    public void OnClickNotNull()
+    {
+
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }

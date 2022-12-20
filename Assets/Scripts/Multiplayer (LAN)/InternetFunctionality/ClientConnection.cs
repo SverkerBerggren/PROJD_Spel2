@@ -34,7 +34,7 @@ public class ClientConnection : MonoBehaviour
         }
         else
         {
-            Destroy(Instance);
+            Destroy(this);
         }
         DontDestroyOnLoad(this);
     }

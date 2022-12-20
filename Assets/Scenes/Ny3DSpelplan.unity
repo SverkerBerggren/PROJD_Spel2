@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7528.374, g: 8267.723, b: 10219.078, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -625,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -16676,6 +16677,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 642618656}
     m_Modifications:
+    - target: {fileID: 2095175949191671240, guid: 50db1c66c473b6f48bba12d899cae149, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2545258641831069197, guid: 50db1c66c473b6f48bba12d899cae149, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -16786,7 +16791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6278741085442190956, guid: 50db1c66c473b6f48bba12d899cae149, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7393335339252658232, guid: 50db1c66c473b6f48bba12d899cae149, type: 3}
       propertyPath: settingsButton
@@ -46889,7 +46894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2106827740379693956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52124,7 +52129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6296131570463261912
 GameObject:
   m_ObjectHideFlags: 0
@@ -52936,7 +52941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 616.0318, y: 393}
+  m_AnchoredPosition: {x: 602, y: 326}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7393335338408359710
