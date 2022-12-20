@@ -18,6 +18,7 @@ public class Choice : MonoBehaviour
     private WhichMethod whichMethod;
     private Deck deck;
     private Card cardUsed;
+    private bool dontPass;
 
     [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private TMP_Text descriptionText;
@@ -437,9 +438,15 @@ public class Choice : MonoBehaviour
         }
 
         PriorityForSwap();
-        
+
         if (chosenTargets[0].whichList.myChampions)
+        {
             gameState.playerChampion.champion.WhenCurrentChampion();
+            if (gameState.playerChampion.champion is Duelist)
+            {
+                dontPass = true;
+            }
+        }
 
         if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.champion is not Duelist)
             gameState.PassPriority();
@@ -636,8 +643,10 @@ public class Choice : MonoBehaviour
         if (waitRoom.Count == 0)
         {
             isChoiceActive = false;
-            if (!gameState.isItMyTurn)
+            if (!gameState.isItMyTurn && dontPass)
                 gameState.PassPriority();
+            else
+                dontPass = false;
             return;
         }
 
