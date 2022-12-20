@@ -1070,6 +1070,7 @@ GameObject:
   - component: {fileID: 547199629}
   - component: {fileID: 547199628}
   - component: {fileID: 547199627}
+  - component: {fileID: 547199630}
   m_Layer: 5
   m_Name: Back to menu Button
   m_TagString: Untagged
@@ -1142,13 +1143,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 547199630}
+        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1192,6 +1193,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547199625}
   m_CullTransparentMesh: 1
+--- !u!114 &547199630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547199625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b466040ad376c3643be7a7160bbac3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: MainMenu internet
 --- !u!1 &605774329
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,19 +2398,19 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<color=#005500><b>Landmarks</b><color="black">
 
-    
-
-    There are
-    cards called Landmarks, when used they will be put out on their placements in
-    the arena. There are cards called Landmarks, when used they will be put out on
-    their placements in the arena. You can have <color=#005500><b>up to four active
-    landmarks</b><color="black">
-
-    at the same time.
 
 
-    Read more about card
-    types in the rule book, accessible through the settings icon.'
+    There are cards
+    called Landmarks, when used they will be put out on their placements in the arena.
+    There are cards called Landmarks, when used they will be put out on their placements
+    in the arena. You can have <color=#005500><b>up to four active landmarks</b><color="black">
+
+    at
+    the same time.
+
+
+    Read more about card types in the rule book, accessible
+    through the settings icon.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
   m_sharedMaterial: {fileID: 1552031480343583169, guid: 037939e295bec1844ae4dab36dbdd93e, type: 2}
@@ -2609,7 +2623,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<color="blue"><b>Mana</b><color="black">
 
-    
+
 
     This is your <color="blue"><b>Mana</b>
     <color="black">, it is the cost  to play your cards. <color="blue"><b>Mana</b>
@@ -2843,7 +2857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781b4fa78c94c7f4aaefb701d4531ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bArray: []
 --- !u!1 &1356499559
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3408,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<color="blue"><b>Mana</b><color="black">
 
-    
+
 
     This is your <color="blue"><b>Mana</b>
     <color="black">, it is the cost  to play your cards. <color="blue"><b>Mana</b>
