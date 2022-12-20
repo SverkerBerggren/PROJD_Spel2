@@ -159,18 +159,9 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
-        switch (holder.nameOfChampion)
-        {
-            case "Cultist":
-                holder.GetComponentInChildren<Effect_Cultist>().StartDisolve();
-                break;
-            case "Builder":
-                holder.GetComponentInChildren<Effect_Builder>().StartDisolve();
-                break;
-            case "Graverobber":
-                holder.GetComponentInChildren<Effect_GraveRobber>().StartDisolve();    
-                break;
+        
+           holder.GetComponentInChildren<Effect_Champions>().StartDisolve();
 
-        }
     }
+    
 }
