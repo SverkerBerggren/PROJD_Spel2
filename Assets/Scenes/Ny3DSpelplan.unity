@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7536.6094, g: 8277.09, b: 10234.289, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -625,7 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -50765,7 +50764,7 @@ MonoBehaviour:
   parentImage: {fileID: 0}
   imageToChange: {fileID: 5313670034827633284}
   texturePanel: {fileID: 2800000, guid: cf054ed70dc4c7f4d81d467713f81756, type: 3}
-  textureImage: {fileID: 0}
+  textureImage: {fileID: 2800000, guid: 62a7e792a219f65488a1a263ef341000, type: 3}
   textToChangeTitle: 'MANA '
   textToChangeInfo: MANA IS THE NAME OF THE IN-GAME CURRENCY USED TO PLAY CARDS.
     A CARDS MANA-COST IS SHOWN IN THE TOP LEFT CORNER. EVERY START OF YOUR MANA IS
