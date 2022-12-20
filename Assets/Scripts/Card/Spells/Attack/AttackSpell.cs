@@ -42,8 +42,7 @@ public class AttackSpell : Spells
         {
             ListEnum lE = new ListEnum();
             lE.myLandmarks = true;
-            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.ShowLandmarks, null);
-            //DestroyLandmark();
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmarkEnemy, null);
         }
 
         switch (gameState.playerChampion.champion.championName)

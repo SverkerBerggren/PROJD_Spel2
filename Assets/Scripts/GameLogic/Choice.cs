@@ -58,7 +58,7 @@ public class Choice : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!gameState.hasPriority && gameState.isItMyTurn)
+        if ((!gameState.hasPriority && gameState.isItMyTurn) || whichMethod == WhichMethod.SwitchChampionMulligan && !gameState.hasPriority)
             ShowOpponentThinking();
         else
             HideOpponentThinking();
@@ -111,8 +111,8 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
                 AvailableChampion champ = gameState.playerChampions[i];
-                if (champ == gameState.playerChampion) continue;
 
+                if (whichMethod != WhichMethod.SwitchChampionMulligan && champ == gameState.playerChampion) continue;
                 MakeButtonOfChampion(champ.champion, listEnum, i);
             }
         }
@@ -252,34 +252,31 @@ public class Choice : MonoBehaviour
         {
             switch(whichMethod)
             {
-                case WhichMethod.SwitchChampionPlayer:
+                case WhichMethod.SwitchChampionMulligan:
+					SwitchChamp(false);
+					break;
+
+				case WhichMethod.SwitchChampionPlayer:
                     SwitchChamp(false);                   
+                    break;
+
+                case WhichMethod.SwitchChampionEnemy:
+                    SwitchChamp(false);
                     break;
 
                 case WhichMethod.SwitchChampionDied:
                     SwitchChamp(true);                    
                     break;
-                case WhichMethod.SwitchChampionEnemy:
-                    SwitchChamp(false);
-                    break;
 
-                case WhichMethod.discardCard:
+                case WhichMethod.DiscardCard:
                     DiscardCard();
-                    break;
-
-                case WhichMethod.discardXCardsInMyHand:
-
-                    break;
-
-                case WhichMethod.ShowGraveyard:
-
                     break;
 
                 case WhichMethod.ShowDeck:
                     print("Card 1: " + deck.deckPlayer[chosenTargets[0].index] + "  Card 2: " + deck.deckPlayer[chosenTargets[1].index]);
                     break;
 
-                case WhichMethod.ShowLandmarks:
+                case WhichMethod.DestroyLandmarkPlayer:
                     gameState.DestroyLandmark(chosenTargets[0]);
                     break;
 
@@ -293,12 +290,13 @@ public class Choice : MonoBehaviour
                 case WhichMethod.OneSwitchTarget:
                     OneSwitchTarget();
                     break;
-                case WhichMethod.DestroyLandmark:
+                case WhichMethod.DestroyLandmarkEnemy:
                     gameState.opponentLandmarks[chosenTargets[0].index].DestroyLandmark();
                     break;
             }
             cardUsed = null;
-            ResetChoice();
+            whichMethod = WhichMethod.Null;
+			ResetChoice();
             gameState.Refresh();
 			waitRoom.Remove(waitRoom[0]);
 			NextInWaitRoom();			
@@ -354,7 +352,7 @@ public class Choice : MonoBehaviour
     {
         switch (whichMethod)
         {
-            case WhichMethod.discardXCardsInMyHand:
+            case WhichMethod.DiscardXCards:
             DiscardCard();
             ShankerAttack shankAttack = (ShankerAttack)cardUsed;
             shankAttack.WaitForChoices(chosenTargets.Count);
@@ -375,7 +373,7 @@ public class Choice : MonoBehaviour
         waitRoom.Remove(waitRoom[0]);
         confirmMenuButton.SetActive(false);
         cardUsed = null;
-        if (whichMethod == WhichMethod.Mulligan) return;
+        whichMethod = WhichMethod.Null;
         NextInWaitRoom();
     }
 
@@ -389,7 +387,10 @@ public class Choice : MonoBehaviour
         }
         actionOfPlayer.handPlayer.FixMulligan(indexes);
         isChoiceActive = false;
-    }
+
+		if (!gameState.isItMyTurn)
+			gameState.PassPriority();
+	}
 
     public void ResetChoice()
     {
@@ -426,7 +427,12 @@ public class Choice : MonoBehaviour
         PriorityForSwap();
         
         if (chosenTargets[0].whichList.myChampions)
-            gameState.playerChampion.champion.WhenCurrentChampion();        
+            gameState.playerChampion.champion.WhenCurrentChampion();
+
+        if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.isItMyTurn)
+        {
+            gameState.PassPriority();
+        }
     }
 
     private void PriorityForSwap()
@@ -478,8 +484,12 @@ public class Choice : MonoBehaviour
     {
         switch (theMethod)
         {
+            case WhichMethod.SwitchChampionMulligan:
+                descriptionText.text = "Choose your starting champion";
+            break;
+
             case WhichMethod.SwitchChampionPlayer:
-                descriptionText.text = "Swap Your champion";
+                descriptionText.text = "Swap your champion";
                 if (gameState.playerChampions.Count <= 1 || !gameState.canSwap)
                 {
                     return false;
@@ -487,7 +497,7 @@ public class Choice : MonoBehaviour
                 break;
 
             case WhichMethod.SwitchChampionEnemy:
-                descriptionText.text = "Swap Your champion";
+                descriptionText.text = "Swap the opponent champion";
                 if (gameState.opponentChampions.Count < 1)
 				{
 					return false;
@@ -495,38 +505,38 @@ public class Choice : MonoBehaviour
                 break;
             
             case WhichMethod.SwitchChampionDied:
-                descriptionText.text = "Swap Your champion";
+                descriptionText.text = "Your champion died, Swap your champion";
                 if (gameState.playerChampions.Count <= 1)
                 {
                     return false;
                 }
                 break;
 
-            case WhichMethod.discardCard:
+            case WhichMethod.DiscardCard:
                 descriptionText.text = "Choose a card to discard";
                 if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
-            case WhichMethod.discardXCardsInMyHand:
-                descriptionText.text = "Choose a card to discard and deal bonus damage based on the amount of cards discarded";
+            case WhichMethod.DiscardXCards:
+                descriptionText.text = "Choose X cards to discard and deal bonus damage based on the amount of cards discarded";
                 if (actionOfPlayer.handPlayer.cardsInHand.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowGraveyard:
-                descriptionText.text = "Graveyard";
+                descriptionText.text = "Player Graveyard";
                 if (graveyard.graveyardPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowDeck:
-                descriptionText.text = "Deck";
+                descriptionText.text = "Player Deck";
                 if (deck.deckPlayer.Count <= 0)
                     return false;
                 break;
 
-            case WhichMethod.ShowLandmarks:
-                descriptionText.text = "Landmarks";
+            case WhichMethod.DestroyLandmarkPlayer:
+                descriptionText.text = "Choose a landmark to sacrifice";
                 bool checkIfLandmarkPlaced = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks)
                 {
@@ -538,7 +548,7 @@ public class Choice : MonoBehaviour
                 break;
 
 			case WhichMethod.DisableOpponentLandmark:
-                descriptionText.text = "Landmark to disable";
+                descriptionText.text = "Choose which landmark to disable";
                 bool ifLandmarkExist = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
                 {
@@ -549,7 +559,7 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
             case WhichMethod.TransformChampionCard:
-                descriptionText.text = "Choose a card to Transform";
+                descriptionText.text = "Choose a card to Transform to a non champion card";
                 List<CardDisplay> cardsInHand = ActionOfPlayer.Instance.handPlayer.cardsInHand;
                 bool thereIsAChampionCardToTransform = false;
                 for (int i = 0; i < cardsInHand.Count; i++)
@@ -575,8 +585,8 @@ public class Choice : MonoBehaviour
             case WhichMethod.Mulligan:
 				descriptionText.text = "Mulligan";
 				break;
-            case WhichMethod.DestroyLandmark:
-                descriptionText.text = "Choose a landmark to destroy";
+            case WhichMethod.DestroyLandmarkEnemy:
+                descriptionText.text = "Choose an opponent landmark to destroy";
                 bool anyLandmarksToDestory = false;
                 foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks)
                 {
@@ -635,18 +645,20 @@ public class Choice : MonoBehaviour
 
 public enum WhichMethod
 {
+    Null,
+    SwitchChampionMulligan,
     SwitchChampionPlayer,
 	SwitchChampionEnemy,
 	SwitchChampionDied,
-    discardCard,
-    discardXCardsInMyHand,
+    DiscardCard,
+    DiscardXCards,
     ShowGraveyard,
     ShowDeck,
-    ShowLandmarks,
+    DestroyLandmarkPlayer,
     DisableOpponentLandmark,
 	SeersShack,
     TransformChampionCard,
     Mulligan,
     OneSwitchTarget,
-    DestroyLandmark,
+    DestroyLandmarkEnemy,
 }

@@ -9,6 +9,6 @@ public class DestroyLandmark : Spells
     {
         ListEnum lE = new ListEnum();
         lE.opponentLandmarks = true;
-        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmark, this);
+        Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmarkEnemy, this);
     }
 }

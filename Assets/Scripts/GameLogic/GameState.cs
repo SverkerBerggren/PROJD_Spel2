@@ -16,8 +16,9 @@ public class GameState : MonoBehaviour
     private EffectController effectController;
 
 	[SerializeField] private bool mulligan = true;
+	[SerializeField] private bool chooseStartChampion = true;
 
-    [Header("Win Screen")]
+	[Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
     [SerializeField] private GameObject wonScreen;
 
@@ -71,8 +72,6 @@ public class GameState : MonoBehaviour
 	private static GameState instance;
     public static GameState Instance { get; set; }
 
-    public bool shouldStartGame = false;
-
     private void Awake()
     {
         if (Instance == null)
@@ -105,7 +104,6 @@ public class GameState : MonoBehaviour
 
         if (isOnline)
         {
-            // Måste vara en request vem som ska start först int starting = UnityEngine.Random.Range(0, 1);
             if (Setup.Instance.shouldStartGame)
             {
                 isItMyTurn = true;
@@ -128,7 +126,7 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
-                "Shanker",
+                "Duelist",
                 "Graverobber",
                 "Shanker",
             };
@@ -155,15 +153,20 @@ public class GameState : MonoBehaviour
             listEnum.myHand = true;
             Choice.Instance.ChoiceMenu(listEnum, -1, WhichMethod.Mulligan, null, 0.1f);
         }
+
+        if (chooseStartChampion)
+        {
+			ListEnum listEnum = new ListEnum();
+			listEnum.myChampions = true;
+			Choice.Instance.ChoiceMenu(listEnum, 1, WhichMethod.SwitchChampionMulligan, null);
+		}
     }
 
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
-        //calculations.CalculateHandManaCost(cardDisplay);
         RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
-        //playCardRequest.cardAndPlacement.placement.whichList.opponentGraveyard = true;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
 
         Refresh();
@@ -418,7 +421,7 @@ public class GameState : MonoBehaviour
             {
                 ListEnum listEnum = new ListEnum();
                 listEnum.myHand = true;
-                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
             }
             else
             {
@@ -437,7 +440,7 @@ public class GameState : MonoBehaviour
             {
                 ListEnum listEnum = new ListEnum();
                 listEnum.myHand = true;
-                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.discardCard, null);
+                Choice.Instance.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
             }
             else
             {
