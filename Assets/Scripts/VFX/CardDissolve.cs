@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -15,7 +16,7 @@ public class CardDissolve : MonoBehaviour
     private ActionOfPlayer actionOfPlayer;
     private CardDisplay display;
     private float dissolveRate = 0.0225f;
-    private float refreshRate = 0.035f;
+    private int refreshRate = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +27,37 @@ public class CardDissolve : MonoBehaviour
 
     }
 
-    public void StartDisolve()
-    {
-        
-        StartCoroutine(DissolveCoro());
-    }
+
     // Update is called once per frame
 
+    public async Task DissolveCard()
+    {
+        glow.GetComponent<MeshRenderer>().enabled = false;
+        textCanvas.SetActive(false);
+
+        float counter = meshMaterial.material.GetFloat(alpha);
+
+        cardDissolve_VFX.SetActive(true);
+        while (meshMaterial.material.GetFloat(alpha) < 1f)
+        {
+            // Debug.Log(counter);
+            counter += dissolveRate;
+            meshMaterial.material.SetFloat(alpha, counter);
+            if (meshMaterial.material.GetFloat(alpha) >= 0.99f)
+            {
+                Debug.Log("Down");
+                cardDissolve_VFX.SetActive(false);
+                meshMaterial.material.SetFloat(alpha, 0);
+                glow.GetComponent<MeshRenderer>().enabled = true;
+                textCanvas.SetActive(true);               
+                break;
+
+            }
+            
+            await Task.Delay(refreshRate);            
+        }
+        actionOfPlayer.ChangeCardOrder(true, display);
+    }
 
     private IEnumerator DissolveCoro()
     {
@@ -58,14 +83,11 @@ public class CardDissolve : MonoBehaviour
                 meshMaterial.material.SetFloat(alpha, 0);
                 glow.GetComponent<MeshRenderer>().enabled = true;
                 textCanvas.SetActive(true);
-                actionOfPlayer.ChangeCardOrder(true, display);
                 break;
 
             }
             yield return new WaitForSeconds(refreshRate);
         }
-
-        
     }
        
 

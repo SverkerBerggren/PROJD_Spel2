@@ -126,10 +126,10 @@ public class GameState : MonoBehaviour
             isItMyTurn = true;
             List<string> ha = new List<string>
             {
+                "Shanker",
                 "Graverobber",
                 "TheOneWhoDraws",
-                "Duelist",
-                //"Shanker",
+                //"Duelist",
                 //"Builder",
                 //"Cultist",
             };
@@ -693,8 +693,6 @@ public class GameState : MonoBehaviour
     public void ChampionDeath(Champion deadChampion)
     {
         SearchDeadChampion(deadChampion);
-        print(opponentChampions.Count);
-        print(playerChampions.Count);
         if (playerChampions.Count == 0)
         {
             Defeat();
