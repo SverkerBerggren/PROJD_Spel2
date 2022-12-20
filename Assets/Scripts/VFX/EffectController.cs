@@ -148,6 +148,8 @@ public class EffectController : MonoBehaviour
                 GainCultistAttackEffect(targetPos);
                 break;
             case "builder":
+            case "TheOneWhoDraws":
+            case "Duelist":
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
             case "graverobber":
