@@ -437,12 +437,12 @@ public class Choice : MonoBehaviour
 
         PriorityForSwap();
         
+        if (chosenTargets[0].whichList.myChampions)
+            gameState.playerChampion.champion.WhenCurrentChampion();
 
         if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.champion is not Duelist)
             gameState.PassPriority();
 
-        if (chosenTargets[0].whichList.myChampions)
-            gameState.playerChampion.champion.WhenCurrentChampion();
     }
 
     private void PriorityForSwap()
