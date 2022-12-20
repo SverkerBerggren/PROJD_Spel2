@@ -601,6 +601,8 @@ MonoBehaviour:
   landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
   cardPlayableEffect: {fileID: 5774111163111633159}
   nameBackground: {fileID: 3158684345394939300}
+  championBorder: {fileID: 0}
+  currentSprite: {fileID: 0}
   hpGameObject: {fileID: 262932640102151963}
 --- !u!114 &2135731081951270231
 MonoBehaviour:
@@ -615,9 +617,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDissolve_VFX: {fileID: 3276278590813212244}
-  meshMaterial: {fileID: 262932640106156721}
-  ram: {fileID: 5774111163111633159}
+  glow: {fileID: 0}
   textCanvas: {fileID: 262932638914602545}
+  alpha: _AlphaClipThreshold
 --- !u!222 &5546427806172232885
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1349,6 +1351,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8718959617357517346}
     m_Modifications:
+    - target: {fileID: 5225523165637070293, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1396,6 +1402,10 @@ PrefabInstance:
     - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_Name
       value: VFX_CardDissPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}

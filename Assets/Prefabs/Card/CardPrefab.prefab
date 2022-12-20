@@ -843,9 +843,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDissolve_VFX: {fileID: 7891730676620287540}
-  meshMaterial: {fileID: 465949673560789311}
-  ram: {fileID: 4846869459246958421}
-  textCanvas: {fileID: 7666841380230110386}
+  glow: {fileID: 0}
+  textCanvas: {fileID: 6242229381286963655}
+  alpha: _AlphaClipThreshold
 --- !u!65 &829351512961951327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1665,6 +1665,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584313266007552909}
     m_Modifications:
+    - target: {fileID: 5225523165637070293, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1679,15 +1683,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 956.11774
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 553.8205
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.0020537
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1720,6 +1724,10 @@ PrefabInstance:
     - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_Name
       value: VFX_CardDissPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 5225523165637070299, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
