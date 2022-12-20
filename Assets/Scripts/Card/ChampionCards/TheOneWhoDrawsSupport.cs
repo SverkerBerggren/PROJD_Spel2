@@ -18,7 +18,7 @@ public class TheOneWhoDrawsSupport : Spells
 
         if (GameState.Instance.drawnCardsPreviousTurn >= cardsDrawnNeeded)
         {
-            GameState.Instance.DrawCard(amountOfCardsToDraw, null);
+            GameState.Instance.DrawCard(2, null);
         }
     } 
 }
