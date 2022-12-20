@@ -166,6 +166,14 @@ public class GameState : MonoBehaviour
 		}
     }
 
+    public void StartGame()
+    {
+        if (!isItMyTurn)
+        {
+            hasPriority = false;
+        }
+    }
+
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
