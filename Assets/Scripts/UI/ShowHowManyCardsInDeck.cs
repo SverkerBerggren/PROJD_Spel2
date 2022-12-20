@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class ShowHowManyCardsInDeck : MonoBehaviour
+public class ShowHowManyCardsInDeck : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject howManyCardsPanel;
     [SerializeField] private TMP_Text amountOfCardsText;
+    [SerializeField] private bool opponentDeck;
 
     private Deck deck;
 
@@ -15,16 +17,21 @@ public class ShowHowManyCardsInDeck : MonoBehaviour
         deck = Deck.Instance;
     }
 
-    private void OnMouseEnter()
-    {
-        if (deck != null)
-            amountOfCardsText.text = "You have " + deck.deckPlayer.Count + " Cards in your deck";
+    public void OnPointerEnter(PointerEventData eventData)
+    { 
+
+        if(opponentDeck)
+            amountOfCardsText.text = "You have " + deck.deckOpponent.Count + " Cards in your deck";
         else
-            amountOfCardsText.text = "You have " + Graveyard.Instance.graveyardPlayer.Count + " Cards in your graveyard";
+            amountOfCardsText.text = "You have " + deck.deckPlayer.Count + " Cards in your deck";
+
+        
+
+
         howManyCardsPanel.SetActive(true);
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         howManyCardsPanel.SetActive(false);
     }
