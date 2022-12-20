@@ -127,8 +127,11 @@ public class GameState : MonoBehaviour
             List<string> ha = new List<string>
             {
                 "Graverobber",
-                "Shanker",
+                "TheOneWhoDraws",
                 "Duelist",
+                //"Shanker",
+                //"Builder",
+                //"Cultist",
             };
             AddChampions(ha, true);
             AddChampions(ha, false);
@@ -691,6 +694,7 @@ public class GameState : MonoBehaviour
     {
         SearchDeadChampion(deadChampion);
         print(opponentChampions.Count);
+        print(playerChampions.Count);
         if (playerChampions.Count == 0)
         {
             Defeat();
@@ -815,5 +819,11 @@ public class GameState : MonoBehaviour
 
         WhichManaCrystalsToShow.Instance.UpdateManaCrystals();
         yourTurnEffect.ChangePicture(playerChampion);
+
+
+        if (playerChampions.Count <= 0)
+            Defeat();
+        else if (opponentChampions.Count <= 0)
+            Victory();
     }
 }

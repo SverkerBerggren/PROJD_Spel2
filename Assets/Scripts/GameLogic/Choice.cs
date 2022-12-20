@@ -506,6 +506,7 @@ public class Choice : MonoBehaviour
                 descriptionText.text = "Your champion died, Swap your champion";
                 if (gameState.playerChampions.Count <= 1)
                 {
+                    gameState.Defeat();
                     return false;
                 }
                 break;
