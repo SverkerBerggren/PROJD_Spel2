@@ -155,6 +155,14 @@ public class Choice : MonoBehaviour
                 closeMenuButton.SetActive(true);
             }
         }
+        if (listEnum.opponentGraveyard)
+        {
+            for (int i = 0; i < graveyard.graveyardOpponent.Count; i++)
+            {
+                MakeButtonOfCard(graveyard.graveyardOpponent[i], listEnum, i);
+                closeMenuButton.SetActive(true);
+            }
+        }
 
         if (listEnum.myDeck && whichMethod == WhichMethod.SeersShack)
         {
@@ -532,6 +540,12 @@ public class Choice : MonoBehaviour
                     return false;
                 break;
 
+            case WhichMethod.ShowOpponentGraveyard:
+                descriptionText.text = "Opponent Graveyard";
+                if (graveyard.graveyardOpponent.Count <= 0)
+                    return false;
+                break;
+
             case WhichMethod.ShowDeck:
                 descriptionText.text = "Player Deck";
                 if (deck.deckPlayer.Count <= 0)
@@ -664,4 +678,5 @@ public enum WhichMethod
     Mulligan,
     OneSwitchTarget,
     DestroyLandmarkEnemy,
+    ShowOpponentGraveyard
 }
