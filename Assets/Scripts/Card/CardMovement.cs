@@ -43,7 +43,11 @@ public class CardMovement : MonoBehaviour
     public void OnDrag()
     {
         if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, false)) return;
-        if (gameObject.tag.Equals("LandmarkSlot")) return;
+        if (cardDisplay.card.championCard && cardDisplay.card.championCardType != ChampionCardType.All)
+        {
+            if(gameState.playerChampion.champion.championCardType != cardDisplay.card.championCardType) return;
+        } 
+		if (gameObject.tag.Equals("LandmarkSlot")) return;
         if (cardDisplay.opponentCard == true) return;
         if (actionOfPlayer.selectCardOption) return;
 
