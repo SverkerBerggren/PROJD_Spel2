@@ -79,16 +79,15 @@ public class PlayCardManager : MonoBehaviour
 
         if (card.targetable)
         {    
-            if (target.TryGetComponent(out AvailableChampion availableChampion))
+            if (TauntCard())
+                return TypeOfCardTargeting.Taunt;
+            else if (target.TryGetComponent(out AvailableChampion availableChampion))
             {
                 if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
                     return TypeOfCardTargeting.Targeted;
             }
             else if (target.TryGetComponent(out LandmarkDisplay landmarkDisplay))
             {
-                if (TauntCard())
-                    return TypeOfCardTargeting.Taunt;
-
                 if (landmarkDisplay.card != null && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
                     return TypeOfCardTargeting.Targeted;
             }
