@@ -14,6 +14,7 @@ public class Setup : MonoBehaviour
     private string savePath;
     public List<Card> playerDeckList = new List<Card>();
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
+	[System.NonSerialized] public bool shouldStartGame = false;
 
 	[SerializeField] private int maxCopies = 3;
     public List<string> myChampions = new List<string>();
@@ -21,7 +22,6 @@ public class Setup : MonoBehaviour
 	public int deckCount = 40;
     public int currentDeckSize = 0;
 
-    public bool shouldStartGame = false;
 
 	private static Setup instance;
     public static Setup Instance { get { return instance; } set { instance = value; } }
@@ -49,18 +49,6 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
-		/*
-		foreach (string name in myChampions)
-        {
-            Champion champion = cardRegister.champRegister[name];
-            AddCards(cardRegister.GetChampionCards(champion));
-        }
-
-        foreach (Card card in playerDeckList)
-        {
-            AddCard(card);
-        }
-        */
 		LoadDeck("Basic");
 		deckbuilder.UpdateDeckList();
 	}
@@ -82,6 +70,9 @@ public class Setup : MonoBehaviour
 
     private void SaveDeck(string deckName)
     {
+        if (!Directory.Exists(savePath))
+            Directory.CreateDirectory(savePath);
+
         List<string> cards = new List<string>();
         foreach (Card c in amountOfCards.Keys)
         {
@@ -124,13 +115,11 @@ public class Setup : MonoBehaviour
                 amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
             }
 
-            if (cardsCount != deckCount && myChampions.Count != 3) throw new InvalidDataException();
-
             foreach (string s in loadedDeck.champions)
             {
                 myChampions.Add(s);
                 Champion c = cardRegister.champRegister[s];
-                List<Card> champCards = new List<Card>(cardRegister.GetChampionCards(c));
+                List<Card> champCards = new List<Card>(cardRegister.champCards[c]);
 				for (int i = 0; i < champCards.Count; i++)
                 {
                     if (amountOfCards.ContainsKey(champCards[i]))
@@ -141,21 +130,24 @@ public class Setup : MonoBehaviour
                 }
                 if (champCards.Count != 0) throw new InvalidDataException();
 			}
+
+            if (cardsCount != deckCount && myChampions.Count != 3) throw new InvalidDataException();
+
 			currentDeckSize = deckCount;
         }
         catch (Exception e)
         {
 			ClearDeck();
-			UnityEngine.Debug.LogError(e.ToString());
+			UnityEngine.Debug.LogError("Not allowed deck, clearing! \n" + e.ToString());
         }   
     }
 
 	public void AddChampion(Champion champion)
     {
-        if (!myChampions.Contains(champion.championName) && myChampions.Count < 3 && currentDeckSize + cardRegister.GetChampionCards(champion).Count <= deckCount)
+        if (!myChampions.Contains(champion.championName) && myChampions.Count < 3 && currentDeckSize + cardRegister.champCards[champion].Count <= deckCount)
         {
             myChampions.Add(champion.championName);
-            AddCards(cardRegister.GetChampionCards(champion));
+            AddCards(cardRegister.champCards[champion]);
             deckbuilder.UpdateDeckList();
         }
     }
@@ -165,7 +157,7 @@ public class Setup : MonoBehaviour
         if (myChampions.Contains(champion.championName))
         {
 		    myChampions.Remove(champion.championName);
-            RemoveCards(cardRegister.GetChampionCards(champion));
+            RemoveCards(cardRegister.champCards[champion]);
             deckbuilder.UpdateDeckList();
         }
     }

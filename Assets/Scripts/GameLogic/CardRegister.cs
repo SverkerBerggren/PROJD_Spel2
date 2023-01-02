@@ -21,7 +21,7 @@ public class CardRegister : MonoBehaviour
 	[SerializeField] private List<Champion> champions = new List<Champion>();
     public Dictionary<string, Champion> champRegister = new Dictionary<string, Champion>();
 	public Dictionary<ChampionCardType, Champion> championTypeRegister = new Dictionary<ChampionCardType, Champion>();
-	private Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
+	public Dictionary<Champion, List<Card>> champCards = new Dictionary<Champion, List<Card>>();
 
 	[Header("Type of cards")]
 	public Dictionary<string, Landmarks> landmarkRegister = new Dictionary<string, Landmarks>();
@@ -86,23 +86,10 @@ public class CardRegister : MonoBehaviour
 
         foreach (Champion champion in champions)
         {
-            champRegister.Add(champion.championName, champion);
-            champCards.Add(champion, AddChampionsCards(champion));
             AddChampionType(champion);
+            champRegister.Add(champion.championName, champion);
+            champCards.Add(champion, GetChampionCards(champion));
         }    
-    }
-
-    private List<Card> AddChampionsCards(Champion champion)
-    {
-        List<Card> cards = new List<Card>();
-        foreach (Card card in cardRegister.Values)
-        {
-            if (card.championCard && card.championCardType == champion.championCardType)
-            {
-                cards.Add(card);
-            }
-        }
-        return cards;
     }
 
     private void AddChampionType(Champion champion)
@@ -140,17 +127,19 @@ public class CardRegister : MonoBehaviour
 		}
 		championTypeRegister.Add(type, champion);
 	}
-    public List<Card> GetChampionCards(Champion champion)
+    private List<Card> GetChampionCards(Champion champion)
     {
-        List<Card> cards = champCards[champion];
-		foreach (Card c in champCards[champion])
+        List<Card> tempC = new List<Card>();
+	    foreach (Card card in cardRegister.Values)
         {
-            if (c.typeOfCard == CardType.Attack)
+            if (!card.championCard || card.championCardType != champion.championCardType) continue;
+
+			tempC.Add(card);
+            if (card.typeOfCard == CardType.Attack)
             {
-                cards.Add(c);
-                break;
+				tempC.Add(card);
             }
         }
-        return cards;
+        return tempC;
     }
 }
