@@ -1,11 +1,17 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class Setup : MonoBehaviour
 {
-    private CardRegister cardRegister;
+	private CardRegister cardRegister;
     private Deckbuilder deckbuilder;
+    private string savePath;
     public List<Card> playerDeckList = new List<Card>();
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
 
@@ -29,18 +35,21 @@ public class Setup : MonoBehaviour
         {
             Destroy(Instance);
         }
-    }
+        savePath = Application.dataPath + "/SavedDecks/";
+		cardRegister = CardRegister.Instance;
+	}
+
     // Start is called before the first frame update
     void Start()
     {
         deckbuilder = Deckbuilder.Instance;
-        cardRegister = CardRegister.Instance;
         DontDestroyOnLoad(gameObject);
     }
 
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
+		/*
 		foreach (string name in myChampions)
         {
             Champion champion = cardRegister.champRegister[name];
@@ -51,20 +60,95 @@ public class Setup : MonoBehaviour
         {
             AddCard(card);
         }
+        */
+		LoadDeck("Basic");
 		deckbuilder.UpdateDeckList();
 	}
 
 	public void StopDeckBuilder()
 	{
         playerDeckList.Clear();
+        List<Tuple<string, int>> cardNames = new List<Tuple<string, int>>();
         foreach (Card card in amountOfCards.Keys)
         {
             for (int i = 0; i < amountOfCards[card]; i++)
             {
                 playerDeckList.Add(card);
             }
+            cardNames.Add(Tuple.Create(card.cardName, amountOfCards[card]));
         }
+        SaveDeck("Basic");
 	}
+
+    private void SaveDeck(string deckName)
+    {
+        List<string> cards = new List<string>();
+        foreach (Card c in amountOfCards.Keys)
+        {
+            cards.Add(c.cardName + "|" + amountOfCards[c]);
+        }
+		SavedDeck savedDeck = new SavedDeck
+		{
+			name = deckName,
+			champions = myChampions,
+			cards = cards,
+		};
+		string json = JsonUtility.ToJson(savedDeck);
+        File.WriteAllText(savePath + deckName + ".txt", json);
+		UnityEngine.Debug.Log("Deck saved");
+	}
+
+    private void LoadDeck(string deckName)
+    {
+        if (!File.Exists(savePath + deckName + ".txt"))
+        {
+			UnityEngine.Debug.LogError("Couldnt load deck");
+            return;
+        }
+
+        try
+        {
+            string readDeck = File.ReadAllText(savePath + deckName + ".txt");
+            SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
+            myChampions.Clear();
+            playerDeckList.Clear();
+            int cardsCount = 0;
+
+            foreach (string s in loadedDeck.cards)
+            {
+                string[] split = s.Split("|");
+
+                if (int.Parse(split[1]) > maxCopies || int.Parse(split[1]) < 1) throw new InvalidDataException();
+
+                cardsCount += int.Parse(split[1]);
+                amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
+            }
+
+            if (cardsCount != deckCount && myChampions.Count != 3) throw new InvalidDataException();
+
+            foreach (string s in loadedDeck.champions)
+            {
+                myChampions.Add(s);
+                Champion c = cardRegister.champRegister[s];
+                List<Card> champCards = new List<Card>(cardRegister.GetChampionCards(c));
+				for (int i = 0; i < champCards.Count; i++)
+                {
+                    if (amountOfCards.ContainsKey(champCards[i]))
+                    { 
+                        champCards.Remove(champCards[i]);
+                        i--;
+                    }
+                }
+                if (champCards.Count != 0) throw new InvalidDataException();
+			}
+			currentDeckSize = deckCount;
+        }
+        catch (Exception e)
+        {
+			ClearDeck();
+			UnityEngine.Debug.LogError(e.ToString());
+        }   
+    }
 
 	public void AddChampion(Champion champion)
     {
@@ -146,4 +230,11 @@ public class Setup : MonoBehaviour
 
         deckbuilder.UpdateDeckList();
     }
+}
+
+public class SavedDeck
+{
+    public string name;
+    public List<string> champions;
+    public List<string> cards;
 }

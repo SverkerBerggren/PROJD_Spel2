@@ -4817,13 +4817,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectsToEnable:
+  - {fileID: 171184196}
+  - {fileID: 1161218403}
+  - {fileID: 1980353769}
+  - {fileID: 1756219164}
+  - {fileID: 797587028}
+  - {fileID: 1582552278}
+  - {fileID: 231280503}
   - {fileID: 2028886999}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   gameObjectsToDisable:
   - {fileID: 1930457552}
 --- !u!114 &1628345841
@@ -5045,9 +5046,9 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 1, y: 1}
+  m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 1
@@ -6656,9 +6657,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 432332335}
+      - m_Target: {fileID: 1930457552}
         m_TargetAssemblyTypeName: Setup, Assembly-CSharp
-        m_MethodName: StartDeckbuilder
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
