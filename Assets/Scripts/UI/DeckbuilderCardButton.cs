@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class DeckbuilderCardButton : MonoBehaviour
 {
 	[NonSerialized] public Card card;
+	[NonSerialized] public Champion champion;
 	private int tapCount = 0;
 
 	public void OnClick()
@@ -19,22 +20,28 @@ public class DeckbuilderCardButton : MonoBehaviour
 	{
 		if (tapCount == 1)
 		{
-			Add();
+			Add(card != null);
 		}
 		else 
 		{
-			Remove();
+			Remove(card != null);
 		}
 		tapCount = 0;
 	}
 
-	public void Add()
+	public void Add(bool isCard)
 	{
-		Setup.Instance.AddCard(card);
+		if(isCard)
+			Setup.Instance.AddCard(card);
+		else
+			Setup.Instance.AddChampion(champion);
 	}
 
-	private void Remove()
+	private void Remove(bool isCard)
 	{
-		Setup.Instance.RemoveCard(card);
+		if (isCard)
+			Setup.Instance.RemoveCard(card);
+		else
+			Setup.Instance.RemoveChampion(champion);
 	}
 }

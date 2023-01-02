@@ -78,7 +78,7 @@ public class Setup : MonoBehaviour
 
     public void RemoveChampion(Champion champion)
     {
-        if (!myChampions.Contains(champion.championName))
+        if (myChampions.Contains(champion.championName))
         {
 		    myChampions.Remove(champion.championName);
             RemoveCards(cardRegister.GetChampionCards(champion));
@@ -104,14 +104,17 @@ public class Setup : MonoBehaviour
 
 	public void AddCard(Card card)
     {
-        if (currentDeckSize + 1 < deckCount)
+        if (currentDeckSize + 1 <= deckCount)
         {
-            if (amountOfCards.ContainsKey(card) && amountOfCards[card] < maxCopies)
+            if (amountOfCards.ContainsKey(card))
 			{
-				amountOfCards[card]++;
-				currentDeckSize++;
+                if (amountOfCards[card] < maxCopies)
+                {
+				    amountOfCards[card]++;
+				    currentDeckSize++;
+                }
 			}
-			else if (!amountOfCards.ContainsKey(card))
+			else
 			{
 				amountOfCards.Add(card, 1);
 			    currentDeckSize++;

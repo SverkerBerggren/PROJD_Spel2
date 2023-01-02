@@ -13,8 +13,9 @@ public class Deckbuilder : MonoBehaviour
 	private TMP_Text decklist;
     [SerializeField] private GameObject buttonHolder;
 	[SerializeField] private GameObject cardButton;
+	[SerializeField] private Button stopBuilding;
 
-    private static Deckbuilder instance;
+	private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
     // Start is called before the first frame update
 
@@ -28,15 +29,13 @@ public class Deckbuilder : MonoBehaviour
         {
             Destroy(Instance);
         }
+        decklist = GetComponentInChildren<TMP_Text>();
 	}
 
     void Start()
     {
         setup = Setup.Instance;
-        decklist = GetComponentInChildren<TMP_Text>();
-        UpdateDeckList();
         register = CardRegister.Instance;
-		setup.StartDeckbuilder();
 		foreach (Champion champion in register.champRegister.Values)
 		{
             MakeButtonOfChampion(champion);
@@ -46,6 +45,8 @@ public class Deckbuilder : MonoBehaviour
             if (!card.championCard)
                 MakeButtonOfCard(card);
         }
+		setup.StartDeckbuilder();
+        UpdateDeckList();
 	}
 
     private void MakeButtonOfCard(Card card)
@@ -56,6 +57,7 @@ public class Deckbuilder : MonoBehaviour
         CardDisplayAttributes cardDisplayAttributes = gO.GetComponentInChildren<CardDisplayAttributes>();
         cardDisplayAttributes.previewCard = true;
         cardDisplayAttributes.UpdateTextOnCardWithCard(card);
+        gO.GetComponent<DeckbuilderCardButton>().card = card;
     }
 
     private void MakeButtonOfChampion(Champion champion)
@@ -66,7 +68,8 @@ public class Deckbuilder : MonoBehaviour
         ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
         championAttributes.UpdateChampionCard(champion);
         choiceButton.championPrefab.SetActive(true);
-    }
+		gO.GetComponent<DeckbuilderCardButton>().champion = champion;
+	}
 
     public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
     {
@@ -80,6 +83,11 @@ public class Deckbuilder : MonoBehaviour
 
     public void UpdateDeckList()
     {
+        if (setup == null)
+        {
+            setup = Setup.Instance;
+        }
+
         decklist.text = "Decklist\n\n";
         decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
         foreach (string champion in setup.myChampions)
@@ -92,5 +100,11 @@ public class Deckbuilder : MonoBehaviour
         {
             decklist.text += card.cardName + " x" + setup.amountOfCards[card] + "\n";
         }
-    }
+
+        
+        if (setup.currentDeckSize == setup.deckCount && setup.myChampions.Count == 3)
+			stopBuilding.interactable = true;
+        else
+			stopBuilding.interactable = false;
+	}
 }
