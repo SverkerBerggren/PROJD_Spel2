@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using UnityEditor.Build;
 using UnityEngine;
 
@@ -103,38 +104,40 @@ public class Setup : MonoBehaviour
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
             myChampions.Clear();
             playerDeckList.Clear();
-            List<Card> championCardsInDeck = new List<Card>();
+            List<Card> champCardsIncluded = new List<Card>();
+
+            foreach (string s in loadedDeck.champions)
+            {
+                print(s);
+                myChampions.Add(s);
+                Champion c = cardRegister.champRegister[s];
+                champCardsIncluded.AddRange(cardRegister.champCards[c]);
+			}
+
             foreach (string s in loadedDeck.cards)
             {
                 string[] split = s.Split("|");
 
-                if (int.Parse(split[1]) > maxCopies || int.Parse(split[1]) < 1) throw new InvalidDataException();
-
-                currentDeckSize += int.Parse(split[1]);
                 Card card = cardRegister.cardRegister[split[0]];
+                int cardAmount = int.Parse(split[1]);
 
-				amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
+                if (cardAmount > maxCopies || cardAmount < 1) throw new InvalidDataException();
 
-                if(card.championCard)
-                    championCardsInDeck.Add(card);
-            }
+				amountOfCards.Add(card, cardAmount);
+                currentDeckSize += cardAmount;
 
-            List<Card> champCardsDiffrence = new List<Card>();
-            foreach (string s in loadedDeck.champions)
-            {
-                myChampions.Add(s);
-                Champion c = cardRegister.champRegister[s];
-                champCardsDiffrence.AddRange(cardRegister.champCards[c]);
-			}
-			for (int i = 0; i < champCardsDiffrence.Count; i++)
-            {
-                if (championCardsInDeck.Contains(champCardsDiffrence[i]))
-                { 
-                    champCardsDiffrence.Remove(champCardsDiffrence[i]);
-                    i--;
+                if (card.championCard)
+                {
+                    if (champCardsIncluded.Contains(card))
+                    {
+                        int i = champCardsIncluded.RemoveAll(x => x == card);
+                        if(i != cardAmount) throw new InvalidDataException();
+					}
                 }
             }
-            if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsDiffrence.Count != 0) throw new InvalidDataException();
+
+            if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsIncluded.Count != 0) throw new InvalidDataException();
+
         }
         catch (Exception e)
         {
