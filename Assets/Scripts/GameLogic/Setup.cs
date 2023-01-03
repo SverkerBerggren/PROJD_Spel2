@@ -75,7 +75,7 @@ public class Setup : MonoBehaviour
 
     public bool LoadDeckToFile(string deckName)
     {
-        if (!File.Exists(savePath + deckName + ".txt"))
+        if (string.IsNullOrEmpty(deckName) || !File.Exists(savePath + deckName + ".txt"))
         {
 			UnityEngine.Debug.LogError("Couldnt load deck " + deckName);
             return false;
@@ -84,8 +84,8 @@ public class Setup : MonoBehaviour
         {
             string readDeck = File.ReadAllText(savePath + deckName + ".txt");
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
-			ClearDeck();
 			List<Card> champCardsIncluded = new List<Card>();
+			ClearDeck();
 
 			deckbuilder.deckName = loadedDeck.name;
 			foreach (string championName in loadedDeck.champions)

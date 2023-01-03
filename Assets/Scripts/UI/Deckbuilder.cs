@@ -12,24 +12,24 @@ public class Deckbuilder : MonoBehaviour
     private Setup setup;
     private CardRegister register;
     private Dictionary<Card, GameObject> cardButtons = new Dictionary<Card, GameObject>();
-	private Dictionary<Champion, GameObject> championsButtons = new Dictionary<Champion, GameObject>();
-	private TMP_Text decklist;
-    [NonSerialized]public string deckName;
+    private Dictionary<Champion, GameObject> championsButtons = new Dictionary<Champion, GameObject>();
+    private TMP_Text decklist;
+    [NonSerialized] public string deckName;
 
     [SerializeField] private GameObject buttonHolder;
-	[SerializeField] private GameObject cardButton;
-	[SerializeField] private Button stopBuilding;
-	[SerializeField] private TMP_InputField deckNameField;
+    [SerializeField] private GameObject cardButton;
+    [SerializeField] private Button stopBuilding;
+    [SerializeField] private TMP_InputField deckNameField;
     [SerializeField] private List<Button> deckSlotButtons = new List<Button>();
 
     public Button saveDeck;
-    
-	private static Deckbuilder instance;
+
+    private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
     // Start is called before the first frame update
 
     private void Awake()
-	{
+    {
         if (instance == null)
         {
             instance = this;
@@ -39,29 +39,29 @@ public class Deckbuilder : MonoBehaviour
             Destroy(Instance);
         }
         decklist = GetComponentInChildren<TMP_Text>();
-	}
+    }
 
     void Start()
     {
         setup = Setup.Instance;
         register = CardRegister.Instance;
-		foreach (Champion champion in register.champRegister.Values)
-		{
+        foreach (Champion champion in register.champRegister.Values)
+        {
             MakeButtonOfChampion(champion);
-		}
+        }
         foreach (Card card in register.cardRegister.Values)
         {
             if (!card.championCard)
                 MakeButtonOfCard(card);
         }
-		setup.StartDeckbuilder();
+        setup.StartDeckbuilder();
         UpdateDeckList();
         deckNameField.characterLimit = 12;
         FixDeckButtons();
 
-	}
+    }
 
-	private void MakeButtonOfCard(Card card)
+    private void MakeButtonOfCard(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
@@ -80,44 +80,41 @@ public class Deckbuilder : MonoBehaviour
         ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
         championAttributes.UpdateChampionCard(champion);
         choiceButton.championPrefab.SetActive(true);
-		gO.GetComponent<DeckbuilderCardButton>().champion = champion;
-	}
+        gO.GetComponent<DeckbuilderCardButton>().champion = champion;
+    }
 
-	private void FixDeckButtons()
-	{
-		foreach (string filePath in Directory.GetFiles(Setup.savePath))
-		{
+    private void FixDeckButtons()
+    {
+        foreach (string filePath in Directory.GetFiles(Setup.savePath))
+        {
             string deckFile = Path.GetFileName(filePath);
-			if (!deckFile.EndsWith(".txt")) continue;
+            if (!deckFile.EndsWith(".txt")) continue;
 
             deckFile = deckFile.Remove(deckFile.Length - 4, 4);
-			if (setup.LoadDeckToFile(deckFile))
-				AddDeckToButton(deckFile);
-		}
-	}
+            if (setup.LoadDeckToFile(deckFile))
+                AddDeckToButton(deckFile);
+        }
+    }
 
     public void AddDeckToButton(string deckName)
     {
-		for (int i = 0; i < deckSlotButtons.Count; i++)
-		{
-			Button button = deckSlotButtons[i];
-			if (!button.interactable)
-			{
-				button.GetComponent<DeckSlot>().SetDeck(deckName);
-                if(i + 1 == deckSlotButtons.Count)
-                    saveDeck.interactable = false;
-				return;
-			}
-		}
+        for (int i = 0; i < deckSlotButtons.Count; i++)
+        {
+            Button button = deckSlotButtons[i];
+            if (!button.interactable)
+            {
+                button.GetComponent<DeckSlot>().SetDeck(deckName);
+                UpdateDeckList();
+                return;
+            }
+        }
         Debug.LogError("Too many decks");
-	}
+    }
 
     public void SaveDeck()
     {
-        if (deckNameField.Equals(""))
-        {
+        if (string.IsNullOrEmpty(deckName))
             deckNameField.text = "Deck";
-        }
 
         setup.SaveDeckToFile(deckNameField.text);
         AddDeckToButton(deckNameField.text);
@@ -147,12 +144,20 @@ public class Deckbuilder : MonoBehaviour
         if (setup.currentDeckSize == setup.deckCount && setup.myChampions.Count == 3)
         {
             stopBuilding.interactable = true;
-            saveDeck.interactable = true;
-		}
+            saveDeck.interactable = false;
+            foreach (Button b in deckSlotButtons)
+            {
+                if (b.interactable == false)
+                {
+                    saveDeck.interactable = true;
+                    break;
+                }
+            }
+        }
         else
         {
-			saveDeck.interactable = false;
-			stopBuilding.interactable = false;
+            stopBuilding.interactable = false;
+            saveDeck.interactable = false;
         }
-	}
+    }
 }

@@ -44,7 +44,7 @@ public class DeckSlot : MonoBehaviour
 
     public void OnClick()
     {
-        if (!deck.Equals(""))
+        if (!string.IsNullOrEmpty(deck))
         {
 			setup.LoadDeckToFile(deck);
 			deckbuilder.UpdateDeckList();
