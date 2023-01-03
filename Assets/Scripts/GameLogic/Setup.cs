@@ -4,16 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Setup : MonoBehaviour
 {
 	private CardRegister cardRegister;
     private Deckbuilder deckbuilder;
-    private string savePath;
     public List<Card> playerDeckList = new List<Card>();
+	[System.NonSerialized] public static string savePath;
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
 	[System.NonSerialized] public bool shouldStartGame = false;
 
@@ -50,7 +49,6 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
-		LoadDeck("Basic");
 		deckbuilder.UpdateDeckList();
 	}
 
@@ -69,7 +67,7 @@ public class Setup : MonoBehaviour
         SaveDeck("Basic");
 	}
 
-    private void SaveDeck(string deckName)
+    public void SaveDeck(string deckName)
     {
         if (!Directory.Exists(savePath))
             Directory.CreateDirectory(savePath);
@@ -90,21 +88,19 @@ public class Setup : MonoBehaviour
 		UnityEngine.Debug.Log("Deck saved");
 	}
 
-    private void LoadDeck(string deckName)
+    public bool LoadDeck(string deckName)
     {
         if (!File.Exists(savePath + deckName + ".txt"))
         {
-			UnityEngine.Debug.LogError("Couldnt load deck");
-            return;
+			UnityEngine.Debug.LogError("Couldnt load deck " + deckName);
+            return false;
         }
-
         try
         {
             string readDeck = File.ReadAllText(savePath + deckName + ".txt");
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
-            myChampions.Clear();
-            playerDeckList.Clear();
-            List<Card> champCardsIncluded = new List<Card>();
+			ClearDeck();
+			List<Card> champCardsIncluded = new List<Card>();
 
             foreach (string championName in loadedDeck.champions)
             {
@@ -136,13 +132,14 @@ public class Setup : MonoBehaviour
             }
 
             if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsIncluded.Count != 0) throw new InvalidDataException();
-
-        }
+		}
         catch (Exception e)
         {
 			ClearDeck();
 			UnityEngine.Debug.LogError("Not allowed deck, clearing! \n" + e.ToString());
-        }   
+			return false;
+		}
+        return true;
     }
 
 	public void AddChampion(Champion champion)

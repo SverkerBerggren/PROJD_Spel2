@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using OpenCover.Framework.Model;
+using System.IO;
 
 public class Deckbuilder : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class Deckbuilder : MonoBehaviour
     [SerializeField] private GameObject buttonHolder;
 	[SerializeField] private GameObject cardButton;
 	[SerializeField] private Button stopBuilding;
+    [SerializeField] private TMP_InputField deckNameField;
+    [SerializeField] private List<Button> deckSlotButtons = new List<Button>();
 
 	private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
@@ -47,9 +51,12 @@ public class Deckbuilder : MonoBehaviour
         }
 		setup.StartDeckbuilder();
         UpdateDeckList();
+        deckNameField.characterLimit = 12;
+        FixDeckButtons();
+
 	}
 
-    private void MakeButtonOfCard(Card card)
+	private void MakeButtonOfCard(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
@@ -71,14 +78,32 @@ public class Deckbuilder : MonoBehaviour
 		gO.GetComponent<DeckbuilderCardButton>().champion = champion;
 	}
 
-    public void SortDeckBuilder(CardFilter cardFilter, CardFilter championFilter)
+	private void FixDeckButtons()
+	{
+		foreach (string filePath in Directory.GetFiles(Setup.savePath))
+		{
+            string deckFile = Path.GetFileName(filePath);
+			if (!deckFile.EndsWith(".txt")) continue;
+
+            deckFile = deckFile.Remove(deckFile.Length - 4, 4);
+			if (setup.LoadDeck(deckFile))
+				AddDeckToButton(deckFile);
+		}
+	}
+
+    public void AddDeckToButton(string deckName)
     {
-
-        foreach (Champion champion in championsButtons.Keys)
-        {
-
-        }
-
+		foreach (Button button in deckSlotButtons)
+		{
+			if (!button.interactable)
+			{
+				button.interactable = true;
+				button.GetComponentInChildren<TMP_Text>().text = deckName;
+				button.GetComponent<DeckSlot>().SetDeck(deckName);
+				return;
+			}
+		}
+        Debug.LogError("Too many decks");
 	}
 
     public void UpdateDeckList()
