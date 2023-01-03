@@ -106,17 +106,16 @@ public class Setup : MonoBehaviour
             playerDeckList.Clear();
             List<Card> champCardsIncluded = new List<Card>();
 
-            foreach (string s in loadedDeck.champions)
+            foreach (string championName in loadedDeck.champions)
             {
-                print(s);
-                myChampions.Add(s);
-                Champion c = cardRegister.champRegister[s];
-                champCardsIncluded.AddRange(cardRegister.champCards[c]);
+                myChampions.Add(championName);
+                Champion champion = cardRegister.champRegister[championName];
+                champCardsIncluded.AddRange(cardRegister.champCards[champion]);
 			}
 
-            foreach (string s in loadedDeck.cards)
+            foreach (string cardName in loadedDeck.cards)
             {
-                string[] split = s.Split("|");
+                string[] split = cardName.Split("|");
 
                 Card card = cardRegister.cardRegister[split[0]];
                 int cardAmount = int.Parse(split[1]);
@@ -130,8 +129,8 @@ public class Setup : MonoBehaviour
                 {
                     if (champCardsIncluded.Contains(card))
                     {
-                        int i = champCardsIncluded.RemoveAll(x => x == card);
-                        if(i != cardAmount) throw new InvalidDataException();
+                        int removedAmount = champCardsIncluded.RemoveAll(x => x == card);
+                        if(removedAmount != cardAmount) throw new InvalidDataException();
 					}
                 }
             }
