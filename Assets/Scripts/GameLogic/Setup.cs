@@ -103,37 +103,38 @@ public class Setup : MonoBehaviour
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
             myChampions.Clear();
             playerDeckList.Clear();
-            int cardsCount = 0;
-
+            List<Card> championCardsInDeck = new List<Card>();
             foreach (string s in loadedDeck.cards)
             {
                 string[] split = s.Split("|");
 
                 if (int.Parse(split[1]) > maxCopies || int.Parse(split[1]) < 1) throw new InvalidDataException();
 
-                cardsCount += int.Parse(split[1]);
-                amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
+                currentDeckSize += int.Parse(split[1]);
+                Card card = cardRegister.cardRegister[split[0]];
+
+				amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
+
+                if(card.championCard)
+                    championCardsInDeck.Add(card);
             }
 
+            List<Card> champCardsDiffrence = new List<Card>();
             foreach (string s in loadedDeck.champions)
             {
                 myChampions.Add(s);
                 Champion c = cardRegister.champRegister[s];
-                List<Card> champCards = new List<Card>(cardRegister.champCards[c]);
-				for (int i = 0; i < champCards.Count; i++)
-                {
-                    if (amountOfCards.ContainsKey(champCards[i]))
-                    { 
-                        champCards.Remove(champCards[i]);
-                        i--;
-                    }
-                }
-                if (champCards.Count != 0) throw new InvalidDataException();
+                champCardsDiffrence.AddRange(cardRegister.champCards[c]);
 			}
-
-            if (cardsCount != deckCount && myChampions.Count != 3) throw new InvalidDataException();
-
-			currentDeckSize = deckCount;
+			for (int i = 0; i < champCardsDiffrence.Count; i++)
+            {
+                if (championCardsInDeck.Contains(champCardsDiffrence[i]))
+                { 
+                    champCardsDiffrence.Remove(champCardsDiffrence[i]);
+                    i--;
+                }
+            }
+            if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsDiffrence.Count != 0) throw new InvalidDataException();
         }
         catch (Exception e)
         {
