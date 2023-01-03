@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class TestScript : MonoBehaviour
 {
@@ -20,12 +21,10 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            testObj.GetComponent<Animator>().Play("Death");
-            attackObj.GetComponent<Animator>().Play("Death");
+            testObj.GetComponent<Animator>().Play("Attack");
+            testObj.GetComponent<Effect_Champions>().attackVFX.Play();
 
 
-            testObj.GetComponent<Effect_Champions>().StartDisolve();
-            attackObj.GetComponent<Effect_Champions>().StartDisolve();
         }
             //EffectController.Instance.DestoryShield(championToProtect);
             //slash.SetActive(true);
