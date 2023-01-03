@@ -8,6 +8,7 @@ public class ReturnButton : MonoBehaviour
     [SerializeField] private Texture returnImage; 
     [SerializeField] private Texture xImage;
     [SerializeField] private GameObject pausMenu;
+    [SerializeField] private GameObject oneSwitchSelect;
     private RawImage rawImage;
     private Stack<GameObject> objectsToReturnTo = new Stack<GameObject>();
     [SerializeField] private GameObject currentActiveObject;
@@ -19,6 +20,14 @@ public class ReturnButton : MonoBehaviour
         rawImage = GetComponent<RawImage>();
         pauseMenuScript = FindObjectOfType<PauseMenu>();     
         
+    }
+
+    public void OneSwitchButtonSelect()
+    {
+        if (!oneSwitchSelect.activeSelf)
+            oneSwitchSelect.SetActive(true);
+        else
+            oneSwitchSelect.SetActive(false);
     }
 
     public void ChangeImageToReturn(bool changeImageToReturn)

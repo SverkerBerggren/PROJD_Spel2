@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
 public class OneSwitch : MonoBehaviour
 {
     [SerializeField] private List<Targetable> targetableRightNow = new List<Targetable>();
@@ -48,6 +47,10 @@ public class OneSwitch : MonoBehaviour
             choiceButtonPrev.OneSwitchHoverChoice();
         if (targetableRightNow[prevIndex].TryGetComponent(out PurchaseCard purchaseCardPrev))
             purchaseCardPrev.OneSwitchHover();
+        if (targetableRightNow[prevIndex].TryGetComponent(out ReturnButton returnButtonPrev))
+            returnButtonPrev.OneSwitchButtonSelect();
+        if (targetableRightNow[prevIndex].TryGetComponent(out ShopHover shopHoverPrev))
+            shopHoverPrev.OneSwitchSelected();
         prevIndex = index;
     }
     private void ShowTarget()
@@ -60,6 +63,10 @@ public class OneSwitch : MonoBehaviour
             confirmButton.Select();
         if (targetableRightNow[index].TryGetComponent(out PurchaseCard purchaseCardPrev))
             purchaseCardPrev.OneSwitchHover();
+        if (targetableRightNow[index].TryGetComponent(out ReturnButton returnButtonPrev))
+            returnButtonPrev.OneSwitchButtonSelect();
+        if (targetableRightNow[index].TryGetComponent(out ShopHover shopHoverPrev))
+            shopHoverPrev.OneSwitchSelected();
     }
 
     private void ResetLast()
@@ -71,14 +78,19 @@ public class OneSwitch : MonoBehaviour
             cardDisplayLastReset.MouseExit();
         if (targetableRightNow[length].TryGetComponent(out ChoiceButton choiceButtonLastReset))
             choiceButtonLastReset.OneSwitchHoverChoice();
-        if (targetableRightNow[length].TryGetComponent(out PurchaseCard purchaseCardPrev))
-            purchaseCardPrev.OneSwitchHover();
-
+        if (targetableRightNow[length].TryGetComponent(out PurchaseCard purchaseCardLastReset))
+            purchaseCardLastReset.OneSwitchHover();
+        if (targetableRightNow[length].TryGetComponent(out ReturnButton returnButtonLastReset))
+            returnButtonLastReset.OneSwitchButtonSelect();
+        if (targetableRightNow[length].TryGetComponent(out ShopHover shopHoverLastReset))
+            shopHoverLastReset.OneSwitchSelected();
         eventSystem.SetSelectedGameObject(null);
     }
 
     private void ChangeOneSwitch()
     {
+        CheckWhatIsActive();
+
         switch (oneSwitchActiveNow)
         {
             case WhatShouldBeOneSwitch.Normal:
@@ -187,7 +199,8 @@ public class OneSwitch : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {       
+        {
+
             if (!clicked)
             {
                 if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
@@ -255,12 +268,10 @@ public class OneSwitch : MonoBehaviour
         Invoke(nameof(DelayedEnable), 0.5f);
     }
 
-    private void DelayedEnable()
+    private void CheckWhatIsActive()
     {
-        choice = Choice.Instance;
-        //Choice
         if (whatToCheck[0].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;      
+            oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
         else if (whatToCheck[1].activeInHierarchy)
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Shop;
         else if (whatToCheck[2].activeInHierarchy)
@@ -271,6 +282,14 @@ public class OneSwitch : MonoBehaviour
             oneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
         else
             oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
+    }
+
+    private void DelayedEnable()
+    {
+        choice = Choice.Instance;
+        //Choice
+        CheckWhatIsActive();
+
 
         InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
