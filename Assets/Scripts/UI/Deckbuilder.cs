@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using OpenCover.Framework.Model;
 using System.IO;
+using System;
 
 public class Deckbuilder : MonoBehaviour
 {
@@ -13,12 +14,16 @@ public class Deckbuilder : MonoBehaviour
     private Dictionary<Card, GameObject> cardButtons = new Dictionary<Card, GameObject>();
 	private Dictionary<Champion, GameObject> championsButtons = new Dictionary<Champion, GameObject>();
 	private TMP_Text decklist;
+    [NonSerialized]public string deckName;
+
     [SerializeField] private GameObject buttonHolder;
 	[SerializeField] private GameObject cardButton;
 	[SerializeField] private Button stopBuilding;
-    [SerializeField] private TMP_InputField deckNameField;
+	[SerializeField] private TMP_InputField deckNameField;
     [SerializeField] private List<Button> deckSlotButtons = new List<Button>();
 
+    public Button saveDeck;
+    
 	private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
     // Start is called before the first frame update
@@ -86,25 +91,37 @@ public class Deckbuilder : MonoBehaviour
 			if (!deckFile.EndsWith(".txt")) continue;
 
             deckFile = deckFile.Remove(deckFile.Length - 4, 4);
-			if (setup.LoadDeck(deckFile))
+			if (setup.LoadDeckToFile(deckFile))
 				AddDeckToButton(deckFile);
 		}
 	}
 
     public void AddDeckToButton(string deckName)
     {
-		foreach (Button button in deckSlotButtons)
+		for (int i = 0; i < deckSlotButtons.Count; i++)
 		{
+			Button button = deckSlotButtons[i];
 			if (!button.interactable)
 			{
-				button.interactable = true;
-				button.GetComponentInChildren<TMP_Text>().text = deckName;
 				button.GetComponent<DeckSlot>().SetDeck(deckName);
+                if(i + 1 == deckSlotButtons.Count)
+                    saveDeck.interactable = false;
 				return;
 			}
 		}
         Debug.LogError("Too many decks");
 	}
+
+    public void SaveDeck()
+    {
+        if (deckNameField.Equals(""))
+        {
+            deckNameField.text = "Deck";
+        }
+
+        setup.SaveDeckToFile(deckNameField.text);
+        AddDeckToButton(deckNameField.text);
+    }
 
     public void UpdateDeckList()
     {
@@ -113,7 +130,7 @@ public class Deckbuilder : MonoBehaviour
             setup = Setup.Instance;
         }
 
-        decklist.text = "Decklist\n\n";
+        decklist.text = "Deck: " + deckName + "\n\n";
         decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
         foreach (string champion in setup.myChampions)
         {
@@ -126,10 +143,16 @@ public class Deckbuilder : MonoBehaviour
             decklist.text += card.cardName + " x" + setup.amountOfCards[card] + "\n";
         }
 
-        
+
         if (setup.currentDeckSize == setup.deckCount && setup.myChampions.Count == 3)
-			stopBuilding.interactable = true;
+        {
+            stopBuilding.interactable = true;
+            saveDeck.interactable = true;
+		}
         else
+        {
+			saveDeck.interactable = false;
 			stopBuilding.interactable = false;
+        }
 	}
 }

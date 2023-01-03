@@ -475,7 +475,6 @@ GameObject:
   - component: {fileID: 191396578}
   - component: {fileID: 191396577}
   - component: {fileID: 191396576}
-  - component: {fileID: 191396575}
   m_Layer: 5
   m_Name: SaveDeck
   m_TagString: Untagged
@@ -504,19 +503,6 @@ RectTransform:
   m_AnchoredPosition: {x: 768.5, y: 115}
   m_SizeDelta: {x: 263.1, y: 106.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &191396575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191396573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d23475bb8451440ac177c048b439de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyButton: {fileID: 0}
 --- !u!114 &191396576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,9 +547,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 191396575}
-        m_TargetAssemblyTypeName: DeckSlot, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 1930457556}
+        m_TargetAssemblyTypeName: Deckbuilder, Assembly-CSharp
+        m_MethodName: SaveDeck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -696,8 +682,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.8
-  m_fontSizeBase: 38.8
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -818,7 +804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &231280504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2764,7 +2750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &797587029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4079,7 +4065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1161218404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4597,7 +4583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d23475bb8451440ac177c048b439de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyButton: {fileID: 2121010212}
+  deleteButton: {fileID: 2121010212}
 --- !u!1 &1225356682
 GameObject:
   m_ObjectHideFlags: 0
@@ -5285,8 +5271,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.8
-  m_fontSizeBase: 38.8
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -5534,9 +5520,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 432332335}
-        m_TargetAssemblyTypeName: Setup, Assembly-CSharp
-        m_MethodName: ClearDeck
+      - m_Target: {fileID: 2031827911}
+        m_TargetAssemblyTypeName: DeckSlot, Assembly-CSharp
+        m_MethodName: DeleteDeck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6015,7 +6001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1582552279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6259,7 +6245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1604379380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6425,7 +6411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 768.5, y: 293}
+  m_AnchoredPosition: {x: 768.5, y: 435}
   m_SizeDelta: {x: 263.1, y: 106.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628345840
@@ -6685,9 +6671,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 432332335}
-        m_TargetAssemblyTypeName: Setup, Assembly-CSharp
-        m_MethodName: ClearDeck
+      - m_Target: {fileID: 1856125461}
+        m_TargetAssemblyTypeName: DeckSlot, Assembly-CSharp
+        m_MethodName: DeleteDeck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6989,7 +6975,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 25, y: 111.9444}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 754, y: 620}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1678098046
 MonoBehaviour:
@@ -7387,7 +7373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1756219165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7913,7 +7899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d23475bb8451440ac177c048b439de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyButton: {fileID: 1655089742}
+  deleteButton: {fileID: 1655089742}
 --- !u!1 &1914316396
 GameObject:
   m_ObjectHideFlags: 0
@@ -8079,7 +8065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1930457553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8160,6 +8146,7 @@ MonoBehaviour:
   - {fileID: 1856125458}
   - {fileID: 2031827908}
   - {fileID: 1199881133}
+  saveDeck: {fileID: 191396576}
 --- !u!1 &1980353769
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,7 +8167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1980353770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8576,8 +8563,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.8
-  m_fontSizeBase: 38.8
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -8645,7 +8632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2028887000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8944,7 +8931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d23475bb8451440ac177c048b439de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyButton: {fileID: 1456727394}
+  deleteButton: {fileID: 1456727394}
 --- !u!1 &2032844225
 GameObject:
   m_ObjectHideFlags: 0
@@ -9118,7 +9105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 768.5, y: 435}
+  m_AnchoredPosition: {x: 768.5, y: 293}
   m_SizeDelta: {x: 263.1, y: 106.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2046572552
@@ -9639,9 +9626,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 432332335}
-        m_TargetAssemblyTypeName: Setup, Assembly-CSharp
-        m_MethodName: ClearDeck
+      - m_Target: {fileID: 1199881136}
+        m_TargetAssemblyTypeName: DeckSlot, Assembly-CSharp
+        m_MethodName: DeleteDeck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

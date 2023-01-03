@@ -52,22 +52,7 @@ public class Setup : MonoBehaviour
 		deckbuilder.UpdateDeckList();
 	}
 
-	public void StopDeckBuilder()
-	{
-        playerDeckList.Clear();
-        List<Tuple<string, int>> cardNames = new List<Tuple<string, int>>();
-        foreach (Card card in amountOfCards.Keys)
-        {
-            for (int i = 0; i < amountOfCards[card]; i++)
-            {
-                playerDeckList.Add(card);
-            }
-            cardNames.Add(Tuple.Create(card.cardName, amountOfCards[card]));
-        }
-        SaveDeck("Basic");
-	}
-
-    public void SaveDeck(string deckName)
+    public void SaveDeckToFile(string deckName)
     {
         if (!Directory.Exists(savePath))
             Directory.CreateDirectory(savePath);
@@ -88,7 +73,7 @@ public class Setup : MonoBehaviour
 		UnityEngine.Debug.Log("Deck saved");
 	}
 
-    public bool LoadDeck(string deckName)
+    public bool LoadDeckToFile(string deckName)
     {
         if (!File.Exists(savePath + deckName + ".txt"))
         {
@@ -102,7 +87,8 @@ public class Setup : MonoBehaviour
 			ClearDeck();
 			List<Card> champCardsIncluded = new List<Card>();
 
-            foreach (string championName in loadedDeck.champions)
+			deckbuilder.deckName = loadedDeck.name;
+			foreach (string championName in loadedDeck.champions)
             {
                 myChampions.Add(championName);
                 Champion champion = cardRegister.champRegister[championName];
@@ -219,8 +205,8 @@ public class Setup : MonoBehaviour
         playerDeckList.Clear();
         myChampions.Clear();
         currentDeckSize = 0;
-
-        deckbuilder.UpdateDeckList();
+        deckbuilder.deckName = "";
+    	deckbuilder.UpdateDeckList();
     }
 }
 
