@@ -21,6 +21,9 @@ public class ChampionComparer : IComparer<Champion>
 			case CardFilter.Health:
 			return CompareHealth(x, y);
 
+			case CardFilter.ManaCost:
+			return CompareName(x, y);
+
 			default:
 				throw new ArgumentOutOfRangeException(string.Format("Failed to sort champion based on filter", cardFilter));
 		}
