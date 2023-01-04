@@ -187,12 +187,14 @@ public class Deckbuilder : MonoBehaviour
                 }
             }
 
-			if (card != null)
-			{
-				if ((cardFilterButtons.typeFilter && (card.typeOfCard == cardTypeFilter)) || (cardFilter == CardFilter.Health && card is not Landmarks))
-				{
-					transform.gameObject.SetActive(false);
-				}
+            if (cardFilterButtons.typeFilter)
+            {
+                if (champion != null || card.typeOfCard != cardTypeFilter)
+                    transform.gameObject.SetActive(false);
+            }
+            else if (card != null && cardFilter == CardFilter.Health && card is not Landmarks)
+            {
+				transform.gameObject.SetActive(false);
 			}
 		}
 	}

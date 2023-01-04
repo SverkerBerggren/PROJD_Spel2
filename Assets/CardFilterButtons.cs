@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,11 @@ public class CardFilterButtons : MonoBehaviour
 {
 	private Deckbuilder deckbuilder;
 	public bool typeFilter = false;
-	private List<Toggle> toggles = new List<Toggle>();
-	private Dictionary<Toggle, CardType> toggleType = new Dictionary<Toggle, CardType>();
+	[SerializeField] private List<Toggle> toggles = new List<Toggle>();
 
 	public void Start()
 	{
         deckbuilder = Deckbuilder.Instance;
-		foreach (Toggle toggle in toggles)
-		{
-			toggleType.Add(toggle, CardType.Spell);
-		}
 	}
 
 	public void OnClick()
