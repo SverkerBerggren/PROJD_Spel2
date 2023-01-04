@@ -7,7 +7,8 @@ public class TestScript : MonoBehaviour
 {
 
     [SerializeField] private GameObject testObj;
-    [SerializeField] private GameObject attackObj;
+    [SerializeField] private GameObject hitObj;
+    [SerializeField] private GameObject HealingPrefab;
     [SerializeField] private EffectController VFXController;
     [SerializeField] private GameObject cardPrefab;
     
@@ -21,42 +22,22 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            StartCoroutine(PlayAnim());
             testObj.GetComponent<Animator>().Play("Attack");
-            testObj.GetComponent<Effect_Champions>().attackVFX.Play();
+           testObj.GetComponentInChildren<Effect_Champions>().attackVFX.Play();
 
 
-        }
-            //EffectController.Instance.DestoryShield(championToProtect);
-            //slash.SetActive(true);
-            //builderAnim.Play("Attack");
-            //StartCoroutine(SlashAttack());
-            //testObj.GetComponent<Animator>().Play("AttackMagic");
-            //VFXController.GainHealingEffect(testObj);
-
-            // GetComponent<LowerDetail>().setUpLowerDetailBkg();
-            //    VFXController.DiscardCardEffect(testObj);
-            //}
-            //if (Input.GetKeyDown(KeyCode.K))
-            //{
-            //    GetComponent<LowerDetail>().DefaultDetailShader();
-            //}
 
 
         }
 
-    //IEnumerator SlashAttack()
-    //{
-    //    yield return new WaitForSeconds(slashDelay);
-    //    slash.SetActive(true);
-    //    yield return new WaitForSeconds(1);
-    //    DIsableSlash();
 
+     }
 
-    //}
-
-    //void DIsableSlash()
-    //{
-    //    slash.SetActive(false);
-    //}
+    IEnumerator PlayAnim()
+    {
+        yield return new WaitForSeconds(2.5f);
+        hitObj.GetComponent<Animator>().Play("GetHit");
+    }
     
 }

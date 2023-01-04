@@ -19,7 +19,7 @@ public class CultistAttack_SelfCheck : MonoBehaviour
        // Debug.Log(vfx.aliveParticleCount);
        //the delay of destroy should be greater than VFX playtime
 
-        Destroy(gameObject,3f);
+       // Destroy(gameObject,5f);
         
     }
 }
