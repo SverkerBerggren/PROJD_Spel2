@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 7531.1836, g: 8271.125, b: 10225.758, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -625,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -21416,7 +21417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 553, y: 124.20001}
+  m_AnchoredPosition: {x: 553, y: 124.19998}
   m_SizeDelta: {x: 535.3074, y: 335}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &942864703
@@ -37022,6 +37023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckPlayer:
   - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
+  - {fileID: 11400000, guid: cf4b25fc0f7f1c248a462ba53001fb23, type: 2}
+  - {fileID: 11400000, guid: da194dbd2ebd2c249b56e20d07c57a3f, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
