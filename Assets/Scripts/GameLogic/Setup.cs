@@ -49,7 +49,6 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
-		deckbuilder.UpdateDeckList();
 	}
 
     public void SaveDeckToFile(string deckName)
@@ -193,6 +192,7 @@ public class Setup : MonoBehaviour
             currentDeckSize--;
             if (amountOfCards[card] <= 0)
 			{
+                deckbuilder.CheckCardBanner(card);
 				amountOfCards.Remove(card);
 			}
             deckbuilder.UpdateDeckList();
@@ -204,6 +204,7 @@ public class Setup : MonoBehaviour
         amountOfCards.Clear();
         playerDeckList.Clear();
         myChampions.Clear();
+        deckbuilder.ClearAllBanners();
         currentDeckSize = 0;
         deckbuilder.deckName = "";
     	deckbuilder.UpdateDeckList();

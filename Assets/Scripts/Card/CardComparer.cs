@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CardComparer : IComparer<Card>
 {
-	private CardFilter cardFilter;
+	private readonly CardFilter cardFilter;
 	public CardComparer(CardFilter cardFilter)
 	{
 		this.cardFilter = cardFilter;
@@ -24,7 +24,7 @@ public class CardComparer : IComparer<Card>
 
 			case CardFilter.Health:
 			if(x is not Landmarks || y is not Landmarks)
-				return CompareName(x, y);
+				throw new ArgumentOutOfRangeException(string.Format("Cant not sort anything except landmark cards", cardFilter));
 			else
 				return CompareHealth((Landmarks)x, (Landmarks)y);
 
@@ -64,5 +64,5 @@ public enum CardFilter
 {
 	Name,
 	ManaCost,
-	Health
+	Health,
 }
