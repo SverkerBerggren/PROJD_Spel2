@@ -56,9 +56,9 @@ public class EffectController : MonoBehaviour
                 foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
                     if(champOnField.champion.championName.Equals(availableChampion.Item1))  
-                    {                      
-                        shields[availableChampion].transform.position = champOnField.transform.position;
-                        
+                    {
+                        //shields[availableChampion].transform.position = champOnField.transform.position;
+                        shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
                         if (GameState.Instance.playerChampion.champion.championName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
@@ -76,8 +76,8 @@ public class EffectController : MonoBehaviour
                 {
                     if(champOnField.champion.championName.Equals(availableChampion.Item1))  
                     {
-                        shields[availableChampion].transform.position = champOnField.transform.position;
-
+                        // shields[availableChampion].transform.position = champOnField.transform.position;
+                        shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
                         if (GameState.Instance.opponentChampion.champion.championName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
@@ -106,7 +106,8 @@ public class EffectController : MonoBehaviour
 
         if (!shields.ContainsKey(tupleShields))
         {
-            Vector3 shieldPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 3, gameObject.transform.position.z);
+          
+          Vector3 shieldPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 9f, gameObject.transform.position.z);
             GameObject toStore = Instantiate(shieldPrefab, shieldPos, Quaternion.identity); //the GO should have Shieldeffect script
             shields.Add(tupleShields, toStore);            
         }
@@ -128,8 +129,7 @@ public class EffectController : MonoBehaviour
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
 
-    public void GainCultistAttackEffect(Transform trans)
-    {
+    public void GainCultistAttackEffect() { 
         Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
     }
 
@@ -145,16 +145,17 @@ public class EffectController : MonoBehaviour
         switch (holder.champion.championName)
         {
             case "Cultist":
-                GainCultistAttackEffect(targetPos);
+                GainCultistAttackEffect();
                 break;
             case "builder":
-            case "TheOneWhoDraws":
+           
             case "Duelist":
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
             case "graverobber":
+            case "TheOneWhoDraws":
             case "Shanker":
-                holder.GetComponentInChildren<VisualEffect>().Play();
+                holder.GetComponentInChildren<Effect_Champions>().attackVFX.Play();
                 break;
         }
         onHit.Play();

@@ -123,7 +123,7 @@ public class CardRegister : MonoBehaviour
 
 			default:
 				Debug.LogError("The Champion doesnt exist in the register");
-				break;
+                return;
 		}
 		championTypeRegister.Add(type, champion);
 	}

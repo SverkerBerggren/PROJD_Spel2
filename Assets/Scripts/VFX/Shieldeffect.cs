@@ -48,12 +48,12 @@ public class Shieldeffect : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public void DamageArmor(int dmg)
+    private void DamageArmor(int dmg)
     {
         isDamaging = true;
         SetArmor(Mathf.Min(currentShaderValue + dmg, 100));
     }
-    public void SetArmor(int value)
+    private void SetArmor(int value)
     {
         currentShaderValue = value;
         targetDiss = (float)(shaderValue - currentShaderValue) / shaderValue;

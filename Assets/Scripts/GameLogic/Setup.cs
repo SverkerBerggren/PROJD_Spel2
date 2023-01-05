@@ -4,15 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Setup : MonoBehaviour
 {
 	private CardRegister cardRegister;
     private Deckbuilder deckbuilder;
-    private string savePath;
     public List<Card> playerDeckList = new List<Card>();
+	[System.NonSerialized] public static string savePath;
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
 	[System.NonSerialized] public bool shouldStartGame = false;
 
@@ -49,26 +49,10 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
-		LoadDeck("Basic");
 		deckbuilder.UpdateDeckList();
 	}
 
-	public void StopDeckBuilder()
-	{
-        playerDeckList.Clear();
-        List<Tuple<string, int>> cardNames = new List<Tuple<string, int>>();
-        foreach (Card card in amountOfCards.Keys)
-        {
-            for (int i = 0; i < amountOfCards[card]; i++)
-            {
-                playerDeckList.Add(card);
-            }
-            cardNames.Add(Tuple.Create(card.cardName, amountOfCards[card]));
-        }
-        SaveDeck("Basic");
-	}
-
-    private void SaveDeck(string deckName)
+    public void SaveDeckToFile(string deckName)
     {
         if (!Directory.Exists(savePath))
             Directory.CreateDirectory(savePath);
@@ -89,57 +73,59 @@ public class Setup : MonoBehaviour
 		UnityEngine.Debug.Log("Deck saved");
 	}
 
-    private void LoadDeck(string deckName)
+    public bool LoadDeckToFile(string deckName)
     {
-        if (!File.Exists(savePath + deckName + ".txt"))
+        if (string.IsNullOrEmpty(deckName) || !File.Exists(savePath + deckName + ".txt"))
         {
-			UnityEngine.Debug.LogError("Couldnt load deck");
-            return;
+			UnityEngine.Debug.LogError("Couldnt load deck " + deckName);
+            return false;
         }
-
         try
         {
             string readDeck = File.ReadAllText(savePath + deckName + ".txt");
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
-            myChampions.Clear();
-            playerDeckList.Clear();
-            int cardsCount = 0;
+			List<Card> champCardsIncluded = new List<Card>();
+			ClearDeck();
 
-            foreach (string s in loadedDeck.cards)
+			deckbuilder.deckName = loadedDeck.name;
+			foreach (string championName in loadedDeck.champions)
             {
-                string[] split = s.Split("|");
-
-                if (int.Parse(split[1]) > maxCopies || int.Parse(split[1]) < 1) throw new InvalidDataException();
-
-                cardsCount += int.Parse(split[1]);
-                amountOfCards.Add(cardRegister.cardRegister[split[0]], int.Parse(split[1]));
-            }
-
-            foreach (string s in loadedDeck.champions)
-            {
-                myChampions.Add(s);
-                Champion c = cardRegister.champRegister[s];
-                List<Card> champCards = new List<Card>(cardRegister.champCards[c]);
-				for (int i = 0; i < champCards.Count; i++)
-                {
-                    if (amountOfCards.ContainsKey(champCards[i]))
-                    { 
-                        champCards.Remove(champCards[i]);
-                        i--;
-                    }
-                }
-                if (champCards.Count != 0) throw new InvalidDataException();
+                myChampions.Add(championName);
+                Champion champion = cardRegister.champRegister[championName];
+                champCardsIncluded.AddRange(cardRegister.champCards[champion]);
 			}
 
-            if (cardsCount != deckCount && myChampions.Count != 3) throw new InvalidDataException();
+            foreach (string cardName in loadedDeck.cards)
+            {
+                string[] split = cardName.Split("|");
 
-			currentDeckSize = deckCount;
-        }
+                Card card = cardRegister.cardRegister[split[0]];
+                int cardAmount = int.Parse(split[1]);
+
+                if (cardAmount > maxCopies || cardAmount < 1) throw new InvalidDataException();
+
+				amountOfCards.Add(card, cardAmount);
+                currentDeckSize += cardAmount;
+
+                if (card.championCard)
+                {
+                    if (champCardsIncluded.Contains(card))
+                    {
+                        int removedAmount = champCardsIncluded.RemoveAll(x => x == card);
+                        if(removedAmount != cardAmount) throw new InvalidDataException();
+					}
+                }
+            }
+
+            if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsIncluded.Count != 0) throw new InvalidDataException();
+		}
         catch (Exception e)
         {
 			ClearDeck();
 			UnityEngine.Debug.LogError("Not allowed deck, clearing! \n" + e.ToString());
-        }   
+			return false;
+		}
+        return true;
     }
 
 	public void AddChampion(Champion champion)
@@ -219,8 +205,8 @@ public class Setup : MonoBehaviour
         playerDeckList.Clear();
         myChampions.Clear();
         currentDeckSize = 0;
-
-        deckbuilder.UpdateDeckList();
+        deckbuilder.deckName = "";
+    	deckbuilder.UpdateDeckList();
     }
 }
 

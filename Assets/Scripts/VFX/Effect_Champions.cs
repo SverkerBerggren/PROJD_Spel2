@@ -7,9 +7,11 @@ public  class Effect_Champions : MonoBehaviour
 {
     public SkinnedMeshRenderer[] skinneMaterials;
     public MeshRenderer[] meshMaterials;
+    public VisualEffect attackVFX;
     private const float DISOLVERATE = 0.0125f;
     private const float REFRESHRATE = 0.025f;
-    [SerializeField] private VisualEffect deathPS;
+    [SerializeField] private VisualEffect deathVFX;
+
 
 
     public void StartDisolve()
@@ -22,7 +24,7 @@ public  class Effect_Champions : MonoBehaviour
         if (skinneMaterials != null || meshMaterials != null)
         {
             float counter = 0;
-            deathPS.Play();
+            deathVFX.Play();
             while ((skinneMaterials.Length > 0 && skinneMaterials[0].material.GetFloat("_DissolvedAmount") < 1) || (meshMaterials.Length > 0 && meshMaterials[0].material.GetFloat("_DissolvedAmount") < 1))
             {
                 //decrease

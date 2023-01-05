@@ -1049,7 +1049,8 @@ MonoBehaviour:
   - {fileID: 5440846158562886317}
   - {fileID: 4292574878436874041}
   meshMaterials: []
-  deathPS: {fileID: 2920748928429275193}
+  attackVFX: {fileID: 8362466000969600606}
+  deathVFX: {fileID: 2920748928429275193}
 --- !u!1 &2935422812717265408
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,7 +4273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110863172181262870, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.81
       objectReference: {fileID: 0}
     - target: {fileID: 9110863172181262870, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4356,11 +4357,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_InitialEventNameOverriden
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
@@ -4371,8 +4372,24 @@ PrefabInstance:
       value: Speed
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Name
+      value: DealySlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
+      value: FacingAngleY
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
-      value: 20
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
@@ -4380,6 +4397,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
@@ -4392,11 +4417,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.45439982
+      value: 7.4952497
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 2.8862746
+      value: 46.18041
       objectReference: {fileID: 0}
     - target: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
@@ -4404,6 +4429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+--- !u!2083052967 &8362466000969600606 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 9110863173559333491, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
+  m_PrefabInstance: {fileID: 755825516432473133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8362466002481430075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9110863172181262870, guid: 768319cc206ad914ab9f0f65ccd51e21, type: 3}
