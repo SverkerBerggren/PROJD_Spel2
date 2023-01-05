@@ -9,11 +9,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenuObjectToEnable;
     [SerializeField] private ReturnButton returnButton;
     [SerializeField] private GameObject settingsButton;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
+
+
 
     // Update is called once per frame
     void Update()

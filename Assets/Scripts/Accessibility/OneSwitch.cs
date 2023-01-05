@@ -51,6 +51,8 @@ public class OneSwitch : MonoBehaviour
             returnButtonPrev.OneSwitchButtonSelect();
         if (targetableRightNow[prevIndex].TryGetComponent(out ShopHover shopHoverPrev))
             shopHoverPrev.OneSwitchSelected();
+        if (targetableRightNow[prevIndex].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
+            settingsSelectHoverprev.OneSwitchHover();
         prevIndex = index;
     }
     private void ShowTarget()
@@ -67,6 +69,8 @@ public class OneSwitch : MonoBehaviour
             returnButtonPrev.OneSwitchButtonSelect();
         if (targetableRightNow[index].TryGetComponent(out ShopHover shopHoverPrev))
             shopHoverPrev.OneSwitchSelected();
+        if (targetableRightNow[index].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
+            settingsSelectHoverprev.OneSwitchHover();
     }
 
     private void ResetLast()
@@ -84,6 +88,8 @@ public class OneSwitch : MonoBehaviour
             returnButtonLastReset.OneSwitchButtonSelect();
         if (targetableRightNow[length].TryGetComponent(out ShopHover shopHoverLastReset))
             shopHoverLastReset.OneSwitchSelected();
+        if (targetableRightNow[length].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverLastReset))
+            settingsSelectHoverLastReset.OneSwitchHover();
         eventSystem.SetSelectedGameObject(null);
     }
 
@@ -124,7 +130,11 @@ public class OneSwitch : MonoBehaviour
 
     private void CurrentTarget()
     {
-
+        if (oneSwitchActiveNow != oneSwitchActivePrevious)
+        {
+            index = -1;
+            prevIndex = 0;
+        }
         ChangeOneSwitch();
 
         if (targetableRightNow.Count <= 0) return;
@@ -147,8 +157,8 @@ public class OneSwitch : MonoBehaviour
 
         if (index == 0 && !firstTime)
             ResetLast();
-        
-        HideTarget();
+        if (index - 1 == prevIndex)
+            HideTarget();
         ShowTarget();
         
         firstTime = false;       
