@@ -21,6 +21,7 @@ public class GameState : MonoBehaviour
 	[Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
     [SerializeField] private GameObject wonScreen;
+    public Animator animator;
 
     [Header("Effect")]
     [SerializeField] private GameObject healEffect;
@@ -829,8 +830,15 @@ public class GameState : MonoBehaviour
 
 
         if (playerChampions.Count <= 0)
+        {
+            
             Defeat();
+        }
+           
         else if (opponentChampions.Count == 1 && opponentChampion.champion.health <= 0)
-            Victory();
+        {
+            
+            /*Victory();*/
+        }
     }
 }
