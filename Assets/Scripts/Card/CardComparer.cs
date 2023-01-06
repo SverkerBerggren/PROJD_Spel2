@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CardComparer : IComparer<Card>
 {
-	private CardFilter cardFilter;
+	private readonly CardFilter cardFilter;
 	public CardComparer(CardFilter cardFilter)
 	{
 		this.cardFilter = cardFilter;
@@ -23,14 +23,17 @@ public class CardComparer : IComparer<Card>
 			return CompareManaCost(x, y);
 
 			case CardFilter.Health:
-			return CompareHealth(x, y);
+			if(x is not Landmarks || y is not Landmarks)
+				throw new ArgumentOutOfRangeException(string.Format("Cant not sort anything except landmark cards", cardFilter));
+			else
+				return CompareHealth((Landmarks)x, (Landmarks)y);
 
 			default:
 				throw new ArgumentOutOfRangeException(string.Format("Failed to sort card based on filter", cardFilter));
 		}
 	}
 
-	public int CompareName(Card x, Card y)
+	private int CompareName(Card x, Card y)
 	{
 		var lastNameResult = x.cardName.CompareTo(y.cardName);
 
@@ -40,7 +43,7 @@ public class CardComparer : IComparer<Card>
 		return x.cardName.CompareTo(y.cardName);
 	}
 
-	public int CompareManaCost(Card x, Card y)
+	private int CompareManaCost(Card x, Card y)
 	{
 		if(x.maxManaCost == y.maxManaCost)
 			return CompareName(x, y);
@@ -48,22 +51,12 @@ public class CardComparer : IComparer<Card>
 		return x.maxManaCost.CompareTo(y.maxManaCost);
 	}
 
-	public int CompareHealth(Card x, Card y)
+	private int CompareHealth(Landmarks x, Landmarks y)
 	{
-		if (y is Landmarks == false || x is Landmarks == false)
-		{
-			if (x is Landmarks) return 0;
-			if (y is Landmarks) return 1;
-
+		if (x.minionHealth == y.minionHealth)
 			return CompareManaCost(x, y);
-		}
 
-		Landmarks landmarkX = x as Landmarks;
-		Landmarks landmarkY = y as Landmarks;
-
-		if (landmarkX.minionHealth == landmarkY.minionHealth)
-			return CompareManaCost(x, y);
-		return landmarkX.minionHealth.CompareTo(landmarkY.minionHealth);
+		return x.minionHealth.CompareTo(y.minionHealth);
 	}
 }
 
@@ -71,5 +64,5 @@ public enum CardFilter
 {
 	Name,
 	ManaCost,
-	Health
+	Health,
 }
