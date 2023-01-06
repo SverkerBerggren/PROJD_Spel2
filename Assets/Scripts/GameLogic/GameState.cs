@@ -21,6 +21,8 @@ public class GameState : MonoBehaviour
 	[Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
     [SerializeField] private GameObject wonScreen;
+    [SerializeField] private ParticleSystem particle1;
+    [SerializeField] private ParticleSystem particle2;
     public Animator animator;
 
     [Header("Effect")]
@@ -782,6 +784,10 @@ public class GameState : MonoBehaviour
     public void Victory()
     {
         wonScreen.SetActive(true);
+        particle1.Play();
+        particle2.Play();
+        
+
         //Request defeat maybe????
     }
 
