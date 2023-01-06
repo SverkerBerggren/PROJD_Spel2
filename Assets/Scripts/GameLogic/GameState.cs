@@ -841,7 +841,7 @@ public class GameState : MonoBehaviour
             Defeat();
         }
            
-        else if (opponentChampions.Count == 1 && opponentChampion.champion.health <= 0)
+        else if (opponentChampions.Count == 1 && opponentChampion.champion.Health <= 0)
         {
             
             /*Victory();*/
