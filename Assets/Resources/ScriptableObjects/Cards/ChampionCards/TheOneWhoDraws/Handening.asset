@@ -12,18 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e4292b42fc4674a876e6dad0510954, type: 3}
   m_Name: Handening
   m_EditorClassIdentifier: 
-  cardName: Handening
-  typeOfCard: 2
-  description: Deal 10 more damage for each card in your hand
-  artwork: {fileID: 21300000, guid: 95dc0e9b57644f64dae3131d57fa06db, type: 3}
-  maxManaCost: 5
-  damage: 10
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 1
-  targetable: 1
-  championCard: 1
-  championCardType: 4
+  CardName: Handening
+  TypeOfCard: 2
+  Description: Deal 10 more damage for each card in your hand
+  MaxManaCost: 10
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 1
+  ChampionCard: 1
+  ChampionCardType: 4

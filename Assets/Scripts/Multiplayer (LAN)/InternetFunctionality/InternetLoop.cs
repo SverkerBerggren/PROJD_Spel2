@@ -145,14 +145,14 @@ public class InternetLoop : MonoBehaviour
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
                         gameState.playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.playerChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.playerChampions[targetAndAmount.targetInfo.index].champion.ChampionName, false);
                         EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.playerChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
                         gameState.opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.ChampionName, true);
                         EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.opponentChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
                 }

@@ -12,21 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1884dd6b9f4a2a24c9ea10adabc152fb, type: 3}
   m_Name: HealingSpring
   m_EditorClassIdentifier: 
-  cardName: Healing Spring
-  typeOfCard: 1
-  description: At the beginning of each round heal all your champs *Heal*
-  artwork: {fileID: 21300000, guid: df861acac2c5fcc47acd46b02dbda30a, type: 3}
-  maxManaCost: 3
-  tag: HealingLandmark
-  damage: 0
-  amountToHeal: 10
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 0
-  targetable: 0
-  championCard: 0
-  championCardType: 0
-  minionHealth: 40
-  doubleHealingEffect: 0
-  healEachRound: 1
+  CardName: Healing Spring
+  TypeOfCard: 1
+  Description: At the beginning of each round heal all your champs *Heal*
+  MaxManaCost: 3
+  Damage: 0
+  AmountToHeal: 10
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 0
+  Targetable: 0
+  ChampionCard: 0
+  ChampionCardType: 0
+  MinionHealth: 40
+  DoubleHealingEffect: 0
+  HealEachRound: 1

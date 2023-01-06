@@ -12,21 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff18907f8af932a45b18e0496e27c5c7, type: 3}
   m_Name: Pot of Modesty
   m_EditorClassIdentifier: 
-  cardName: Pot of Modesty
-  typeOfCard: 0
-  description: '*Draw*'
-  artwork: {fileID: 21300000, guid: c862b9cb1f654ac4685a05423a3c12b9, type: 3}
-  maxManaCost: 3
-  tag: Spell
-  damage: 0
-  amountToHeal: 0
-  amountToShield: 2
-  amountOfCardsToDraw: 2
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
-  targetable: 0
-  championCard: 0
-  championCardType: 0
-  destroyLandmark: 0
-  damageEqualsToYourChampionHP: 0
-  damageToBothActiveChampions: 0
+  CardName: Pot of Modesty
+  TypeOfCard: 2
+  Description: '*Draw*'
+  MaxManaCost: 3
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 2
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 0
+  ChampionCardType: 0
+  DestroyLandmark: 0
+  DamageEqualsToYourChampionHP: 0
+  DamageToBothActiveChampions: 0

@@ -10,21 +10,22 @@ public abstract class Champion : ScriptableObject
 {
     protected GameState gameState;
 
-    public string championName;
-    public string description;
-    public int health = 100;
-    [NonSerialized] public int maxHealth;
-    [NonSerialized] public int shield = 0;
-    public Sprite artwork;
-    public ChampionCardType championCardType;
-    [NonSerialized] public string passiveEffect;
-    public Sprite champBackground;
+    [NonSerialized] public int MaxHealth;
+    [NonSerialized] public int Shield = 0;
+    [NonSerialized] public string PassiveEffect;
+    [NonSerialized] public Animator ChampAnimator;
 
-    public GameObject championMesh;
-    public Animator champAnimator;
+    public string ChampionName;
+    public string Description;
+    public int Health = 100;
+    public Sprite Artwork;
+    public ChampionCardType ChampionCardType;
+    public Sprite ChampBackground;
+
+    public GameObject ChampionMesh;
 
 
-    public virtual void Awake() { maxHealth = health; gameState = GameState.Instance; }
+    public virtual void Awake() { MaxHealth = Health; gameState = GameState.Instance; }
 
 
     

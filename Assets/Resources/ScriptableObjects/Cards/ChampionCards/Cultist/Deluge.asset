@@ -12,21 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d276b9c4ffc14ab4aa9b82204bc7cc8f, type: 3}
   m_Name: Deluge
   m_EditorClassIdentifier: 
-  cardName: Deluge
-  typeOfCard: 2
-  description: This card deals damage to all your opponents landmarks and the active
-    champ
-  artwork: {fileID: 21300000, guid: 414382805f6cef944a57457f55b9035a, type: 3}
-  maxManaCost: 4
-  damage: 10
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 1
-  targetable: 0
-  championCard: 1
-  championCardType: 3
-  deluge: 1
-  ritualSactifice: 0
+  CardName: Deluge
+  TypeOfCard: 2
+  Description: This card deals 10 damage to all your opponents landmarks and the
+    active champ
+  MaxManaCost: 4
+  Damage: 10
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 1
+  ChampionCardType: 3
+  Deluge: 1
+  RitualSactifice: 0

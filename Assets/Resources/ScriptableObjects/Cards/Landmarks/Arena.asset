@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c02e45f7ca4496458ce2e9b2a4fd391, type: 3}
   m_Name: Arena
   m_EditorClassIdentifier: 
-  cardName: Arena
-  typeOfCard: 1
-  description: At the beggining of your round Draw a card
-  artwork: {fileID: 21300000, guid: c6cfd2ae7db8cab4ab778c9ffd8f86ee, type: 3}
-  maxManaCost: 3
-  tag: DrawCardLandmark
-  damage: 0
-  amountToHeal: 0
-  amountToShield: 2
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 0
-  targetable: 0
-  championCard: 0
-  championCardType: 0
-  minionHealth: 40
-  mysteriousForest: 0
+  CardName: Arena
+  TypeOfCard: 1
+  Description: At the beggining of your round Draw a card
+  MaxManaCost: 3
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 0
+  Targetable: 0
+  ChampionCard: 0
+  ChampionCardType: 0
+  MinionHealth: 40
+  MysteriousForest: 0

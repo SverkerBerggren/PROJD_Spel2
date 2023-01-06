@@ -12,20 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d276b9c4ffc14ab4aa9b82204bc7cc8f, type: 3}
   m_Name: RitualSacrifice
   m_EditorClassIdentifier: 
-  cardName: Ritual Sacrifice
-  typeOfCard: 0
-  description: Your active champion takes 20 damage and you draw 3 cards
-  artwork: {fileID: 21300000, guid: 258e213eca7c82d42a58f18132ee702e, type: 3}
-  maxManaCost: 2
-  damage: 20
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 3
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 0
-  targetable: 0
-  championCard: 1
-  championCardType: 3
-  deluge: 0
-  ritualSactifice: 1
+  CardName: Ritual Sacrifice
+  TypeOfCard: 0
+  Description: Your active champion takes 20 damage and you draw 3
+  MaxManaCost: 2
+  Damage: 20
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 1
+  ChampionCardType: 3
+  Deluge: 0
+  RitualSactifice: 1

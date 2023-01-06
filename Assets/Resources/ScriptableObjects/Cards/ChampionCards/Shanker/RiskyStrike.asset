@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7dfa5617d6eb264fbae063e7fabdb58, type: 3}
   m_Name: RiskyStrike
   m_EditorClassIdentifier: 
-  cardName: Risky Strike
-  typeOfCard: 2
-  description: You can discard any number of cards and for each you discard this
-    card deals 10 damage
-  artwork: {fileID: 21300000, guid: c69e8e8e557d02e4bb53a1590a6adddc, type: 3}
-  maxManaCost: 5
-  damage: 10
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 1
-  targetable: 1
-  championCard: 1
-  championCardType: 5
+  CardName: Risky Strike
+  TypeOfCard: 2
+  Description: You can discard any number of cards and for each you discard this
+    card deals 10 more damage. base damage 10
+  MaxManaCost: 2
+  Damage: 10
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 1
+  ChampionCard: 1
+  ChampionCardType: 5

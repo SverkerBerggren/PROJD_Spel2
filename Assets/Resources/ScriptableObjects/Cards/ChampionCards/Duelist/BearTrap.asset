@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f31140e11d8fe499d50c206189a5ba, type: 3}
   m_Name: BearTrap
   m_EditorClassIdentifier: 
-  cardName: Bear Trap
-  typeOfCard: 1
-  description: Your opponent cannot swap their active champion
-  artwork: {fileID: 21300000, guid: ef8340b3fdea7084ea889d19adb22f25, type: 3}
-  maxManaCost: 1
-  tag: DuelistLandmark
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 0
-  targetable: 0
-  championCard: 1
-  championCardType: 1
-  minionHealth: 20
+  CardName: Bear Trap
+  TypeOfCard: 1
+  Description: Your opponent cannot swap their active champion
+  MaxManaCost: 1
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 0
+  Targetable: 0
+  ChampionCard: 1
+  ChampionCardType: 1
+  MinionHealth: 20

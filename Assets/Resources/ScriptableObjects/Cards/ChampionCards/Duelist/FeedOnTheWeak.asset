@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20705536ddbb71e4bb972d3cd53553d2, type: 3}
   m_Name: FeedOnTheWeak
   m_EditorClassIdentifier: 
-  cardName: Feed On The Weak
-  typeOfCard: 0
-  description: Set the opposing champion with the least amount of HP as active and
-    draw an attack card
-  artwork: {fileID: 21300000, guid: e33a7d4c3cb71e84b8a76202aa50e5c9, type: 3}
-  manaCost: 3
-  maxManaCost: 3
-  tag: Spell
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
+  CardName: Feed on the Weak
+  TypeOfCard: 0
+  Description: Set the opposing champ with the least amount of HP as active and draw
+    a attack card
+  MaxManaCost: 3
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 1
+  ChampionCardType: 1

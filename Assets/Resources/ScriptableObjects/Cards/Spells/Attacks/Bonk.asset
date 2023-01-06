@@ -12,21 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff18907f8af932a45b18e0496e27c5c7, type: 3}
   m_Name: Bonk
   m_EditorClassIdentifier: 
-  cardName: Bonk
-  typeOfCard: 2
-  description: '*Damage* '
-  artwork: {fileID: 21300000, guid: e480d290328ef4642bf24943e7bc09db, type: 3}
-  maxManaCost: 2
-  tag: AttackSpell
-  damage: 30
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
-  targetable: 1
-  championCard: 0
-  championCardType: 0
-  destroyLandmark: 0
-  damageEqualsToYourChampionHP: 0
-  damageToBothActiveChampions: 0
+  CardName: Bonk
+  TypeOfCard: 2
+  Description: '*Damage*'
+  MaxManaCost: 2
+  Damage: 30
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 1
+  ChampionCard: 0
+  ChampionCardType: 0
+  DestroyLandmark: 0
+  DamageEqualsToYourChampionHP: 0
+  DamageToBothActiveChampions: 0

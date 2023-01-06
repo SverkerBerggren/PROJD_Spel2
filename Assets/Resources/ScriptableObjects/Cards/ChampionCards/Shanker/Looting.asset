@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e662a442fd02694f94631413588ce4f, type: 3}
   m_Name: Looting
   m_EditorClassIdentifier: 
-  cardName: Looting
-  typeOfCard: 0
-  description: Draw 2 cards then discard 1
-  artwork: {fileID: 21300000, guid: 4a240438a3e3bfe41a1e600f1d21d076, type: 3}
-  manaCost: 0
-  maxManaCost: 0
-  tag: Spell
-  amountOfCardsToDraw: 2
-  amountOfCardsToDiscard: 1
-  discardCardsYourself: 1
+  CardName: Looting
+  TypeOfCard: 0
+  Description: Draw 2 cards then discard 1
+  MaxManaCost: 0
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 2
+  AmountOfCardsToDiscard: 1
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 1
+  ChampionCardType: 5

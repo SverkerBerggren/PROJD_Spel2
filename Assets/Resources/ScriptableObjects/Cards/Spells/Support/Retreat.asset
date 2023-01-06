@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec5a896f3a6b1324798f09dfde2248c5, type: 3}
-  m_Name: Reatreat
+  m_Name: Retreat
   m_EditorClassIdentifier: Assembly-CSharp::SwapChampionSpell
-  cardName: Reatreat
-  typeOfCard: 0
-  description: Swap your active champ with a benched one
-  artwork: {fileID: 21300000, guid: 24e56bf71f6b84e47934575a9dd58410, type: 3}
-  maxManaCost: 0
-  tag: Spell
-  damage: 0
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
-  targetable: 0
-  championCard: 0
-  championCardType: 0
+  CardName: Retreat
+  TypeOfCard: 0
+  Description: Swap your active champ with a benched one
+  MaxManaCost: 0
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 0
+  ChampionCardType: 0

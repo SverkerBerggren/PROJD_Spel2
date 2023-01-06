@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085f273dae7cfa4e9a423a76762a5c2, type: 3}
   m_Name: EnGarde
   m_EditorClassIdentifier: 
-  cardName: En garde
-  typeOfCard: 2
-  description: Deal 30 damage then swap the active champion and deal 30 damage to
-    it
-  artwork: {fileID: 21300000, guid: 92d9c05163cad6d4b9d9288f2cf5decf, type: 3}
-  maxManaCost: 4
-  damage: 30
-  amountToHeal: 0
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  effect: {fileID: 0}
-  discardCardsYourself: 1
-  targetable: 1
-  championCard: 1
-  championCardType: 1
+  CardName: En Garde
+  TypeOfCard: 2
+  Description: Deal 30 damage then swap the active enemy champion and deal 30 damage
+    to it
+  MaxManaCost: 4
+  Damage: 30
+  AmountToHeal: 0
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 1
+  ChampionCard: 1
+  ChampionCardType: 1

@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Cultist", menuName = "Champion/Cultist", order = 1)]
 public class Cultist : Champion
 {
-	public int perMissingHP = 20;
-	public int damagePerMissingHP = 10;
+	public int PerMissingHP = 20;
+	public int DamagePerMissingHP = 10;
 
     public override void Awake()
 	{
@@ -18,12 +18,12 @@ public class Cultist : Champion
 
 	private int CalculateBonusDamage()
 	{
-        int difference = (maxHealth - health) / perMissingHP;
-        return damagePerMissingHP * difference;
+        int difference = (MaxHealth - Health) / PerMissingHP;
+        return DamagePerMissingHP * difference;
     }
 
 	public override void UpdatePassive()
 	{
-        passiveEffect = CalculateBonusDamage() + "+ Extra damage";
+        PassiveEffect = CalculateBonusDamage() + "+ Extra damage";
     }
 }
