@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class LowerDetail : MonoBehaviour
 {
-    [Header("Background")]
     private Camera _camera;
+    private float intensity = 1.0f;
+    private List<Color> baseColorShader = new List<Color>();
+    private List<Color> baseColors = new List<Color>();
+
+    [Header("Background")]
     [SerializeField] private List<GameObject> makeDarker = new List<GameObject>();
     [SerializeField] private Color _Color;
-    private List<Color> baseColors = new List<Color>();
 
     [Header("Effect")]
     [SerializeField] private List<Material> shaders = new List<Material>();
-    private List<Color> baseColorShader = new List<Color>();
-    private float intensity = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,6 @@ public class LowerDetail : MonoBehaviour
 
     public void SetUpLowerDetailBkg()
     {
-        //do something here
         //change ground_low base color to black
         _camera.cullingMask &= ~(1 << LayerMask.NameToLayer("Background"));
         foreach(GameObject go in makeDarker)
@@ -35,9 +35,7 @@ public class LowerDetail : MonoBehaviour
     }
 
     public void DefaultDetailBkg()
-    {
-        //do something here
-      
+    {  
         _camera.cullingMask |= 1 << LayerMask.NameToLayer("Background");
         for (int i = 0; i < makeDarker.Count; i++)
         {

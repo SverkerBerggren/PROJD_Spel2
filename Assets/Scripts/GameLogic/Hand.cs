@@ -72,7 +72,7 @@ public class Hand : MonoBehaviour
         {
             
             cardDisp.Add(cardsInHand[cardIndexes[i]]);
-            cards.Add(cardDisp[i].card.cardName);
+            cards.Add(cardDisp[i].card.CardName);
         }
         dissolveDone = false;
         Dissolve(cardDisp);

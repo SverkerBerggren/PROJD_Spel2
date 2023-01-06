@@ -30,7 +30,7 @@ public class Graverobber : Champion
 			RequestAddSpecificCardToHand requestAddSpecificCardToHand = new RequestAddSpecificCardToHand();
 			requestAddSpecificCardToHand.whichPlayer = ClientConnection.Instance.playerId;
 
-			requestAddSpecificCardToHand.cardToAdd = info.Item1.cardName;
+			requestAddSpecificCardToHand.cardToAdd = info.Item1.CardName;
 
 			ClientConnection.Instance.AddRequest(requestAddSpecificCardToHand, GameState.Instance.RequestEmpty);
 

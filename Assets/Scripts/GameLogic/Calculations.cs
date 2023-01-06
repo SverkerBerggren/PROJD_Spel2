@@ -82,7 +82,7 @@ public class Calculations : MonoBehaviour
 	}
 	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
-        cardDisplay.manaCost = cardDisplay.card.maxManaCost;
+        cardDisplay.manaCost = cardDisplay.card.MaxManaCost;
         cardDisplay.manaCost = gameState.playerChampion.champion.CalculateManaCost(cardDisplay);
 			
         foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)

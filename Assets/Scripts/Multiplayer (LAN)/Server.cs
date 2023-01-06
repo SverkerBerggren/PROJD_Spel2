@@ -178,8 +178,7 @@ public class Server
             ConnectionThread.Start(NewConnection);
         }
     }
-    public void p_Listen(int port)
-    {
+    public void p_Listen(int port)    {
         m_Listener = new System.Net.Sockets.TcpListener(port);
         m_Listener.Start();
         while (!m_Stopping)

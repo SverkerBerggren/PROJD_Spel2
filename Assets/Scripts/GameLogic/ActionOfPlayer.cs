@@ -173,7 +173,7 @@ public class ActionOfPlayer : MonoBehaviour
                 else if(!isPlayer && !gameState.isOnline)
 					graveyard.AddCardToGraveyardOpponent(c);
 
-				cardNames.Add(c.cardName);
+				cardNames.Add(c.CardName);
             }
 
             if (gameState.isOnline && isPlayer)
@@ -201,9 +201,9 @@ public class ActionOfPlayer : MonoBehaviour
 	{
 		string discardedCard = "";
 		if (yourself)
-			discardedCard = handPlayer.DiscardRandomCardInHand().cardName;
+			discardedCard = handPlayer.DiscardRandomCardInHand().CardName;
 		else
-			discardedCard = handOpponent.DiscardRandomCardInHand().cardName;
+			discardedCard = handOpponent.DiscardRandomCardInHand().CardName;
 		return discardedCard;
 	}
 
@@ -246,7 +246,7 @@ public class ActionOfPlayer : MonoBehaviour
                 {
                     cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
 
-                    if (cardDisplayToSwapFrom.card.typeOfCard == CardType.Landmark)
+                    if (cardDisplayToSwapFrom.card.TypeOfCard == CardType.Landmark)
                     {
                         cardDisplayToSwapTo.cardDisplayAttributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAttributes.hpText.text;
                     }

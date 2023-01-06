@@ -60,20 +60,20 @@ public class CardRegister : MonoBehaviour
         champions.Sort(new ChampionComparer(CardFilter.Name));
         foreach (Card card in cards)
         {
-			cardRegister.Add(card.cardName, card);
+			cardRegister.Add(card.CardName, card);
 
-            switch (card.typeOfCard)
+            switch (card.TypeOfCard)
             {
                 case CardType.Landmark:
-                    landmarkRegister.Add(card.cardName, (Landmarks)card);
+                    landmarkRegister.Add(card.CardName, (Landmarks)card);
                     break;
 
                 case CardType.Attack:
-                    attackCardRegister.Add(card.cardName, card);
+                    attackCardRegister.Add(card.CardName, card);
                     break;
 
                 case CardType.Spell:
-                    supportCardRegister.Add(card.cardName, card);
+                    supportCardRegister.Add(card.CardName, card);
                     break;
 
             }
@@ -87,7 +87,7 @@ public class CardRegister : MonoBehaviour
         foreach (Champion champion in champions)
         {
             AddChampionType(champion);
-            champRegister.Add(champion.championName, champion);
+            champRegister.Add(champion.ChampionName, champion);
             champCards.Add(champion, GetChampionCards(champion));
         }    
     }
@@ -132,10 +132,10 @@ public class CardRegister : MonoBehaviour
         List<Card> tempC = new List<Card>();
 	    foreach (Card card in cardRegister.Values)
         {
-            if (!card.championCard || card.championCardType != champion.championCardType) continue;
+            if (!card.ChampionCard || card.ChampionCardType != champion.ChampionCardType) continue;
 
 			tempC.Add(card);
-            if (card.typeOfCard == CardType.Attack)
+            if (card.TypeOfCard == CardType.Attack)
             {
 				tempC.Add(card);
             }

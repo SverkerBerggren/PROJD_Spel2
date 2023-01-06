@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shieldeffect : MonoBehaviour
+public class ShieldEffect : MonoBehaviour
 {
     [SerializeField] private int shaderValue = 100;
     [SerializeField] private Renderer armorMaterial;

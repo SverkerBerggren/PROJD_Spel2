@@ -47,9 +47,9 @@ public class PlayCardManager : MonoBehaviour
             return false;
 
         // Checking if the card used is a champion card
-        if (card.championCardType != ChampionCardType.All && card.championCard)
+        if (card.ChampionCardType != ChampionCardType.All && card.ChampionCard)
         {
-            if (gameState.playerChampion.champion.championCardType != card.championCardType)
+            if (gameState.playerChampion.champion.ChampionCardType != card.ChampionCardType)
                 return false;
         }
 
@@ -77,7 +77,7 @@ public class PlayCardManager : MonoBehaviour
         if (target == null || target.CompareTag("DeckAndGraveyard")) 
             return TypeOfCardTargeting.None;
 
-        if (card.targetable)
+        if (card.Targetable)
         {    
             if (TauntCard())
                 return TypeOfCardTargeting.Taunt;
@@ -92,7 +92,7 @@ public class PlayCardManager : MonoBehaviour
                     return TypeOfCardTargeting.Targeted;
             }
         }
-        else if (!card.targetable && target.CompareTag("NonTargetCollider"))
+        else if (!card.Targetable && target.CompareTag("NonTargetCollider"))
         {
             if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true)) 
                 return TypeOfCardTargeting.UnTargeted;
@@ -103,7 +103,7 @@ public class PlayCardManager : MonoBehaviour
     public bool TauntCard()
     {
         // Should indicate the TauntLandmark so its more obvious
-        if (card.typeOfCard != CardType.Attack) return false;
+        if (card.TypeOfCard != CardType.Attack) return false;
 
         foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
         {
@@ -128,7 +128,7 @@ public class PlayCardManager : MonoBehaviour
 
     public void PlayedAnUntargetableCard()
     {
-        if (card.typeOfCard == CardType.Landmark)
+        if (card.TypeOfCard == CardType.Landmark)
         {
             int amountOfLandmarksAlreadyInUse = 0;
             foreach (LandmarkDisplay landmarkDisplay in GameState.Instance.playerLandmarks)
@@ -152,7 +152,7 @@ public class PlayCardManager : MonoBehaviour
             }
         }
 
-        else if (card.typeOfCard == CardType.Spell || card.typeOfCard == CardType.Attack)
+        else if (card.TypeOfCard == CardType.Spell || card.TypeOfCard == CardType.Attack)
         {
             Graveyard.Instance.AddCardToGraveyard(card);
             //gameState.ShowPlayedCard(card, false, -1);
@@ -191,7 +191,7 @@ public class PlayCardManager : MonoBehaviour
             request.whichPlayer = ClientConnection.Instance.playerId;
 
             CardAndPlacement cardAndPlacement = new CardAndPlacement();
-            cardAndPlacement.cardName = landmark.cardName;
+            cardAndPlacement.cardName = landmark.CardName;
 
             TargetInfo targetInfo = new TargetInfo();
             targetInfo.index = landmarkSlot.index;

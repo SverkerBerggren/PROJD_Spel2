@@ -11,7 +11,7 @@ public class ShankerPreparedStrike : Effects
 
 	public override int CalculateManaCost(CardDisplay cardDisplay)
 	{
-		if (cardDisplay.card.typeOfCard == cardTrigger)
+		if (cardDisplay.card.TypeOfCard == cardTrigger)
 		{
 			return cardDisplay.manaCost - manaReduce;
 		}

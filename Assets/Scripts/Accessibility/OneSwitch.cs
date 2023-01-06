@@ -9,7 +9,20 @@ using UnityEngine.UI;
 
 public class OneSwitch : MonoBehaviour
 {
+    private int index = -1;
+    private int prevIndex = 0;
+    private int indexTargets = 0; 
+    private bool clicked = false;
+    private bool firstTime = true;
+
+    private WhatShouldBeOneSwitch oneSwitchActivePrevious;
+    private PlayCardManager playCardManager;
+    private Choice choice;
+
+    [Header("TargetsNow")]
     [SerializeField] private List<Targetable> targetableRightNow = new List<Targetable>();
+
+    [Header("Diffrent types of targets")]
     [SerializeField] private Targetable[] thingsToTargetInNormalSituation;
     [SerializeField] private Targetable[] thingsToTargetWithCard;
     [SerializeField] private Targetable[] thingsToTargetShop;
@@ -19,17 +32,8 @@ public class OneSwitch : MonoBehaviour
 
     [SerializeField] private GameObject[] whatToCheck; 
 
-    private int index = -1;
-    private int prevIndex = 0;
-    private int indexTargets = 0; 
-    private bool clicked = false;
-    private bool firstTime = true;
 
-    public WhatShouldBeOneSwitch oneSwitchActiveNow;
-    private WhatShouldBeOneSwitch oneSwitchActivePrevious;
-
-    private PlayCardManager playCardManager;
-    private Choice choice;
+    public WhatShouldBeOneSwitch OneSwitchActiveNow;
 
     private void Start()
     {
@@ -97,7 +101,7 @@ public class OneSwitch : MonoBehaviour
     {
         CheckWhatIsActive();
 
-        switch (oneSwitchActiveNow)
+        switch (OneSwitchActiveNow)
         {
             case WhatShouldBeOneSwitch.Normal:
                 targetableRightNow = thingsToTargetInNormalSituation.ToList();
@@ -124,13 +128,13 @@ public class OneSwitch : MonoBehaviour
                 break;
         }
 
-        oneSwitchActivePrevious = oneSwitchActiveNow;
+        oneSwitchActivePrevious = OneSwitchActiveNow;
     }
     
 
     private void CurrentTarget()
     {
-        if (oneSwitchActiveNow != oneSwitchActivePrevious)
+        if (OneSwitchActiveNow != oneSwitchActivePrevious)
         {
             index = -1;
             prevIndex = 0;
@@ -170,7 +174,7 @@ public class OneSwitch : MonoBehaviour
         {
             if (playCardManager.TauntCard()) return;
 
-            else if (!cardDisplay.card.targetable)
+            else if (!cardDisplay.card.Targetable)
             {
                 playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
             }
@@ -185,7 +189,7 @@ public class OneSwitch : MonoBehaviour
                 lE.opponentChampions = true;
 
                 choice.ChoiceMenu(lE, 1, WhichMethod.OneSwitchTarget, cardDisplay.card);
-                oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
+                OneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
                 InvokeRepeating(nameof(CurrentTargetWithCard), 1f, 1f);
                 return;
             }
@@ -223,7 +227,7 @@ public class OneSwitch : MonoBehaviour
                    // ChoiceAllternatives();
                 }
                 else if (targetableRightNow[index].gameObject.name.Equals("EndTurn"))
-                    oneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
+                    OneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
             }
             else
             {
@@ -234,7 +238,7 @@ public class OneSwitch : MonoBehaviour
 
     private void CurrentTargetWithCard()
     {
-        if (oneSwitchActivePrevious != oneSwitchActiveNow)
+        if (oneSwitchActivePrevious != OneSwitchActiveNow)
             ChangeOneSwitch();
 
         indexTargets++;
@@ -263,7 +267,7 @@ public class OneSwitch : MonoBehaviour
     private void ChoiceAllternatives()
     {
         if (!whatToCheck[0].activeSelf)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
         targetableRightNow = choice.buttonHolder.GetComponentsInChildren<Targetable>().ToList();
         targetableRightNow.Add(choice.confirmMenuButton.GetComponent<Targetable>());
     }
@@ -281,17 +285,17 @@ public class OneSwitch : MonoBehaviour
     private void CheckWhatIsActive()
     {
         if (whatToCheck[0].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
         else if (whatToCheck[1].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Shop;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.Shop;
         else if (whatToCheck[2].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
         else if (whatToCheck[3].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Settings;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.Settings;
         else if (whatToCheck[4].activeInHierarchy)
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.OptionMenu;
         else
-            oneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
+            OneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
     }
 
     private void DelayedEnable()
