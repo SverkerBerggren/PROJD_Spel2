@@ -229,14 +229,22 @@ public class AvailableChampion : MonoBehaviour
 
         if (champion.Health <= 0)
         {
-            Death();
+            if ((gameState.playerChampions.Count == 1 && gameState.playerChampion.champion == champion) || (gameState.opponentChampions.Count == 1 && gameState.opponentChampion.champion == champion))
+            {
+                gameState.animator.enabled = true;
+                Invoke(nameof(Death), 3.0f);
+            }
+
+                
+            else
+                Death();
         }
     }
-    public virtual void Death()
+    public void Death()
     {
         if (animator != null)
         {
-            animator.SetTrigger("Dead");
+            animator.SetTrigger("Death");
         }
         effectController.PlayDeathEffect(this);
         gameState.ChampionDeath(champion);
