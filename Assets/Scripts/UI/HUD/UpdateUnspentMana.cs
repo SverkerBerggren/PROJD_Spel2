@@ -9,7 +9,7 @@ public class UpdateUnspentMana : MonoBehaviour
     private string unspentManaText;
     private void OnEnable()
     {
-        unspentManaText = ActionOfPlayer.Instance.unspentMana.ToString();
+        unspentManaText = ActionOfPlayer.Instance.UnspentMana.ToString();
         textToUpdate.text = "Unspent mana: " + unspentManaText;
         InvokeRepeating(nameof(InvokeTextUpdate), 1f, 1f);
     }

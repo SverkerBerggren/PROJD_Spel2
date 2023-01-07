@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
 
 public class CardRegister : MonoBehaviour
 {
@@ -34,15 +30,10 @@ public class CardRegister : MonoBehaviour
 
     private void Awake()
     {
-
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(Instance);
-        }
 
         #if UNITY_EDITOR  
             SpreadsheetUpdater updater = new SpreadsheetUpdater();
@@ -136,9 +127,7 @@ public class CardRegister : MonoBehaviour
 
 			tempC.Add(card);
             if (card.TypeOfCard == CardType.Attack)
-            {
-				tempC.Add(card);
-            }
+                tempC.Add(card);
         }
         return tempC;
     }

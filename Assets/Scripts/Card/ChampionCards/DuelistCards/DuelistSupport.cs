@@ -10,24 +10,19 @@ public class DuelistSupport : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.Duelist;
     }
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {      
         List<AvailableChampion> enemyChamps = GameState.Instance.opponentChampions;
-
         int index = 0;
 
         for (int i = enemyChamps.Count - 1; i > 0; i--)
         {
-            
-            if (enemyChamps[i].champion.Health > enemyChamps[i-1].champion.Health)
-            {
+            if (enemyChamps[i].Champion.Health > enemyChamps[i-1].Champion.Health)
                 index = i - 1;
-            }
             else
-            {
                 index = i;
-            }
         }
+
         //I Do
         ListEnum lEOpponenent = new ListEnum();
         lEOpponenent.opponentChampions = true;
@@ -39,25 +34,27 @@ public class DuelistSupport : Spells
         {
             RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tIForOpponent);
             request.whichPlayer = ClientConnection.Instance.playerId;
-
             ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
         }
+        DrawAttackCard();
+	}
 
-
-        ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-        foreach (Card card in Deck.Instance.deckPlayer)
-        {
-            if (card is AttackSpell)
-            {
-                actionOfPlayer.DrawCardPlayer(1, card, true);
-                Deck.Instance.RemoveCardFromDeck(card);
-                if (GameState.Instance.isOnline)
-                {
-                    RequestDrawCard request = new RequestDrawCard(1);
-                    ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
-                }
-                break;
-            }
-        }
-    }
+    private void DrawAttackCard()
+    {
+		ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+		foreach (Card card in Deck.Instance.deckPlayer)
+		{
+			if (card is AttackSpell)
+			{
+				actionOfPlayer.DrawCardPlayer(1, card, true);
+				Deck.Instance.RemoveCardFromDeck(card);
+				if (GameState.Instance.isOnline)
+				{
+					RequestDrawCard request = new RequestDrawCard(1);
+					ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);
+				}
+				break;
+			}
+		}
+	}
 }

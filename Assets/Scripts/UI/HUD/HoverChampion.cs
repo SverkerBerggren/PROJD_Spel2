@@ -69,12 +69,12 @@ public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (enemyChampion)
         {
 
-            championAttributes.UpdateChampionCard(GameState.Instance.opponentChampions[index].champion);
+            championAttributes.UpdateChampionCard(GameState.Instance.opponentChampions[index].Champion);
             championAttributes.gameObject.SetActive(true);
         }
         else
         {
-            championAttributes.UpdateChampionCard(GameState.Instance.playerChampions[index].champion);
+            championAttributes.UpdateChampionCard(GameState.Instance.playerChampions[index].Champion);
             championAttributes.gameObject.SetActive(true);
         }
     }

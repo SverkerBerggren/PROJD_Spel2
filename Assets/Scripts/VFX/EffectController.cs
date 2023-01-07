@@ -55,11 +55,11 @@ public class EffectController : MonoBehaviour
             {
                 foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
                 {
-                    if(champOnField.champion.ChampionName.Equals(availableChampion.Item1))  
+                    if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         //shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.playerChampion.champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.playerChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }
@@ -74,11 +74,11 @@ public class EffectController : MonoBehaviour
             {
                 foreach(AvailableChampion champOnField in GameState.Instance.opponentChampions)
                 {
-                    if(champOnField.champion.ChampionName.Equals(availableChampion.Item1))  
+                    if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         // shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.opponentChampion.champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.opponentChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }
@@ -142,7 +142,7 @@ public class EffectController : MonoBehaviour
     public void PlayAttackEffect(AvailableChampion holder)
     {
     
-        switch (holder.champion.ChampionName)
+        switch (holder.Champion.ChampionName)
         {
             case "Cultist":
                 GainCultistAttackEffect();
@@ -163,7 +163,7 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
-        if (holder.champion.ChampionName.Equals("Shanker"))
+        if (holder.Champion.ChampionName.Equals("Shanker"))
             return;
 
            holder.GetComponentInChildren<EffectChampions>().StartDisolve();

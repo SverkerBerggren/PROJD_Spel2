@@ -14,16 +14,16 @@ public class DuelistAttack : Spells
         ChampionCardType = ChampionCardType.Duelist;
     }
 
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         gameState = GameState.Instance;
         gameState.CalculateAndDealDamage(Damage, this);
         gameState.StartCoroutine(WaitForOpponent());
     }
 
-    public IEnumerator WaitForOpponent()
+    private IEnumerator WaitForOpponent()
     {
-        yield return new WaitUntil(() => gameState.opponentChampion.champion.Health > 0);
+        yield return new WaitUntil(() => gameState.opponentChampion.Champion.Health > 0);
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, this);
@@ -31,7 +31,7 @@ public class DuelistAttack : Spells
 
     public void WaitForChoice()
     {
-        Target = gameState.opponentChampion.champion;
+        Target = gameState.opponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 }

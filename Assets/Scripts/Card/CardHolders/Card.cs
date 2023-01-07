@@ -59,7 +59,7 @@ public abstract class Card : ScriptableObject
     public virtual void PlayCard()
     {
         CardAndPlacement cardPlacement = new CardAndPlacement();
-        cardPlacement.cardName = CardName;
+        cardPlacement.CardName = CardName;
         GameState gameState = GameState.Instance;
         
         TargetInfo placement = new TargetInfo();
@@ -70,7 +70,7 @@ public abstract class Card : ScriptableObject
         else
             placement.whichList.opponentGraveyard = true;
         
-        cardPlacement.placement = placement;
+        cardPlacement.Placement = placement;
 
         gameState.ShowPlayedCard(this, false, -1);
         if (gameState.isOnline)        
@@ -87,7 +87,7 @@ public abstract class Card : ScriptableObject
 
         gameState.Refresh();
         gameState.AddCardToPlayedCardsThisTurn(this);
-        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
+        gameState.playerChampion.Champion.AmountOfCardsPlayed(this);
     }
    
     public virtual string WriteOutCardInfo()

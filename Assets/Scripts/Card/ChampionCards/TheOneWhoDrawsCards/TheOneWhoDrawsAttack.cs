@@ -11,10 +11,10 @@ public class TheOneWhoDrawsAttack : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.TheOneWhoDraws;
     }
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         int damageToDeal = Damage;
-        int damageBoost = ActionOfPlayer.Instance.handPlayer.cardsInHand.Count;
+        int damageBoost = ActionOfPlayer.Instance.HandPlayer.cardsInHand.Count;
      
         damageToDeal = (damageToDeal * damageBoost) - 10;
         if (damageToDeal < 0)

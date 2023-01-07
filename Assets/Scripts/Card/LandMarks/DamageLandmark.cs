@@ -17,7 +17,7 @@ public class DamageLandmark : Landmarks
     {
         if (IsPyromancyHut) return damage;
            
-        return this.Damage + damage;
+        return Damage + damage;
     }
 
     public override void UpKeep()

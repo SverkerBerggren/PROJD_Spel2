@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/DrawCardLandmark")]
@@ -17,9 +15,10 @@ public class DrawCardLandmark : Landmarks
 			GameState.Instance.DrawCard(5, null);
             foreach (LandmarkDisplay l in GameState.Instance.playerLandmarks)
             {
-                if (l.card is DrawCardLandmark && (DrawCardLandmark)l.card)
+                if (l.Card is DrawCardLandmark && (DrawCardLandmark)l.Card)
                 {
                     l.DestroyLandmark();
+                    break;
                 }
 
             }

@@ -76,7 +76,7 @@ public class InternetLoop : MonoBehaviour
                     
                     ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
                     if(!theAction.listEnum.myDeck)
-                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[0]);
+                        actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.HandOpponent.cardsInHand[0]);
                     else
                     {
                         Deck.Instance.WhichCardToDrawPlayer(false);
@@ -132,8 +132,8 @@ public class InternetLoop : MonoBehaviour
                         gameState.opponentLandmarks[targetAndAmount.targetInfo.index].TakeDamage(targetAndAmount.amount);
                     }
                 }
-                if (gameState.opponentChampion.animator != null)
-                    gameState.opponentChampion.animator.SetTrigger("Attack");
+                if (gameState.opponentChampion.Animator != null)
+                    gameState.opponentChampion.Animator.SetTrigger("Attack");
 
             }            
             if (action  is GameActionShield)
@@ -145,14 +145,14 @@ public class InternetLoop : MonoBehaviour
                     if (targetAndAmount.targetInfo.whichList.opponentChampions)
                     {
                         gameState.playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.playerChampions[targetAndAmount.targetInfo.index].champion.ChampionName, false);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.playerChampions[targetAndAmount.targetInfo.index].Champion.ChampionName, false);
                         EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.playerChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
 
                     if (targetAndAmount.targetInfo.whichList.myChampions)
                     {
                         gameState.opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.opponentChampions[targetAndAmount.targetInfo.index].champion.ChampionName, true);
+                        Tuple<string, bool> tuple = new Tuple<string, bool>(gameState.opponentChampions[targetAndAmount.targetInfo.index].Champion.ChampionName, true);
                         EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, gameState.opponentChampions[targetAndAmount.targetInfo.index].gameObject);
                     }
                 }
@@ -165,7 +165,7 @@ public class InternetLoop : MonoBehaviour
                 gameState.SwapChampionOnline(castedAction.targetToSwitch,castedAction.championDied);
 
                 if (castedAction.targetToSwitch.whichList.opponentChampions)               
-                    gameState.playerChampion.champion.WhenCurrentChampion();
+                    gameState.playerChampion.Champion.WhenCurrentChampion();
 
             }            
             if (action is GameActionDestroyLandmark)
@@ -202,23 +202,23 @@ public class InternetLoop : MonoBehaviour
             {
                 GameActionPlayCard castedAction = (GameActionPlayCard)action;
 
-                Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.cardName];
+                Card cardPlayed = register.cardRegister[castedAction.cardAndPlacement.CardName];
 
-                if (castedAction.cardAndPlacement.placement.whichList.myGraveyard)
+                if (castedAction.cardAndPlacement.Placement.whichList.myGraveyard)
                     Graveyard.Instance.graveyardPlayer.Add(cardPlayed);
-                else if (castedAction.cardAndPlacement.placement.whichList.opponentGraveyard)
+                else if (castedAction.cardAndPlacement.Placement.whichList.opponentGraveyard)
                     Graveyard.Instance.graveyardOpponent.Add(cardPlayed);
 
                 gameState.ShowPlayedCard(cardPlayed, true, castedAction.manaCost);
 
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-                actionOfPlayer.enemyMana -= castedAction.manaCost;
+                actionOfPlayer.EnemyMana -= castedAction.manaCost;
 
                 if (cardPlayed is AttackSpell)
                 {
                     EffectController.Instance.PlayAttackEffect(gameState.opponentChampion);
                 }
-                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.handOpponent.cardsInHand[actionOfPlayer.handOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
+                actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.HandOpponent.cardsInHand[actionOfPlayer.HandOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
             }    
             if (action  is GameActionOpponentDiscardCard)
             {   
@@ -228,7 +228,7 @@ public class InternetLoop : MonoBehaviour
                 {
                     for (int i = 0; i < castedAction.amountOfCardsToDiscard; i++)
                     {
-                        if (ActionOfPlayer.Instance.handPlayer.cardsInHand.Count > 0)
+                        if (ActionOfPlayer.Instance.HandPlayer.cardsInHand.Count > 0)
                         {
                             if (castedAction.discardCardToOpponentGraveyard)
                             {
@@ -298,8 +298,8 @@ public class InternetLoop : MonoBehaviour
             if (action is GameActionPlayLandmark)
             {
                 GameActionPlayLandmark castedAction = (GameActionPlayLandmark)action;
-                gameState.LandmarkPlaced(castedAction.landmarkToPlace.placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true);
-                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.cardName], true, -1);
+                gameState.LandmarkPlaced(castedAction.landmarkToPlace.Placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.CardName], true);
+                gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.CardName], true, -1);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 			}
 

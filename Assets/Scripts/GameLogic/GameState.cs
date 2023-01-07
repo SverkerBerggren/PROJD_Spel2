@@ -146,7 +146,7 @@ public class GameState : MonoBehaviour
 
 
         if (!didIStart)
-            actionOfPlayer.enemyMana++;
+            actionOfPlayer.EnemyMana++;
 
         StartMulligan();
     }
@@ -181,7 +181,7 @@ public class GameState : MonoBehaviour
     public void PlayCardRequest(CardAndPlacement cardPlacement)
     {
         CardDisplay cardDisplay =  playedCardGO.GetComponent<CardDisplay>();
-        RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.manaCost);
+        RequestPlayCard playCardRequest = new RequestPlayCard(cardPlacement, cardDisplay.ManaCost);
         playCardRequest.whichPlayer = ClientConnection.Instance.playerId;
         ClientConnection.Instance.AddRequest(playCardRequest, RequestEmpty);
 
@@ -216,7 +216,7 @@ public class GameState : MonoBehaviour
     }
 
     public void EndTurnButtonClick()
-    {   if (Choice.Instance.isChoiceActive) return;
+    {   if (Choice.Instance.IsChoiceActive) return;
         if (!hasPriority) return;
 
         if (isOnline)
@@ -237,9 +237,9 @@ public class GameState : MonoBehaviour
         damage = calculations.CalculateDamage(damage, false);
         DealDamage(calculations.TargetAndAmountFromCard(cardUsed, damage));
 
-        if (playerChampion.animator != null)
+        if (playerChampion.Animator != null)
         {
-            playerChampion.animator.SetTrigger("Attack");
+            playerChampion.Animator.SetTrigger("Attack");
         }
         EffectController.Instance.PlayAttackEffect(playerChampion);
     }
@@ -361,13 +361,13 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.ChampionName, false);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].Champion.ChampionName, false);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.ChampionName, true);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].Champion.ChampionName, true);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -391,9 +391,9 @@ public class GameState : MonoBehaviour
             Champion champ = Instantiate(champReg[champions[i]]);
        
 			if (isPlayer)
-			    playerChampions[i].champion = champ;
+			    playerChampions[i].Champion = champ;
             else
-                opponentChampions[i].champion = champ;
+                opponentChampions[i].Champion = champ;
         }
     }
 
@@ -403,9 +403,9 @@ public class GameState : MonoBehaviour
         CardDisplay cardDisp = playedCardGO.GetComponent<CardDisplay>();
         CardDisplayAttributes cardDisplayAttributes = playedCardGO.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         if (manaCost != -1)
-            cardDisp.manaCost = manaCost;
+            cardDisp.ManaCost = manaCost;
 
-        cardDisp.card = card;
+        cardDisp.Card = card;
         cardDisplayAttributes.previewCard = opponent;
         cardDisp.UpdateTextOnCard();
         StopCoroutine(HideCardPlayed());
@@ -414,18 +414,18 @@ public class GameState : MonoBehaviour
     private IEnumerator HideCardPlayed()
     {
         yield return new WaitForSeconds(3f);
-        playedCardGO.GetComponent<CardDisplay>().card = null;
+        playedCardGO.GetComponent<CardDisplay>().Card = null;
         playedCardGO.SetActive(false);
     }
 
     public void DestroyLandmark(TargetInfo targetInfo)
     {
         if (targetInfo.whichList.opponentLandmarks)
-            Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].card);
+            Graveyard.Instance.AddCardToGraveyardOpponent(opponentLandmarks[targetInfo.index].Card);
         else
-            Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].card);
+            Graveyard.Instance.AddCardToGraveyard(playerLandmarks[targetInfo.index].Card);
 
-        playerLandmarks[targetInfo.index].card = null;
+        playerLandmarks[targetInfo.index].Card = null;
     }
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
@@ -514,7 +514,7 @@ public class GameState : MonoBehaviour
 
     public void SwapOnDeath(AvailableChampion champ)
     {
-        if (!isOnline && champ.isOpponent)
+        if (!isOnline && champ.IsOpponent)
         {
             for (int i = 0; i < 100; i++)
             {
@@ -523,7 +523,7 @@ public class GameState : MonoBehaviour
                 if (opponentChampion != opponentChampions[randomChamp])
                 {
                     Swap(opponentChampions, 0, randomChamp);
-                    opponentChampion.champion.WhenCurrentChampion();
+                    opponentChampion.Champion.WhenCurrentChampion();
                     return;
                 }
             }
@@ -541,7 +541,7 @@ public class GameState : MonoBehaviour
             Swap(playerChampions, 0, targetInfo.index);
 
             if (championDied)
-                RemoveChampion(playerChampions[targetInfo.index].champion);
+                RemoveChampion(playerChampions[targetInfo.index].Champion);
         }
         if (targetInfo.whichList.opponentChampions == true)
         {
@@ -556,7 +556,7 @@ public class GameState : MonoBehaviour
             Swap(opponentChampions, 0, targetInfo.index);
 
             if (championDied)
-                RemoveChampion(opponentChampions[targetInfo.index].champion);
+                RemoveChampion(opponentChampions[targetInfo.index].Champion);
         }
         if (targetInfo.whichList.opponentChampions == true)
         {
@@ -572,17 +572,17 @@ public class GameState : MonoBehaviour
         
         if (opponentPlayedLandmark)
         {
-            opponentLandmarks[index].card = landmark;
+            opponentLandmarks[index].Card = landmark;
             opponentLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
-            opponentLandmarks[index].health = landmark.MinionHealth;
-            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.MaxManaCost;
+            opponentLandmarks[index].Health = landmark.MinionHealth;
+            opponentLandmarks[index].ManaCost = opponentLandmarks[index].Card.MaxManaCost;
         }
         else
         {
-            playerLandmarks[index].card = landmark;
+            playerLandmarks[index].Card = landmark;
             playerLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
-            playerLandmarks[index].health = landmark.MinionHealth;
-            playerLandmarks[index].manaCost = playerLandmarks[index].card.MaxManaCost;
+            playerLandmarks[index].Health = landmark.MinionHealth;
+            playerLandmarks[index].ManaCost = playerLandmarks[index].Card.MaxManaCost;
         }
     }
 
@@ -602,13 +602,13 @@ public class GameState : MonoBehaviour
             amountOfTurns++;
         }
 
-        playerChampion.champion.UpKeep();
+        playerChampion.Champion.UpKeep();
 
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if (landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            if (landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
             {
-                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                Landmarks landmark = (Landmarks)landmarkDisplay.Card;
                 landmark.UpKeep();
             }
         } 
@@ -630,13 +630,13 @@ public class GameState : MonoBehaviour
 			amountOfTurns++;
 		}
 
-		playerChampion.champion.EndStep();
+		playerChampion.Champion.EndStep();
 
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if(landmarkDisplay.card != null && landmarkDisplay.landmarkEnabled)
+            if(landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
             {
-                Landmarks landmark = (Landmarks)landmarkDisplay.card;
+                Landmarks landmark = (Landmarks)landmarkDisplay.Card;
                 landmark.EndStep();
             }
         }
@@ -644,12 +644,12 @@ public class GameState : MonoBehaviour
         {
             effect.EndStep();
         }
-        foreach (CardDisplay cardDisplay in actionOfPlayer.handPlayer.cardsInHand)
+        foreach (CardDisplay cardDisplay in actionOfPlayer.HandPlayer.cardsInHand)
         {
             cardDisplay.EndStep();
         }
 
-        actionOfPlayer.enemyMana = actionOfPlayer.playerMana;
+        actionOfPlayer.EnemyMana = actionOfPlayer.PlayerMana;
         actionOfPlayer.UpdateUnspentMana();
     }
 
@@ -661,7 +661,7 @@ public class GameState : MonoBehaviour
             TriggerEndStep();
             TriggerUpKeep();
             yourTurnEffect.ActivateEffect();
-			actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
+			actionOfPlayer.RoundCounter.text = "Round: " + amountOfTurns;
 			Refresh();
 			return;
         }
@@ -679,7 +679,7 @@ public class GameState : MonoBehaviour
             yourTurnEffect.ActivateEffect();
         }
 
-        actionOfPlayer.roundCounter.text = "Round: " + amountOfTurns;
+        actionOfPlayer.RoundCounter.text = "Round: " + amountOfTurns;
         attacksPlayedThisTurn = 0;
         ChangeInteractabiltyEndTurn();
         cardsPlayedThisTurn.Clear();
@@ -699,7 +699,7 @@ public class GameState : MonoBehaviour
         {
             attacksPlayedThisTurn++;
         }
-        playerChampion.champion.AmountOfCardsPlayed(cardPlayed);
+        playerChampion.Champion.AmountOfCardsPlayed(cardPlayed);
     }
 
     public void ChampionDeath(Champion deadChampion)
@@ -719,12 +719,12 @@ public class GameState : MonoBehaviour
 
     private void SearchDeadChampion(Champion deadChampion)
     {
-        if (playerChampion.champion == deadChampion)
+        if (playerChampion.Champion == deadChampion)
         {
             SwapOnDeath(playerChampion);
         }
 
-        if (opponentChampion.champion == deadChampion)
+        if (opponentChampion.Champion == deadChampion)
         {
             if (!isOnline)
             {
@@ -740,7 +740,7 @@ public class GameState : MonoBehaviour
     {
         foreach (AvailableChampion ac in playerChampions)
         {
-            if (ac.champion == deadChamp)
+            if (ac.Champion == deadChamp)
             {
                 ac.UpdateTextOnCard();
                 playerChampions.Remove(ac);
@@ -749,7 +749,7 @@ public class GameState : MonoBehaviour
         }
         foreach (AvailableChampion ac in opponentChampions)
         {
-            if (ac.champion == deadChamp)
+            if (ac.Champion == deadChamp)
             {
                 ac.UpdateTextOnCard();
                 opponentChampions.Remove(ac);
@@ -799,9 +799,9 @@ public class GameState : MonoBehaviour
 
     public static void Swap(List<AvailableChampion> list, int i, int j)
     {
-        Champion temp = list[i].champion;
-        list[i].champion = list[j].champion;
-        list[j].champion = temp;
+        Champion temp = list[i].Champion;
+        list[i].Champion = list[j].Champion;
+        list[j].Champion = temp;
     }
 
     public void Refresh()
@@ -809,17 +809,17 @@ public class GameState : MonoBehaviour
         ClearEffects();
         foreach (LandmarkDisplay landmarkDisplay in playerLandmarks)
         {
-            if (landmarkDisplay.card != null)
+            if (landmarkDisplay.Card != null)
                 landmarkDisplay.UpdateTextOnCard();
         }
         foreach (LandmarkDisplay landmarkDisplay in opponentLandmarks)
         {
-            if (landmarkDisplay.card != null)
+            if (landmarkDisplay.Card != null)
                 landmarkDisplay.UpdateTextOnCard();
         }
         
-        ActionOfPlayer.Instance.handPlayer.FixCardOrderInHand();
-        ActionOfPlayer.Instance.handOpponent.FixCardOrderInHand();
+        ActionOfPlayer.Instance.HandPlayer.FixCardOrderInHand();
+        ActionOfPlayer.Instance.HandOpponent.FixCardOrderInHand();
 
         foreach (AvailableChampion aC in playerChampions)
         {
@@ -841,7 +841,7 @@ public class GameState : MonoBehaviour
             Defeat();
         }
            
-        else if (opponentChampions.Count == 1 && opponentChampion.champion.Health <= 0)
+        else if (opponentChampions.Count == 1 && opponentChampion.Champion.Health <= 0)
         {
             
             /*Victory();*/

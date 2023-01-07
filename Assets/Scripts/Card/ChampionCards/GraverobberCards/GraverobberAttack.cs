@@ -14,7 +14,7 @@ public class GraverobberAttack : Spells
         ChampionCardType = ChampionCardType.Graverobber;
     }
 
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         Graveyard graveyard = Graveyard.Instance;
 
@@ -29,9 +29,7 @@ public class GraverobberAttack : Spells
                 
                 Card cardToCheck = graveyard.graveyardPlayer[i];
                 if (cardToCheck.TypeOfCard == CardType.Attack)
-                {
                     calculation += Damage;
-                }
             }
 
             GameState.Instance.CalculateAndDealDamage(calculation, this);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +12,5 @@ public class ChampionAttributes : MonoBehaviour
         championName.text = champion.ChampionName;
         description.text = champion.Description;
         hpText.text = champion.Health.ToString();
-
     }
 }

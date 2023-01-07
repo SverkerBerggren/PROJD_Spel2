@@ -12,7 +12,7 @@ public class TutorialAnimation : MonoBehaviour
 
     }
 
-    void ChangeAnimation() {
+    private void ChangeAnimation() {
         animTutorial.SetInteger("Change", animTutorial.GetInteger("Change") + 1);
     }
 

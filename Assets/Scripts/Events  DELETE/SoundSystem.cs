@@ -42,7 +42,6 @@ public class SoundSystem : MonoBehaviour
 
     public void PlaySoundGhetto(AudioClip clip)
     {
-        print("kommer den hiut");
         audioSource.Play();
         audioSource.PlayOneShot(clip);
     }

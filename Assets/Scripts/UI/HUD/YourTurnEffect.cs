@@ -20,7 +20,7 @@ public class YourTurnEffect : MonoBehaviour
 
     public void ChangePicture(AvailableChampion swappedChamp)
     {
-        currentPicture.sprite = swappedChamp.champion.ChampBackground;
+        currentPicture.sprite = swappedChamp.Champion.ChampBackground;
     }
 
 

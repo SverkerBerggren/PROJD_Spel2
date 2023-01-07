@@ -12,24 +12,22 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
     private CardMovement cardMovement;
-    [SerializeField] private float scaleOnHover = 1.3f; 
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
-
     [NonSerialized] public Transform displayTransform;
-
-    public LayoutElement layoutElement;
-
     [NonSerialized] public bool firstCardDrawn = false;
     [NonSerialized] public bool mouseDown = false;
     [NonSerialized] public bool clickedOnCard = false;
 
-    public CardDissolve cardDissolve;
+    [SerializeField] private float scaleOnHover = 1.3f; 
+
+    public LayoutElement LayoutElement;
+    public CardDissolve CardDissolve;
 
     private void Awake()
     {
-        if (!loadedSpriteRenderer && opponentCard)
+        if (!loadedSpriteRenderer && OpponentCard)
             LoadSpriteRendererOnce();
         if (!loadedDisplayAttributes)
             LoadDisplayAttributesOnce();
@@ -39,32 +37,14 @@ public class CardDisplay : Displays
     private void Start()
     {
         displayTransform = transform.GetChild(0).transform;
-        cardDissolve = GetComponentInChildren<CardDissolve>();
+        CardDissolve = GetComponentInChildren<CardDissolve>();
     }
-
-    public void HideUnusedCard()
-    {
-        gameObject.SetActive(false);
-    }
-
-
     private void LoadInvoke()
     {
         originalSize = transform.localScale;
-        cardTargeting = GetComponent<CardTargeting>();
+        CardTargeting = GetComponent<CardTargeting>();
         cardMovement = GetComponent<CardMovement>();
     }
-
-
-    public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
-    {
-        if (!loadedSpriteRenderer)
-            LoadSpriteRendererOnce();
-        opponentCard = true;
-        artworkSpriteRenderer.sprite = backfaceCard;
-        transform.GetChild(0).gameObject.SetActive(false);
-    }
-
     private void LoadSpriteRendererOnce()
     {
         loadedSpriteRenderer = true;
@@ -76,6 +56,20 @@ public class CardDisplay : Displays
         loadedDisplayAttributes = true;
         cardDisplayAttributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         displayTransform = cardDisplayAttributes.transform;
+    }
+
+    public void HideUnusedCard()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetBackfaceOnOpponentCards(Sprite backfaceCard)
+    {
+        if (!loadedSpriteRenderer)
+            LoadSpriteRendererOnce();
+        OpponentCard = true;
+        artworkSpriteRenderer.sprite = backfaceCard;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void UpdateTextOnCard()
@@ -93,7 +87,7 @@ public class CardDisplay : Displays
 
     public void MouseEnter()
     {
-        if (opponentCard) return;
+        if (OpponentCard) return;
 
         if (!alreadyBig && !clickedOnCard)
         {
@@ -105,7 +99,7 @@ public class CardDisplay : Displays
 
     public void MouseExit()
     {
-        if (opponentCard) return;
+        if (OpponentCard) return;
         if (!mouseDown)
         {
             alreadyBig = false;

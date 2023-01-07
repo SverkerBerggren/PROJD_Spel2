@@ -5,9 +5,10 @@ using UnityEngine;
 
 public abstract class Displays : MonoBehaviour
 {
-    public Card card;
-    public int manaCost;
+    [System.NonSerialized] public CardTargeting CardTargeting;
+    [System.NonSerialized] public bool OpponentCard;
 
-    [System.NonSerialized] public CardTargeting cardTargeting;
-    [System.NonSerialized] public bool opponentCard;
+    public Card Card;
+    public int ManaCost;
+
 }

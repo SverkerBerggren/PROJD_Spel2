@@ -11,7 +11,7 @@ public class ShankerAttack : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.Shanker;
     }
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         //Damage Equals amount of cards discarded
         ListEnum lE = new ListEnum();

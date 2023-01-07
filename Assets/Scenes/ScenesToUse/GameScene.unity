@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 7527.789, g: 8267.135, b: 10217.242, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,11 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &6133458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,11 +287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &20061362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1383,21 +1383,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 1
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 355033416}
-  sheildUIObject: {fileID: 1175709090}
   shieldShow: {fileID: 1175709093}
   passiveEffect: {fileID: 509058511}
-  imageHolder: {fileID: 1629756871}
+  shieldUIObject: {fileID: 1175709090}
   healthBar: {fileID: 107385408}
+  imageHolder: {fileID: 1629756871}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &83290199
 GameObject:
   m_ObjectHideFlags: 0
@@ -15469,7 +15467,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 639217357}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16287,11 +16285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &344974269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16555,21 +16553,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 0
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 1526648089}
-  sheildUIObject: {fileID: 446849075}
   shieldShow: {fileID: 446849077}
   passiveEffect: {fileID: 1037155797}
-  imageHolder: {fileID: 1873941660}
+  shieldUIObject: {fileID: 446849075}
   healthBar: {fileID: 1178944502}
+  imageHolder: {fileID: 1873941660}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &355033414
 GameObject:
   m_ObjectHideFlags: 0
@@ -19543,21 +19539,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 1
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 1754194774}
-  sheildUIObject: {fileID: 1369296360}
   shieldShow: {fileID: 1369296362}
   passiveEffect: {fileID: 1751578761}
-  imageHolder: {fileID: 326072441}
+  shieldUIObject: {fileID: 1369296360}
   healthBar: {fileID: 1789468378}
+  imageHolder: {fileID: 326072441}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &502503626
 GameObject:
   m_ObjectHideFlags: 0
@@ -19741,8 +19735,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2062275832}
   m_HandleRect: {fileID: 2062275831}
   m_Direction: 2
-  m_Value: 1.0000005
-  m_Size: 0.3673469
+  m_Value: 1.0000001
+  m_Size: 0.36732697
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -20639,7 +20633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 899.9993}
+  m_AnchoredPosition: {x: 0, y: 899.99963}
   m_SizeDelta: {x: 0, y: 2450}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &538839666
@@ -21088,7 +21082,7 @@ Transform:
   - {fileID: 1109157201}
   - {fileID: 42121871}
   m_Father: {fileID: 642618656}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &553446178
 PrefabInstance:
@@ -22454,21 +22448,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 1
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 1987669450}
-  sheildUIObject: {fileID: 379712847}
   shieldShow: {fileID: 379712851}
   passiveEffect: {fileID: 1198236158}
-  imageHolder: {fileID: 1620220483}
+  shieldUIObject: {fileID: 379712847}
   healthBar: {fileID: 1689995492}
+  imageHolder: {fileID: 1620220483}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &601170530
 GameObject:
   m_ObjectHideFlags: 0
@@ -22503,11 +22495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &601170532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22873,21 +22865,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 0
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 1772961923}
-  sheildUIObject: {fileID: 1689063883}
   shieldShow: {fileID: 1689063887}
   passiveEffect: {fileID: 891657360}
-  imageHolder: {fileID: 856660413}
+  shieldUIObject: {fileID: 1689063883}
   healthBar: {fileID: 885948349}
+  imageHolder: {fileID: 856660413}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &604801517
 GameObject:
   m_ObjectHideFlags: 0
@@ -23783,11 +23773,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &631345498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24076,15 +24066,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1124372043}
-  - {fileID: 1090813674}
-  - {fileID: 1882372443}
   - {fileID: 279975791}
-  - {fileID: 993470653}
-  - {fileID: 15630122}
-  - {fileID: 1829879421}
   m_Father: {fileID: 642618656}
-  m_RootOrder: 14
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24276,8 +24260,9 @@ RectTransform:
   - {fileID: 1669928097}
   - {fileID: 551107192}
   - {fileID: 1435673231}
-  - {fileID: 505798196}
+  - {fileID: 639217357}
   - {fileID: 860343949}
+  - {fileID: 505798196}
   - {fileID: 601937385}
   - {fileID: 1894770132}
   - {fileID: 247529597}
@@ -24334,7 +24319,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 642618656}
-  m_RootOrder: 24
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -25649,15 +25634,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347eae74a56fb4c4186c8daeda76823b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundCounter: {fileID: 2014213808}
-  backfaceCard: {fileID: 21300000, guid: 068c73f8b63986b4e812e64db6f17f8f, type: 3}
-  handPlayer: {fileID: 1509753250}
-  handOpponent: {fileID: 204286134}
-  playerMana: 1
-  enemyMana: 0
-  currentMana: 1
-  unspentMana: 0
-  selectCardOption: 0
+  RoundCounter: {fileID: 2014213808}
+  BackfaceCard: {fileID: 21300000, guid: 068c73f8b63986b4e812e64db6f17f8f, type: 3}
+  HandPlayer: {fileID: 1509753250}
+  HandOpponent: {fileID: 204286134}
+  PlayerMana: 0
+  EnemyMana: 0
+  CurrentMana: 0
+  UnspentMana: 0
+  SelectCardOption: 0
 --- !u!114 &698962105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28995,11 +28980,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!4 &876286367
 Transform:
   m_ObjectHideFlags: 0
@@ -30056,14 +30041,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaae5df1be473b44986831ac129f14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  choiceButtonPrefab: {fileID: 4087350943102769212, guid: 07666615b91b9bd429ab33f6ff6b9c0f, type: 3}
   descriptionText: {fileID: 1768172077}
+  choiceButtonPrefab: {fileID: 4087350943102769212, guid: 07666615b91b9bd429ab33f6ff6b9c0f, type: 3}
   closeMenuButton: {fileID: 1889083386}
   choiceMenu: {fileID: 259351858}
   choiceOpponentMenu: {fileID: 1564927299}
-  isChoiceActive: 0
-  confirmMenuButton: {fileID: 792144028}
-  buttonHolder: {fileID: 538839664}
+  IsChoiceActive: 0
+  ConfirmMenuButton: {fileID: 792144028}
+  ButtonHolder: {fileID: 538839664}
 --- !u!114 &925668437 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4933141262056775678, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
@@ -38774,21 +38759,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff497d023b8b234b9f898dbb20edf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: {fileID: 0}
-  nameOfChampion: 
-  health: 0
-  maxHealth: 0
-  shield: 0
-  isOpponent: 0
-  meshToShow: {fileID: 0}
-  currentSprite: {fileID: 0}
-  animator: {fileID: 0}
-  champCard: {fileID: 1296315602}
-  sheildUIObject: {fileID: 592518952}
   shieldShow: {fileID: 592518955}
   passiveEffect: {fileID: 1011620046}
-  imageHolder: {fileID: 2109878248}
+  shieldUIObject: {fileID: 592518952}
   healthBar: {fileID: 135737457}
+  imageHolder: {fileID: 2109878248}
+  meshToShow: {fileID: 0}
+  Champion: {fileID: 0}
+  NameOfChampion: 
+  Health: 0
+  MaxHealth: 0
+  Shield: 0
+  IsOpponent: 0
+  Animator: {fileID: 0}
 --- !u!1 &1340165127
 GameObject:
   m_ObjectHideFlags: 0
@@ -39560,11 +39543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &1389671540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42783,11 +42766,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &1564163109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44357,7 +44340,7 @@ RectTransform:
   - {fileID: 1628134718}
   - {fileID: 1965229626}
   m_Father: {fileID: 642618656}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -44482,11 +44465,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &1673928808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45168,6 +45151,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckPlayer:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   deckOpponent:
   - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
@@ -45460,11 +45449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &1731128544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51250,11 +51239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ec1c50afd0c6041b828606a377b8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
-  manaCost: 0
+  Card: {fileID: 0}
+  ManaCost: 0
   scaleOnHover: 1.3
-  layoutElement: {fileID: 0}
-  cardDissolve: {fileID: 0}
+  LayoutElement: {fileID: 0}
+  CardDissolve: {fileID: 0}
 --- !u!114 &1978138853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61339,18 +61328,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardName: {fileID: 5845616680753339308}
-  description: {fileID: 5845616679388145772}
   manaText: {fileID: 5845616681371933355}
-  hpText: {fileID: 5845616679930375511}
   artworkMeshRenderer: {fileID: 5845616680940435465}
   attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
   spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
   landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
-  cardPlayableEffect: {fileID: 1453296759250579043}
   nameBackground: {fileID: 5845616679677962717}
   championBorder: {fileID: 4538332027052765395}
   currentSprite: {fileID: 4282970057366051273}
   hpGameObject: {fileID: 5845616679930375513}
+  hpText: {fileID: 5845616679930375511}
+  description: {fileID: 5845616679388145772}
+  cardPlayableEffect: {fileID: 1453296759250579043}
 --- !u!33 &5845616680940435464
 MeshFilter:
   m_ObjectHideFlags: 0

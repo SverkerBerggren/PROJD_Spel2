@@ -16,8 +16,5 @@ public abstract class Spells : Card
         GameState.Instance.Refresh();
     }
 
-   
-
-
-    public abstract void PlaySpell();
+    protected virtual void PlaySpell() {}
 }

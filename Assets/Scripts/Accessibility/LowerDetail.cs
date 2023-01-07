@@ -46,6 +46,7 @@ public class LowerDetail : MonoBehaviour
         }
         baseColors.Clear();
     }
+
     public void LowerDetailShader()
     {
         float factor = Mathf.Pow(0.2f, intensity);
@@ -56,9 +57,9 @@ public class LowerDetail : MonoBehaviour
             m.color = color;
         }
     }
+
     public void DefaultDetailShader()
     {
-
         for (int i = 0; i < baseColorShader.Count; i++)
         {
             shaders[i].color = baseColorShader[i];
@@ -67,7 +68,7 @@ public class LowerDetail : MonoBehaviour
     }
 
 
-    void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         DefaultDetailShader();
     }

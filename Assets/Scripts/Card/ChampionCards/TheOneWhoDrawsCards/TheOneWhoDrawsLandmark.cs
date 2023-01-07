@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/ChampionCards/TheOneWhoDrawsLandmark")]
@@ -24,8 +22,8 @@ public class TheOneWhoDrawsLandmark : Landmarks
     {
         base.CalculateManaCost(cardDisplay);
         if (cardDisplay.firstCardDrawn && preparation)
-            return cardDisplay.manaCost - AmountOfManaToDecreaseBy;
+            return cardDisplay.ManaCost - AmountOfManaToDecreaseBy;
 
-        return cardDisplay.manaCost;
+        return cardDisplay.ManaCost;
     }
 }

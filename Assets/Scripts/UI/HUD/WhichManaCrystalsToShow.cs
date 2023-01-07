@@ -34,14 +34,14 @@ public class WhichManaCrystalsToShow : MonoBehaviour
     {
         for (int i = 0; i < playerManaCrystals.Count; i++)
         {
-            if (actionOfPlayer.currentMana >= (i + 1))
+            if (actionOfPlayer.CurrentMana >= (i + 1))
                 playerManaCrystals[i].SetActive(true);
             else
                 playerManaCrystals[i].SetActive(false);
         }
         for (int i = 0; i < opponentManaCrystals.Count; i++)
         {
-            if (actionOfPlayer.enemyMana >= (i + 1))
+            if (actionOfPlayer.EnemyMana >= (i + 1))
                 opponentManaCrystals[i].SetActive(true);
             else
                 opponentManaCrystals[i].SetActive(false);

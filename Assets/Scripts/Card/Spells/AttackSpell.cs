@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Spells/AttackSpell")]
@@ -20,7 +16,7 @@ public class AttackSpell : Spells
         Targetable = true;
     }
 
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         gameState = GameState.Instance;
         audioManager = AudioManager.Instance;
@@ -45,7 +41,7 @@ public class AttackSpell : Spells
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmarkEnemy, null);
         }
 
-        switch (gameState.playerChampion.champion.ChampionName)
+        switch (gameState.playerChampion.Champion.ChampionName)
         {
             case "Shanker":
             audioManager.PlayShankerAttack();
@@ -63,15 +59,15 @@ public class AttackSpell : Spells
 
     private void DamageToBothActiveChampionsActive()
     {
-        Target = gameState.opponentChampion.champion;
+        Target = gameState.opponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
 
-        Target = gameState.playerChampion.champion;
+        Target = gameState.playerChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 
     private void DamageAsYourChampionHP()
     {
-        Damage = GameState.Instance.playerChampion.health;
+        Damage = GameState.Instance.playerChampion.Health;
     }
 }
