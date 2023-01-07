@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.IO;
-
+using System.Net.Sockets;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 public class Server
 {
@@ -25,6 +27,137 @@ public class Server
     //   public Dictionary<int, int> uniqueIntegersHosted = new Dictionary<int, int>();
 
     public Integer uniqueInteger = new Integer(1);
+
+    bool connectedToSQLServer = false;
+    TcpClient SQLServerSocket = new TcpClient();
+
+
+
+    private async void ConnectToSQLServer()
+    {
+        await SQLServerSocket.ConnectAsync("mrboboget.se", 54000);
+
+        connectedToSQLServer = true;
+
+        RequestMatchID();
+        
+    }
+
+    private async void RequestMatchID()
+    {
+        bool messageRead = false;
+        while (!messageRead)
+        {
+            byte[] buf = new byte[4096];
+            string message = "Request match id";
+            int messagLength = message.Length;
+            char firstChar = (char)(messagLength >> 24);
+            char secondChar = (char)(messagLength >> 16);
+            char thirdChar = (char)(messagLength >> 8);
+            char fourthChar = (char)(messagLength);
+            buf = new byte[messagLength + 4];
+            buf[0] = (byte)firstChar;
+            buf[1] = (byte)secondChar;
+            buf[2] = (byte)thirdChar;
+            buf[3] = (byte)fourthChar;
+
+            for (int i = 0; i < messagLength; i++)
+            {
+                buf[4 + i] = (byte)message[i];
+            }
+
+            //      buf.CopyTo(hej.ToCharArray(), hej.Length);
+            ValueTask temp =  SQLServerSocket.GetStream().WriteAsync(buf);
+            //
+
+            bool continueReading = true;
+            while (continueReading)
+            {
+                byte[] newBuffer = new byte[4096];
+
+                int bytesRecieved = await SQLServerSocket.GetStream().ReadAsync(newBuffer, 0, 4096);
+
+                string recievedMessage = "";
+
+
+
+                if ((bytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                {
+                    char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
+                    string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
+                    continueReading = false;
+                    messageRead = true;
+                    Integer integerToReturn = new Integer( Convert.ToInt32(response));
+                    
+
+                    lock(currentGameId)
+                    {
+                        currentGameId = integerToReturn;
+                    }
+                }
+            }
+
+        }
+
+
+
+    }
+
+    private async void SendMessageToSQLServer( string messageToSend)
+    {
+        bool messageRead = false;
+        while (!messageRead)
+        {
+            byte[] buf = new byte[4096];
+            string message = messageToSend;
+
+            int messagLength = message.Length;
+
+            char firstChar = (char)(messagLength >> 24);
+            char secondChar = (char)(messagLength >> 16);
+            char thirdChar = (char)(messagLength >> 8);
+            char fourthChar = (char)(messagLength);
+            buf = new byte[messagLength + 4];
+            buf[0] = (byte)firstChar;
+            buf[1] = (byte)secondChar;
+            buf[2] = (byte)thirdChar;
+            buf[3] = (byte)fourthChar;
+
+
+            for (int i = 0; i < messagLength; i++)
+            {
+                buf[4 + i] = (byte)message[i];
+            }
+
+
+
+            //      buf.CopyTo(hej.ToCharArray(), hej.Length);
+            await SQLServerSocket.GetStream().WriteAsync(buf);
+            //
+
+            bool continueReading = true;
+            while (continueReading)
+            {
+                byte[] newBuffer = new byte[4096]; 
+
+                int bytesRecieved  = await SQLServerSocket.GetStream().ReadAsync(newBuffer, 0, 4096);
+
+                string recievedMessage = "";
+
+             
+
+                if ((bytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                {
+                    char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
+                    string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
+                    continueReading = false;
+                    messageRead = true;
+
+                }
+            }
+        }
+    }
+
 
 
     public static Int32 ParseBigEndianInteger(byte[] BytesToParse, int ByteOffset)
@@ -158,6 +291,13 @@ public class Server
                     hostedLobbys.Remove(localUniqueInteger);
                 }
             }
+            lock (onGoingGames)
+            {
+                if (onGoingGames.ContainsKey(localUniqueInteger))
+                {
+                    onGoingGames.Remove(localUniqueInteger);
+                }
+            }
             StreamWriter temp = File.CreateText("ErrorMessage.txt");
             temp.Write(e.StackTrace.ToString());
             temp.Write(e.ToString());
@@ -170,6 +310,7 @@ public class Server
     }
     public void p_Listen()
     {
+        ConnectToSQLServer();
         m_Listener.Start();
         while (!m_Stopping)
         {
@@ -180,6 +321,7 @@ public class Server
     }
     public void p_Listen(int port)
     {
+        ConnectToSQLServer();
         m_Listener = new System.Net.Sockets.TcpListener(port);
         m_Listener.Start();
         while (!m_Stopping)
