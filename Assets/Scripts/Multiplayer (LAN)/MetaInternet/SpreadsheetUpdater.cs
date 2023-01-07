@@ -177,7 +177,7 @@ public class SpreadsheetUpdater
     {
         foreach(Card spell in listToSearch)
         {
-            if(spell.cardName.Equals(name))
+            if(spell.CardName.Equals(name))
             {
                 return spell;
             }
@@ -280,58 +280,58 @@ public class SpreadsheetUpdater
                     if (cardObject is Landmarks)
                     {
                         Landmarks l = (Landmarks)cardObject;
-                        if (Convert.ToInt32(currentCard[i]) != l.minionHealth)
+                        if (Convert.ToInt32(currentCard[i]) != l.MinionHealth)
                         {
-                            l.minionHealth = Convert.ToInt32(currentCard[i]);
+                            l.MinionHealth = Convert.ToInt32(currentCard[i]);
 				    	    changed.Add(i);
 				    	}
                     }
                     break;
 
                 case healIndex:
-                    if (cardObject.amountToHeal != Convert.ToInt32(currentCard[i]))
+                    if (cardObject.AmountToHeal != Convert.ToInt32(currentCard[i]))
                     {
-                        cardObject.amountToHeal = Convert.ToInt32(currentCard[i]);
+                        cardObject.AmountToHeal = Convert.ToInt32(currentCard[i]);
 					    changed.Add(i);
                     }
 					break;
 
 			    case damageIndex:
-					if (cardObject.damage != Convert.ToInt32(currentCard[i]))
+					if (cardObject.Damage != Convert.ToInt32(currentCard[i]))
 					{
-						cardObject.damage = Convert.ToInt32(currentCard[i]);
+						cardObject.Damage = Convert.ToInt32(currentCard[i]);
 						changed.Add(i);
 					}
 					break;
 
 			    case shieldIndex:
-					if (cardObject.amountToShield != Convert.ToInt32(currentCard[i]))
+					if (cardObject.AmountToShield != Convert.ToInt32(currentCard[i]))
 					{
-						cardObject.amountToShield = Convert.ToInt32(currentCard[i]);
+						cardObject.AmountToShield = Convert.ToInt32(currentCard[i]);
 						changed.Add(i);
 					}
 					break;
 
 			    case drawIndex:
-					if (cardObject.amountOfCardsToDraw != Convert.ToInt32(currentCard[i]))
+					if (cardObject.AmountOfCardsToDraw != Convert.ToInt32(currentCard[i]))
 					{
-						cardObject.amountOfCardsToDraw = Convert.ToInt32(currentCard[i]);
+						cardObject.AmountOfCardsToDraw = Convert.ToInt32(currentCard[i]);
 						changed.Add(i);
 					}
 					break;
 
 			    case discardIndex:
-					if (cardObject.amountOfCardsToDiscard != Convert.ToInt32(currentCard[i]))
+					if (cardObject.AmountOfCardsToDiscard != Convert.ToInt32(currentCard[i]))
 					{
-						cardObject.amountOfCardsToDiscard = Convert.ToInt32(currentCard[i]);
+						cardObject.AmountOfCardsToDiscard = Convert.ToInt32(currentCard[i]);
 						changed.Add(i);
 					}
                     break;
 
 			    case descriptionIndex:
-					if (!cardObject.description.Equals(currentCard[descriptionIndex]))
+					if (!cardObject.Description.Equals(currentCard[descriptionIndex]))
 					{
-						cardObject.description = currentCard[i];
+						cardObject.Description = currentCard[i];
 						changed.Add(i);
 					}
 					break;

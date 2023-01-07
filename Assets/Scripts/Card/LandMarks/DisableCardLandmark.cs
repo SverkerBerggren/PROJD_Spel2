@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/DisableCardLandmark")]
 public class DisableCardLandmark : Landmarks
 {
-    public DisableCardLandmark(DisableCardLandmark card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
+    [NonSerialized] public Landmarks DisabledLandmark;
+    public DisableCardLandmark(DisableCardLandmark card) : base(card.MinionHealth, card.CardName, card.Description, card.MaxManaCost, card.Damage, card.AmountToHeal, card.AmountToShield)
     {
 
     }
-    public Landmarks disabledLandmark;
 
 	public override void PlaceLandmark()
 	{
@@ -21,7 +22,7 @@ public class DisableCardLandmark : Landmarks
 
 	public override void WhenLandmarksDie()
 	{
-		if (disabledLandmark != null)
+		if (DisabledLandmark != null)
 		{
 			GameState gameState = GameState.Instance;
 			TargetInfo info = new TargetInfo();
@@ -29,7 +30,7 @@ public class DisableCardLandmark : Landmarks
 			info.index = -1;
 			for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
 			{
-				if (gameState.opponentLandmarks[i].card != null && disabledLandmark.Equals(gameState.opponentLandmarks[i]))
+				if (gameState.opponentLandmarks[i].card != null && DisabledLandmark.Equals(gameState.opponentLandmarks[i]))
 				{
 					info.index = i;
 				}

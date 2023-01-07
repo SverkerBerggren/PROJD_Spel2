@@ -49,7 +49,6 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
-		deckbuilder.UpdateDeckList();
 	}
 
     public void SaveDeckToFile(string deckName)
@@ -60,7 +59,7 @@ public class Setup : MonoBehaviour
         List<string> cards = new List<string>();
         foreach (Card c in amountOfCards.Keys)
         {
-            cards.Add(c.cardName + "|" + amountOfCards[c]);
+            cards.Add(c.CardName + "|" + amountOfCards[c]);
         }
 		SavedDeck savedDeck = new SavedDeck
 		{
@@ -107,7 +106,7 @@ public class Setup : MonoBehaviour
 				amountOfCards.Add(card, cardAmount);
                 currentDeckSize += cardAmount;
 
-                if (card.championCard)
+                if (card.ChampionCard)
                 {
                     if (champCardsIncluded.Contains(card))
                     {
@@ -130,9 +129,9 @@ public class Setup : MonoBehaviour
 
 	public void AddChampion(Champion champion)
     {
-        if (!myChampions.Contains(champion.championName) && myChampions.Count < 3 && currentDeckSize + cardRegister.champCards[champion].Count <= deckCount)
+        if (!myChampions.Contains(champion.ChampionName) && myChampions.Count < 3 && currentDeckSize + cardRegister.champCards[champion].Count <= deckCount)
         {
-            myChampions.Add(champion.championName);
+            myChampions.Add(champion.ChampionName);
             AddCards(cardRegister.champCards[champion]);
             deckbuilder.UpdateDeckList();
         }
@@ -140,9 +139,9 @@ public class Setup : MonoBehaviour
 
     public void RemoveChampion(Champion champion)
     {
-        if (myChampions.Contains(champion.championName))
+        if (myChampions.Contains(champion.ChampionName))
         {
-		    myChampions.Remove(champion.championName);
+		    myChampions.Remove(champion.ChampionName);
             RemoveCards(cardRegister.champCards[champion]);
             deckbuilder.UpdateDeckList();
         }
@@ -193,6 +192,7 @@ public class Setup : MonoBehaviour
             currentDeckSize--;
             if (amountOfCards[card] <= 0)
 			{
+                deckbuilder.CheckCardBanner(card);
 				amountOfCards.Remove(card);
 			}
             deckbuilder.UpdateDeckList();
@@ -204,6 +204,7 @@ public class Setup : MonoBehaviour
         amountOfCards.Clear();
         playerDeckList.Clear();
         myChampions.Clear();
+        deckbuilder.ClearAllBanners();
         currentDeckSize = 0;
         deckbuilder.deckName = "";
     	deckbuilder.UpdateDeckList();

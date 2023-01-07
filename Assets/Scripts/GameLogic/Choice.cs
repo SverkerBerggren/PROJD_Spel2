@@ -133,7 +133,7 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < actionOfPlayer.handPlayer.cardsInHand.Count; i++)
             {               
                 CardDisplay cardDisplay = actionOfPlayer.handPlayer.cardsInHand[i];
-                if (cardDisplay.card.championCard && cardDisplay.card.championCardType != ChampionCardType.All)
+                if (cardDisplay.card.ChampionCard && cardDisplay.card.ChampionCardType != ChampionCardType.All)
                     MakeButtonOfCard(cardDisplay.card, listEnum, i);
             }
         }
@@ -167,9 +167,9 @@ public class Choice : MonoBehaviour
 
         if (listEnum.myDeck && whichMethod == WhichMethod.SeersShack)
         {
-			descriptionText.text = "Seers Shack";
+			descriptionText.text = "Choose any number of cards to place at the bottom";
             SeersShack seersShack = (SeersShack)cardUsed;
-			for (int i = 0; i < seersShack.cardsShown; i++)
+			for (int i = 0; i < seersShack.CardsShown; i++)
 			{
                 if (Deck.Instance.deckPlayer[i] != null)
                 {
@@ -323,7 +323,7 @@ public class Choice : MonoBehaviour
     private void TransformCard()
     {
         CardDisplay cardToTransform = actionOfPlayer.handPlayer.cardsInHand[chosenTargets[0].index];
-        cardToTransform.card.championCardType = ChampionCardType.All;
+        cardToTransform.card.ChampionCardType = ChampionCardType.All;
     }
 
 	private void SeersShackAbility()
@@ -347,7 +347,7 @@ public class Choice : MonoBehaviour
             if (chosenTargets[0].whichList.opponentLandmarks)
             {
                 Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets[0].index].card;
-                card.disabledLandmark = landmark;
+                card.DisabledLandmark = landmark;
             }
         }
 
@@ -457,7 +457,7 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.isItMyTurn)
         {
-            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.championName.Equals("Duelist"))
+            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.champion.ChampionName.Equals("Duelist"))
             {
                 print("Den passar priority via choice memyn");
                 gameState.PassPriority();
@@ -466,7 +466,7 @@ public class Choice : MonoBehaviour
         else if (gameState.opponentChampion.health <= 0 || (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.champion is Duelist))
             gameState.PassPriority();
 
-        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.championName.Equals("Duelist"))
+        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.champion.ChampionName.Equals("Duelist"))
         {
             gameState.PassPriority();
         }   
@@ -583,7 +583,7 @@ public class Choice : MonoBehaviour
                 for (int i = 0; i < cardsInHand.Count; i++)
                 {
                     Card card = cardsInHand[i].card;
-                    if (card.championCard && card.championCardType != ChampionCardType.All)
+                    if (card.ChampionCard && card.ChampionCardType != ChampionCardType.All)
                     {
                         thereIsAChampionCardToTransform = true;
                         break;
@@ -632,8 +632,6 @@ public class Choice : MonoBehaviour
         
         if (waitRoom[0].Item2 == tuple.Item2)       
             NextInWaitRoom();       
-        else     
-            print("Choice not First");
         
         //M�ste l�gga in om choicen failar checkifchoice att den ska passa priority om den ska g�ra det
     }

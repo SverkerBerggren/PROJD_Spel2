@@ -6,9 +6,9 @@ using UnityEngine;
 public class SeersShack : Landmarks
 {
 	[Header("Seers Shack")]
-	public int cardsShown;
+	public int CardsShown;
 
-    public SeersShack(SeersShack card) : base(card.minionHealth, card.cardName, card.description, card.artwork, card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
+    public SeersShack(SeersShack card) : base(card.MinionHealth, card.CardName, card.Description, card.MaxManaCost, card.Damage, card.AmountToHeal, card.AmountToShield)
     {
 
     }

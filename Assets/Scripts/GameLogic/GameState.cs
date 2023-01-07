@@ -21,6 +21,9 @@ public class GameState : MonoBehaviour
 	[Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
     [SerializeField] private GameObject wonScreen;
+    [SerializeField] private ParticleSystem particle1;
+    [SerializeField] private ParticleSystem particle2;
+    public Animator animator;
 
     [Header("Effect")]
     [SerializeField] private GameObject healEffect;
@@ -192,7 +195,7 @@ public class GameState : MonoBehaviour
         List<Card> listToAdd = new List<Card>();
         for (int i = 0; i < listOfCards.Count; i++)
         {
-            Card card = Instantiate(cardRegister.cardRegister[listOfCards[i].cardName]);
+            Card card = Instantiate(cardRegister.cardRegister[listOfCards[i].CardName]);
             if (isOnline)
             {
                 deck.AddCardToDeckPlayer(card);
@@ -358,13 +361,13 @@ public class GameState : MonoBehaviour
         if (lE.myChampions)
         {
             playerChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.championName, false);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(playerChampions[targetAndAmount.targetInfo.index].champion.ChampionName, false);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, playerChampions[targetAndAmount.targetInfo.index].gameObject);
         }
         if (lE.opponentChampions)
         {
             opponentChampions[targetAndAmount.targetInfo.index].GainShield(targetAndAmount.amount);
-            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.championName, true);
+            Tuple<string, bool> tuple = new Tuple<string, bool>(opponentChampions[targetAndAmount.targetInfo.index].champion.ChampionName, true);
             EffectController.Instance.ActiveShield(tuple, targetAndAmount.amount, opponentChampions[targetAndAmount.targetInfo.index].gameObject);
         }
 
@@ -564,22 +567,22 @@ public class GameState : MonoBehaviour
 
     public void LandmarkPlaced(int index, Landmarks landmark, bool opponentPlayedLandmark)
     {
-        landmark = Instantiate(cardRegister.landmarkRegister[landmark.cardName]);
+        landmark = Instantiate(cardRegister.landmarkRegister[landmark.CardName]);
         ShowPlayedCard(landmark, opponentPlayedLandmark, -1);
         
         if (opponentPlayedLandmark)
         {
             opponentLandmarks[index].card = landmark;
             opponentLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
-            opponentLandmarks[index].health = landmark.minionHealth;
-            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.maxManaCost;
+            opponentLandmarks[index].health = landmark.MinionHealth;
+            opponentLandmarks[index].manaCost = opponentLandmarks[index].card.MaxManaCost;
         }
         else
         {
             playerLandmarks[index].card = landmark;
             playerLandmarks[index].transform.GetChild(0).gameObject.SetActive(true);
-            playerLandmarks[index].health = landmark.minionHealth;
-            playerLandmarks[index].manaCost = playerLandmarks[index].card.maxManaCost;
+            playerLandmarks[index].health = landmark.MinionHealth;
+            playerLandmarks[index].manaCost = playerLandmarks[index].card.MaxManaCost;
         }
     }
 
@@ -692,7 +695,7 @@ public class GameState : MonoBehaviour
     {
         cardsPlayedThisTurn.Add(cardPlayed);
 
-        if (cardPlayed.typeOfCard == CardType.Attack)
+        if (cardPlayed.TypeOfCard == CardType.Attack)
         {
             attacksPlayedThisTurn++;
         }
@@ -781,6 +784,10 @@ public class GameState : MonoBehaviour
     public void Victory()
     {
         wonScreen.SetActive(true);
+        particle1.Play();
+        particle2.Play();
+        
+
         //Request defeat maybe????
     }
 
@@ -829,8 +836,15 @@ public class GameState : MonoBehaviour
 
 
         if (playerChampions.Count <= 0)
+        {
+            
             Defeat();
-        else if (opponentChampions.Count == 1 && opponentChampion.champion.health <= 0)
-            Victory();
+        }
+           
+        else if (opponentChampions.Count == 1 && opponentChampion.champion.Health <= 0)
+        {
+            
+            /*Victory();*/
+        }
     }
 }

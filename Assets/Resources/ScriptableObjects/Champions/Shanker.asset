@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c584da311c2b271499976e6b2ed3e0fa, type: 3}
   m_Name: Shanker
   m_EditorClassIdentifier: 
-  championName: Shanker
-  description: If you played 2 or more attack cards during your turn you may draw
-    2 cards at the end of your turn
-  health: 110
-  artwork: {fileID: 21300000, guid: 0a69ea6564f7a40489ce976328766845, type: 3}
-  championCardType: 5
-  champBackground: {fileID: 21300000, guid: df71beaf2b3f8264a9420baa6eb28b78, type: 3}
-  championMesh: {fileID: 2927351186848487708, guid: 3c29992d0c9498642b8dcd05ef5fc382, type: 3}
-  champAnimator: {fileID: 0}
-  attackCardsToPlay: 2
-  cardsToDraw: 2
+  ChampionName: Shanker
+  Description: If you played 2 or more attack cards during your turn, draw 2 cards
+    at the end of your turn
+  Health: 110
+  Artwork: {fileID: 21300000, guid: 0a69ea6564f7a40489ce976328766845, type: 3}
+  ChampionCardType: 5
+  ChampBackground: {fileID: 21300000, guid: df71beaf2b3f8264a9420baa6eb28b78, type: 3}
+  ChampionMesh: {fileID: 2927351186848487708, guid: 3c29992d0c9498642b8dcd05ef5fc382, type: 3}
+  AttackCardsToPlay: 2
+  CardsToDraw: 2

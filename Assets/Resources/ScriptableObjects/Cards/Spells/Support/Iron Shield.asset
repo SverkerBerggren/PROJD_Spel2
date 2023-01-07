@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c95b3c776c0a394b892ed1a7a5a4e37, type: 3}
   m_Name: Iron Shield
   m_EditorClassIdentifier: 
-  cardName: Iron Shield
-  typeOfCard: 0
-  description: Give all your champions *Shield*
-  artwork: {fileID: 21300000, guid: 12ac3ce22444d8244ad7296227826511, type: 3}
-  maxManaCost: 5
-  tag: Spell
-  damage: 0
-  amountToHeal: 0
-  amountToShield: 30
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
-  targetable: 0
-  championCard: 0
-  championCardType: 0
-  allChampions: 1
+  CardName: Iron Shield
+  TypeOfCard: 0
+  Description: Give all your champions *Shield*
+  MaxManaCost: 5
+  Damage: 0
+  AmountToHeal: 0
+  AmountToShield: 30
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 0
+  ChampionCard: 0
+  ChampionCardType: 0
+  AllChampions: 1

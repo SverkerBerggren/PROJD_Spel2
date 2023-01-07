@@ -8,15 +8,15 @@ using UnityEngine.UIElements.Experimental;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/HealingLandmark")]
 public class HealingLandmark : Landmarks
 {
-    public bool doubleHealingEffect = false;
-    public bool healEachRound = false;
-
     private GameState gameState;
 
-    public HealingLandmark(HealingLandmark card) : base(card.minionHealth,card.cardName,card.description,card.artwork,card.maxManaCost, card.damage, card.amountToHeal, card.amountToShield)
+    public bool DoubleHealingEffect = false;
+    public bool HealEachRound = false;
+
+    public HealingLandmark(HealingLandmark card) : base(card.MinionHealth, card.CardName, card.Description, card.MaxManaCost, card.Damage, card.AmountToHeal, card.AmountToShield)
     {
-        doubleHealingEffect = card.doubleHealingEffect;
-        healEachRound = card.healEachRound;
+        DoubleHealingEffect = card.DoubleHealingEffect;
+        HealEachRound = card.HealEachRound;
     }
 
     public override void PlaceLandmark()
@@ -26,14 +26,14 @@ public class HealingLandmark : Landmarks
 
     public override int HealingEffect(int healing)
     {   
-        if(doubleHealingEffect)
+        if(DoubleHealingEffect)
             return healing * 2;
         return healing;
     }
 
     public override int ShieldingEffect(int shielding)
     {
-        if (doubleHealingEffect)
+        if (DoubleHealingEffect)
             return shielding * 2;
         return shielding;
     }
@@ -41,13 +41,13 @@ public class HealingLandmark : Landmarks
     public override void UpKeep()
     {
         base.UpKeep();
-        if (healEachRound)
+        if (HealEachRound)
         {
             gameState = GameState.Instance;
             for (int i = 0; i < gameState.playerChampions.Count; i++)
             {
                 Target = gameState.playerChampions[i].champion;
-                gameState.CalculateAndHeal(amountToHeal, this);
+                gameState.CalculateAndHeal(AmountToHeal, this);
             }
             
         }

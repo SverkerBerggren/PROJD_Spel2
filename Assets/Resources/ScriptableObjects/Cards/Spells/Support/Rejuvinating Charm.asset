@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c95b3c776c0a394b892ed1a7a5a4e37, type: 3}
   m_Name: Rejuvinating Charm
   m_EditorClassIdentifier: 
-  cardName: Rejuvinating Charm
-  typeOfCard: 0
-  description: '*Heal* to a friendly champion'
-  artwork: {fileID: 21300000, guid: 43a45d25f30b6f14fa3ce146aaa00ea6, type: 3}
-  maxManaCost: 4
-  tag: Spell
-  damage: 0
-  amountToHeal: 50
-  amountToShield: 0
-  amountOfCardsToDraw: 0
-  amountOfCardsToDiscard: 0
-  discardCardsYourself: 1
-  targetable: 1
-  championCard: 0
-  championCardType: 0
-  allChampions: 0
+  CardName: Rejuvinating Charm
+  TypeOfCard: 0
+  Description: '*Heal* to a friendly champion'
+  MaxManaCost: 4
+  Damage: 0
+  AmountToHeal: 50
+  AmountToShield: 0
+  AmountOfCardsToDraw: 0
+  AmountOfCardsToDiscard: 0
+  Effect: {fileID: 0}
+  DiscardCardsYourself: 1
+  Targetable: 1
+  ChampionCard: 0
+  ChampionCardType: 0
+  AllChampions: 0
