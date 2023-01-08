@@ -147,13 +147,12 @@ public class EffectController : MonoBehaviour
             case "Cultist":
                 GainCultistAttackEffect();
                 break;
-            case "Builder": break;
-           
+            case "Builder":      
             case "Duelist":
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
-            case "Graverobber": break;
-            case "TheOneWhoDraws": break;
+            case "Graverobber": 
+            case "TheOneWhoDraws": 
             case "Shanker":
                 holder.GetComponentInChildren<EffectChampions>().attackVFX.Play();
                 break;
