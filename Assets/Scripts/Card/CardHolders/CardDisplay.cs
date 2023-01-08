@@ -25,13 +25,17 @@ public class CardDisplay : Displays
     public LayoutElement LayoutElement;
     public CardDissolve CardDissolve;
 
+    public SelectIndicater selectIndicater;
+
     private void Awake()
     {
         if (!loadedSpriteRenderer && OpponentCard)
             LoadSpriteRendererOnce();
         if (!loadedDisplayAttributes)
             LoadDisplayAttributesOnce();
-        Invoke(nameof(LoadInvoke), 0.01f);       
+        Invoke(nameof(LoadInvoke), 0.01f);
+
+        selectIndicater = SelectIndicater.Instance; 
     }
 
     private void Start()
@@ -95,6 +99,9 @@ public class CardDisplay : Displays
             displayTransform.localScale = new Vector3(scaleOnHover, scaleOnHover, scaleOnHover);
             alreadyBig = true;
         }
+        //set up Select Indicater, should only call this metod when it is a attack card
+     
+        selectIndicater.UppdateIndicater();
     }
 
     public void MouseExit()
@@ -106,6 +113,8 @@ public class CardDisplay : Displays
             displayTransform.position += new Vector3(0, -7.5f, 1);
             ResetSize();
         }
+        //Avaktivera  Indicater
+        selectIndicater.DisableIndicater();
     }
 
     public void EndStep()
