@@ -1,20 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using OpenCover.Framework.Model;
 using System.IO;
 using System;
-using System.Globalization;
-using System.Reflection;
 
 public class Deckbuilder : MonoBehaviour
 {
     private Setup setup;
     private CardRegister register;
     private TMP_Text decklist;
-
 
     [SerializeField] private GameObject buttonHolder;
     [SerializeField] private GameObject cardButton;
@@ -25,13 +20,13 @@ public class Deckbuilder : MonoBehaviour
 	[SerializeField] private TMP_InputField deckNameField;
     [SerializeField] private List<Button> deckSlotButtons = new();
 
-    [NonSerialized] public Dictionary<Card, GameObject> cardBanners = new();
-	[NonSerialized] public string deckName;
-	[NonSerialized] public CardFilter cardFilter = CardFilter.ManaCost;
-	[NonSerialized] public CardType cardTypeFilter = CardType.Attack;
-	[NonSerialized] public int maxCardBanners = 50;
+    [NonSerialized] public Dictionary<Card, GameObject> CardBanners = new();
+	[NonSerialized] public string DeckName;
+	[NonSerialized] public CardFilter CardFilter = CardFilter.ManaCost;
+	[NonSerialized] public CardType CardTypeFilter = CardType.Attack;
+	[NonSerialized] public int MaxCardBanners = 50;
 
-	public Button saveDeck;
+	public Button SaveDeckButton;
 
     private static Deckbuilder instance;
     public static Deckbuilder Instance { get { return instance; } set { instance = value; } }
@@ -54,7 +49,7 @@ public class Deckbuilder : MonoBehaviour
     {
         setup = Setup.Instance;
         register = CardRegister.Instance;
-        foreach (Champion champion in register.champRegister.Values)
+        foreach (Champion champion in register.champRegister.Values) // Adds all cards and champions to the deckbuilder
         {
             MakeButtonOfChampion(champion);
         }
@@ -63,22 +58,22 @@ public class Deckbuilder : MonoBehaviour
             if (!card.ChampionCard)
                 MakeButtonOfCard(card);
         }
+        deckNameField.characterLimit = 12;
         setup.StartDeckbuilder();
         UpdateDeckList();
-        deckNameField.characterLimit = 12;
         FixDeckButtons();
-        FilterCards(cardFilter);
+        FilterCards(CardFilter);
 	}
 
     private void MakeButtonOfCard(Card card)
     {
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
-        choiceButton.cardPrefab.SetActive(true);
+        choiceButton.CardPrefab.SetActive(true);
         CardDisplayAttributes cardDisplayAttributes = gO.GetComponentInChildren<CardDisplayAttributes>();
         cardDisplayAttributes.previewCard = true;
         cardDisplayAttributes.UpdateTextOnCardWithCard(card);
-        gO.GetComponent<DeckbuilderCardButton>().card = card;
+        gO.GetComponent<DeckbuilderCardButton>().Card = card;
     }
 
     private void MakeButtonOfChampion(Champion champion)
@@ -86,10 +81,10 @@ public class Deckbuilder : MonoBehaviour
         GameObject gO = Instantiate(cardButton, buttonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
 
-        ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
+        ChampionAttributes championAttributes = choiceButton.ChampionPrefab.GetComponent<ChampionAttributes>();
         championAttributes.UpdateChampionCard(champion);
-        choiceButton.championPrefab.SetActive(true);
-        gO.GetComponent<DeckbuilderCardButton>().champion = champion;
+        choiceButton.ChampionPrefab.SetActive(true);
+        gO.GetComponent<DeckbuilderCardButton>().Champion = champion;
     }
 
     private void FixDeckButtons()
@@ -123,42 +118,44 @@ public class Deckbuilder : MonoBehaviour
 
     public void SaveDeck()
     {
-        if (string.IsNullOrEmpty(deckName))
+        if (string.IsNullOrEmpty(deckNameField.text))
             deckNameField.text = "Deck";
 
-        setup.SaveDeckToFile(deckNameField.text);
+        if (File.Exists(Setup.savePath + deckNameField.text + ".txt")) return;
+
+		setup.SaveDeckToFile(deckNameField.text);
         AddDeckToButton(deckNameField.text);
     }
 
     public void SearchFilter()
     {
-        FilterCards(cardFilter);
+        FilterCards(CardFilter);
     }
 
     public void FilterCards(CardFilter newCardFilter)
     {
-        cardFilter = newCardFilter;
+        CardFilter = newCardFilter;
         Dictionary<Card, Transform> cardObjects = new();
 		Dictionary<Champion, Transform> championObjects = new();
-		foreach (Transform t in buttonHolder.GetComponentInChildren<Transform>(true))
+		foreach (Transform t in buttonHolder.GetComponentInChildren<Transform>(true)) //Adds all buttons to the two dictonaries
         {
 			if (t.TryGetComponent(out DeckbuilderCardButton deckBuilderCard))
 			{
-				if (deckBuilderCard.card != null)
-					cardObjects.Add(deckBuilderCard.card, t);
-				else if (deckBuilderCard.champion != null)
-					championObjects.Add(deckBuilderCard.champion, t);
+				if (deckBuilderCard.Card != null)
+					cardObjects.Add(deckBuilderCard.Card, t);
+				else if (deckBuilderCard.Champion != null)
+					championObjects.Add(deckBuilderCard.Champion, t);
 			}
 		}
 
         List<Card> cards = new(AddCardsToFilter(cardObjects));
 		List<Champion> champions = new(championObjects.Keys);
 
-		cards.Sort(new CardComparer(cardFilter));
-		champions.Sort(new ChampionComparer(cardFilter));
+		cards.Sort(new CardComparer(CardFilter));
+		champions.Sort(new ChampionComparer(CardFilter));
 
 		int j = 0;
-		for (int i = 0; i < champions.Count + cards.Count; i++)
+		for (int i = 0; i < champions.Count + cards.Count; i++) // Goes through the both dictionaries
         {
 			Champion champion = null;
 			Card card = null;
@@ -169,9 +166,9 @@ public class Deckbuilder : MonoBehaviour
                 card = cards[i - champions.Count];
 
 			if ((card != null && cardObjects.TryGetValue(card, out Transform transform))
-			|| (champion != null && championObjects.TryGetValue(champion, out transform)))
+			|| (champion != null && championObjects.TryGetValue(champion, out transform))) // If it is a card or champion
 			{
-				transform.gameObject.SetActive(true);
+				transform.gameObject.SetActive(true); // Move the card in the deckbuilder
 				transform.SetSiblingIndex(j);
 				j++;
 			}
@@ -187,7 +184,7 @@ public class Deckbuilder : MonoBehaviour
     private List<Card> AddCardsToFilter(Dictionary<Card, Transform> cardObjects)
     {
         List<Card> cards = new(cardObjects.Keys);
-		if (cardFilter == CardFilter.Health)
+		if (CardFilter == CardFilter.Health) // Removes all non landmarks when health filter is on
 		{
 			for (int i = 0; i < cards.Count; i++)
 			{
@@ -208,7 +205,7 @@ public class Deckbuilder : MonoBehaviour
         if (!string.IsNullOrEmpty(cardSearch.text) && card != null && !card.CardName.Contains(cardSearch.text, StringComparison.OrdinalIgnoreCase))
             transform.gameObject.SetActive(false);
 
-        else if (cardFilterButtons.typeFilter && card.TypeOfCard != cardTypeFilter)
+        else if (cardFilterButtons.TypeFilter && card.TypeOfCard != CardTypeFilter)
 			transform.gameObject.SetActive(false);
 	}
 
@@ -217,16 +214,16 @@ public class Deckbuilder : MonoBehaviour
         if (!string.IsNullOrEmpty(cardSearch.text) && !champion.ChampionName.Contains(cardSearch.text, StringComparison.OrdinalIgnoreCase))
             transform.gameObject.SetActive(false);
 
-        else if (cardFilterButtons.typeFilter)
+        else if (cardFilterButtons.TypeFilter)
             transform.gameObject.SetActive(false);
 	}
 
-	public void UpdateDeckList()
+	public void UpdateDeckList() // Shows the whole decklist
     {
         if (setup == null)
             setup = Setup.Instance;
 
-        decklist.text = "Deck: " + deckName + "\n\n";
+        decklist.text = "Deck: " + DeckName + "\n\n";
         decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
         foreach (string champion in setup.myChampions)
         {
@@ -234,55 +231,59 @@ public class Deckbuilder : MonoBehaviour
         }
         decklist.text += "\n";
         decklist.text += "Cards " + setup.currentDeckSize + "/" + setup.deckCount + "\n";
+
         List<Card> cards = new(setup.amountOfCards.Keys);
         cards.Sort(new CardComparer(CardFilter.ManaCost));
 		for (int i = 0; i < cards.Count; i++)
         {
 			CheckCardBanner(cards[i], i);
         }
-
-        saveDeck.interactable = false;
-
-        if (setup.currentDeckSize == setup.deckCount && setup.myChampions.Count == 3)
-        {
-            stopBuilding.interactable = true;
-            foreach (Button b in deckSlotButtons)
-            {
-                if (b.interactable == false)
-                {
-                    saveDeck.interactable = true;
-                    break;
-                }
-            }
-        }
-        else
-            stopBuilding.interactable = false;
+        ChangeButtonInteractability();
     }
+
+    private void ChangeButtonInteractability()
+    {
+        SaveDeckButton.interactable = false;
+		if (setup.currentDeckSize == setup.deckCount && setup.myChampions.Count == 3)
+		{
+			stopBuilding.interactable = true;
+			foreach (Button b in deckSlotButtons)
+			{
+				if (b.interactable == false)
+				{
+					SaveDeckButton.interactable = true;
+					break;
+				}
+			}
+		}
+		else
+			stopBuilding.interactable = false;
+	}
 
     public void CheckCardBanner(Card card)
     {
         CheckCardBanner(card, -1);
     }
 
-	private void CheckCardBanner(Card card, int index)
+	private void CheckCardBanner(Card card, int index) // Changes the cardsbanner object
 	{
         CardBanner cardBanner;
-		if (cardBanners.ContainsKey(card))
-			cardBanner = cardBanners[card].GetComponent<CardBanner>();
+		if (CardBanners.ContainsKey(card))
+			cardBanner = CardBanners[card].GetComponent<CardBanner>();
 		else
 		{
 			GameObject banner = Instantiate(cardBannerPrefab, decklist.transform);
             cardBanner = banner.GetComponent<CardBanner>();
             cardBanner.SetCard(card);
-            cardBanners.Add(card, banner);
-            List<Card> cards = new(cardBanners.Keys);
-            if (cards.Count > maxCardBanners)
+            CardBanners.Add(card, banner);
+            List<Card> cards = new(CardBanners.Keys);
+            if (cards.Count > MaxCardBanners)
                 ClearOldBanners(cards);
 		}
         cardBanner.SetValue(setup.amountOfCards[card]);
 
         if (index > -1)
-            cardBanners[card].transform.SetSiblingIndex(index);
+            CardBanners[card].transform.SetSiblingIndex(index);
 	}
 
     private void ClearOldBanners(List<Card> cards)
@@ -290,20 +291,20 @@ public class Deckbuilder : MonoBehaviour
 		for (int i = 0; i < cards.Count; i++)
 		{
 			Card temp = cards[i];
-			if (!cardBanners[temp].activeSelf)
+			if (!CardBanners[temp].activeSelf)
 			{
-                Destroy(cardBanners[temp]);
-				cardBanners.Remove(temp);
+                Destroy(CardBanners[temp]);
+				CardBanners.Remove(temp);
 			}
 		}
 	}
 
     public void ClearAllBanners()
     {
-        foreach (Card card in cardBanners.Keys)
+        foreach (Card card in CardBanners.Keys)
         {
-            Destroy(cardBanners[card]);
+            Destroy(CardBanners[card]);
         }
-        cardBanners.Clear();
+        CardBanners.Clear();
     }
 }

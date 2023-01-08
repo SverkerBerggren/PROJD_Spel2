@@ -10,10 +10,10 @@ public class DrawCardLandmark : Landmarks
     {
         base.UpKeep();
         GameState.Instance.DrawCard(1, null);
-        if (MysteriousForest && GameState.Instance.amountOfTurns >= 10)
+        if (MysteriousForest && GameState.Instance.AmountOfTurns >= 10)
         {
 			GameState.Instance.DrawCard(5, null);
-            foreach (LandmarkDisplay l in GameState.Instance.playerLandmarks)
+            foreach (LandmarkDisplay l in GameState.Instance.PlayerLandmarks)
             {
                 if (l.Card is DrawCardLandmark && (DrawCardLandmark)l.Card)
                 {

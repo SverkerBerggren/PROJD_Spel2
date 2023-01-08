@@ -39,9 +39,9 @@ public class HealingLandmark : Landmarks
         if (HealEachRound)
         {
             gameState = GameState.Instance;
-            for (int i = 0; i < gameState.playerChampions.Count; i++)
+            for (int i = 0; i < gameState.PlayerChampions.Count; i++)
             {
-                Target = gameState.playerChampions[i].Champion;
+                Target = gameState.PlayerChampions[i].Champion;
                 gameState.CalculateAndHeal(AmountToHeal, this);
             }
             

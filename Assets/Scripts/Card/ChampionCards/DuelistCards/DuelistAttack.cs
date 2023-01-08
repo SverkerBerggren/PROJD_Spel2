@@ -23,7 +23,7 @@ public class DuelistAttack : Spells
 
     private IEnumerator WaitForOpponent()
     {
-        yield return new WaitUntil(() => gameState.opponentChampion.Champion.Health > 0);
+        yield return new WaitUntil(() => gameState.OpponentChampion.Champion.Health > 0);
         ListEnum lE = new ListEnum();
         lE.opponentChampions = true;      
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, this);
@@ -31,7 +31,7 @@ public class DuelistAttack : Spells
 
     public void WaitForChoice()
     {
-        Target = gameState.opponentChampion.Champion;
+        Target = gameState.OpponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 }

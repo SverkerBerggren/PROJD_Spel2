@@ -14,7 +14,7 @@ public class TheOneWhoDrawsSupport : Spells
     }
     protected override void PlaySpell()
     {
-        if (GameState.Instance.drawnCardsPreviousTurn >= CardsDrawnNeeded)
+        if (GameState.Instance.DrawnCardsPreviousTurn >= CardsDrawnNeeded)
         {
             GameState.Instance.DrawCard(2, null);
         }

@@ -6,11 +6,11 @@ using TMPro;
 
 public class ChangeTextWithSlider : MonoBehaviour
 {
-    public TMP_Text textToChange;
     [SerializeField] private Slider slider;
+    public TMP_Text TextToChange;
 
     public void ChangeText()
     {       
-        textToChange.text = slider.value + "/" + slider.maxValue; 
+        TextToChange.text = slider.value + "/" + slider.maxValue; 
     }
 }

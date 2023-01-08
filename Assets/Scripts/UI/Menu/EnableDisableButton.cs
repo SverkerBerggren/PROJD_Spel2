@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class EnableDisableButton : MonoBehaviour
 {
-    
-    public List<GameObject> gameObjectsToDisable = new List<GameObject>();
-    public List<GameObject> gameObjectsToEnable = new List<GameObject>();
 
+	[SerializeField] private List<GameObject> gameObjectsToDisable = new List<GameObject>();
+	[SerializeField] private List<GameObject> gameObjectsToEnable = new List<GameObject>();
     [SerializeField] private ReturnButton returnButton;
-
 
     public void Start()
     {

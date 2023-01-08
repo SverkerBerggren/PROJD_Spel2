@@ -57,9 +57,9 @@ public class Choice : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!gameState.hasPriority)
+        if (!gameState.HasPriority)
         {
-            if (gameState.isItMyTurn && (whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan))
+            if (gameState.IsItMyTurn && (whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan))
                 ShowOpponentThinking();
             else
                 HideOpponentThinking();
@@ -67,7 +67,7 @@ public class Choice : MonoBehaviour
 		else
 			HideOpponentThinking();
 
-		if (!gameState.hasPriority && IsChoiceActive)
+		if (!gameState.HasPriority && IsChoiceActive)
             choiceMenu.SetActive(false);
         else if(IsChoiceActive)
             choiceMenu.SetActive(true);
@@ -98,11 +98,11 @@ public class Choice : MonoBehaviour
 
         if (listEnum.opponentChampions && listEnum.opponentLandmarks) // Is used by one switch
         {
-            MakeButtonOfChampion(gameState.opponentChampion.Champion, listEnum, 0);
+            MakeButtonOfChampion(gameState.OpponentChampion.Champion, listEnum, 0);
             listEnum.opponentChampions = false;
-            for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
+            for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
             {
-                LandmarkDisplay landmarkDisplay = gameState.opponentLandmarks[i];
+                LandmarkDisplay landmarkDisplay = gameState.OpponentLandmarks[i];
                 if (landmarkDisplay.Card == null) continue;
                 
                 MakeButtonOfCard(landmarkDisplay.Card, listEnum, i + 1);
@@ -113,28 +113,28 @@ public class Choice : MonoBehaviour
         // Uses no switch because listenum can have multiple true
 
         if (listEnum.myChampions)
-            MakeButtonsOfChampionList(gameState.playerChampions, listEnum);
+            MakeButtonsOfChampionList(gameState.PlayerChampions, listEnum);
 
 		if (listEnum.opponentChampions)
-			MakeButtonsOfChampionList(gameState.opponentChampions, listEnum);
+			MakeButtonsOfChampionList(gameState.OpponentChampions, listEnum);
 
         if (listEnum.myHand)
             MakeButtonsOfHand(listEnum);
 
 		if (listEnum.myGraveyard)
-			MakeButtonsOfGraveyard(graveyard.graveyardPlayer, listEnum);
+			MakeButtonsOfGraveyard(graveyard.GraveyardPlayer, listEnum);
 
 		if (listEnum.opponentGraveyard)
-			MakeButtonsOfGraveyard(graveyard.graveyardOpponent, listEnum);
+			MakeButtonsOfGraveyard(graveyard.GraveyardOpponent, listEnum);
 
         if (listEnum.myDeck)
             MakeButtonsOfDeck(listEnum);
 
         if (listEnum.myLandmarks)
-			MakeButtonsOfLandmarks(gameState.playerLandmarks, listEnum);
+			MakeButtonsOfLandmarks(gameState.PlayerLandmarks, listEnum);
 
 		if (listEnum.opponentLandmarks)
-            MakeButtonsOfLandmarks(gameState.opponentLandmarks, listEnum);
+            MakeButtonsOfLandmarks(gameState.OpponentLandmarks, listEnum);
 
         if (amountOfTargets == -1)
             ConfirmMenuButton.SetActive(true);
@@ -147,7 +147,7 @@ public class Choice : MonoBehaviour
         {
             AvailableChampion champ = champions[i];
 
-			if (whichMethod != WhichMethod.SwitchChampionMulligan && champ == gameState.playerChampion) continue;
+			if (whichMethod != WhichMethod.SwitchChampionMulligan && champ == gameState.PlayerChampion) continue;
 
 			MakeButtonOfChampion(champ.Champion, listEnum, i);
 		}
@@ -169,7 +169,7 @@ public class Choice : MonoBehaviour
 
     private void MakeButtonsOfDeck(ListEnum listEnum)
     {
-		int count = deck.deckPlayer.Count;
+		int count = deck.DeckPlayer.Count;
 		if (whichMethod == WhichMethod.SeersShack)
 		{
 			SeersShack seersShack = (SeersShack)cardUsed;
@@ -177,9 +177,9 @@ public class Choice : MonoBehaviour
 		}
 		for (int i = 0; i < count; i++)
 		{
-			if (Deck.Instance.deckPlayer[i] == null) break;
+			if (Deck.Instance.DeckPlayer[i] == null) break;
 
-			MakeButtonOfCard(deck.deckPlayer[i], listEnum, i);
+			MakeButtonOfCard(deck.DeckPlayer[i], listEnum, i);
 			closeMenuButton.SetActive(true);
 		}
 	}
@@ -209,7 +209,7 @@ public class Choice : MonoBehaviour
     {      
         GameObject gO = Instantiate(choiceButtonPrefab, ButtonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
-        choiceButton.cardPrefab.SetActive(true);
+        choiceButton.CardPrefab.SetActive(true);
         gO.GetComponentInChildren<CardDisplayAttributes>().UpdateTextOnCardWithCard(card);
 
         choiceButton.targetInfo = new TargetInfo(listEnum, index);
@@ -223,9 +223,9 @@ public class Choice : MonoBehaviour
     {
         GameObject gO = Instantiate(choiceButtonPrefab, ButtonHolder.transform);
         ChoiceButton choiceButton = gO.GetComponent<ChoiceButton>();
-        ChampionAttributes championAttributes = choiceButton.championPrefab.GetComponent<ChampionAttributes>();
+        ChampionAttributes championAttributes = choiceButton.ChampionPrefab.GetComponent<ChampionAttributes>();
         championAttributes.UpdateChampionCard(champion);
-        choiceButton.championPrefab.SetActive(true);
+        choiceButton.ChampionPrefab.SetActive(true);
 
         choiceButton.targetInfo = new TargetInfo(listEnum, index);
         buttonsToDestroy.Add(gO);
@@ -287,7 +287,7 @@ public class Choice : MonoBehaviour
                     break;
 
                 case WhichMethod.DestroyLandmarkEnemy:
-                    gameState.opponentLandmarks[chosenTargets[0].index].DestroyLandmark();
+                    gameState.OpponentLandmarks[chosenTargets[0].index].DestroyLandmark();
                     break;
             }
             cardUsed = null;
@@ -302,9 +302,9 @@ public class Choice : MonoBehaviour
     private void OneSwitchTarget()
     {
         if (chosenTargets[0].whichList.opponentChampions)
-            cardUsed.Target = gameState.opponentChampion.Champion;
+            cardUsed.Target = gameState.OpponentChampion.Champion;
         else
-            cardUsed.LandmarkTarget = gameState.opponentLandmarks[chosenTargets[0].index - 1];
+            cardUsed.LandmarkTarget = gameState.OpponentLandmarks[chosenTargets[0].index - 1];
     }
 
     private void TransformCard()
@@ -319,9 +319,9 @@ public class Choice : MonoBehaviour
         Card card;
         for (int i = 0; i < chosenTargets.Count; i++)
         {
-            card = deck.deckPlayer[chosenTargets[i].index - i];
-            deck.deckPlayer.RemoveAt(chosenTargets[i].index - i);
-            deck.deckPlayer.Add(card);
+            card = deck.DeckPlayer[chosenTargets[i].index - i];
+            deck.DeckPlayer.RemoveAt(chosenTargets[i].index - i);
+            deck.DeckPlayer.Add(card);
         }
 	}
 
@@ -333,12 +333,12 @@ public class Choice : MonoBehaviour
             DisableCardLandmark card = (DisableCardLandmark)cardUsed;
             if (chosenTargets[0].whichList.opponentLandmarks)
             {
-                Landmarks landmark = (Landmarks)GameState.Instance.opponentLandmarks[chosenTargets[0].index].Card;
+                Landmarks landmark = (Landmarks)GameState.Instance.OpponentLandmarks[chosenTargets[0].index].Card;
                 card.DisabledLandmark = landmark;
             }
         }
 
-		if (gameState.isOnline)
+		if (gameState.IsOnline)
 		{
             // new request to disable chosen landmark
 		}
@@ -407,7 +407,7 @@ public class Choice : MonoBehaviour
     {
         gameState.SwapChampionWithTargetInfo(chosenTargets[0], died);
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(chosenTargets[0]);
             request.whichPlayer = ClientConnection.Instance.playerId;
@@ -425,27 +425,27 @@ public class Choice : MonoBehaviour
 
         if (chosenTargets[0].whichList.myChampions)
         {
-            gameState.playerChampion.Champion.WhenCurrentChampion();
-            if (gameState.playerChampion.Champion is Duelist)
+            gameState.PlayerChampion.Champion.WhenCurrentChampion();
+            if (gameState.PlayerChampion.Champion is Duelist)
                 dontPass = true;
         }
 
-        if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.Champion is not Duelist)
+        if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.PlayerChampion.Champion is not Duelist)
             gameState.PassPriority();
 
     }
 
     private void PriorityForSwap()
     {
-        if (!gameState.isItMyTurn)
+        if (!gameState.IsItMyTurn)
         {
-            if (chosenTargets[0].whichList.myChampions && !gameState.playerChampion.Champion.ChampionName.Equals("Duelist")) // If my champion is not duelist
+            if (chosenTargets[0].whichList.myChampions && !gameState.PlayerChampion.Champion.ChampionName.Equals("Duelist")) // If my champion is not duelist
                 gameState.PassPriority();
         }
-        else if (gameState.opponentChampion.Health <= 0 || (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.playerChampion.Champion is Duelist)) // If I swap to duelist when my champion dies
+        else if (gameState.OpponentChampion.Health <= 0 || (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.PlayerChampion.Champion is Duelist)) // If I swap to duelist when my champion dies
 			gameState.PassPriority();
 
-        if (chosenTargets[0].whichList.opponentChampions && gameState.opponentChampion.Champion.ChampionName.Equals("Duelist")) // If I swap opponents chmampion to Duelist
+        if (chosenTargets[0].whichList.opponentChampions && gameState.OpponentChampion.Champion.ChampionName.Equals("Duelist")) // If I swap opponents chmampion to Duelist
             gameState.PassPriority();
     }
 
@@ -460,7 +460,7 @@ public class Choice : MonoBehaviour
 
         List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes);
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             RequestDiscardCard request = new RequestDiscardCard(cards, false);
             request.whichPlayer = ClientConnection.Instance.playerId;
@@ -478,19 +478,19 @@ public class Choice : MonoBehaviour
 
             case WhichMethod.SwitchChampionPlayer:
                 descriptionText.text = "Swap your champion";
-                if (gameState.playerChampions.Count <= 1 || !gameState.canSwap) // Must swap if no other champion is available 
+                if (gameState.PlayerChampions.Count <= 1 || !gameState.CanSwap) // Must swap if no other champion is available 
                     return false;
                 break;
 
             case WhichMethod.SwitchChampionEnemy:
                 descriptionText.text = "Swap the opponent champion";
-                if (gameState.opponentChampions.Count <= 1)
+                if (gameState.OpponentChampions.Count <= 1)
 					return false;
                 break;
             
             case WhichMethod.SwitchChampionDied:
                 descriptionText.text = "Your champion died, Swap your champion";
-                if (gameState.playerChampions.Count <= 1)
+                if (gameState.PlayerChampions.Count <= 1)
                 {
                     gameState.Defeat();
                     return false;
@@ -511,25 +511,25 @@ public class Choice : MonoBehaviour
 
             case WhichMethod.ShowGraveyard:
                 descriptionText.text = "Player Graveyard";
-                if (graveyard.graveyardPlayer.Count <= 0)
+                if (graveyard.GraveyardPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowOpponentGraveyard:
                 descriptionText.text = "Opponent Graveyard";
-                if (graveyard.graveyardOpponent.Count <= 0)
+                if (graveyard.GraveyardOpponent.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.ShowDeck:
                 descriptionText.text = "Player Deck";
-                if (deck.deckPlayer.Count <= 0)
+                if (deck.DeckPlayer.Count <= 0)
                     return false;
                 break;
 
             case WhichMethod.DestroyLandmarkPlayer:
                 descriptionText.text = "Choose a landmark to sacrifice";
-                foreach (LandmarkDisplay landmarks in GameState.Instance.playerLandmarks) // If Player got no landmarks
+                foreach (LandmarkDisplay landmarks in GameState.Instance.PlayerLandmarks) // If Player got no landmarks
                 {
                     if (landmarks.Card != null)
                         break;
@@ -538,7 +538,7 @@ public class Choice : MonoBehaviour
 
 			case WhichMethod.DisableOpponentLandmark:
                 descriptionText.text = "Choose which landmark to disable";
-                foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks) // If Opponent got no landmarks
+                foreach (LandmarkDisplay landmarks in GameState.Instance.OpponentLandmarks) // If Opponent got no landmarks
 				{
                     if (landmarks.Card != null && landmarks.LandmarkEnabled)
                         break;
@@ -558,7 +558,7 @@ public class Choice : MonoBehaviour
 
                 case WhichMethod.SeersShack:
                 descriptionText.text = "Choose which cards to put at the bottom of the deck";
-				if (Deck.Instance.deckPlayer.Count < 2) // Seers shack card
+				if (Deck.Instance.DeckPlayer.Count < 2) // Seers shack card
 					return false;
                 break;
 
@@ -568,7 +568,7 @@ public class Choice : MonoBehaviour
 
             case WhichMethod.DestroyLandmarkEnemy:
                 descriptionText.text = "Choose an opponent landmark to destroy";
-                foreach (LandmarkDisplay landmarks in GameState.Instance.opponentLandmarks) // If opponent got landmark
+                foreach (LandmarkDisplay landmarks in GameState.Instance.OpponentLandmarks) // If opponent got landmark
                 {
                     if (landmarks.Card != null)
                         break;
@@ -583,7 +583,7 @@ public class Choice : MonoBehaviour
         if (waitRoom.Count == 0)
         {
             IsChoiceActive = false;
-            if (!gameState.isItMyTurn && !dontPass)
+            if (!gameState.IsItMyTurn && !dontPass)
                 gameState.PassPriority();
             else
                 dontPass = false;

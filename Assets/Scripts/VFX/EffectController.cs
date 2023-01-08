@@ -53,13 +53,13 @@ public class EffectController : MonoBehaviour
         {
             if(availableChampion.Item2 == false)
             {
-                foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
+                foreach(AvailableChampion champOnField in GameState.Instance.PlayerChampions)
                 {
                     if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         //shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.playerChampion.Champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.PlayerChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }
@@ -72,13 +72,13 @@ public class EffectController : MonoBehaviour
             }
             else
             {
-                foreach(AvailableChampion champOnField in GameState.Instance.opponentChampions)
+                foreach(AvailableChampion champOnField in GameState.Instance.OpponentChampions)
                 {
                     if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         // shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.opponentChampion.Champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.OpponentChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }

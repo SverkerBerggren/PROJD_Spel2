@@ -73,7 +73,7 @@ public abstract class Card : ScriptableObject
         cardPlacement.Placement = placement;
 
         gameState.ShowPlayedCard(this, false, -1);
-        if (gameState.isOnline)        
+        if (gameState.IsOnline)        
             gameState.PlayCardRequest(cardPlacement);
         
         if (AmountOfCardsToDraw != 0)       
@@ -87,7 +87,7 @@ public abstract class Card : ScriptableObject
 
         gameState.Refresh();
         gameState.AddCardToPlayedCardsThisTurn(this);
-        gameState.playerChampion.Champion.AmountOfCardsPlayed(this);
+        gameState.PlayerChampion.Champion.AmountOfCardsPlayed(this);
     }
    
     public virtual string WriteOutCardInfo()

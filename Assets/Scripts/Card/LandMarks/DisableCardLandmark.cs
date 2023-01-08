@@ -23,9 +23,9 @@ public class DisableCardLandmark : Landmarks
 			TargetInfo info = new TargetInfo();
 			info.whichList.opponentLandmarks = true;
 			info.index = -1;
-			for (int i = 0; i < gameState.opponentLandmarks.Count; i++)
+			for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
 			{
-				if (gameState.opponentLandmarks[i].Card != null && DisabledLandmark.Equals(gameState.opponentLandmarks[i]))
+				if (gameState.OpponentLandmarks[i].Card != null && DisabledLandmark.Equals(gameState.OpponentLandmarks[i]))
 				{
 					info.index = i;
 				}

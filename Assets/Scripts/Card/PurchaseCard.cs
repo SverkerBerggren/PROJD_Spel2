@@ -9,7 +9,7 @@ public class PurchaseCard : MonoBehaviour
         GameState gameState = GameState.Instance;
 		ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 
-        if (!(gameState.hasPriority) || !(gameState.isItMyTurn) || (Choice.Instance.IsChoiceActive)) return;
+        if (!(gameState.HasPriority) || !(gameState.IsItMyTurn) || (Choice.Instance.IsChoiceActive)) return;
 
         if (actionOfPlayer.UnspentMana >= costOfUnspentMana)
         {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +6,7 @@ public class CardBanner : MonoBehaviour
 {
 	private MeshRenderer artworkMeshRenderer;
 	private int count = 0;
+
 	[SerializeField] private TMP_Text cardName;
 	[SerializeField] private TMP_Text manaCost;
 	[SerializeField] private TMP_Text countText;
@@ -21,9 +20,8 @@ public class CardBanner : MonoBehaviour
 		countText.text = "x " + count;
 		cardName.text = card.CardName;
 		manaCost.text = card.MaxManaCost.ToString();
-		//
 
-		if (card.ChampionCard)
+		if (card.ChampionCard) // Adds a champion border when its a champion card
 		{
 			championBorder.gameObject.SetActive(true);
 			currentSprite.sprite = CardRegister.Instance.championTypeRegister[card.ChampionCardType].ChampBackground;

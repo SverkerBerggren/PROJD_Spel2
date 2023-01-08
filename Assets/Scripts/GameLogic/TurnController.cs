@@ -16,7 +16,7 @@ public class TurnController : MonoBehaviour
 	private static TurnController instance;
 	public static TurnController Instance { get; set; }
 
-	private void Awake()
+	private void Awake() // WIP code on a timer system
 	{
 		if (Instance == null)
 		{
@@ -34,9 +34,9 @@ public class TurnController : MonoBehaviour
 
 	void Update()
     {
-		if (!gameState.isOnline) return;
+		if (!gameState.IsOnline) return;
 
-		if (gameState.hasPriority)
+		if (gameState.HasPriority)
 		{
 			playerTimer -= Time.deltaTime;
 		}
@@ -47,7 +47,7 @@ public class TurnController : MonoBehaviour
     }
 
 	/*
-	public void AddTime(bool isPlayer, float time)
+	public void AddTime(bool isPlayer, float time) 
 	{
 		if (isPlayer)
 		{

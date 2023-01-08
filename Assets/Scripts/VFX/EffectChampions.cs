@@ -5,14 +5,14 @@ using UnityEngine.VFX;
 
 public  class EffectChampions : MonoBehaviour
 {
-    public SkinnedMeshRenderer[] skinneMaterials;
-    public MeshRenderer[] meshMaterials;
-    public VisualEffect attackVFX;
     private const float DISOLVERATE = 0.0125f;
     private const float REFRESHRATE = 0.025f;
-    [SerializeField] private VisualEffect deathVFX;
 
+	[SerializeField] private SkinnedMeshRenderer[] skinneMaterials;
+	[SerializeField] private MeshRenderer[] meshMaterials;
 
+	public VisualEffect attackVFX;
+    public VisualEffect deathVFX;
 
     public void StartDisolve()
     {
@@ -46,9 +46,7 @@ public  class EffectChampions : MonoBehaviour
                 }
                 //can this up to destory object
                 if ((skinneMaterials.Length > 0 && skinneMaterials[0].material.GetFloat("_DissolvedAmount") > 0.99f) || (meshMaterials.Length > 0 && meshMaterials[0].material.GetFloat("_DissolvedAmount") > 0.99f))
-                {
                     break;
-                }
 
                 yield return new WaitForSeconds(REFRESHRATE);
             }

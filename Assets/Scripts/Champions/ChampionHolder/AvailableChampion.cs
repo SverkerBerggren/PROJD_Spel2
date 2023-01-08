@@ -46,7 +46,7 @@ public class AvailableChampion : MonoBehaviour
         {
             TargetingEffect = transform.Find("TargetingEffect").gameObject;
             TargetingEffect.SetActive(false);
-			gameState.targetingEffect = TargetingEffect;
+			gameState.TargetingEffect = TargetingEffect;
         }
 
         passiveTextPlayer = GameObject.Find("ChampionOpponentPassive");
@@ -58,7 +58,7 @@ public class AvailableChampion : MonoBehaviour
 
 	private void SetupHealthBar()
     {
-        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().textToChange;
+        healthBarText = healthBar.GetComponent<ChangeTextWithSlider>().TextToChange;
         healthBarSlider = healthBar.GetComponent<Slider>();
         healthBarSlider.maxValue = MaxHealth;
         healthBarSlider.value = MaxHealth;
@@ -71,7 +71,7 @@ public class AvailableChampion : MonoBehaviour
         Health = Champion.Health;
         MaxHealth = Champion.MaxHealth;
 
-        if (gameState.playerChampion.Champion == Champion || gameState.opponentChampion.Champion == Champion)
+        if (gameState.PlayerChampion.Champion == Champion || gameState.OpponentChampion.Champion == Champion)
         {
             meshToShow = Instantiate(Champion.ChampionMesh, transform);
 
@@ -157,10 +157,10 @@ public class AvailableChampion : MonoBehaviour
 
         if (Champion.Health <= 0)
         {
-		    if ((gameState.playerChampions.Count == 1 && gameState.playerChampion.Champion == Champion)
-            || (gameState.opponentChampions.Count == 1 && gameState.opponentChampion.Champion == Champion))
+		    if ((gameState.PlayerChampions.Count == 1 && gameState.PlayerChampion.Champion == Champion)
+            || (gameState.OpponentChampions.Count == 1 && gameState.OpponentChampion.Champion == Champion))
 		    {
-			    gameState.animator.enabled = true;
+			    gameState.cameraAnimator.enabled = true;
 			    Invoke(nameof(Death), 3.0f);
 		    }
             else

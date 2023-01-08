@@ -5,8 +5,8 @@ using TMPro;
 
 public class UpdateUnspentMana : MonoBehaviour
 {
-    [SerializeField] private TMP_Text textToUpdate;
     private string unspentManaText;
+    [SerializeField] private TMP_Text textToUpdate;
     private void OnEnable()
     {
         unspentManaText = ActionOfPlayer.Instance.UnspentMana.ToString();

@@ -8,11 +8,12 @@ public class DeckSlot : MonoBehaviour
     private string deck;
     private Button deckButton;
 	private TMP_Text deckButtonText;
-	[SerializeField] private Button deleteButton;
 	private Setup setup;
 	private Deckbuilder deckbuilder;
 
-	private void Start()
+	[SerializeField] private Button deleteButton;
+
+	private void Start() // Class that holds a saved deck
 	{
 		setup = Setup.Instance;
 		deckbuilder = Deckbuilder.Instance;
@@ -35,7 +36,6 @@ public class DeckSlot : MonoBehaviour
 		{
 			File.Delete(Setup.savePath + deck + ".txt");
 		}
-		deckbuilder.saveDeck.interactable = true;
 		deck = "";
 		deckButtonText.text = "Empty Deckslot";
 		deckButton.interactable = false;

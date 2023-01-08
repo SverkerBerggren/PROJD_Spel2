@@ -38,7 +38,7 @@ public class GraverobberSpells : Spells
                 discardedCards++;
         }
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             //Discard for Opponent
             RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
@@ -72,7 +72,7 @@ public class GraverobberSpells : Spells
 
 		graveyard.AddCardToGraveyard(this);
 
-		if (GameState.Instance.isOnline)
+		if (GameState.Instance.IsOnline)
         {
             RequestRemoveCardsGraveyard requesten = new RequestRemoveCardsGraveyard();
             requesten.whichPlayer = ClientConnection.Instance.playerId;

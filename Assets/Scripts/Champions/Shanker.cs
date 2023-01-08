@@ -9,13 +9,13 @@ public class Shanker : Champion
     public override void EndStep()
 	{
 		base.EndStep();
-		if (gameState.attacksPlayedThisTurn >= AttackCardsToPlay)
+		if (gameState.AttacksPlayedThisTurn >= AttackCardsToPlay)
 			gameState.DrawCard(CardsToDraw, null);
 	}
 
 	public override void UpdatePassive()
 	{
-		if(gameState.opponentChampion.Champion != this)
-			PassiveEffect = gameState.attacksPlayedThisTurn + "/" + AttackCardsToPlay + " attacks";
+		if(gameState.OpponentChampion.Champion != this)
+			PassiveEffect = gameState.AttacksPlayedThisTurn + "/" + AttackCardsToPlay + " attacks";
     }
 }

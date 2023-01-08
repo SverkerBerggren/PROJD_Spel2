@@ -1130,8 +1130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ba14718e6b42e478f4eb385647aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDeckList: []
   maxCopies: 3
+  playerDeckList: []
   myChampions: []
   deckCount: 40
   currentDeckSize: 0
@@ -2607,51 +2607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407eea943d47ba047aea5b5a9faf2e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champions:
-  - Graverobber
-  - TheOneWhoDraws
-  - Builder
-  cards:
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 814eba0519f4b2d41ae1d4ac381a7d75, type: 2}
-  - {fileID: 11400000, guid: 814eba0519f4b2d41ae1d4ac381a7d75, type: 2}
-  - {fileID: 11400000, guid: 0311bed54ad903b4dac5abb8968f9462, type: 2}
-  - {fileID: 11400000, guid: 0311bed54ad903b4dac5abb8968f9462, type: 2}
-  - {fileID: 11400000, guid: fd7d49e86d345ea44b367bbb19fd1827, type: 2}
-  - {fileID: 11400000, guid: fd7d49e86d345ea44b367bbb19fd1827, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
-  - {fileID: 11400000, guid: 6025628fbc5217742a490a2ad097945f, type: 2}
-  - {fileID: 11400000, guid: 6025628fbc5217742a490a2ad097945f, type: 2}
-  - {fileID: 11400000, guid: 6025628fbc5217742a490a2ad097945f, type: 2}
-  - {fileID: 11400000, guid: f3b66e6a645219449a82a9aaa3a491fa, type: 2}
-  - {fileID: 11400000, guid: f3b66e6a645219449a82a9aaa3a491fa, type: 2}
-  - {fileID: 11400000, guid: f3b66e6a645219449a82a9aaa3a491fa, type: 2}
-  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
-  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
-  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
-  - {fileID: 11400000, guid: 9473f0a7edf82404fa543958d06dfe0c, type: 2}
-  - {fileID: 11400000, guid: 9473f0a7edf82404fa543958d06dfe0c, type: 2}
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
-  - {fileID: 11400000, guid: 83f9aa96569d37540a67aa58ac385e87, type: 2}
-  - {fileID: 11400000, guid: 6c37724b49e89224c80b9fab401a0aae, type: 2}
-  - {fileID: 11400000, guid: 6c37724b49e89224c80b9fab401a0aae, type: 2}
-  - {fileID: 11400000, guid: e382f1387090e1b4d996458174ac8c78, type: 2}
-  - {fileID: 11400000, guid: 6ffaa3e03182143448f040d3137963c3, type: 2}
-  - {fileID: 11400000, guid: 39e6a98067f213542ba6291b354f93b3, type: 2}
-  - {fileID: 11400000, guid: b5e5f3a4252fc654c8d44b307fbf810f, type: 2}
-  - {fileID: 11400000, guid: b5e5f3a4252fc654c8d44b307fbf810f, type: 2}
-  - {fileID: 11400000, guid: 5f9d69447087e324881d7a586c75da19, type: 2}
-  - {fileID: 11400000, guid: 3390ecdd284127742ad01055a2b05e6b, type: 2}
-  - {fileID: 11400000, guid: 3390ecdd284127742ad01055a2b05e6b, type: 2}
-  - {fileID: 11400000, guid: af7b1fd6bce5cf64894a3079753b210a, type: 2}
-  - {fileID: 11400000, guid: 8f4cdaf216913ac44934aae9c1446486, type: 2}
+  Champions: []
+  Cards: []
 --- !u!1 &883501386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,6 +3406,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_TargetDisplay: 0
+--- !u!114 &1308595177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6297396220603745728, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+  m_PrefabInstance: {fileID: 6297396220714368800}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455885206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4713,51 +4681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407eea943d47ba047aea5b5a9faf2e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champions:
-  - Cultist
-  - Shanker
-  - Duelist
-  cards:
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
-  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
-  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
-  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
-  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
-  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
-  - {fileID: 11400000, guid: 9473f0a7edf82404fa543958d06dfe0c, type: 2}
-  - {fileID: 11400000, guid: 9473f0a7edf82404fa543958d06dfe0c, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
-  - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
-  - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
-  - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
-  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
-  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
-  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
-  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
-  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
-  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
-  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
-  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
-  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
-  - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
-  - {fileID: 11400000, guid: 41ff255202b0dcb4681b16fa8a2a6651, type: 2}
-  - {fileID: 11400000, guid: d716d90145e3afb4b949e779741cb780, type: 2}
-  - {fileID: 11400000, guid: d716d90145e3afb4b949e779741cb780, type: 2}
-  - {fileID: 11400000, guid: 1eb3b25ea1dbed0488b10e027b23c66f, type: 2}
-  - {fileID: 11400000, guid: fe2e9c357dba8b2479899b98c221bc29, type: 2}
-  - {fileID: 11400000, guid: e0077bc1a262d824ab327f813c7e6524, type: 2}
-  - {fileID: 11400000, guid: e0077bc1a262d824ab327f813c7e6524, type: 2}
-  - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
-  - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
-  - {fileID: 11400000, guid: 2175d7f8275807745816733ac541ca51, type: 2}
-  - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
+  Champions: []
+  Cards: []
 --- !u!114 &1756219167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6254,6 +6179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6297396219387924212, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: SaveDeckButton
+      value: 
+      objectReference: {fileID: 1308595177}
     - target: {fileID: 7480732326141935749, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -288
@@ -6262,5 +6191,6 @@ PrefabInstance:
       propertyPath: m_AllowSwitchOff
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6297396219218822952, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}

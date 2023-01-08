@@ -51,7 +51,7 @@ public class ActionOfPlayer : MonoBehaviour
             GameState.Instance.DrawCard(1, null);
 
         if (Input.GetKeyDown(KeyCode.P))
-            gameState.hasPriority = true;
+            gameState.HasPriority = true;
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -94,7 +94,7 @@ public class ActionOfPlayer : MonoBehaviour
             cardDisplay.gameObject.SetActive(true);
             if (drawnCards == 0)
             {
-                gameState.drawnCardsThisTurn -= 1;
+                gameState.DrawnCardsThisTurn -= 1;
                 cardDisplay.firstCardDrawn = true;
             }
             drawnCards++;
@@ -119,13 +119,13 @@ public class ActionOfPlayer : MonoBehaviour
 
                 if (isPlayer)
                     graveyard.AddCardToGraveyard(c);
-                else if(!isPlayer && !gameState.isOnline)
+                else if(!isPlayer && !gameState.IsOnline)
 					graveyard.AddCardToGraveyardOpponent(c);
 
 				cardNames.Add(c.CardName);
             }
 
-            if (gameState.isOnline && isPlayer)
+            if (gameState.IsOnline && isPlayer)
             {
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
@@ -191,7 +191,7 @@ public class ActionOfPlayer : MonoBehaviour
 		if (isPlayer)
 		{
 			hand = HandPlayer;
-			GameState.Instance.drawnCardsThisTurn += amountToDraw;
+			GameState.Instance.DrawnCardsThisTurn += amountToDraw;
 		}
 		else
 			hand = HandOpponent;

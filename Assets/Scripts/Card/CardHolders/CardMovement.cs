@@ -36,8 +36,8 @@ public class CardMovement : MonoBehaviour
 
         cardDisplay.mouseDown = true;
      
-        if (gameState.targetingEffect != null && cardDisplay.Card.TypeOfCard == CardType.Attack)
-            gameState.targetingEffect.SetActive(true);
+        if (gameState.TargetingEffect != null && cardDisplay.Card.TypeOfCard == CardType.Attack)
+            gameState.TargetingEffect.SetActive(true);
         MousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50));
         cardDisplay.clickedOnCard = true;
         cardDisplay.ResetSize();       
@@ -48,7 +48,7 @@ public class CardMovement : MonoBehaviour
         if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, false)) return;
         if (cardDisplay.Card.ChampionCard && cardDisplay.Card.ChampionCardType != ChampionCardType.All)
         {
-            if(gameState.playerChampion.Champion.ChampionCardType != cardDisplay.Card.ChampionCardType) return;
+            if(gameState.PlayerChampion.Champion.ChampionCardType != cardDisplay.Card.ChampionCardType) return;
         } 
 		if (gameObject.tag.Equals("LandmarkSlot")) return;
         if (cardDisplay.OpponentCard == true) return;

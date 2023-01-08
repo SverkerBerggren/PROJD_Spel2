@@ -12,7 +12,7 @@ public class DuelistSupport : Spells
     }
 	protected override void PlaySpell()
     {      
-        List<AvailableChampion> enemyChamps = GameState.Instance.opponentChampions;
+        List<AvailableChampion> enemyChamps = GameState.Instance.OpponentChampions;
         int index = 0;
 
         for (int i = enemyChamps.Count - 1; i > 0; i--)
@@ -30,7 +30,7 @@ public class DuelistSupport : Spells
 
         GameState.Instance.SwapChampionWithTargetInfo(tIForOpponent, false);
 
-        if (GameState.Instance.isOnline)
+        if (GameState.Instance.IsOnline)
         {
             RequestSwitchActiveChamps request = new RequestSwitchActiveChamps(tIForOpponent);
             request.whichPlayer = ClientConnection.Instance.playerId;
@@ -42,13 +42,13 @@ public class DuelistSupport : Spells
     private void DrawAttackCard()
     {
 		ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
-		foreach (Card card in Deck.Instance.deckPlayer)
+		foreach (Card card in Deck.Instance.DeckPlayer)
 		{
 			if (card is AttackSpell)
 			{
 				actionOfPlayer.DrawCardPlayer(1, card, true);
 				Deck.Instance.RemoveCardFromDeck(card);
-				if (GameState.Instance.isOnline)
+				if (GameState.Instance.IsOnline)
 				{
 					RequestDrawCard request = new RequestDrawCard(1);
 					ClientConnection.Instance.AddRequest(request, GameState.Instance.RequestEmpty);

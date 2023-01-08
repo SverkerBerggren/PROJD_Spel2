@@ -8,13 +8,13 @@ public class Graverobber : Champion
     public override void EndStep()
 	{
 		base.EndStep();
-		if (Graveyard.Instance.graveyardPlayer.Count == 0) return;
+		if (Graveyard.Instance.GraveyardPlayer.Count == 0) return;
 
 		// Draws the remove card to the players hand
 		Tuple<Card, int> info = Graveyard.Instance.RandomizeCardFromGraveyard();
 		ActionOfPlayer.Instance.DrawCardPlayer(1, info.Item1, true);
 
-		if (GameState.Instance.isOnline)
+		if (GameState.Instance.IsOnline)
 		{
 			TargetInfo targetInfo = new TargetInfo();
 			targetInfo.whichList.myGraveyard = true;

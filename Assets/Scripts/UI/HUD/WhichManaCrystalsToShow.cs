@@ -15,13 +15,9 @@ public class WhichManaCrystalsToShow : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     // Start is called before the first frame update

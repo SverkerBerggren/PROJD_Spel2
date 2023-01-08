@@ -53,7 +53,7 @@ public class PlayCardManager : MonoBehaviour
         Landmarks landmark = (Landmarks)card;
         GameState.Instance.LandmarkPlaced(landmarkSlot.Index, landmark, false);
 
-		if (GameState.Instance.isOnline)
+		if (GameState.Instance.IsOnline)
         {
             RequestPlayLandmark request = new RequestPlayLandmark();
             request.whichPlayer = ClientConnection.Instance.playerId;
@@ -96,7 +96,7 @@ public class PlayCardManager : MonoBehaviour
         if (card.TypeOfCard == CardType.Landmark)
         {
             int amountOfLandmarksAlreadyInUse = 0;
-            foreach (LandmarkDisplay landmarkDisplay in GameState.Instance.playerLandmarks)
+            foreach (LandmarkDisplay landmarkDisplay in GameState.Instance.PlayerLandmarks)
             {
                 if (landmarkDisplay.Card == null)
                 {
@@ -142,7 +142,7 @@ public class PlayCardManager : MonoBehaviour
 		// Should indicate the TauntLandmark so its more obvious
 		if (card.TypeOfCard != CardType.Attack) return false;
 
-		foreach (LandmarkDisplay landmarkDisplay in gameState.opponentLandmarks)
+		foreach (LandmarkDisplay landmarkDisplay in gameState.OpponentLandmarks)
 		{
 			if (landmarkDisplay.Card == null) continue;
 
@@ -164,9 +164,9 @@ public class PlayCardManager : MonoBehaviour
 	{
 		this.cardDisplay = cardDisplay;
 		card = cardDisplay.Card;
-		if (gameState.isOnline)
+		if (gameState.IsOnline)
 		{
-			if (!gameState.isItMyTurn || !gameState.hasPriority)
+			if (!gameState.IsItMyTurn || !gameState.HasPriority)
 				return false;
 		}
 
@@ -176,7 +176,7 @@ public class PlayCardManager : MonoBehaviour
 		// Checking if the card used is a champion card
 		if (card.ChampionCardType != ChampionCardType.All && card.ChampionCard)
 		{
-			if (gameState.playerChampion.Champion.ChampionCardType != card.ChampionCardType)
+			if (gameState.PlayerChampion.Champion.ChampionCardType != card.ChampionCardType)
 				return false;
 		}
 

@@ -21,13 +21,13 @@ public class GraverobberAttack : Spells
         if (TopCardsInGraveyard > 0)
         {
             int calculation = 0;
-            int startLoop = graveyard.graveyardPlayer.Count - 1;
+            int startLoop = graveyard.GraveyardPlayer.Count - 1;
 
             for (int i = startLoop; i > 0; i--)
             {
-                if (startLoop - TopCardsInGraveyard == i || graveyard.graveyardPlayer[i] == null) break;
+                if (startLoop - TopCardsInGraveyard == i || graveyard.GraveyardPlayer[i] == null) break;
                 
-                Card cardToCheck = graveyard.graveyardPlayer[i];
+                Card cardToCheck = graveyard.GraveyardPlayer[i];
                 if (cardToCheck.TypeOfCard == CardType.Attack)
                     calculation += Damage;
             }

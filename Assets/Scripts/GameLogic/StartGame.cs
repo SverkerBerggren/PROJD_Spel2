@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-    
-    
     public void OnClick()
     {
         RequestGameSetup gameSetup = new RequestGameSetup();
@@ -14,8 +12,6 @@ public class StartGame : MonoBehaviour
 
         gameSetup.lobbyId = FindObjectOfType<CreateLobby>().lobbyIdToSearch;
 
-
-        // gameSetup.Type = 15;
         List<string> ownChampions = new List<string>();
 
         foreach (string stringen in Setup.Instance.myChampions)
@@ -24,15 +20,13 @@ public class StartGame : MonoBehaviour
         }
         gameSetup.opponentChampions = ownChampions;
 
-        if( Random.Range(0, 2) == 0)
+        if( Random.Range(0, 2) == 0) // Randomizes who goes first
         {
-         //   GameState.Instance.shouldStartGame = true;
             gameSetup.firstTurn = true;
             Setup.Instance.shouldStartGame = true;
         }
         else
         {
-            //    GameState.Instance.shouldStartGame = true;
             Setup.Instance.shouldStartGame = false;
             gameSetup.firstTurn = false;
         }
@@ -41,8 +35,5 @@ public class StartGame : MonoBehaviour
         ClientConnection.Instance.AddRequest(gameSetup, EmptyMethod);
     }
 
-    public void EmptyMethod(ServerResponse response)
-    {
-        
-    }
+    public void EmptyMethod(ServerResponse response) {} // Is used to not create errors
 }

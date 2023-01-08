@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GraveyardClick : MonoBehaviour
 {
     public void OnClick()
     {
-        print("kan man se graven");
-        if (GameState.Instance.isItMyTurn && GameState.Instance.hasPriority)
+        if (GameState.Instance.IsItMyTurn && GameState.Instance.HasPriority)
         {
             ListEnum lE = new ListEnum();
             lE.myGraveyard = true;
@@ -18,7 +16,7 @@ public class GraveyardClick : MonoBehaviour
 
     public void OnClickOpponent()
     {
-        if (GameState.Instance.isItMyTurn && GameState.Instance.hasPriority)
+        if (GameState.Instance.IsItMyTurn && GameState.Instance.HasPriority)
         { 
             ListEnum lE = new ListEnum();
             lE.opponentGraveyard = true;

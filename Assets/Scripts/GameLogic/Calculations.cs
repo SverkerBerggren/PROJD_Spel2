@@ -48,8 +48,8 @@ public class Calculations : MonoBehaviour
 		if (justBaseDmg)
 			return baseDamage;
 
-		baseDamage = gameState.playerChampion.Champion.DealDamageAttack(baseDamage);
-		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+		baseDamage = gameState.PlayerChampion.Champion.DealDamageAttack(baseDamage);
+		foreach (LandmarkDisplay landmarkDisplay in gameState.PlayerLandmarks)
 		{
 			if (landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
 			{
@@ -57,7 +57,7 @@ public class Calculations : MonoBehaviour
                 baseDamage = landmark.DealDamageAttack(baseDamage);
 			}
 		}
-		foreach (Effects effect in gameState.playerEffects)
+		foreach (Effects effect in gameState.PlayerEffects)
 		{
 			baseDamage = effect.DealDamageAttack(baseDamage);
 		}
@@ -67,7 +67,7 @@ public class Calculations : MonoBehaviour
 	{
 		if (justBaseHealing)
 			return amount;
-		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+		foreach (LandmarkDisplay landmarkDisplay in gameState.PlayerLandmarks)
 		{
 			if (landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
 			{
@@ -75,7 +75,7 @@ public class Calculations : MonoBehaviour
 				amount = landmark.HealingEffect(amount);
             }
 		}
-		foreach (Effects effect in gameState.playerEffects)
+		foreach (Effects effect in gameState.PlayerEffects)
 		{
 			amount = effect.HealingEffect(amount);
 		}
@@ -85,7 +85,7 @@ public class Calculations : MonoBehaviour
 	{
 		if (justBaseShield)
 			return amount;
-		foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+		foreach (LandmarkDisplay landmarkDisplay in gameState.PlayerLandmarks)
 		{
 			if (landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
 			{
@@ -93,7 +93,7 @@ public class Calculations : MonoBehaviour
                 amount = landmark.ShieldingEffect(amount);
 			}
 		}
-		foreach (Effects effect in gameState.playerEffects)
+		foreach (Effects effect in gameState.PlayerEffects)
 		{
 			amount = effect.ShieldingEffect(amount);
 		}
@@ -102,9 +102,9 @@ public class Calculations : MonoBehaviour
 	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
         cardDisplay.ManaCost = cardDisplay.Card.MaxManaCost;
-        cardDisplay.ManaCost = gameState.playerChampion.Champion.CalculateManaCost(cardDisplay);
+        cardDisplay.ManaCost = gameState.PlayerChampion.Champion.CalculateManaCost(cardDisplay);
 			
-        foreach (LandmarkDisplay landmarkDisplay in gameState.playerLandmarks)
+        foreach (LandmarkDisplay landmarkDisplay in gameState.PlayerLandmarks)
 		{
 			if (landmarkDisplay.Card != null && landmarkDisplay.LandmarkEnabled)
 			{
@@ -113,7 +113,7 @@ public class Calculations : MonoBehaviour
 			}
 		}
 
-		foreach (Effects effect in gameState.playerEffects)
+		foreach (Effects effect in gameState.PlayerEffects)
 		{
 			cardDisplay.ManaCost = effect.CalculateManaCost(cardDisplay);
 		}
@@ -132,10 +132,10 @@ public class Calculations : MonoBehaviour
 		int index = 0;
 		if (cardUsed.Target != null)
 		{
-			index = LookForChampionIndex(cardUsed, gameState.opponentChampions);
+			index = LookForChampionIndex(cardUsed, gameState.OpponentChampions);
 			if (index == -1)
 			{
-				index = LookForChampionIndex(cardUsed, gameState.playerChampions);
+				index = LookForChampionIndex(cardUsed, gameState.PlayerChampions);
 				listEnum.myChampions = true;
 			}
 			else
@@ -143,10 +143,10 @@ public class Calculations : MonoBehaviour
 		}
 		else if (cardUsed.LandmarkTarget != null)
 		{
-			index = LookForLandmarkIndex(cardUsed, gameState.opponentLandmarks);
+			index = LookForLandmarkIndex(cardUsed, gameState.OpponentLandmarks);
 			if (index == -1)
 			{
-				index = LookForLandmarkIndex(cardUsed, gameState.playerLandmarks);
+				index = LookForLandmarkIndex(cardUsed, gameState.PlayerLandmarks);
 				listEnum.myLandmarks = true;
 			}
 			else

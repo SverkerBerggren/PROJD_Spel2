@@ -26,11 +26,11 @@ public class CultistCard : Spells
 
     private void DelugeActivate()
     {
-        Target = gameState.opponentChampion.Champion;
+        Target = gameState.OpponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
         Target = null;
 
-        foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
+        foreach (LandmarkDisplay landmark in gameState.OpponentLandmarks)
         {
             if (landmark.Card == null) continue;
 
@@ -40,7 +40,7 @@ public class CultistCard : Spells
     }
     private void RitualSacrificeActivate()
     {
-        Target = gameState.playerChampion.Champion;
+        Target = gameState.PlayerChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 }

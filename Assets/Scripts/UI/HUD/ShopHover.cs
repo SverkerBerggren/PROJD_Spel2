@@ -9,10 +9,8 @@ public class ShopHover : MonoBehaviour
 
     public void ShowShopMenu()
     {
-        if (GameState.Instance.hasPriority && GameState.Instance.isItMyTurn)
-        {
+        if (GameState.Instance.HasPriority && GameState.Instance.IsItMyTurn)
             shopMenu.SetActive(true);
-        }
     }
 
     public void OneSwitchSelected()

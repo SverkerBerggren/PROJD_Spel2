@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CardFilterButton : MonoBehaviour
@@ -8,6 +6,6 @@ public class CardFilterButton : MonoBehaviour
 
 	public void OnClick()
 	{
-		Deckbuilder.Instance.cardTypeFilter = cardType;
+		Deckbuilder.Instance.CardTypeFilter = cardType;
 	}
 }

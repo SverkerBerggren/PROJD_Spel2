@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShowShop : MonoBehaviour
@@ -12,9 +10,7 @@ public class ShowShop : MonoBehaviour
     }
     public void Show()
     {
-        if (GameState.Instance.isItMyTurn && GameState.Instance.hasPriority)
-        {
+        if (GameState.Instance.IsItMyTurn && GameState.Instance.HasPriority)
             shopMenu.SetActive(true);
-        }
     }
 }

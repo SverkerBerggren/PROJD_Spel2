@@ -41,7 +41,7 @@ public class AttackSpell : Spells
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.DestroyLandmarkEnemy, null);
         }
 
-        switch (gameState.playerChampion.Champion.ChampionName)
+        switch (gameState.PlayerChampion.Champion.ChampionName)
         {
             case "Shanker":
             audioManager.PlayShankerAttack();
@@ -59,15 +59,15 @@ public class AttackSpell : Spells
 
     private void DamageToBothActiveChampionsActive()
     {
-        Target = gameState.opponentChampion.Champion;
+        Target = gameState.OpponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
 
-        Target = gameState.playerChampion.Champion;
+        Target = gameState.PlayerChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 
     private void DamageAsYourChampionHP()
     {
-        Damage = GameState.Instance.playerChampion.Health;
+        Damage = GameState.Instance.PlayerChampion.Health;
     }
 }

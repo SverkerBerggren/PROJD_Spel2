@@ -17,7 +17,7 @@ public class HealAndShieldChampion : Spells
     {
         if (AllChampions)
         {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            foreach (AvailableChampion champ in GameState.Instance.PlayerChampions)
             {
                 Target = champ.Champion;
                 GameState.Instance.CalculateAndHeal(AmountToHeal, this);
@@ -30,7 +30,7 @@ public class HealAndShieldChampion : Spells
     {
         if (AllChampions)
         {
-            foreach (AvailableChampion champ in GameState.Instance.playerChampions)
+            foreach (AvailableChampion champ in GameState.Instance.PlayerChampions)
             {
                 Target = champ.Champion;
                 GameState.Instance.CalculateAndShield(AmountToShield, this);

@@ -58,7 +58,7 @@ public class LandmarkDisplay : Displays
     {
         LandmarkDead();
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
 		{
 			TargetInfo targetInfo = new TargetInfo();
 			ListEnum listEnum = new ListEnum();

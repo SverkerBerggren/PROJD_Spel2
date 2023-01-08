@@ -14,7 +14,7 @@ public class BuilderCard : Spells
     {
         GameState gameState = GameState.Instance;
         int calculated = Damage;
-        foreach (LandmarkDisplay display in gameState.playerLandmarks)
+        foreach (LandmarkDisplay display in gameState.PlayerLandmarks)
         {
             if (display.Card == null) continue;
 

@@ -18,12 +18,12 @@ public class QueensShield : Effects
 	public override void AddEffect()
 	{
 		gameState = GameState.Instance;
-		affectedChampion = gameState.playerChampion.Champion;
+		affectedChampion = gameState.PlayerChampion.Champion;
 	}
 
 	public override void TakeDamage(int damage)
 	{
-		if (affectedChampion == gameState.playerChampion.Champion || affectedChampion == gameState.opponentChampion.Champion)
+		if (affectedChampion == gameState.PlayerChampion.Champion || affectedChampion == gameState.OpponentChampion.Champion)
 		{
 			DealReturnDamage();
 		}

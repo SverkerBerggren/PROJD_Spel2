@@ -21,7 +21,7 @@ public class Builder : Champion
 	public override int CalculateManaCost(CardDisplay cardDisplay)
 	{
 		LandmarkCount = 0;
-		foreach (LandmarkDisplay landmark in gameState.playerLandmarks)
+		foreach (LandmarkDisplay landmark in gameState.PlayerLandmarks)
 		{
 			if (landmark.Card != null)
 				LandmarkCount++;

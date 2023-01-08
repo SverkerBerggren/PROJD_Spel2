@@ -82,12 +82,12 @@ public class CardDisplayAttributes : MonoBehaviour
         if (cardDisplay.Card.ChampionCard)
         {
             CardTargeting cardTargeting = GetComponentInParent<CardTargeting>();
-            if (cardDisplay.Card.ChampionCardType != GameState.Instance.playerChampion.Champion.ChampionCardType && cardDisplay.Card.ChampionCardType != ChampionCardType.All)
+            if (cardDisplay.Card.ChampionCardType != GameState.Instance.PlayerChampion.Champion.ChampionCardType && cardDisplay.Card.ChampionCardType != ChampionCardType.All)
             {
                 isTheRightChampionCard = false;
             }
         }
-        if (ActionOfPlayer.Instance.CurrentMana >= cardDisplay.ManaCost && GameState.Instance.isItMyTurn && isTheRightChampionCard)
+        if (ActionOfPlayer.Instance.CurrentMana >= cardDisplay.ManaCost && GameState.Instance.IsItMyTurn && isTheRightChampionCard)
             cardPlayableEffect.SetActive(true);
         else
             cardPlayableEffect.SetActive(false);
