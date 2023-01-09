@@ -102,6 +102,17 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
             return (typeof(RequestStopSwapping));
             
         }
+        
+        if (IntegerToConvert == 22)
+        {
+            return (typeof(RequestEndGame));
+            
+        }
+        if (IntegerToConvert == 23)
+        {
+            return (typeof(RequestLogGameAction));
+            
+        }
 
 
         return (typeof(ClientRequest));

@@ -272,6 +272,30 @@ public class InternetLoop : MonoBehaviour
 					request.whichPlayer = ClientConnection.Instance.playerId;
 					request.reciprocate = false;
                     request.opponentChampions = Setup.Instance.myChampions;
+                    //request.deckList = Setup.Instance.playerDeckList;
+                    Dictionary<string, int> deckListToSend = new Dictionary<string, int>();
+                    List<CardAndAmount> cardsToSend = new List<CardAndAmount>();
+                    foreach (Card card in Setup.Instance.playerDeckList)
+                    {
+                        if (!deckListToSend.ContainsKey(card.CardName))
+                        {
+                            deckListToSend.Add(card.CardName, 1);
+                        }
+                        else
+                        {
+                            deckListToSend[card.CardName] += 1;
+                        }
+                    }
+                    foreach (string cardName in deckListToSend.Keys)
+                    {
+                        CardAndAmount cardAndAmountToAdd = new CardAndAmount();
+                        cardAndAmountToAdd.cardName = cardName;
+                        cardAndAmountToAdd.amount = deckListToSend[cardName];
+                        cardsToSend.Add(cardAndAmountToAdd);
+                    }
+
+                    request.deckList = cardsToSend;
+
 
                     Setup.Instance.shouldStartGame = !castedAction.firstTurn;
 
