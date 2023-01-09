@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -9065,7 +9066,15 @@ PrefabInstance:
       value: LandmarkSlot2
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: OpponentLandmarks
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
@@ -17644,6 +17653,10 @@ PrefabInstance:
     - target: {fileID: 5930002168094892981, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: m_Name
       value: LandmarkSlot4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
@@ -28945,8 +28958,16 @@ PrefabInstance:
       value: LandmarkSlot3
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: OpponentLandmarks
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: opponentLandmarks
@@ -33869,6 +33890,10 @@ PrefabInstance:
       value: LandmarkSlot2
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
       value: 1
       objectReference: {fileID: 0}
@@ -35798,8 +35823,16 @@ PrefabInstance:
       value: LandmarkSlot4
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: OpponentLandmarks
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: opponentLandmarks
@@ -41415,6 +41448,10 @@ PrefabInstance:
       value: LandmarkSlot3
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: Index
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: index
       value: 2
       objectReference: {fileID: 0}
@@ -44366,6 +44403,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+      propertyPath: OpponentLandmarks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
       propertyPath: opponentLandmarks
       value: 1
       objectReference: {fileID: 0}
@@ -44824,6 +44865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckPlayer:
   - {fileID: 11400000, guid: 0182cc3c5f43792458a7009438b9a47f, type: 2}
+  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
+  - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
   DeckOpponent: []
 --- !u!4 &1711450997
 Transform:

@@ -23,7 +23,7 @@ public class Duelist : Champion
 
     private IEnumerator WaitForOpponent()
     {
-        yield return new WaitUntil(() => gameState.OpponentChampion.Champion.Health > 0);
+        yield return new WaitUntil(() => gameState.OpponentChampion.Champion.Health > 0); // Waits until opponent has swapped champion before triggering choice
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
     }
 }
