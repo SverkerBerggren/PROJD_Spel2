@@ -4,9 +4,8 @@ using System.Threading;
 using System.Linq;
 using System.IO;
 using System.Net.Sockets;
-using System.Net.Http;
 using System.Threading.Tasks;
-using OpenCover.Framework.Model;
+
 
 public class Server
 {
@@ -59,7 +58,7 @@ public class Server
 
     }
 
-    public async void SQLAddGameActionLoop()
+    public void SQLAddGameActionLoop()
     {
         while(connectedToSQLServer)
         {
@@ -70,7 +69,6 @@ public class Server
                 gameActionToLog = gameActionsToAdd[0];
                 gameActionsToAdd.RemoveAt(0);
             }
-            string stringToAppendWith = "";
             bool messageRead = false;
             while (!messageRead)
             {
@@ -91,28 +89,33 @@ public class Server
                 {
                     buf[4 + i] = (byte)message[i];
                 }
-
-                //      buf.CopyTo(hej.ToCharArray(), hej.Length);
-                ValueTask temp = SQLServerSocket.GetStream().WriteAsync(buf);
-                //
                 string responseToUse = "";
-                bool continueReading = true;
-                while (continueReading)
+                //      buf.CopyTo(hej.ToCharArray(), hej.Length);
+                lock (SQLServerSocket)
                 {
-                    byte[] newBuffer = new byte[4096];
-
-                    int bytesRecieved = await SQLServerSocket.GetStream().ReadAsync(newBuffer, 0, 4096);
-
-                    if ((bytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                    ValueTask temp = SQLServerSocket.GetStream().WriteAsync(buf);
+                    //
+                    responseToUse = "";
+                    bool continueReading = true;
+                    while (continueReading)
                     {
-                        char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
-                        responseToUse = new String(castedBuffer, 4, castedBuffer.Length - 4);
-                        continueReading = false;
-                        messageRead = true;
-                        
+                        byte[] newBuffer = new byte[4096];
+
+                        int bytesRecieved =  SQLServerSocket.GetStream().Read(newBuffer, 0, 4096);
+
+                        if ((bytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                        {
+                            char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
+                            responseToUse = new String(castedBuffer, 4, castedBuffer.Length - 4);
+                            continueReading = false;
+                            messageRead = true;
+
+                        }
                     }
                 }
-                SendMessageToSQLServer("insert into MatchGameHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," + responseToUse +"," + gameActionToLog.gameAction);
+                
+                SendMessageToSQLServerThread("insert into MatchGameHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," + responseToUse + "," + gameActionToLog.gameAction);
+
             }
            
         }
@@ -174,11 +177,11 @@ public class Server
 
         }
 
-
+        
 
     }
 
-    private  void SendMessageToSQLServer( string messageToSend)
+    private void SendMessageToSQLServer( string messageToSend)
     {
         bool messageRead = false;
         while (!messageRead)
@@ -215,13 +218,9 @@ public class Server
                 {
                     byte[] newBuffer = new byte[4096];
 
-                    int bytesRecieved =  SQLServerSocket.GetStream().Read(newBuffer, 0, 4096);
+                    Task<int> bytesRecieved = SQLServerSocket.GetStream().ReadAsync(newBuffer, 0, 4096);
 
-                    string recievedMessage = "";
-
-
-
-                    if ((bytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                    if ((bytesRecieved.Result - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
                     {
                         char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
                         string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
@@ -235,7 +234,8 @@ public class Server
 
     private void SendMessageToSQLServerThread(string message)
     {
-        Thread threadToActivate = new Thread((new ParameterizedThreadStart(SendMessageToSQLServer)));
+        //ParameterizedThreadStart threadStart = new ParameterizedThreadStart(SendMessageToSQLServerThread);
+        Thread threadToActivate = new Thread(() => SendMessageToSQLServer(message));
     }
 
 
@@ -754,9 +754,14 @@ public class Server
 
         if(!requestToHandle.reciprocate && connectedToSQLServer)
         {
-            SendMessageToSQLServer("insert into MatchDatabase VALUES( "+ requestToHandle.gameId + ",1,2 )");
+            SendMessageToSQLServerThread("insert into MatchDatabase VALUES( "+ requestToHandle.gameId + ",1,2 )");
 
 
+        }
+
+        foreach(CardAndAmount cardAndAmount in requestToHandle.deckList)
+        {
+            SendMessageToSQLServerThread("insert into DeckList VALUES(" + requestToHandle.whichPlayer + "," + cardAndAmount.cardName + "," + cardAndAmount.amount + ")");
         }
 
 
