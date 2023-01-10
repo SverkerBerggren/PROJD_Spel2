@@ -119,14 +119,11 @@ public class CardDisplayAttributes : MonoBehaviour
                 break;
         }
 
-        if (artworkMeshRenderer == null)
-        {
-            GetComponent<RawImage>().material = materialToChange;
-        }
-        else
-        {
+        if (artworkMeshRenderer == null)       
+            GetComponent<RawImage>().material = materialToChange;      
+        else       
             artworkMeshRenderer.material = materialToChange;
-        }
+        
     }
 
     private void UpdateVariables(Card card)
