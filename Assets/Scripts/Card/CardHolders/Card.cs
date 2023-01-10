@@ -93,7 +93,7 @@ public abstract class Card : ScriptableObject
     public virtual string WriteOutCardInfo()
     {
         string lineToWriteOut = null;
-        lineToWriteOut = "Cardname: " +CardName + "\nDescription:  " + Description + "\nTypeOfCard: " + TypeOfCard + "\nMaxMana: " + MaxManaCost + 
+        lineToWriteOut = "Cardname: " + CardName + "\nDescription:  " + Description + "\nTypeOfCard: " + TypeOfCard + "\nMaxMana: " + MaxManaCost + 
             "\nAmountOfDamage: " + Damage + "\nAmountOfHealing: " + AmountToHeal + "\nAmountToShield: " + AmountToShield + 
             "\nAmountOfCardsToDraw: " + AmountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + AmountOfCardsToDiscard + "\nDiscardCardsYourself: " + DiscardCardsYourself + 
             "\nTargetable: " + Targetable + "\nChampionCard: " + ChampionCard + "\nChampionCardType: " + ChampionCardType;

@@ -91,6 +91,7 @@ public class PlayCardManager : MonoBehaviour
 		return TypeOfCardTargeting.None;
 	}
 
+    // Played a card that does not need a target
 	public void PlayedAnUntargetableCard()
     {
         if (card.TypeOfCard == CardType.Landmark)
@@ -119,7 +120,7 @@ public class PlayCardManager : MonoBehaviour
 			actionOfPlayer.ChangeCardOrder(true, cardDisplay);
 		}
     }
-
+    // Played a card that needs a target
     public void PlayedATargetableCard(GameObject gameObjectTargeted)
     {
         if (gameObjectTargeted.TryGetComponent(out AvailableChampion availableChampion))
@@ -137,6 +138,7 @@ public class PlayCardManager : MonoBehaviour
         actionOfPlayer.ChangeCardOrder(true, cardDisplay);                   
     }
 
+    // Checks if the opponent has a taunt card on the board
 	public bool TauntCard()
 	{
 		// Should indicate the TauntLandmark so its more obvious

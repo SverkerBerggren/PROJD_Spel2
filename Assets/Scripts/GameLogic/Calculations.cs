@@ -130,10 +130,10 @@ public class Calculations : MonoBehaviour
 		TargetInfo tI = null;
 		ListEnum listEnum = new ListEnum();
 		int index = 0;
-		if (cardUsed.Target != null)
+		if (cardUsed.Target != null) // Calculates the target based on champions
 		{
 			index = LookForChampionIndex(cardUsed, gameState.OpponentChampions);
-			if (index == -1)
+			if (index == -1) // if target is not an enemychampion
 			{
 				index = LookForChampionIndex(cardUsed, gameState.PlayerChampions);
 				listEnum.myChampions = true;
@@ -141,10 +141,10 @@ public class Calculations : MonoBehaviour
 			else
 				listEnum.opponentChampions = true;
 		}
-		else if (cardUsed.LandmarkTarget != null)
+		else if (cardUsed.LandmarkTarget != null) // Calculates the target based on landmarks
 		{
-			index = LookForLandmarkIndex(cardUsed, gameState.OpponentLandmarks);
-			if (index == -1)
+			index = LookForLandmarkIndex(cardUsed, gameState.OpponentLandmarks); 
+			if (index == -1) // if target is not an enemylandmark
 			{
 				index = LookForLandmarkIndex(cardUsed, gameState.PlayerLandmarks);
 				listEnum.myLandmarks = true;
