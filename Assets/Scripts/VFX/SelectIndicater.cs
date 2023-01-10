@@ -39,13 +39,13 @@ public class SelectIndicater : MonoBehaviour
     public void UppdateIndicater(CardType tp)
     {
         if (tp != CardType.Attack) return;
-        //what about tauntLandmark ?
+   
         championSelectBox.SetActive(true);
         for(int i = 0; i< landmarkSlots.Length; i++)
         {
-
-            if (landmarkSlots[i].activeInHierarchy)
-            {
+            //if the landmark is targetable and the slot of landmark prefab is active. then active indicater 
+            if (landmarkSlots[i].activeInHierarchy && landmarkSlots[i].GetComponent<Transform>().parent.GetComponent<LandmarkDisplay>().Card.Targetable)
+            {              
                 landmarkSelectBoxs[i].SetActive(true);
             }
     
