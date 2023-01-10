@@ -4,11 +4,10 @@ using UnityEngine;
 using UI.Dialogs;
 
 public class controllerTutorial : MonoBehaviour
-{
-      
+{ 
     
-    public void StepTwo(){
-        
+    public void StepTwo()
+    { 
         uDialog.NewDialog()
                 .SetDimensions(900,400)
                 .SetThemeImageSet(eThemeImageSet.Fantasy)
@@ -25,6 +24,25 @@ public class controllerTutorial : MonoBehaviour
         
     }
 
+    void StepTwoPointOne(uDialog dialog)
+    {
+        dialog.Close();
+        uDialog.NewDialog()
+                .SetDimensions(900, 400)
+                .SetThemeImageSet(eThemeImageSet.Fantasy)
+                .SetColorScheme("Personalized")
+                .SetTitleText("Starting the Game")
+                .SetShowTitleCloseButton(true)
+                .SetContentText("<b>You begin with choosing which cards(a so called Mulligan) and champion you want to start with</b>")
+                .SetCloseWhenAnyButtonClicked(false)
+                .SetAllowDraggingViaTitle(true)
+                .SetAllowDraggingViaDialog(true)
+                .AddButton("CONTINUE", (dialog) => { StepThree(dialog); })
+                .AddButton("CLOSE", (dialog) => { dialog.Close(); });
+
+
+    }
+
     void StepThree(uDialog dialog)
     {
         dialog.Close();
@@ -38,7 +56,7 @@ public class controllerTutorial : MonoBehaviour
                 .SetCloseWhenAnyButtonClicked(false)
                 .SetAllowDraggingViaTitle(true)
                 .SetAllowDraggingViaDialog(true)  
-                .AddButton("BACK",(dialog)=>{StepTwo();})
+                .AddButton("BACK",(dialog)=>{StepTwoPointOne(dialog);})
                 .AddButton("CONTINUE", (dialog) =>{StepFour(dialog);})
                 .AddButton("CLOSE",(dialog)=>{dialog.Close();});
     }
