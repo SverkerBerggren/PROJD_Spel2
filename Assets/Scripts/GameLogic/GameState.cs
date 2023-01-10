@@ -132,9 +132,9 @@ public class GameState : MonoBehaviour
                 "Shanker",
                 //"TheOneWhoDraws",
                 //"Duelist",
-                //"Graverobber",
+                "Graverobber",
                 "Builder",
-                "Cultist",
+                //"Cultist",
             };
             AddChampions(offlineChamps, true);
             AddChampions(offlineChamps, false);
