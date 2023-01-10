@@ -100,8 +100,9 @@ public class CardDisplay : Displays
             alreadyBig = true;
         }
         //set up Select Indicater, should only call this metod when it is a attack card
-     
-        selectIndicater.UppdateIndicater();
+        
+        
+        selectIndicater.UppdateIndicater(Card.TypeOfCard);
     }
 
     public void MouseExit()

@@ -36,8 +36,9 @@ public class SelectIndicater : MonoBehaviour
     //when player is trying to play a attack card, active the landmark indicater box if opponent has landmarks
     //***Speical notice with protectiv walls, only that landmark should have indicater.
 
-    public void UppdateIndicater()
+    public void UppdateIndicater(CardType tp)
     {
+        if (tp != CardType.Attack) return;
         //what about tauntLandmark ?
         championSelectBox.SetActive(true);
         for(int i = 0; i< landmarkSlots.Length; i++)
