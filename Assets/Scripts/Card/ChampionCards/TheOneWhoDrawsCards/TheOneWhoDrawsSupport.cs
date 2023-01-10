@@ -12,9 +12,9 @@ public class TheOneWhoDrawsSupport : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.TheOneWhoDraws;
     }
-    public override void PlaySpell()
+    protected override void PlaySpell()
     {
-        if (GameState.Instance.drawnCardsPreviousTurn >= CardsDrawnNeeded)
+        if (GameState.Instance.DrawnCardsPreviousTurn >= CardsDrawnNeeded)
         {
             GameState.Instance.DrawCard(2, null);
         }

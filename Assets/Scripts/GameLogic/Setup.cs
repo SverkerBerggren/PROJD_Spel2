@@ -1,8 +1,5 @@
-using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +8,14 @@ public class Setup : MonoBehaviour
 {
 	private CardRegister cardRegister;
     private Deckbuilder deckbuilder;
-    public List<Card> playerDeckList = new List<Card>();
+
+	[SerializeField] private int maxCopies = 3;
+
 	[System.NonSerialized] public static string savePath;
     [System.NonSerialized] public List<string> opponentChampions = new List<string>();
 	[System.NonSerialized] public bool shouldStartGame = false;
 
-	[SerializeField] private int maxCopies = 3;
+    public List<Card> playerDeckList = new List<Card>();
     public List<string> myChampions = new List<string>();
     public Dictionary<Card, int> amountOfCards = new Dictionary<Card, int>();
 	public int deckCount = 40;
@@ -28,13 +27,10 @@ public class Setup : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(Instance);
-        }
+
         savePath = Application.dataPath + "/SavedDecks/";
 		cardRegister = CardRegister.Instance;
 	}
@@ -81,54 +77,63 @@ public class Setup : MonoBehaviour
         }
         try
         {
-            string readDeck = File.ReadAllText(savePath + deckName + ".txt");
+            string readDeck = File.ReadAllText(savePath + deckName + ".txt"); // The whole method checks if the deck can be used for play
             SavedDeck loadedDeck = JsonUtility.FromJson<SavedDeck>(readDeck);
 			List<Card> champCardsIncluded = new List<Card>();
 			ClearDeck();
 
-			deckbuilder.deckName = loadedDeck.name;
-			foreach (string championName in loadedDeck.champions)
+			deckbuilder.DeckName = loadedDeck.name;
+			foreach (string championName in loadedDeck.champions) // Checks how many champions
             {
                 myChampions.Add(championName);
                 Champion champion = cardRegister.champRegister[championName];
                 champCardsIncluded.AddRange(cardRegister.champCards[champion]);
 			}
 
-            foreach (string cardName in loadedDeck.cards)
-            {
-                string[] split = cardName.Split("|");
+            FindCardName(loadedDeck, champCardsIncluded);
 
-                Card card = cardRegister.cardRegister[split[0]];
-                int cardAmount = int.Parse(split[1]);
-
-                if (cardAmount > maxCopies || cardAmount < 1) throw new InvalidDataException();
-
-				amountOfCards.Add(card, cardAmount);
-                currentDeckSize += cardAmount;
-
-                if (card.ChampionCard)
-                {
-                    if (champCardsIncluded.Contains(card))
-                    {
-                        int removedAmount = champCardsIncluded.RemoveAll(x => x == card);
-                        if(removedAmount != cardAmount) throw new InvalidDataException();
-					}
-                }
-            }
-
+            // The last check with deckcount, and champion cards
             if (currentDeckSize != deckCount || myChampions.Count != 3 || champCardsIncluded.Count != 0) throw new InvalidDataException();
 		}
         catch (Exception e)
         {
-			ClearDeck();
+			ClearDeck(); // Clears deck when there is a error
 			UnityEngine.Debug.LogError("Not allowed deck, clearing! \n" + e.ToString());
 			return false;
 		}
         return true;
     }
 
+    private void FindCardName(SavedDeck loadedDeck, List<Card> champCardsIncluded)
+    {
+		foreach (string cardName in loadedDeck.cards) // Checks cards
+		{
+	        string[] split = cardName.Split("|");
+
+            if (!cardRegister.cardRegister.ContainsKey(split[0])) throw new InvalidDataException();
+
+			Card card = cardRegister.cardRegister[split[0]];
+			int cardAmount = int.Parse(split[1]);
+
+	        if (cardAmount > maxCopies || cardAmount < 1) throw new InvalidDataException();
+
+	        amountOfCards.Add(card, cardAmount);
+	        currentDeckSize += cardAmount;
+
+	        if (card.ChampionCard) // Checks championcards
+	        {
+		        if (champCardsIncluded.Contains(card))
+		        {
+			        int removedAmount = champCardsIncluded.RemoveAll(x => x == card);
+			        if (removedAmount != cardAmount) throw new InvalidDataException();
+		        }
+	        }
+		}
+	}
+
 	public void AddChampion(Champion champion)
     {
+        // Checks if the champion can be in the deck, plus the cards attached
         if (!myChampions.Contains(champion.ChampionName) && myChampions.Count < 3 && currentDeckSize + cardRegister.champCards[champion].Count <= deckCount)
         {
             myChampions.Add(champion.ChampionName);
@@ -206,12 +211,12 @@ public class Setup : MonoBehaviour
         myChampions.Clear();
         deckbuilder.ClearAllBanners();
         currentDeckSize = 0;
-        deckbuilder.deckName = "";
+        deckbuilder.DeckName = "";
     	deckbuilder.UpdateDeckList();
     }
 }
 
-public class SavedDeck
+public class SavedDeck // Class with saveable information
 {
     public string name;
     public List<string> champions;

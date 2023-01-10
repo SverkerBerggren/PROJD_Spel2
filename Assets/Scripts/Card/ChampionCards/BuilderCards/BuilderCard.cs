@@ -10,13 +10,13 @@ public class BuilderCard : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.Builder;
     }
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         GameState gameState = GameState.Instance;
         int calculated = Damage;
-        foreach (LandmarkDisplay display in gameState.playerLandmarks)
+        foreach (LandmarkDisplay display in gameState.PlayerLandmarks)
         {
-            if (display.card == null) continue;
+            if (display.Card == null) continue;
 
             calculated += Damage;
             gameState.DrawCard(1, null);

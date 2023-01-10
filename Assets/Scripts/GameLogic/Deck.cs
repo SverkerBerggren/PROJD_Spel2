@@ -6,9 +6,8 @@ public class Deck : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public List<Card> deckPlayer = new List<Card>();
-    public List<Card> deckOpponent = new List<Card>();
-
+    public List<Card> DeckPlayer = new List<Card>();
+    public List<Card> DeckOpponent = new List<Card>();
 
     private static Deck instance;
     public static Deck Instance { get { return instance; } }
@@ -16,56 +15,26 @@ public class Deck : MonoBehaviour
     private void Awake()
     {   
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
 
-        if(!GameState.Instance.isOnline)
+        if(!GameState.Instance.IsOnline) // Creates decks for offline play
         {
             List<Card> copy = new List<Card>();
-            copy.AddRange(deckPlayer);
-            while (deckPlayer.Count < 40)
+            copy.AddRange(DeckPlayer);
+            while (DeckPlayer.Count < 40)
             {
                 foreach (Card card in copy)
                 {
-                    deckPlayer.Add(card);
-                    if (deckPlayer.Count >= 40) break;
+                    DeckPlayer.Add(card);
+                    if (DeckPlayer.Count >= 40) break;
                 }
             }
-            Shuffle(deckPlayer);
-            deckOpponent.Clear();
-            deckOpponent.AddRange(deckPlayer);
+            Shuffle(DeckPlayer);
+            DeckOpponent.Clear();
+            DeckOpponent.AddRange(DeckPlayer);
         }        
-    }
-
-    public void CreateDecks(List<Card> importedDeck)
-    {
-        deckPlayer.Clear();
-        List<Card> copy = new List<Card>();
-        copy.AddRange(importedDeck);
-        while (importedDeck.Count < 40)
-        {
-            foreach (Card card in copy)
-            {
-                importedDeck.Add(card);
-
-                if(importedDeck.Count >= 40) break;               
-            }
-        }
-        deckPlayer.AddRange(importedDeck);
-        Shuffle(deckPlayer);
-
-        deckOpponent.Clear();
-        deckOpponent.AddRange(importedDeck);
-    }
-
-    public void ShuffleDeck()
-    {
-        Shuffle(deckPlayer);
     }
 
 	private static void Shuffle(List<Card> list)
@@ -79,44 +48,67 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void CreateDecks(List<Card> importedDeck) // Creates decks for online play
+	{
+        DeckPlayer.Clear();
+        List<Card> copy = new List<Card>();
+        copy.AddRange(importedDeck);
+        while (importedDeck.Count < 40)
+        {
+            foreach (Card card in copy)
+            {
+                importedDeck.Add(card);
+
+                if(importedDeck.Count >= 40) break;               
+            }
+        }
+        DeckPlayer.AddRange(importedDeck);
+        Shuffle(DeckPlayer);
+
+        DeckOpponent.Clear();
+        DeckOpponent.AddRange(importedDeck);
+    }
+
+    public void ShuffleDeck()
+    {
+        Shuffle(DeckPlayer);
+    }
+
     public void RemoveCardFromDeck(Card card)
     {
-        deckPlayer.Remove(card);
+        DeckPlayer.Remove(card);
     }
 
     public void AddCardToDeckPlayer(Card cardToAdd)
     {
-        deckPlayer.Add(cardToAdd);
+        DeckPlayer.Add(cardToAdd);
     }
 
     public void AddCardToDeckOpponent(Card cardToAdd)
     {
-        deckOpponent.Add(cardToAdd);
+        DeckOpponent.Add(cardToAdd);
     }
 
     public Card WhichCardToDrawPlayer(bool isPlayer)
     {
         if (isPlayer)
         {
-            if (deckPlayer.Count > 0)
+            if (DeckPlayer.Count > 0)
             {
-                Card card = deckPlayer[0];
-                deckPlayer.RemoveAt(0);
+                Card card = DeckPlayer[0];
+                DeckPlayer.RemoveAt(0);
                 return card;
             }
         }
         else
         {
-            if (deckOpponent.Count > 0)
+            if (DeckOpponent.Count > 0)
             {
-                Card card = deckOpponent[0];
-                deckOpponent.RemoveAt(0);
+                Card card = DeckOpponent[0];
+                DeckOpponent.RemoveAt(0);
                 return card;
             }
         }
-        
-
-        //GameState.Instance.Defeat();
         return null;
     }
 }

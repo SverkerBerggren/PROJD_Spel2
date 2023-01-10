@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class CardFilterButtons : MonoBehaviour
 {
 	private Deckbuilder deckbuilder;
-	public bool typeFilter = false;
 	[SerializeField] private List<Toggle> toggles = new List<Toggle>();
+	public bool TypeFilter = false;
 
 	public void Start()
 	{
@@ -17,15 +17,15 @@ public class CardFilterButtons : MonoBehaviour
 
 	public void OnClick()
     {
-		typeFilter = false;
-		foreach (Toggle toggle in toggles)
+		TypeFilter = false;
+		foreach (Toggle toggle in toggles) // Is one toggle activated?
         {
             if (toggle.isOn)
             {
-                typeFilter = true;
+                TypeFilter = true;
 				break;
             }
         }
-		deckbuilder.FilterCards(deckbuilder.cardFilter);
+		deckbuilder.FilterCards(deckbuilder.CardFilter);
     }
 }

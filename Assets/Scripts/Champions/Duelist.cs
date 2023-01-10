@@ -10,15 +10,10 @@ public class Duelist : Champion
 	{
 		base.WhenCurrentChampion();
 		lE.opponentChampions = true;
-        if (gameState.isOnline)
-        {
+        if (gameState.IsOnline)
             Wait();
-        }
-        else
-        {
-            if (gameState.opponentChampion != this)
-                Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
-        }
+        else if (gameState.OpponentChampion != this)
+            Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
 	}
 
     private void Wait()
@@ -28,7 +23,7 @@ public class Duelist : Champion
 
     private IEnumerator WaitForOpponent()
     {
-        yield return new WaitUntil(() => gameState.opponentChampion.champion.Health > 0);
+        yield return new WaitUntil(() => gameState.OpponentChampion.Champion.Health > 0); // Waits until opponent has swapped champion before triggering choice
         Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
     }
 }

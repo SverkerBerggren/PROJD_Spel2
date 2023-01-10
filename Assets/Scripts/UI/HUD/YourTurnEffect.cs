@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,10 +15,9 @@ public class YourTurnEffect : MonoBehaviour
         }
     }
 
-
     public void ChangePicture(AvailableChampion swappedChamp)
     {
-        currentPicture.sprite = swappedChamp.champion.ChampBackground;
+        currentPicture.sprite = swappedChamp.Champion.ChampBackground;
     }
 
 

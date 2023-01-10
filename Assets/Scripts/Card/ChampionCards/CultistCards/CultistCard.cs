@@ -14,31 +14,25 @@ public class CultistCard : Spells
         ChampionCard = true;
         ChampionCardType = ChampionCardType.Cultist;
     }
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         gameState = GameState.Instance;
-        if (Deluge)
-        {
-            DelugeActivate();
-        }
-        else if (RitualSactifice)
-        {
-            RitualSacrificeActivate();
-        }
 
-        
-        
+        if (Deluge)
+            DelugeActivate();
+        else if (RitualSactifice)
+            RitualSacrificeActivate();
     }
 
     private void DelugeActivate()
     {
-        Target = gameState.opponentChampion.champion;
+        Target = gameState.OpponentChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
         Target = null;
 
-        foreach (LandmarkDisplay landmark in gameState.opponentLandmarks)
+        foreach (LandmarkDisplay landmark in gameState.OpponentLandmarks)
         {
-            if (landmark.card == null) continue;
+            if (landmark.Card == null) continue;
 
             LandmarkTarget = landmark;
             gameState.CalculateAndDealDamage(Damage, this);
@@ -46,7 +40,7 @@ public class CultistCard : Spells
     }
     private void RitualSacrificeActivate()
     {
-        Target = gameState.playerChampion.champion;
+        Target = gameState.PlayerChampion.Champion;
         gameState.CalculateAndDealDamage(Damage, this);
     }
 }

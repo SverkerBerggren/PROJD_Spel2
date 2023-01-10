@@ -13,23 +13,23 @@ public class BuilderLandmark : Landmarks
         ChampionCardType = ChampionCardType.Builder;
     }
 
+    private int LandmarksActive()
+    {
+        int amountOfLandmarksActive = 0;
+        foreach (LandmarkDisplay lD in GameState.Instance.PlayerLandmarks)
+        {
+            if (lD.Card != null)
+                amountOfLandmarksActive++;
+        }
+        return amountOfLandmarksActive;
+    }
+
     public override int CalculateManaCost(CardDisplay cardDisplay)
     {
         if (Factory && LandmarksActive() >= 3)
             return base.CalculateManaCost(cardDisplay) - 2;            
         
         return base.CalculateManaCost(cardDisplay);
-    }
-
-    private int LandmarksActive()
-    {
-        int amountOfLandmarksActive = 0;
-        foreach (LandmarkDisplay lD in GameState.Instance.playerLandmarks)
-        {
-            if (lD.card != null)
-                amountOfLandmarksActive++;
-        }
-        return amountOfLandmarksActive;
     }
 
     public override int DealDamageAttack(int damage)

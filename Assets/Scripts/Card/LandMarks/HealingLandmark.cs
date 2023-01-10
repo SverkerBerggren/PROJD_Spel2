@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Landmarks/HealingLandmark")]
 public class HealingLandmark : Landmarks
@@ -44,9 +39,9 @@ public class HealingLandmark : Landmarks
         if (HealEachRound)
         {
             gameState = GameState.Instance;
-            for (int i = 0; i < gameState.playerChampions.Count; i++)
+            for (int i = 0; i < gameState.PlayerChampions.Count; i++)
             {
-                Target = gameState.playerChampions[i].champion;
+                Target = gameState.PlayerChampions[i].Champion;
                 gameState.CalculateAndHeal(AmountToHeal, this);
             }
             

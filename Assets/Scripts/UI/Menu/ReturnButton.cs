@@ -1,25 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ReturnButton : MonoBehaviour
 {
+    private RawImage rawImage;
+    private Stack<GameObject> objectsToReturnTo = new Stack<GameObject>();
+    private PauseMenu pauseMenuScript;
+
     [SerializeField] private Texture returnImage; 
     [SerializeField] private Texture xImage;
     [SerializeField] private GameObject pausMenu;
     [SerializeField] private GameObject oneSwitchSelect;
-    private RawImage rawImage;
-    private Stack<GameObject> objectsToReturnTo = new Stack<GameObject>();
     [SerializeField] private GameObject currentActiveObject;
-    private PauseMenu pauseMenuScript;
     
 
     public void Start()
     {
         rawImage = GetComponent<RawImage>();
         pauseMenuScript = FindObjectOfType<PauseMenu>();     
-        
     }
 
     public void OneSwitchButtonSelect()
@@ -33,13 +32,9 @@ public class ReturnButton : MonoBehaviour
     public void ChangeImageToReturn(bool changeImageToReturn)
     {
         if(changeImageToReturn)
-        {
             rawImage.texture = returnImage;
-        }
         else
-        {
             rawImage.texture = xImage;
-        }
     }
     
     public void AddObjectToReturnTo(GameObject objectToReturnTo, GameObject objectToDisable)
@@ -54,7 +49,7 @@ public class ReturnButton : MonoBehaviour
         if(objectsToReturnTo.Count < 1)
         {
             pausMenu.SetActive(false);
-            pauseMenuScript.setIsPauseMenuActive(false);
+            pauseMenuScript.SetIsPauseMenuActive(false);
             return;
         }
         currentActiveObject.SetActive(false);
@@ -62,10 +57,7 @@ public class ReturnButton : MonoBehaviour
         currentActiveObject.SetActive(true);
         
         if(objectsToReturnTo.Count < 1)
-        {
             ChangeImageToReturn(false);
-        }
-        
     }
     public void OnClick()
     {

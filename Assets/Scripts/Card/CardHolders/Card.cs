@@ -59,7 +59,7 @@ public abstract class Card : ScriptableObject
     public virtual void PlayCard()
     {
         CardAndPlacement cardPlacement = new CardAndPlacement();
-        cardPlacement.cardName = CardName;
+        cardPlacement.CardName = CardName;
         GameState gameState = GameState.Instance;
         
         TargetInfo placement = new TargetInfo();
@@ -70,10 +70,10 @@ public abstract class Card : ScriptableObject
         else
             placement.whichList.opponentGraveyard = true;
         
-        cardPlacement.placement = placement;
+        cardPlacement.Placement = placement;
 
         gameState.ShowPlayedCard(this, false, -1);
-        if (gameState.isOnline)        
+        if (gameState.IsOnline)        
             gameState.PlayCardRequest(cardPlacement);
         
         if (AmountOfCardsToDraw != 0)       
@@ -87,13 +87,13 @@ public abstract class Card : ScriptableObject
 
         gameState.Refresh();
         gameState.AddCardToPlayedCardsThisTurn(this);
-        gameState.playerChampion.champion.AmountOfCardsPlayed(this);
+        gameState.PlayerChampion.Champion.AmountOfCardsPlayed(this);
     }
    
     public virtual string WriteOutCardInfo()
     {
         string lineToWriteOut = null;
-        lineToWriteOut = "Cardname: " +CardName + "\nDescription:  " + Description + "\nTypeOfCard: " + TypeOfCard + "\nMaxMana: " + MaxManaCost + 
+        lineToWriteOut = "Cardname: " + CardName + "\nDescription:  " + Description + "\nTypeOfCard: " + TypeOfCard + "\nMaxMana: " + MaxManaCost + 
             "\nAmountOfDamage: " + Damage + "\nAmountOfHealing: " + AmountToHeal + "\nAmountToShield: " + AmountToShield + 
             "\nAmountOfCardsToDraw: " + AmountOfCardsToDraw + "\nAmountOfCardsToDiscard: " + AmountOfCardsToDiscard + "\nDiscardCardsYourself: " + DiscardCardsYourself + 
             "\nTargetable: " + Targetable + "\nChampionCard: " + ChampionCard + "\nChampionCardType: " + ChampionCardType;

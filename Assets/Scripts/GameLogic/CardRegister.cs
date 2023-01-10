@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
 
 public class CardRegister : MonoBehaviour
 {
@@ -34,15 +30,10 @@ public class CardRegister : MonoBehaviour
 
     private void Awake()
     {
-
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(Instance);
-        }
 
         #if UNITY_EDITOR  
             SpreadsheetUpdater updater = new SpreadsheetUpdater();
@@ -86,47 +77,13 @@ public class CardRegister : MonoBehaviour
 
         foreach (Champion champion in champions)
         {
-            AddChampionType(champion);
-            champRegister.Add(champion.ChampionName, champion);
+			champRegister.Add(champion.ChampionName, champion);
+			championTypeRegister.Add(champion.ChampionCardType, champion);
             champCards.Add(champion, GetChampionCards(champion));
         }    
     }
 
-    private void AddChampionType(Champion champion)
-    {
-		ChampionCardType type = ChampionCardType.None;
-		switch (champion)
-		{
-			case Cultist:
-				type = ChampionCardType.Cultist;
-				break;
 
-			case Duelist:
-				type = ChampionCardType.Duelist;
-				break;
-
-			case Graverobber:
-				type = ChampionCardType.Graverobber;
-				break;
-
-			case TheOneWhoDraws:
-				type = ChampionCardType.TheOneWhoDraws;
-				break;
-
-			case Shanker:
-				type = ChampionCardType.Shanker;
-				break;
-
-			case Builder:
-				type = ChampionCardType.Builder;
-				break;
-
-			default:
-				Debug.LogError("The Champion doesnt exist in the register");
-                return;
-		}
-		championTypeRegister.Add(type, champion);
-	}
     private List<Card> GetChampionCards(Champion champion)
     {
         List<Card> tempC = new List<Card>();
@@ -136,9 +93,7 @@ public class CardRegister : MonoBehaviour
 
 			tempC.Add(card);
             if (card.TypeOfCard == CardType.Attack)
-            {
-				tempC.Add(card);
-            }
+                tempC.Add(card);
         }
         return tempC;
     }

@@ -5,11 +5,11 @@ using TMPro;
 
 public class UpdateUnspentMana : MonoBehaviour
 {
-    [SerializeField] private TMP_Text textToUpdate;
     private string unspentManaText;
+    [SerializeField] private TMP_Text textToUpdate;
     private void OnEnable()
     {
-        unspentManaText = ActionOfPlayer.Instance.unspentMana.ToString();
+        unspentManaText = ActionOfPlayer.Instance.UnspentMana.ToString();
         textToUpdate.text = "Unspent mana: " + unspentManaText;
         InvokeRepeating(nameof(InvokeTextUpdate), 1f, 1f);
     }

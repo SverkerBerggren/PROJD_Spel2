@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RadioFilter : MonoBehaviour
 {
-	public CardFilter cardFilter;
+	public CardFilter CardFilter;
 
 	public void ActivateFilter()
 	{
-		Deckbuilder.Instance.FilterCards(cardFilter);
+		Deckbuilder.Instance.FilterCards(CardFilter);
 	}
 }

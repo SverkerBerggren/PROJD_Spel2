@@ -1,12 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.XR;
 using TMPro;
-using System.Linq;
-using UnityEngine.Networking.Types;
 using System;
 
 public class ActionOfPlayer : MonoBehaviour
@@ -14,21 +8,20 @@ public class ActionOfPlayer : MonoBehaviour
 	private Choice choice;
     private GameState gameState;
     private Graveyard graveyard;
-
-
     private int cardCost;
-    public TMP_Text roundCounter;
-    public Sprite backfaceCard;
 
-    public Hand handPlayer;
-    public Hand handOpponent;
+    public TMP_Text RoundCounter;
+    public Sprite BackfaceCard;
 
-    public int playerMana = 0;
-    public int enemyMana = 0;
-    public int currentMana = 0;
-    public readonly int maxMana = 10;
-    public int unspentMana = 0;
-    public bool selectCardOption = false;
+    public Hand HandPlayer;
+    public Hand HandOpponent;
+
+    public int PlayerMana = 0;
+    public int EnemyMana = 0;
+    public int CurrentMana = 0;
+    public readonly int MaxMana = 10;
+    public int UnspentMana = 0;
+    public bool SelectCardOption = false;
 
     private static ActionOfPlayer instance;
 
@@ -37,13 +30,9 @@ public class ActionOfPlayer : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
         gameState = GameState.Instance;
     }
 
@@ -53,99 +42,59 @@ public class ActionOfPlayer : MonoBehaviour
 		graveyard = Graveyard.Instance;
 	}
 
-
-
 	private void Update()
     {
         if (Input.GetKey(KeyCode.M))
-        {
-            playerMana++;
-        }
+            PlayerMana++;
+
         if (Input.GetKey(KeyCode.D))
-        {
             GameState.Instance.DrawCard(1, null);
-        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+            gameState.HasPriority = true;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             ListEnum lE = new ListEnum();
             lE.myChampions = true;
             choice.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionPlayer, null);
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            gameState.hasPriority = true;
-        }
-
     }
 
-    public void UpdateUnspentMana()
+    private int DrawDrawnCards(Hand hand, bool isPlayer, int amountToDraw, Card specificCard)
     {
-        unspentMana += currentMana;
-
-    }
-
-    public bool CheckIfCanPlayCard(CardDisplay cardDisplay, bool useMana)
-    {
-        cardCost = cardDisplay.manaCost;
-        if (currentMana >= cardCost)
-        {
-            if (useMana)
-                currentMana -= cardCost;
-            return true;
-        }
-        else
-        {
-            Debug.Log("You don't have enough Mana");
-            return false;
-        }
-    }
-
-	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
-	{         
 		int drawnCards = 0;
-		Hand hand;
-		if (isPlayer)
-        {
-			hand = handPlayer;
-            GameState.Instance.drawnCardsThisTurn += amountToDraw;
-        }
-		else
-			hand = handOpponent;
-
 		foreach (CardDisplay cardDisplay in hand.cardSlotsInHand)
 		{
-			if (cardDisplay.card != null) continue;
+			if (drawnCards >= amountToDraw) break;
+			if (cardDisplay.Card != null) continue;
 
 			if (!cardDisplay.gameObject.activeSelf)
 			{
-				if (drawnCards >= amountToDraw) break;
+				if (!isPlayer)
+					cardDisplay.SetBackfaceOnOpponentCards(BackfaceCard);
 
-				if (!isPlayer)				
-                    cardDisplay.SetBackfaceOnOpponentCards(backfaceCard);
-				
 				if (specificCard == null)
-					cardDisplay.card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
-				else               
-					cardDisplay.card = specificCard;
+					cardDisplay.Card = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
+				else
+					cardDisplay.Card = specificCard;
 
-                drawnCards = CheckCardDrawn(cardDisplay, drawnCards);
+                if (CheckCardDrawn(cardDisplay, drawnCards) == -1) return -1;
 
-                if (drawnCards == -1)
-                    return;
-            }
+				drawnCards++;
+			}
 		}
-        DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
-    } 
+        return drawnCards;
+	}
 
     private int CheckCardDrawn(CardDisplay cardDisplay, int drawnCards)
     {
-        if (cardDisplay.card != null)
+        if (cardDisplay.Card != null)
         {
-            //cardDisplay.manaCost = cardDisplay.card.maxManaCost;
             cardDisplay.gameObject.SetActive(true);
             if (drawnCards == 0)
             {
-                gameState.drawnCardsThisTurn -= 1;
+                gameState.DrawnCardsThisTurn -= 1;
                 cardDisplay.firstCardDrawn = true;
             }
             drawnCards++;
@@ -153,7 +102,6 @@ public class ActionOfPlayer : MonoBehaviour
         else
         {
             print("Deck is empty or the drawn card is null!!!");
-            //gameState.Defeat();
             return -1;
         }
 
@@ -168,15 +116,16 @@ public class ActionOfPlayer : MonoBehaviour
             for (; drawnCards < amountToDraw; drawnCards++)
             {
                 Card c = Deck.Instance.WhichCardToDrawPlayer(isPlayer);
+
                 if (isPlayer)
                     graveyard.AddCardToGraveyard(c);
-                else if(!isPlayer && !gameState.isOnline)
+                else if(!isPlayer && !gameState.IsOnline)
 					graveyard.AddCardToGraveyardOpponent(c);
 
 				cardNames.Add(c.CardName);
             }
 
-            if (gameState.isOnline && isPlayer)
+            if (gameState.IsOnline && isPlayer)
             {
                 RequestDiscardCard requesten = new RequestDiscardCard();
                 requesten.whichPlayer = ClientConnection.Instance.playerId;
@@ -189,73 +138,105 @@ public class ActionOfPlayer : MonoBehaviour
         }
     }
 
-	public void IncreaseMana()
-    {
-        if(playerMana < maxMana)
-            playerMana++;
+    private void MoveCards(CardDisplay cardDisplay, bool isPlayer) // Cards moves to their right place in the hand
+	{
+		int index = HandPlayer.cardSlotsInHand.IndexOf(cardDisplay);
+		CardDisplay cardDisplayToSwapTo;
+        CardDisplay cardDisplayToSwapFrom;
+        for (int i = index + 1; i < HandPlayer.cardSlotsInHand.Count; i++)
+		{
+			cardDisplayToSwapFrom = HandPlayer.cardSlotsInHand[i].GetComponent<CardDisplay>();
 
-        currentMana = playerMana;
-    }
+            if (cardDisplayToSwapFrom.Card == null || i - 1 < 0) continue;
+
+			cardDisplayToSwapTo = HandPlayer.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
+
+			if (isPlayer)
+			{
+				cardDisplayToSwapTo.ManaCost = cardDisplayToSwapFrom.ManaCost;
+
+				if (cardDisplayToSwapFrom.Card.TypeOfCard == CardType.Landmark)
+					cardDisplayToSwapTo.cardDisplayAttributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAttributes.hpText.text;
+			}
+
+			cardDisplayToSwapTo.Card = cardDisplayToSwapFrom.Card;
+			cardDisplayToSwapFrom.Card = null;
+		}
+	}
+
+	public void UpdateUnspentMana()
+	{
+		UnspentMana += CurrentMana;
+	}
+
+	public bool CheckIfCanPlayCard(CardDisplay cardDisplay, bool useMana)
+	{
+		cardCost = cardDisplay.ManaCost;
+		if (CurrentMana >= cardCost)
+		{
+			if (useMana)
+				CurrentMana -= cardCost;
+			return true;
+		}
+		else
+		{
+			Debug.Log("You don't have enough Mana");
+			return false;
+		}
+	}
+
+	public void DrawCardPlayer(int amountToDraw, Card specificCard, bool isPlayer)
+	{
+		Hand hand;
+		if (isPlayer)
+		{
+			hand = HandPlayer;
+			GameState.Instance.DrawnCardsThisTurn += amountToDraw;
+		}
+		else
+			hand = HandOpponent;
+
+		int drawnCards = DrawDrawnCards(hand, isPlayer, amountToDraw, specificCard);
+		DiscardOverdrawnCards(drawnCards, amountToDraw, isPlayer);
+	}
+
+	public void IncreaseMana()
+	{
+		if (PlayerMana < MaxMana)
+			PlayerMana++;
+
+		CurrentMana = PlayerMana;
+	}
 
 	public string DiscardWhichCard(bool yourself)
 	{
-		string discardedCard = "";
+		string discardedCard;
+
 		if (yourself)
-			discardedCard = handPlayer.DiscardRandomCardInHand().CardName;
+			discardedCard = HandPlayer.DiscardRandomCardInHand().CardName;
 		else
-			discardedCard = handOpponent.DiscardRandomCardInHand().CardName;
+			discardedCard = HandOpponent.DiscardRandomCardInHand().CardName;
+
 		return discardedCard;
 	}
 
 	public void ChangeCardOrder(bool isPlayer, CardDisplay cardDisplay)
-    {
-        if (isPlayer)
-        {
-            handPlayer.FixCardOrderInHand();
-        }
-        else
-        {
-            cardDisplay.card = null;
-            handOpponent.FixCardOrderInHand();
-            return;
-        }
+	{
+		if (isPlayer)
+			HandPlayer.FixCardOrderInHand();
+		else
+		{
+			cardDisplay.Card = null;
+			HandOpponent.FixCardOrderInHand();
+			return;
+		}
 
+		cardDisplay.Card = null;
 
-        int index = handPlayer.cardSlotsInHand.IndexOf(cardDisplay);
-        CardDisplay cardDisplayToSwapTo;
-        CardDisplay cardDisplayToSwapFrom = null;
-        cardDisplay.card = null;
+		if (SelectCardOption)
+			cardDisplay.gameObject.GetComponent<CardMovement>().ClickedOnCard = false;
 
-        if (selectCardOption) 
-            cardDisplay.gameObject.GetComponent<CardMovement>().clickedOnCard = false;
-
-
-        for (int i = index + 1; i < handPlayer.cardSlotsInHand.Count; i++)
-        {                    
-            cardDisplayToSwapFrom = handPlayer.cardSlotsInHand[i].GetComponent<CardDisplay>();
-
-
-            if (cardDisplayToSwapFrom.card != null)
-            {
-                if (i - 1 < 0) continue;
-
-                cardDisplayToSwapTo = handPlayer.cardSlotsInHand[i - 1].GetComponent<CardDisplay>();
-                
-
-                if (isPlayer)
-                {
-                    cardDisplayToSwapTo.manaCost = cardDisplayToSwapFrom.manaCost;
-
-                    if (cardDisplayToSwapFrom.card.TypeOfCard == CardType.Landmark)
-                    {
-                        cardDisplayToSwapTo.cardDisplayAttributes.hpText.text = cardDisplayToSwapFrom.cardDisplayAttributes.hpText.text;
-                    }
-                }
-
-                cardDisplayToSwapTo.card = cardDisplayToSwapFrom.card;
-                cardDisplayToSwapFrom.card = null;
-            }
-        }
-        handPlayer.FixCardOrderInHand();
-    }
+		MoveCards(cardDisplay, isPlayer);
+		HandPlayer.FixCardOrderInHand();
+	}
 }

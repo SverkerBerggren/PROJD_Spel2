@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 
 public class ShowHowManyCardsInDeck : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private Deck deck;
+
     [SerializeField] private GameObject howManyCardsPanel;
     [SerializeField] private TMP_Text amountOfCardsText;
     [SerializeField] private bool opponentDeck;
 
-    private Deck deck;
 
     private void Start()
     {
@@ -21,9 +20,9 @@ public class ShowHowManyCardsInDeck : MonoBehaviour, IPointerEnterHandler, IPoin
     { 
 
         if(opponentDeck)
-            amountOfCardsText.text = "You have " + deck.deckOpponent.Count + " Cards in your deck";
+            amountOfCardsText.text = "You have " + deck.DeckOpponent.Count + " Cards in your deck";
         else
-            amountOfCardsText.text = "You have " + deck.deckPlayer.Count + " Cards in your deck";
+            amountOfCardsText.text = "You have " + deck.DeckPlayer.Count + " Cards in your deck";
 
         
 

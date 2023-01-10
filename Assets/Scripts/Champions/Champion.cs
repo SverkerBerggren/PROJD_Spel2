@@ -21,14 +21,10 @@ public abstract class Champion : ScriptableObject
     public Sprite Artwork;
     public ChampionCardType ChampionCardType;
     public Sprite ChampBackground;
-
     public GameObject ChampionMesh;
-
 
     public virtual void Awake() { MaxHealth = Health; gameState = GameState.Instance; }
 
-
-    
     public virtual void DrawCard(CardDisplay cardDisplay) { }
 
     public virtual void AmountOfCardsPlayed(Card card) {}
@@ -43,8 +39,5 @@ public abstract class Champion : ScriptableObject
 
     public virtual void UpdatePassive() {}
 
-    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
-
-
-
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.ManaCost; }
 }

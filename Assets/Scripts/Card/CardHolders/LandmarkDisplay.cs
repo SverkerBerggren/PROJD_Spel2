@@ -6,28 +6,26 @@ using UnityEngine;
 
 public class LandmarkDisplay : Displays
 {  
-    public int health;
-    //public Landmarks landmark;
-	//public GameObject landmarkPrefab;
     private GameState gameState;
     private Graveyard graveyard;
-    public int index;
-    public bool opponentLandmarks = false;
+    private CardDisplayAttributes previewCardDisplayAtributes;
     private GameObject landmarkPrefab;
-    [NonSerialized] public bool landmarkEnabled = true;
-    [NonSerialized] public CardDisplayAttributes cardDisplayAtributes;
 
     [SerializeField] private LandmarkDisplay previewLandmarkDisplay;
-    private CardDisplayAttributes previewCardDisplayAtributes;
+
+    [NonSerialized] public bool LandmarkEnabled = true;
+    [NonSerialized] public CardDisplayAttributes CardDisplayAtributes;
+
+    public int Health;
+    public int Index;
+    public bool OpponentLandmarks = false;
+
 
     private void Awake()
     {
-        cardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        CardDisplayAtributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
         previewCardDisplayAtributes = previewLandmarkDisplay.transform.GetChild(0).GetComponent<CardDisplayAttributes>();
-        //cardDisplayAtributes.UpdateTextOnCard(this);
         landmarkPrefab = transform.GetChild(0).gameObject;
-
-        
     }
 
     private void Start()
@@ -35,31 +33,44 @@ public class LandmarkDisplay : Displays
         gameState = GameState.Instance;
         graveyard = Graveyard.Instance;
 
-
-
         if (previewLandmarkDisplay.gameObject.name.Equals(gameObject.name)) return;
 
-
         landmarkPrefab.SetActive(false);
+    }
+
+    private void LandmarkDead()
+    {
+        if (OpponentLandmarks)
+        {
+            graveyard.AddCardToGraveyardOpponent(Card);
+        }
+        else
+        {
+            graveyard.AddCardToGraveyard(Card);
+        }
+        Landmarks landmark = (Landmarks)Card;
+        landmark.WhenLandmarksDie();
+        landmarkPrefab.SetActive(false);
+        Card = null;
     }
 
     public void DestroyLandmark()
     {
         LandmarkDead();
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
 		{
 			TargetInfo targetInfo = new TargetInfo();
 			ListEnum listEnum = new ListEnum();
 
-            if (opponentLandmarks)
+            if (OpponentLandmarks)
                 listEnum.opponentLandmarks = true;
             else
                 listEnum.myLandmarks = true;
 
 			targetInfo.whichList = listEnum;
 
-			targetInfo.index = index;
+			targetInfo.index = Index;
 
 			List<TargetInfo> targetInfoList = new List<TargetInfo>();
 			targetInfoList.Add(targetInfo);
@@ -70,27 +81,11 @@ public class LandmarkDisplay : Displays
 		}
 	}
 
-    private void LandmarkDead()
-    {
-        if (opponentLandmarks)
-        {
-            graveyard.AddCardToGraveyardOpponent(card);
-        }
-        else
-        {
-            graveyard.AddCardToGraveyard(card);
-        }
-        Landmarks landmark = (Landmarks)card;
-        landmark.WhenLandmarksDie();
-        landmarkPrefab.SetActive(false);
-        card = null;
-    }
-
     public void TakeDamage(int amount)
     {
-        health -= amount;
+        Health -= amount;
 
-        if (health <= 0)
+        if (Health <= 0)
         {
             LandmarkDead();                     
         }
@@ -98,37 +93,37 @@ public class LandmarkDisplay : Displays
 
     public void OnEnter()
     {
-        if (card == null) return;
+        if (Card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(true);
-        previewLandmarkDisplay.card = card;
-        previewLandmarkDisplay.manaCost = manaCost;
-        previewLandmarkDisplay.health = health;
+        previewLandmarkDisplay.Card = Card;
+        previewLandmarkDisplay.ManaCost = ManaCost;
+        previewLandmarkDisplay.Health = Health;
 
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     public void OnExit()
     {
-        if (card == null) return;
+        if (Card == null) return;
         previewLandmarkDisplay.gameObject.SetActive(false);
-        previewLandmarkDisplay.card = null;
+        previewLandmarkDisplay.Card = null;
         previewCardDisplayAtributes.UpdateTextOnCard(previewLandmarkDisplay);
     }
 
     public void UpdateTextOnCard()
     {
         landmarkPrefab.SetActive(true);
-        cardDisplayAtributes.UpdateTextOnCard(this);
+        CardDisplayAtributes.UpdateTextOnCard(this);
     }
 
     public void DisableLandmark()
     {
-        landmarkEnabled = false;
+        LandmarkEnabled = false;
     }
 
     public void EnableLandmark()
     {
-        landmarkEnabled = true;
+        LandmarkEnabled = true;
     }
 }
 

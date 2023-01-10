@@ -29,9 +29,7 @@ public class OneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
     [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
     [SerializeField] private EventSystem eventSystem;
-
     [SerializeField] private GameObject[] whatToCheck; 
-
 
     public WhatShouldBeOneSwitch OneSwitchActiveNow;
 
@@ -41,6 +39,7 @@ public class OneSwitch : MonoBehaviour
         choice = Choice.Instance;
     }
 
+    // Hides the previous target
     private void HideTarget()
     {
         if (index - 1 < 0) return;
@@ -59,6 +58,8 @@ public class OneSwitch : MonoBehaviour
             settingsSelectHoverprev.OneSwitchHover();
         prevIndex = index;
     }
+
+    //Shows the target
     private void ShowTarget()
     {
         if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplayShow))
@@ -77,6 +78,7 @@ public class OneSwitch : MonoBehaviour
             settingsSelectHoverprev.OneSwitchHover();
     }
 
+    // Resets the last index when going starting over
     private void ResetLast()
     {
         int length = targetableRightNow.Count - 1;
@@ -97,6 +99,7 @@ public class OneSwitch : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
     }
 
+    // Changes what it should target
     private void ChangeOneSwitch()
     {
         CheckWhatIsActive();
@@ -131,7 +134,7 @@ public class OneSwitch : MonoBehaviour
         oneSwitchActivePrevious = OneSwitchActiveNow;
     }
     
-
+    // The loop that checks which target to show
     private void CurrentTarget()
     {
         if (OneSwitchActiveNow != oneSwitchActivePrevious)
@@ -149,7 +152,7 @@ public class OneSwitch : MonoBehaviour
         {
             if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
             {
-                if (cardDisplay.card == null) continue;
+                if (cardDisplay.Card == null) continue;
                 if (!cardDisplay.cardDisplayAttributes.cardPlayableEffect.activeSelf) continue;
             }
 
@@ -168,19 +171,17 @@ public class OneSwitch : MonoBehaviour
         firstTime = false;       
     }
 
+    // if you play a card
     private void UsedCard(CardDisplay cardDisplay)
     {
         if (playCardManager.CanCardBePlayed(cardDisplay))
         {
             if (playCardManager.TauntCard()) return;
 
-            else if (!cardDisplay.card.Targetable)
-            {
+            else if (!cardDisplay.Card.Targetable)
                 playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
-            }
             else
             {
-                print("GoesThere");
                 CancelInvoke();
                 clicked = true;
 
@@ -188,7 +189,7 @@ public class OneSwitch : MonoBehaviour
                 lE.opponentLandmarks = true;
                 lE.opponentChampions = true;
 
-                choice.ChoiceMenu(lE, 1, WhichMethod.OneSwitchTarget, cardDisplay.card);
+                choice.ChoiceMenu(lE, 1, WhichMethod.OneSwitchTarget, cardDisplay.Card);
                 OneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
                 InvokeRepeating(nameof(CurrentTargetWithCard), 1f, 1f);
                 return;
@@ -197,6 +198,7 @@ public class OneSwitch : MonoBehaviour
         
     }
 
+    // If you try to target something with a card
     private void UsedCardWithTarget()
     {
         if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out AvailableChampion availableChampion))
@@ -210,32 +212,7 @@ public class OneSwitch : MonoBehaviour
         InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-            if (!clicked)
-            {
-                if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
-                    UsedCard(cardDisplay);
-
-                if (targetableRightNow[index].gameObject.name.Equals("ConfirmButton"))
-                {
-                    index = -1;
-                    prevIndex = 0;
-                   // ChoiceAllternatives();
-                }
-                else if (targetableRightNow[index].gameObject.name.Equals("EndTurn"))
-                    OneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
-            }
-            else
-            {
-                UsedCardWithTarget();
-            }
-        }
-    }
-
+    // Another loop that checks when you try to target something with a card
     private void CurrentTargetWithCard()
     {
         if (oneSwitchActivePrevious != OneSwitchActiveNow)
@@ -247,7 +224,7 @@ public class OneSwitch : MonoBehaviour
         {
             if (thingsToTargetWithCard[indexTargets].TryGetComponent(out LandmarkDisplay landmarkDisplay))
             {
-                if (landmarkDisplay.card == null) continue;
+                if (landmarkDisplay.Card == null) continue;
             }
                 
             break;
@@ -268,8 +245,8 @@ public class OneSwitch : MonoBehaviour
     {
         if (!whatToCheck[0].activeSelf)
             OneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
-        targetableRightNow = choice.buttonHolder.GetComponentsInChildren<Targetable>().ToList();
-        targetableRightNow.Add(choice.confirmMenuButton.GetComponent<Targetable>());
+        targetableRightNow = choice.ButtonHolder.GetComponentsInChildren<Targetable>().ToList();
+        targetableRightNow.Add(choice.ConfirmMenuButton.GetComponent<Targetable>());
     }
 
     private void OnDisable()
@@ -297,7 +274,6 @@ public class OneSwitch : MonoBehaviour
         else
             OneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
     }
-
     private void DelayedEnable()
     {
         choice = Choice.Instance;
@@ -307,6 +283,32 @@ public class OneSwitch : MonoBehaviour
 
         InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!clicked)
+            {
+                if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
+                    UsedCard(cardDisplay);
+
+                if (targetableRightNow[index].gameObject.name.Equals("ConfirmButton"))
+                {
+                    index = -1;
+                    prevIndex = 0;
+                    // ChoiceAllternatives();
+                }
+                else if (targetableRightNow[index].gameObject.name.Equals("EndTurn"))
+                    OneSwitchActiveNow = WhatShouldBeOneSwitch.EnemyTurn;
+            }
+            else
+            {
+                UsedCardWithTarget();
+            }
+        }
+    }
+
 
     public enum WhatShouldBeOneSwitch
     {

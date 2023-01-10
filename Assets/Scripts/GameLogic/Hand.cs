@@ -29,13 +29,13 @@ public class Hand : MonoBehaviour
     public void FixCardOrderInHand()
     {
         cardsInHand.Clear();
-        if (!cardSlotsInHand[0].opponentCard)
+        if (!cardSlotsInHand[0].OpponentCard)
             transform.position = handStartPoition;
         for (int i = 0; i < cardSlotsInHand.Count; i++)
         {
             CardDisplay cardDisplay = cardSlotsInHand[i];
            
-            if (cardDisplay.card == null)
+            if (cardDisplay.Card == null)
             {
                 cardDisplay.HideUnusedCard();
                 continue;
@@ -46,7 +46,7 @@ public class Hand : MonoBehaviour
             
             cardDisplay.UpdateTextOnCard();
 
-            if (!cardDisplay.opponentCard)
+            if (!cardDisplay.OpponentCard)
             {
                 transform.position += new Vector3(-4f, 0, 0);
                 cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
@@ -72,7 +72,7 @@ public class Hand : MonoBehaviour
         {
             
             cardDisp.Add(cardsInHand[cardIndexes[i]]);
-            cards.Add(cardDisp[i].card.CardName);
+            cards.Add(cardDisp[i].Card.CardName);
         }
         dissolveDone = false;
         Dissolve(cardDisp);
@@ -100,7 +100,7 @@ public class Hand : MonoBehaviour
 		Deck deck = Deck.Instance;
         for (int i = 0; i < cardIndexes.Count; i++)
         {
-            Card card = cardsInHand[cardIndexes[i]].card;
+            Card card = cardsInHand[cardIndexes[i]].Card;
 			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
             deck.AddCardToDeckPlayer(card);
 		}
@@ -125,8 +125,8 @@ public class Hand : MonoBehaviour
 
 	private Card CardToDiscard(CardDisplay cardDisplay)
     {
-        Graveyard.Instance.AddCardToGraveyard(cardDisplay.card); 
-        return cardDisplay.card;
+        Graveyard.Instance.AddCardToGraveyard(cardDisplay.Card); 
+        return cardDisplay.Card;
     }
 
     private async void Dissolve(List<CardDisplay> cardDisplays)
@@ -136,7 +136,7 @@ public class Hand : MonoBehaviour
         for (int i= 0; i <cardDisplays.Count; i++) 
         {
             await Task.Delay(50);
-            tasks[i] = cardDisplays[i].cardDissolve.DissolveCard();
+            tasks[i] = cardDisplays[i].CardDissolve.DissolveCard();
         }
 
         await Task.WhenAll(tasks);

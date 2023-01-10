@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnableSettings : MonoBehaviour
 {
-    [SerializeField] private GameObject checkImage;
-    private bool settingEnabled = false;
     private GameObject actionOfPlayer;
+    private bool settingEnabled = false;
+
+    [SerializeField] private GameObject checkImage;
 
     private void Start()
     {
@@ -28,6 +27,8 @@ public class EnableSettings : MonoBehaviour
             settingEnabled = false;
         }
     }
+
+
     public void OnClickLowerDetail()
     {
         if(!settingEnabled)

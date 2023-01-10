@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class DeckbuilderCardButton : MonoBehaviour
 {
-	[NonSerialized] public Card card;
-	[NonSerialized] public Champion champion;
 	private int tapCount = 0;
+	[NonSerialized] public Card Card;
+	[NonSerialized] public Champion Champion;
 
 	public void OnClick()
 	{
@@ -19,29 +16,25 @@ public class DeckbuilderCardButton : MonoBehaviour
 	private void OnDoAction()
 	{
 		if (tapCount == 1)
-		{
-			Add(card != null);
-		}
+			Add(Card != null);
 		else 
-		{
-			Remove(card != null);
-		}
+			Remove(Card != null);
 		tapCount = 0;
 	}
 
 	public void Add(bool isCard)
 	{
 		if(isCard)
-			Setup.Instance.AddCard(card);
+			Setup.Instance.AddCard(Card);
 		else
-			Setup.Instance.AddChampion(champion);
+			Setup.Instance.AddChampion(Champion);
 	}
 
 	private void Remove(bool isCard)
 	{
 		if (isCard)
-			Setup.Instance.RemoveCard(card);
+			Setup.Instance.RemoveCard(Card);
 		else
-			Setup.Instance.RemoveChampion(champion);
+			Setup.Instance.RemoveChampion(Champion);
 	}
 }

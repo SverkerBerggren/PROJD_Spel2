@@ -8,10 +8,7 @@ public class SeersShack : Landmarks
 	[Header("Seers Shack")]
 	public int CardsShown;
 
-    public SeersShack(SeersShack card) : base(card.MinionHealth, card.CardName, card.Description, card.MaxManaCost, card.Damage, card.AmountToHeal, card.AmountToShield)
-    {
-
-    }
+    public SeersShack(SeersShack card) : base(card.MinionHealth, card.CardName, card.Description, card.MaxManaCost, card.Damage, card.AmountToHeal, card.AmountToShield) {}
 
     public override void UpKeep()
 	{

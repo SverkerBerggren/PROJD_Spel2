@@ -1,28 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
-
 public class CardDissolve : MonoBehaviour
 {
-    //the VFX gameobject should set to disactive at start
-    [SerializeField] private GameObject cardDissolve_VFX;
     private MeshRenderer meshMaterial;
-    [SerializeField] private GameObject glow;
-    [SerializeField] private GameObject textCanvas;
-    [SerializeField] private string alpha = "_AlphaClipThreshold";
-
     private ActionOfPlayer actionOfPlayer;
     private CardDisplay display;
     private float dissolveRate = 0.0225f;
     private int refreshRate = 30;
 
+    [SerializeField] private GameObject cardDissolve_VFX;
+    [SerializeField] private GameObject glow;
+    [SerializeField] private GameObject textCanvas;
+    [SerializeField] private string alpha = "_AlphaClipThreshold";
+
     // Start is called before the first frame update
     void Start()
     {
-        actionOfPlayer = ActionOfPlayer.Instance;
-        display = GetComponentInParent<CardDisplay>();
+       actionOfPlayer = ActionOfPlayer.Instance;
+       display = GetComponentInParent<CardDisplay>();
        meshMaterial = GetComponent<MeshRenderer>();
 
     }

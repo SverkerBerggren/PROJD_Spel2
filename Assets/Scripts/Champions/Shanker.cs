@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Unity.VisualScripting.FullSerializer;
 
 [CreateAssetMenu(fileName = "Shanker", menuName = "Champion/Shanker", order = 1)]
 public class Shanker : Champion
@@ -13,15 +9,13 @@ public class Shanker : Champion
     public override void EndStep()
 	{
 		base.EndStep();
-		if (gameState.attacksPlayedThisTurn >= AttackCardsToPlay)
-		{
+		if (gameState.AttacksPlayedThisTurn >= AttackCardsToPlay)
 			gameState.DrawCard(CardsToDraw, null);
-		}
 	}
 
 	public override void UpdatePassive()
 	{
-		if(gameState.opponentChampion.champion != this)
-			PassiveEffect = gameState.attacksPlayedThisTurn + "/" + AttackCardsToPlay + " attacks";
+		if(gameState.OpponentChampion.Champion != this)
+			PassiveEffect = gameState.AttacksPlayedThisTurn + "/" + AttackCardsToPlay + " attacks";
     }
 }

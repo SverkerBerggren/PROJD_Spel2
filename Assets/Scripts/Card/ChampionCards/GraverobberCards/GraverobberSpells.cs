@@ -17,17 +17,13 @@ public class GraverobberSpells : Spells
         ChampionCardType = ChampionCardType.Graverobber;
     }
 
-    public override void PlaySpell()
+	protected override void PlaySpell()
     {
         graveyard = Graveyard.Instance;
         if (GraveGrief)
-        {
             GraveGriefActivate();
-        }
         else if (Digging)
-        {
             DiggingActivate();
-        }
     }
 
     private void GraveGriefActivate()
@@ -38,11 +34,11 @@ public class GraverobberSpells : Spells
         int discardedCards = 0;
         for (int i = 0; i < 2; i++)
         {
-            if (actionOfPlayer.handOpponent.DiscardRandomCardInHand() != null)
+            if (actionOfPlayer.HandOpponent.DiscardRandomCardInHand() != null)
                 discardedCards++;
         }
 
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             //Discard for Opponent
             RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
@@ -76,7 +72,7 @@ public class GraverobberSpells : Spells
 
 		graveyard.AddCardToGraveyard(this);
 
-		if (GameState.Instance.isOnline)
+		if (GameState.Instance.IsOnline)
         {
             RequestRemoveCardsGraveyard requesten = new RequestRemoveCardsGraveyard();
             requesten.whichPlayer = ClientConnection.Instance.playerId;

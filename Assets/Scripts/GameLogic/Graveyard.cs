@@ -5,8 +5,8 @@ using System;
 
 public class Graveyard : MonoBehaviour
 {
-    public List<Card> graveyardPlayer = new List<Card>();
-    public List<Card> graveyardOpponent = new List<Card>();
+    public List<Card> GraveyardPlayer = new List<Card>();
+    public List<Card> GraveyardOpponent = new List<Card>();
 
     private static Graveyard instance;
     public static Graveyard Instance { get { return instance; } }
@@ -14,33 +14,29 @@ public class Graveyard : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     public void AddCardToGraveyard(Card cardToAdd)
     {
-        graveyardPlayer.Add(cardToAdd);
+        GraveyardPlayer.Add(cardToAdd);
     }
 
     public Tuple<Card,int> RandomizeCardFromGraveyard()
     {
-        if (graveyardPlayer.Count <= 0)
-            return null;
-        int index = UnityEngine.Random.Range(0, graveyardPlayer.Count);
-        return new Tuple<Card, int>(FindAndRemoveCardInGraveyard(graveyardPlayer[index]), index);
+        if (GraveyardPlayer.Count <= 0) return null;
+
+        int index = UnityEngine.Random.Range(0, GraveyardPlayer.Count);
+        return new Tuple<Card, int>(FindAndRemoveCardInGraveyard(GraveyardPlayer[index]), index);
     }
 
     public Card FindAndRemoveCardInGraveyard(Card cardToReturn)
     {
-        if (graveyardPlayer.Contains(cardToReturn))
+        if (GraveyardPlayer.Contains(cardToReturn))
         {
-            graveyardPlayer.Remove(cardToReturn);
+            GraveyardPlayer.Remove(cardToReturn);
             return cardToReturn;
         }
         return null;
@@ -48,21 +44,21 @@ public class Graveyard : MonoBehaviour
 
     public void AddCardToGraveyardOpponent(Card cardToAdd)
     {
-        graveyardOpponent.Add(cardToAdd);
+        GraveyardOpponent.Add(cardToAdd);
     }
 
-    public Card RandomizeCardFromGraveyardOpponent()
+    public Card RandomizeCardFromOpponent()
     {
-        return FindAndRemoveCardInGraveyardOpponent(graveyardOpponent[UnityEngine.Random.Range(0, graveyardOpponent.Count)]);
+        return FindAndRemoveCardFromOpponent(GraveyardOpponent[UnityEngine.Random.Range(0, GraveyardOpponent.Count)]);
     }
 
-    public Card FindAndRemoveCardInGraveyardOpponent(Card cardToReturn)
+    public Card FindAndRemoveCardFromOpponent(Card cardToReturn)
     {
-        foreach (Card card in graveyardOpponent)
+        foreach (Card card in GraveyardOpponent)
         {
             if (card == cardToReturn)
             {
-                graveyardOpponent.Remove(card);
+                GraveyardOpponent.Remove(card);
                 return card;
             }
         }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 {
+    private GameState gameState;
     [SerializeField] private ChampionAttributes championAttributes;
     [SerializeField] private int index;
     [SerializeField] private bool enemyChampion;
@@ -12,7 +11,6 @@ public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private int currentTime;
     [SerializeField] private bool startShow;
     [SerializeField] private bool hasShown;
-    private GameState gameState;
 
 
     private void Start()
@@ -26,37 +24,30 @@ public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         hasShown = false;
         currentTime = timeBeforeShow;
     }
+
     private void FixedUpdate()
     {
         if(startShow)
         {
             currentTime -= 1;
 
-            if(currentTime<= 0)
+            if(currentTime <= 0)
             {
                 if (!hasShown)
                 {
                     if (enemyChampion)
                     {
-                        if (gameState.opponentChampions.Count - 1 < index)
-                        {
+                        if (gameState.OpponentChampions.Count - 1 < index)
                             return;
-                        }
                         else
-                        {
                             ShowChampion(index, enemyChampion);
-                        }
                     }
                     else
                     {
-                        if (gameState.playerChampions.Count - 1 < index)
-                        {
+                        if (gameState.PlayerChampions.Count - 1 < index)
                             return;
-                        }
                         else
-                        {
                             ShowChampion(index, enemyChampion);
-                        }
                     }
                 }
                 hasShown = true;
@@ -68,13 +59,12 @@ public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (enemyChampion)
         {
-
-            championAttributes.UpdateChampionCard(GameState.Instance.opponentChampions[index].champion);
+            championAttributes.UpdateChampionCard(GameState.Instance.OpponentChampions[index].Champion);
             championAttributes.gameObject.SetActive(true);
         }
         else
         {
-            championAttributes.UpdateChampionCard(GameState.Instance.playerChampions[index].champion);
+            championAttributes.UpdateChampionCard(GameState.Instance.PlayerChampions[index].Champion);
             championAttributes.gameObject.SetActive(true);
         }
     }
@@ -91,6 +81,4 @@ public class HoverChampion : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         hasShown = false;
         currentTime = timeBeforeShow;
     }
-
-
 }

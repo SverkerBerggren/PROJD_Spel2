@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class CardAndPlacement  
 {
-    public string cardName = "ERROR:CardMissing";
-    public TargetInfo placement = new TargetInfo();
-
-
+    public string CardName = "ERROR:CardMissing";
+    public TargetInfo Placement = new TargetInfo();
 }

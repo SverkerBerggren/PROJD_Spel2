@@ -14,7 +14,7 @@ public class DuelistLandmark : Landmarks
     public override void PlaceLandmark()
     {
         GameState gameState = GameState.Instance;
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             RequestStopSwapping stopSwapRequest = new RequestStopSwapping(false);
             stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;
@@ -25,7 +25,7 @@ public class DuelistLandmark : Landmarks
     public override void WhenLandmarksDie()
     {
         GameState gameState = GameState.Instance;
-        if (gameState.isOnline)
+        if (gameState.IsOnline)
         {
             RequestStopSwapping stopSwapRequest = new RequestStopSwapping(true);
             stopSwapRequest.whichPlayer = ClientConnection.Instance.playerId;

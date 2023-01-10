@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RadialLayout : LayoutGroup
 {
-    public float fDistance;
+    public float FDistance;
     [Range(0f, 360f)]
     public float MinAngle, MaxAngle, StartAngle;
     protected override void OnEnable() 
@@ -18,20 +16,15 @@ public class RadialLayout : LayoutGroup
     {
         CalculateRadial();
     }
-    public override void SetLayoutHorizontal()
-    {
-    }
-    public override void SetLayoutVertical()
-    {
-    }
+    public override void SetLayoutHorizontal() {}
+
+    public override void SetLayoutVertical() {}
+
     public override void CalculateLayoutInputVertical()
     {
         CalculateRadial();
     }
-/*    public override void CalculateLayoutInputHorizontal()
-    {
-        CalculateRadial();
-    }*/
+
 #if UNITY_EDITOR
     protected override void OnValidate()
     {
@@ -76,7 +69,7 @@ public class RadialLayout : LayoutGroup
             if (child != null && child.gameObject.activeSelf)
             {
                 Vector2 vPos = new(Mathf.Cos(fAngle * Mathf.Deg2Rad), Mathf.Sin(fAngle * Mathf.Deg2Rad));
-                child.localPosition = vPos * fDistance;
+                child.localPosition = vPos * FDistance;
                 child.anchorMin = child.anchorMax = child.pivot = new Vector2(0.5f, 0.5f);
                 fAngle += fOffsetAngle;
             }

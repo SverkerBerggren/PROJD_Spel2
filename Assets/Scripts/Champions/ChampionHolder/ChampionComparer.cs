@@ -5,31 +5,13 @@ using UnityEngine;
 
 public class ChampionComparer : IComparer<Champion>
 {
-	private CardFilter cardFilter;
+	private readonly CardFilter cardFilter;
 	public ChampionComparer(CardFilter cardFilter)
 	{
 		this.cardFilter = cardFilter;
 	}
 
-	public int Compare(Champion x, Champion y)
-	{
-		switch (cardFilter)
-		{
-			case CardFilter.Name:
-			return CompareName(x, y);
-
-			case CardFilter.Health:
-			return CompareHealth(x, y);
-
-			case CardFilter.ManaCost:
-			return CompareHealth(x, y);
-
-			default:
-				throw new ArgumentOutOfRangeException(string.Format("Failed to sort champion based on filter", cardFilter));
-		}
-	}
-
-	public int CompareName(Champion x, Champion y)
+	private int CompareName(Champion x, Champion y)
 	{
 		var lastNameResult = x.ChampionName.CompareTo(y.ChampionName);
 
@@ -39,11 +21,22 @@ public class ChampionComparer : IComparer<Champion>
 		return x.ChampionName.CompareTo(y.ChampionName);
 	}
 
-	public int CompareHealth(Champion x, Champion y)
+	private int CompareHealth(Champion x, Champion y)
 	{
-		if(x.Health == y.Health)
+		if (x.Health == y.Health)
 			return CompareName(x, y);
 
 		return x.Health.CompareTo(y.Health);
+	}
+
+	public int Compare(Champion x, Champion y)
+	{
+		return cardFilter switch
+		{
+			CardFilter.Name => CompareName(x, y),
+			CardFilter.Health => CompareHealth(x, y),
+			CardFilter.ManaCost => CompareHealth(x, y),
+			_ => throw new ArgumentOutOfRangeException(string.Format("Failed to sort champion based on filter", cardFilter)),
+		};
 	}
 }

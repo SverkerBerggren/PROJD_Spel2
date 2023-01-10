@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Landmarks : Card
@@ -15,9 +13,9 @@ public class Landmarks : Card
         TypeOfCard = CardType.Landmark;
         MaxManaCost = maxMana;
 
-        this.AmountToHeal = amountToHeal;
-        this.AmountToShield = amountToShield;
-        this.Damage = damage;
+        AmountToHeal = amountToHeal;
+        AmountToShield = amountToShield;
+        Damage = damage;
     }
 
     public override void PlayCard()
@@ -50,8 +48,7 @@ public class Landmarks : Card
 
     public virtual void WhenLandmarksDie() { }
 
-    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.manaCost; }
-
+    public virtual int CalculateManaCost(CardDisplay cardDisplay) { return cardDisplay.ManaCost; }
 
     public override string WriteOutCardInfo()
     {

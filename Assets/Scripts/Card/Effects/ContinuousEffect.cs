@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ContinuousEffect : MonoBehaviour
 {
-
 	public virtual void EndStep() { }
 	public virtual void OnPlayCard() { }
 	public virtual void OnDrawCard(Card card) { }

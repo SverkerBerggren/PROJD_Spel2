@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
 public class CardComparer : IComparer<Card>
 {
@@ -10,27 +7,6 @@ public class CardComparer : IComparer<Card>
 	public CardComparer(CardFilter cardFilter)
 	{
 		this.cardFilter = cardFilter;
-	}
-
-	public int Compare(Card x, Card y)
-	{
-		switch (cardFilter)
-		{
-			case CardFilter.Name:
-			return CompareName(x, y);
-
-			case CardFilter.ManaCost:
-			return CompareManaCost(x, y);
-
-			case CardFilter.Health:
-			if(x is not Landmarks || y is not Landmarks)
-				throw new ArgumentOutOfRangeException(string.Format("Cant not sort anything except landmark cards", cardFilter));
-			else
-				return CompareHealth((Landmarks)x, (Landmarks)y);
-
-			default:
-				throw new ArgumentOutOfRangeException(string.Format("Failed to sort card based on filter", cardFilter));
-		}
 	}
 
 	private int CompareName(Card x, Card y)
@@ -58,6 +34,28 @@ public class CardComparer : IComparer<Card>
 
 		return x.MinionHealth.CompareTo(y.MinionHealth);
 	}
+
+	public int Compare(Card x, Card y)
+	{
+		switch (cardFilter)
+		{
+			case CardFilter.Name:
+			return CompareName(x, y);
+
+			case CardFilter.ManaCost:
+			return CompareManaCost(x, y);
+
+			case CardFilter.Health:
+			if(x is not Landmarks || y is not Landmarks)
+				throw new ArgumentOutOfRangeException(string.Format("Cant not sort anything except landmark cards", cardFilter));
+			else
+				return CompareHealth((Landmarks)x, (Landmarks)y);
+
+			default:
+				throw new ArgumentOutOfRangeException(string.Format("Failed to sort card based on filter", cardFilter));
+		}
+	}
+
 }
 
 public enum CardFilter

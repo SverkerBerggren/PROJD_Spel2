@@ -53,13 +53,13 @@ public class EffectController : MonoBehaviour
         {
             if(availableChampion.Item2 == false)
             {
-                foreach(AvailableChampion champOnField in GameState.Instance.playerChampions)
+                foreach(AvailableChampion champOnField in GameState.Instance.PlayerChampions)
                 {
-                    if(champOnField.champion.ChampionName.Equals(availableChampion.Item1))  
+                    if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         //shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.playerChampion.champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.PlayerChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }
@@ -72,13 +72,13 @@ public class EffectController : MonoBehaviour
             }
             else
             {
-                foreach(AvailableChampion champOnField in GameState.Instance.opponentChampions)
+                foreach(AvailableChampion champOnField in GameState.Instance.OpponentChampions)
                 {
-                    if(champOnField.champion.ChampionName.Equals(availableChampion.Item1))  
+                    if(champOnField.Champion.ChampionName.Equals(availableChampion.Item1))  
                     {
                         // shields[availableChampion].transform.position = champOnField.transform.position;
                         shields[availableChampion].transform.position = new Vector3(champOnField.transform.position.x, champOnField.transform.position.y + 9f, champOnField.transform.position.z);
-                        if (GameState.Instance.opponentChampion.champion.ChampionName.Equals(availableChampion.Item1))
+                        if (GameState.Instance.OpponentChampion.Champion.ChampionName.Equals(availableChampion.Item1))
                         {
                             shields[availableChampion].gameObject.SetActive(true);
                         }
@@ -142,18 +142,17 @@ public class EffectController : MonoBehaviour
     public void PlayAttackEffect(AvailableChampion holder)
     {
     
-        switch (holder.champion.ChampionName)
+        switch (holder.Champion.ChampionName)
         {
             case "Cultist":
                 GainCultistAttackEffect();
                 break;
-            case "Builder": break;
-           
+            case "Builder":      
             case "Duelist":
                 holder.GetComponentInChildren<ParticleSystem>().Play();
                 break;
-            case "Graverobber": break;
-            case "TheOneWhoDraws": break;
+            case "Graverobber": 
+            case "TheOneWhoDraws": 
             case "Shanker":
                 holder.GetComponentInChildren<EffectChampions>().attackVFX.Play();
                 break;
@@ -163,7 +162,7 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
-        if (holder.champion.ChampionName.Equals("Shanker"))
+        if (holder.Champion.ChampionName.Equals("Shanker"))
             return;
 
            holder.GetComponentInChildren<EffectChampions>().StartDisolve();
