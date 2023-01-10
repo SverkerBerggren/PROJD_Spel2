@@ -322,6 +322,11 @@ public class InternetLoop : MonoBehaviour
         }
     }
 
+    public void ChangeSceneToLoad(string sceneToLoad)
+    {
+        loadScene = sceneToLoad;
+    }
+
     public void CreateScene()
     {
         SceneManager.LoadScene(loadScene);
