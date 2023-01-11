@@ -27,7 +27,11 @@ public class DialogueTutorial : MonoBehaviour
             {
                 NextLine();
             }
-
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+            }
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -36,7 +40,11 @@ public class DialogueTutorial : MonoBehaviour
             {
                 PreviousLine();
             }
-
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+            }
         }
 
         if (Input.GetMouseButtonDown(2))
