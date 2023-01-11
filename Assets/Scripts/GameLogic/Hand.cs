@@ -61,38 +61,65 @@ public class Hand : MonoBehaviour
             return null;
         int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
         List<int> cardIndexes = new List<int>() { cardIndex };
-        DiscardCardListWithIndexes(cardIndexes);
+        DiscardCardListWithIndexes(cardIndexes, true);
 		return cardsInHand[cardIndex].Card;
     }
 
-    public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
+    public List<Card> DiscardMultipleRandomCards(int amountOfCards, bool isPlayer)
+    {
+        if (cardsInHand.Count <= 0)
+            return null;
+
+        List<int> cardIndexes = new List<int>();
+        List<Card> cards = new List<Card>();
+
+        if (cardsInHand.Count < amountOfCards)
+            amountOfCards = cardsInHand.Count;
+
+        for (int i = 0; i < amountOfCards; i++)
+        {
+            
+            int index = UnityEngine.Random.Range(0, cardsInHand.Count);
+            if (!cardIndexes.Contains(index))
+            {
+                cards.Add(cardsInHand[index].Card);
+                cardIndexes.Add(index);
+            }
+            else
+                i--;
+        }
+
+        DiscardCardListWithIndexes(cardIndexes, isPlayer);
+        return cards;
+    }
+
+    public List<string> DiscardCardListWithIndexes(List<int> cardIndexes, bool isPlayer)
     {
         List<string> cards = new List<string>();
         List<CardDisplay> cardDisp = new List<CardDisplay>();
 
         for (int i = 0; i < cardIndexes.Count; i++)
-        {
-            
+        {        
             cardDisp.Add(cardsInHand[cardIndexes[i]]);
             cards.Add(cardDisp[i].Card.CardName);
         }
         dissolveDone = false;
         Dissolve(cardDisp);
 
-        StartCoroutine(RemoveCards(cardIndexes));
+        StartCoroutine(RemoveCards(cardIndexes, isPlayer));
         print("FML");
         return cards;
     }
     
 
-    private IEnumerator RemoveCards(List<int> cardIndexes)
+    private IEnumerator RemoveCards(List<int> cardIndexes, bool isPlayer)
     {
         yield return new WaitUntil(() => dissolveDone == true);
         List<int> cardIndexesCopy = new List<int>(cardIndexes);
         cardIndexesCopy = FixIndexesWhenRemovingCards(cardIndexesCopy);     
         for (int i = 0; i < cardIndexesCopy.Count; i++)
         {            
-            ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexesCopy[i]]);
+            ActionOfPlayer.Instance.ChangeCardOrder(isPlayer, cardsInHand[cardIndexesCopy[i]]);
         }
     }
 

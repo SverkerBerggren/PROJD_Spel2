@@ -465,7 +465,7 @@ public class Choice : MonoBehaviour
             indexes.Add(card);
         }
 
-        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes);
+        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes, true);
 
         bool enemyGraveyard = false;
 

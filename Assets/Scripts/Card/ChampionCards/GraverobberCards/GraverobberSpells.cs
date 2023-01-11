@@ -46,13 +46,11 @@ public class GraverobberSpells : Spells
         }
         else
         {
-            for (int i = 0; i < discardedCards; i++)
+            List<Card> cards = actionOfPlayer.HandOpponent.DiscardMultipleRandomCards(discardedCards, false);
+
+            foreach (Card card in cards)
             {
-				Card card = actionOfPlayer.HandOpponent.DiscardRandomCardInHand();
-                if (card != null)
-                {
-                    graveyard.AddCardToGraveyard(card);
-                }
+                graveyard.AddCardToGraveyard(card);
             }
         }
     }
