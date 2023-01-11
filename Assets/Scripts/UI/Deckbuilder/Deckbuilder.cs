@@ -92,7 +92,8 @@ public class Deckbuilder : MonoBehaviour
         foreach (string filePath in Directory.GetFiles(Setup.savePath))
         {
             string deckFile = Path.GetFileName(filePath);
-            if (!deckFile.EndsWith(".txt")) continue;
+
+            if (!deckFile.EndsWith(".txt")) continue; // Goes through all files and removes non textfiles
 
             deckFile = deckFile.Remove(deckFile.Length - 4, 4);
             if (setup.LoadDeckToFile(deckFile))
@@ -225,7 +226,7 @@ public class Deckbuilder : MonoBehaviour
 
         decklist.text = "Deck: " + DeckName + "\n\n";
         decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
-        foreach (string champion in setup.myChampions)
+        foreach (string champion in setup.myChampions) // WIP
         {
             decklist.text += champion + "\n";
         }
@@ -262,7 +263,7 @@ public class Deckbuilder : MonoBehaviour
 
     public void CheckCardBanner(Card card)
     {
-        CheckCardBanner(card, -1);
+        CheckCardBanner(card, -1); // Does not move position
     }
 
 	private void CheckCardBanner(Card card, int index) // Changes the cardsbanner object

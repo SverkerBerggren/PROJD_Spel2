@@ -130,10 +130,10 @@ public class GameState : MonoBehaviour
             List<string> offlineChamps = new List<string>
             {
                 "Shanker",
-                "TheOneWhoDraws",
-                "Duelist",
-                //"Graverobber",
-                //"Builder",
+                //"TheOneWhoDraws",
+                //"Duelist",
+                "Graverobber",
+                "Builder",
                 //"Cultist",
             };
             AddChampions(offlineChamps, true);

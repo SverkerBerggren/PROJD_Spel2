@@ -45,7 +45,19 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
+        playerDeckList.Clear();
 	}
+
+    public void StopDeckbuilding()
+    {
+        foreach (Card card in amountOfCards.Keys)
+        {
+            for (int i = 0; i < amountOfCards[card]; i++)
+            {
+                playerDeckList.Add(card);
+            }
+        }
+    }
 
     public void SaveDeckToFile(string deckName)
     {
@@ -207,7 +219,6 @@ public class Setup : MonoBehaviour
     public void ClearDeck()
     {
         amountOfCards.Clear();
-        playerDeckList.Clear();
         myChampions.Clear();
         deckbuilder.ClearAllBanners();
         currentDeckSize = 0;

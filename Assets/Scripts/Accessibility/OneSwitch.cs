@@ -39,6 +39,7 @@ public class OneSwitch : MonoBehaviour
         choice = Choice.Instance;
     }
 
+    // Hides the previous target
     private void HideTarget()
     {
         if (index - 1 < 0) return;
@@ -57,6 +58,8 @@ public class OneSwitch : MonoBehaviour
             settingsSelectHoverprev.OneSwitchHover();
         prevIndex = index;
     }
+
+    //Shows the target
     private void ShowTarget()
     {
         if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplayShow))
@@ -75,6 +78,7 @@ public class OneSwitch : MonoBehaviour
             settingsSelectHoverprev.OneSwitchHover();
     }
 
+    // Resets the last index when going starting over
     private void ResetLast()
     {
         int length = targetableRightNow.Count - 1;
@@ -95,6 +99,7 @@ public class OneSwitch : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
     }
 
+    // Changes what it should target
     private void ChangeOneSwitch()
     {
         CheckWhatIsActive();
@@ -129,6 +134,7 @@ public class OneSwitch : MonoBehaviour
         oneSwitchActivePrevious = OneSwitchActiveNow;
     }
     
+    // The loop that checks which target to show
     private void CurrentTarget()
     {
         if (OneSwitchActiveNow != oneSwitchActivePrevious)
@@ -165,6 +171,7 @@ public class OneSwitch : MonoBehaviour
         firstTime = false;       
     }
 
+    // if you play a card
     private void UsedCard(CardDisplay cardDisplay)
     {
         if (playCardManager.CanCardBePlayed(cardDisplay))
@@ -191,6 +198,7 @@ public class OneSwitch : MonoBehaviour
         
     }
 
+    // If you try to target something with a card
     private void UsedCardWithTarget()
     {
         if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out AvailableChampion availableChampion))
@@ -204,7 +212,7 @@ public class OneSwitch : MonoBehaviour
         InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
 
-
+    // Another loop that checks when you try to target something with a card
     private void CurrentTargetWithCard()
     {
         if (oneSwitchActivePrevious != OneSwitchActiveNow)
