@@ -16,7 +16,7 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
-        // Anledningen är load order
+        // Anledningen ï¿½r load order
         Invoke(nameof(InvokeRefresh), 0.1f);
     }
     
@@ -60,7 +60,9 @@ public class Hand : MonoBehaviour
         if (cardsInHand.Count <= 0)
             return null;
         int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
-        return CardToDiscard(cardsInHand[cardIndex]);
+        List<int> cardIndexes = new List<int>() { cardIndex };
+        DiscardCardListWithIndexes(cardIndexes);
+		return cardsInHand[cardIndex].Card;
     }
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
@@ -122,13 +124,6 @@ public class Hand : MonoBehaviour
 		}
         return indexes;
 	}
-
-	private Card CardToDiscard(CardDisplay cardDisplay)
-    {
-        Graveyard.Instance.AddCardToGraveyard(cardDisplay.Card); 
-        cardDisplay.Card = null;
-        return cardDisplay.Card;
-    }
 
     private async void Dissolve(List<CardDisplay> cardDisplays)
     {
