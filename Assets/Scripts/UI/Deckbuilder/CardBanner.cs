@@ -6,6 +6,7 @@ public class CardBanner : MonoBehaviour
 {
 	private MeshRenderer artworkMeshRenderer;
 	private int count = 0;
+	private Card card;
 
 	[SerializeField] private TMP_Text cardName;
 	[SerializeField] private TMP_Text manaCost;
@@ -16,6 +17,7 @@ public class CardBanner : MonoBehaviour
 
 	public void SetCard(Card card)
 	{
+		this.card = card;
 		count = 1;
 		countText.text = "x " + count;
 		cardName.text = card.CardName;
@@ -45,5 +47,18 @@ public class CardBanner : MonoBehaviour
 			countText.text = "x " + count;
 			gameObject.SetActive(true);
 		}
+	}
+
+	public void OnClick()
+	{
+		Setup setup = Setup.Instance;
+		if (!card.ChampionCard)
+			setup.RemoveCard(card);
+		else
+		{
+			CardRegister cardRegister = CardRegister.Instance;
+			setup.RemoveChampion(cardRegister.championTypeRegister[card.ChampionCardType]);
+		}
+
 	}
 }

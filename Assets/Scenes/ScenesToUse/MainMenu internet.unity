@@ -2811,6 +2811,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916821129}
   m_CullTransparentMesh: 1
+--- !u!224 &968716192 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6297396219223966434, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+  m_PrefabInstance: {fileID: 6297396220714368800}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &977897284
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,8 +6448,16 @@ PrefabInstance:
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 718866070, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: m_Content
+      value: 
+      objectReference: {fileID: 968716192}
+    - target: {fileID: 718866070, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: m_MovementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 718866070, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_ScrollSensitivity
-      value: 5
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 841487321, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_fontSize
