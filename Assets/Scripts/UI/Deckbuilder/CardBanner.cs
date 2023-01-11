@@ -24,7 +24,8 @@ public class CardBanner : MonoBehaviour
 		if (card.ChampionCard) // Adds a champion border when its a champion card
 		{
 			championBorder.gameObject.SetActive(true);
-			currentSprite.sprite = CardRegister.Instance.championTypeRegister[card.ChampionCardType].ChampBackground;
+			CardRegister cardRegister = CardRegister.Instance;
+			currentSprite.sprite = cardRegister.championTypeRegister[card.ChampionCardType].ChampBackground;
 			currentSprite.gameObject.SetActive(true);
 		}
 		else

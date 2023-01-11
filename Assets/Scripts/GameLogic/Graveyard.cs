@@ -32,7 +32,16 @@ public class Graveyard : MonoBehaviour
         return new Tuple<Card, int>(FindAndRemoveCardInGraveyard(GraveyardPlayer[index]), index);
     }
 
-    public Card FindAndRemoveCardInGraveyard(Card cardToReturn)
+	public Tuple<Card, int> RemoveTopOfGraveyardOpponent()
+	{
+		if (GraveyardPlayer.Count <= 0) return null;
+
+        Card card = GraveyardOpponent[GraveyardOpponent.Count];
+        GraveyardOpponent.Remove(card);
+		return new Tuple<Card, int>(card, GraveyardOpponent.Count + 1);
+	}
+
+	public Card FindAndRemoveCardInGraveyard(Card cardToReturn)
     {
         if (GraveyardPlayer.Contains(cardToReturn))
         {
