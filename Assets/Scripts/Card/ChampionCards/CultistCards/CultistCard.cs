@@ -45,10 +45,7 @@ public class CultistCard : Spells
 		targetInfo.whichList.myChampions = true;
 		targetInfo.index = 0;
 
-        TargetAndAmount targetAndAmount = new TargetAndAmount();
-		targetAndAmount.targetInfo = targetInfo;
-		targetAndAmount.amount = Damage;
-
+        TargetAndAmount targetAndAmount = new TargetAndAmount(targetInfo, Damage);
         gameState.DealDamage(targetAndAmount);
     }
 }

@@ -42,9 +42,7 @@ public class Deck : MonoBehaviour
 		TargetInfo targetInfo = new TargetInfo();
         targetInfo.whichList.myChampions = true;
         targetInfo.index = 0;
-
-        fatigueTarget.targetInfo = targetInfo;
-        fatigueTarget.amount = fatigueDamage;
+        fatigueTarget = new TargetAndAmount(targetInfo, fatigueDamage);
 	}
 
 	private static void Shuffle(List<Card> list)
