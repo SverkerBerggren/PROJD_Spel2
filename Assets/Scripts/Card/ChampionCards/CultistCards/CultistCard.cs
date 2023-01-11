@@ -38,9 +38,17 @@ public class CultistCard : Spells
             gameState.CalculateAndDealDamage(Damage, this);
         }
     }
+
     private void RitualSacrificeActivate()
     {
-        Target = gameState.PlayerChampion.Champion;
-        gameState.CalculateAndDealDamage(Damage, this);
+		TargetInfo targetInfo = new TargetInfo();
+		targetInfo.whichList.myChampions = true;
+		targetInfo.index = 0;
+
+        TargetAndAmount targetAndAmount = new TargetAndAmount();
+		targetAndAmount.targetInfo = targetInfo;
+		targetAndAmount.amount = Damage;
+
+        gameState.DealDamage(targetAndAmount);
     }
 }
