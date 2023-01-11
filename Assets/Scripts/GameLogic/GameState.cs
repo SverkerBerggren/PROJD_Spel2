@@ -414,40 +414,30 @@ public class GameState : MonoBehaviour
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
     {
-        if (IsOnline)
+        if (discardCardsYourself)
         {
-            if (discardCardsYourself)
-            {
-                ListEnum listEnum = new ListEnum();
-                listEnum.myHand = true;
-                choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
-            }
-            else
-            {
-                RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
-                requesten.whichPlayer = ClientConnection.Instance.playerId;
-                requesten.amountOfCardsToDiscard = amountToDiscard;
-                requesten.isRandom = false;
-                ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
+            ListEnum listEnum = new ListEnum();
+            listEnum.myHand = true;
+            choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
+            return;
+        }
 
-                PassPriority();
-            }
+        if (IsOnline)
+        {         
+            RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
+            requesten.whichPlayer = ClientConnection.Instance.playerId;
+            requesten.amountOfCardsToDiscard = amountToDiscard;
+            requesten.isRandom = false;
+            ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
+
+            PassPriority();          
         }
         else
         {
-            if (discardCardsYourself)
+            for (int i = 0; i < amountToDiscard; i++)
             {
-                ListEnum listEnum = new ListEnum();
-                listEnum.myHand = true;
-                choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
-            }
-            else
-            {
-                for (int i = 0; i < amountToDiscard; i++)
-                {
-                    actionOfPlayer.DiscardWhichCard(discardCardsYourself);
-                }
-            }
+                actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+            }          
         }
     }
 
