@@ -699,7 +699,12 @@ public class GameState : MonoBehaviour
                 RemoveChampion(deadChampion);
             }
             else
-                PassPriority();
+            {
+                if (OpponentChampions.Count == 1)
+                    Victory();
+                else
+                    PassPriority();
+            }
         }
 	}
 

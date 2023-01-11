@@ -59,7 +59,7 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.HasPriority)
         {
-            if (!gameState.IsItMyTurn && (whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan))
+            if (gameState.IsItMyTurn || whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan)
                 ShowOpponentThinking();
             else
                 HideOpponentThinking();
