@@ -505,7 +505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8718959617357517346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -519,8 +519,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 262932638914602546}
-  - {fileID: 3276278590813212245}
   - {fileID: 8251679934531321185}
+  - {fileID: 3276278590813212245}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -592,18 +592,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardName: {fileID: 3610504236449935156}
+  description: {fileID: 262932640230691486}
   manaText: {fileID: 262932639375464013}
+  hpText: {fileID: 262932640787948390}
   artworkMeshRenderer: {fileID: 262932640106156721}
   attackCardMaterial: {fileID: 2100000, guid: d0a71e7c67720ab42813dc736f55b332, type: 2}
   spellCardMaterial: {fileID: 2100000, guid: 3207fecac67cc7b45b47af8e515c0a59, type: 2}
   landmarkCardMaterial: {fileID: 2100000, guid: b01d9d92025470a4a955d2e2296f77d1, type: 2}
+  cardPlayableEffect: {fileID: 5774111163111633159}
   nameBackground: {fileID: 3158684345394939300}
   championBorder: {fileID: 0}
   currentSprite: {fileID: 0}
   hpGameObject: {fileID: 262932640102151963}
-  hpText: {fileID: 262932640787948390}
-  description: {fileID: 262932640230691486}
-  cardPlayableEffect: {fileID: 5774111163111633159}
 --- !u!114 &2135731081951270231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6902329940035890461, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6902329940035890461, guid: aa35573eba291964b91261d6ca3a6559, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1353,11 +1353,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5225523165637070293, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1365,11 +1365,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.43999967
+      value: -0.44
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.100068055
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1377,15 +1377,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5225523165637070298, guid: eb2698f332c1cba408fd72019a33e1e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

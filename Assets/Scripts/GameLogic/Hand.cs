@@ -16,7 +16,7 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
-        // Anledningen ï¿½r load order
+        // Anledningen är load order
         Invoke(nameof(InvokeRefresh), 0.1f);
     }
     
@@ -43,8 +43,8 @@ public class Hand : MonoBehaviour
    
             if (!cardsInHand.Contains(cardDisplay))
                cardsInHand.Add(cardDisplay);  
-            if (!cardDisplay.OpponentCard)
-                cardDisplay.UpdateTextOnCard();
+            
+            cardDisplay.UpdateTextOnCard();
 
             if (!cardDisplay.OpponentCard)
             {
@@ -60,66 +60,37 @@ public class Hand : MonoBehaviour
         if (cardsInHand.Count <= 0)
             return null;
         int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
-        List<int> cardIndexes = new List<int>() { cardIndex };
-        DiscardCardListWithIndexes(cardIndexes, true);
-		return cardsInHand[cardIndex].Card;
+        return CardToDiscard(cardsInHand[cardIndex]);
     }
 
-    public List<Card> DiscardMultipleRandomCards(int amountOfCards, bool isPlayer)
-    {
-        if (cardsInHand.Count <= 0)
-            return null;
-
-        List<int> cardIndexes = new List<int>();
-        List<Card> cards = new List<Card>();
-
-        if (cardsInHand.Count < amountOfCards)
-            amountOfCards = cardsInHand.Count;
-
-        for (int i = 0; i < amountOfCards; i++)
-        {
-            
-            int index = UnityEngine.Random.Range(0, cardsInHand.Count);
-            if (!cardIndexes.Contains(index))
-            {
-                cards.Add(cardsInHand[index].Card);
-                cardIndexes.Add(index);
-            }
-            else
-                i--;
-        }
-
-        DiscardCardListWithIndexes(cardIndexes, isPlayer);
-        return cards;
-    }
-
-    public List<string> DiscardCardListWithIndexes(List<int> cardIndexes, bool isPlayer)
+    public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
     {
         List<string> cards = new List<string>();
         List<CardDisplay> cardDisp = new List<CardDisplay>();
 
         for (int i = 0; i < cardIndexes.Count; i++)
-        {        
+        {
+            
             cardDisp.Add(cardsInHand[cardIndexes[i]]);
             cards.Add(cardDisp[i].Card.CardName);
         }
         dissolveDone = false;
         Dissolve(cardDisp);
 
-        StartCoroutine(RemoveCards(cardIndexes, isPlayer));
+        StartCoroutine(RemoveCards(cardIndexes));
         print("FML");
         return cards;
     }
     
 
-    private IEnumerator RemoveCards(List<int> cardIndexes, bool isPlayer)
+    private IEnumerator RemoveCards(List<int> cardIndexes)
     {
         yield return new WaitUntil(() => dissolveDone == true);
         List<int> cardIndexesCopy = new List<int>(cardIndexes);
         cardIndexesCopy = FixIndexesWhenRemovingCards(cardIndexesCopy);     
         for (int i = 0; i < cardIndexesCopy.Count; i++)
         {            
-            ActionOfPlayer.Instance.ChangeCardOrder(isPlayer, cardsInHand[cardIndexesCopy[i]]);
+            ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexesCopy[i]]);
         }
     }
 
@@ -151,6 +122,12 @@ public class Hand : MonoBehaviour
 		}
         return indexes;
 	}
+
+	private Card CardToDiscard(CardDisplay cardDisplay)
+    {
+        Graveyard.Instance.AddCardToGraveyard(cardDisplay.Card); 
+        return cardDisplay.Card;
+    }
 
     private async void Dissolve(List<CardDisplay> cardDisplays)
     {

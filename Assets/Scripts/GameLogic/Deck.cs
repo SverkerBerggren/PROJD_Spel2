@@ -5,9 +5,6 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     // Start is called before the first frame update
-    private int playerFatigue = 0;
-    private TargetAndAmount fatigueTarget;
-    [SerializeField] private int fatigueDamage = 10;
 
     public List<Card> DeckPlayer = new List<Card>();
     public List<Card> DeckOpponent = new List<Card>();
@@ -37,13 +34,8 @@ public class Deck : MonoBehaviour
             Shuffle(DeckPlayer);
             DeckOpponent.Clear();
             DeckOpponent.AddRange(DeckPlayer);
-        }
-
-		TargetInfo targetInfo = new TargetInfo();
-        targetInfo.whichList.myChampions = true;
-        targetInfo.index = 0;
-        fatigueTarget = new TargetAndAmount(targetInfo, fatigueDamage);
-	}
+        }        
+    }
 
 	private static void Shuffle(List<Card> list)
     {
@@ -106,11 +98,6 @@ public class Deck : MonoBehaviour
                 Card card = DeckPlayer[0];
                 DeckPlayer.RemoveAt(0);
                 return card;
-            }
-            else
-            {
-                GameState.Instance.DealDamage(fatigueTarget);
-                fatigueTarget.amount *= 2;
             }
         }
         else

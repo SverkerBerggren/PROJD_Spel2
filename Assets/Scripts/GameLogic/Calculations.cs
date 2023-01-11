@@ -142,18 +142,16 @@ public class Calculations : MonoBehaviour
 				listEnum.opponentChampions = true;
 		}
 		else if (cardUsed.LandmarkTarget != null) // Calculates the target based on landmarks
-		{		
-			if (cardUsed.LandmarkTarget.OpponentLandmarks) // if target is not an enemylandmark		
+		{
+			index = LookForLandmarkIndex(cardUsed, gameState.OpponentLandmarks); 
+			if (index == -1) // if target is not an enemylandmark
 			{
-                listEnum.opponentLandmarks = true;
-                index = LookForLandmarkIndex(cardUsed,gameState.OpponentLandmarks);
-            }               			
+				index = LookForLandmarkIndex(cardUsed, gameState.PlayerLandmarks);
+				listEnum.myLandmarks = true;
+			}
 			else
-			{
-                listEnum.myLandmarks = true;
-                index = LookForLandmarkIndex(cardUsed, gameState.PlayerLandmarks);
-            }
-        }
+				listEnum.opponentLandmarks = true;
+		}
 		tI = new TargetInfo(listEnum, index);
 		tAA = new TargetAndAmount(tI, amount);
 		return tAA;

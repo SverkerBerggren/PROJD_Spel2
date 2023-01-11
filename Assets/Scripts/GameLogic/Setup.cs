@@ -32,10 +32,6 @@ public class Setup : MonoBehaviour
             Destroy(Instance);
 
         savePath = Application.dataPath + "/SavedDecks/";
-
-		if (!Directory.Exists(savePath))
-			Directory.CreateDirectory(savePath);
-
 		cardRegister = CardRegister.Instance;
 	}
 
@@ -86,7 +82,7 @@ public class Setup : MonoBehaviour
 
     public bool LoadDeckToFile(string deckName)
     {
-		if (string.IsNullOrEmpty(deckName) || !File.Exists(savePath + deckName + ".txt"))
+        if (string.IsNullOrEmpty(deckName) || !File.Exists(savePath + deckName + ".txt"))
         {
 			UnityEngine.Debug.LogError("Couldnt load deck " + deckName);
             return false;

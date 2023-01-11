@@ -243,7 +243,7 @@ public class InternetLoop : MonoBehaviour
                     }
 
                     RequestDiscardCard discardCardRequest = new RequestDiscardCard(discardedCards, castedAction.discardCardToOpponentGraveyard);
-					discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
+                    discardCardRequest.whichPlayer = ClientConnection.Instance.playerId;
                     ClientConnection.Instance.AddRequest(discardCardRequest, gameState.RequestEmpty);
                 }
                 else
