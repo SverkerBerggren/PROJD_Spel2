@@ -557,7 +557,7 @@ public class GameState : MonoBehaviour
 		landmarkDisplay.Card = landmark;
 		landmarkDisplay.transform.GetChild(0).gameObject.SetActive(true);
 		landmarkDisplay.Health = landmark.MinionHealth;
-		landmarkDisplay.ManaCost = PlayerLandmarks[index].Card.MaxManaCost;
+		landmarkDisplay.ManaCost = landmarkDisplay.Card.MaxManaCost;
     }
 
     
