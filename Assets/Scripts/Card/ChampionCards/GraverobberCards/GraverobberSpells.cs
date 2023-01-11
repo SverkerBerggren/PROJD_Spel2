@@ -32,11 +32,7 @@ public class GraverobberSpells : Spells
         Graveyard graveyard = Graveyard.Instance;
         GameState gameState = GameState.Instance;
         int discardedCards = 0;
-        for (int i = 0; i < 2; i++)
-        {
-            if (actionOfPlayer.HandOpponent.DiscardRandomCardInHand() != null)
-                discardedCards++;
-        }
+
 
         if (gameState.IsOnline)
         {
@@ -48,6 +44,15 @@ public class GraverobberSpells : Spells
             requesten.discardCardToOpponentGraveyard = true;
             ClientConnection.Instance.AddRequest(requesten, gameState.RequestEmpty);
         }
+        else
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (actionOfPlayer.HandOpponent.DiscardRandomCardInHand() != null)
+                    discardedCards++;
+            }
+        }
+        gameState.PassPriority();
     }
 
     private void DiggingActivate()
