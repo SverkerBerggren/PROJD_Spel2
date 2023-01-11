@@ -619,6 +619,11 @@ public class GameState : MonoBehaviour
         actionOfPlayer.UpdateUnspentMana();
     }
 
+    public IEnumerator ActivateYourTurnEffectAfterMulligan()
+    {
+        yield return new WaitUntil(() => HasPriority);
+        yourTurnEffect.ActivateEffect();
+    }
 
     public void EndTurn()
     {
