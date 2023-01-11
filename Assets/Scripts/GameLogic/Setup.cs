@@ -45,6 +45,7 @@ public class Setup : MonoBehaviour
     public void StartDeckbuilder()
     {
 		deckbuilder = Deckbuilder.Instance;
+        playerDeckList.Clear();
 	}
 
     public void StopDeckbuilding()
@@ -218,7 +219,6 @@ public class Setup : MonoBehaviour
     public void ClearDeck()
     {
         amountOfCards.Clear();
-        playerDeckList.Clear();
         myChampions.Clear();
         deckbuilder.ClearAllBanners();
         currentDeckSize = 0;
