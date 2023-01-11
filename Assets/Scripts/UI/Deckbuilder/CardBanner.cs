@@ -4,10 +4,15 @@ using UnityEngine.UI;
 
 public class CardBanner : MonoBehaviour
 {
-	private MeshRenderer artworkMeshRenderer;
 	private int count = 0;
 	private Card card;
 
+	private GameObject preview;
+	private CardDisplayAttributes attributes;
+	[SerializeField] private MeshRenderer artworkMeshRenderer;
+	[SerializeField] private Material attackCardMaterial;
+	[SerializeField] private Material spellCardMaterial;
+	[SerializeField] private Material landmarkCardMaterial;
 	[SerializeField] private TMP_Text cardName;
 	[SerializeField] private TMP_Text manaCost;
 	[SerializeField] private TMP_Text countText;
@@ -18,10 +23,27 @@ public class CardBanner : MonoBehaviour
 	public void SetCard(Card card)
 	{
 		this.card = card;
+		preview = GameObject.FindGameObjectWithTag("PreviewCard").transform.GetChild(0).gameObject;
+		attributes = preview.GetComponent<CardDisplayAttributes>();
 		count = 1;
 		countText.text = "x " + count;
 		cardName.text = card.CardName;
 		manaCost.text = card.MaxManaCost.ToString();
+
+		switch (card.TypeOfCard)
+		{
+			case CardType.Attack:
+				artworkMeshRenderer.material = attackCardMaterial;
+				break;
+
+			case CardType.Spell:
+				artworkMeshRenderer.material = spellCardMaterial;
+				break;
+
+			case CardType.Landmark:
+				artworkMeshRenderer.material = landmarkCardMaterial;
+				break;
+		}
 
 		if (card.ChampionCard) // Adds a champion border when its a champion card
 		{
@@ -60,6 +82,18 @@ public class CardBanner : MonoBehaviour
 			CardRegister cardRegister = CardRegister.Instance;
 			setup.RemoveChampion(cardRegister.championTypeRegister[card.ChampionCardType]);
 		}
+		preview.SetActive(false);
+	}
 
+	public void OnHoverEnter()
+	{
+		preview.SetActive(true);
+		attributes.previewCard = true;
+		attributes.UpdateTextOnCardWithCard(card);
+	}
+
+	public void OnHoverExit()
+	{
+		preview.SetActive(false);
 	}
 }
