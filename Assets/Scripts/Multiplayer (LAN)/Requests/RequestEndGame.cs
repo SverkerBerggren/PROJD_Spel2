@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class RequestEndGame : ClientRequest
 {
-    RequestEndGame()
+ 
+    public RequestEndGame()
     {
         Type = 22;
 

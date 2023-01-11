@@ -677,6 +677,12 @@ public class GameState : MonoBehaviour
         else if (OpponentChampions.Count == 0)
         {
             Victory();
+            if(IsOnline)
+            {
+                RequestEndGame request = new RequestEndGame();
+                ClientConnection.Instance.AddRequest(request,RequestEmpty);
+            }
+
             return;
         }
     }
