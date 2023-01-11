@@ -60,7 +60,9 @@ public class Hand : MonoBehaviour
         if (cardsInHand.Count <= 0)
             return null;
         int cardIndex = UnityEngine.Random.Range(0, cardsInHand.Count);
-        return CardToDiscard(cardsInHand[cardIndex]);
+        List<int> cardIndexes = new List<int>() { cardIndex };
+        DiscardCardListWithIndexes(cardIndexes);
+		return cardsInHand[cardIndex].Card;
     }
 
     public List<string> DiscardCardListWithIndexes(List<int> cardIndexes)
@@ -122,12 +124,6 @@ public class Hand : MonoBehaviour
 		}
         return indexes;
 	}
-
-	private Card CardToDiscard(CardDisplay cardDisplay)
-    {
-        Graveyard.Instance.AddCardToGraveyard(cardDisplay.Card); 
-        return cardDisplay.Card;
-    }
 
     private async void Dissolve(List<CardDisplay> cardDisplays)
     {

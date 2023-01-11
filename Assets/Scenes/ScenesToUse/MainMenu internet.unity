@@ -1317,7 +1317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCopies: 3
-  playerDeckList: []
+  playerDeckList:
+  - {fileID: 0}
   myChampions: []
   deckCount: 40
   currentDeckSize: 0
@@ -5261,13 +5262,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Champions:
-  - Duelist
+  - Graverobber
   - Builder
   - Shanker
   Cards:
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
-  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
+  - {fileID: 11400000, guid: 5f9d69447087e324881d7a586c75da19, type: 2}
 --- !u!114 &1756219167
 MonoBehaviour:
   m_ObjectHideFlags: 0
