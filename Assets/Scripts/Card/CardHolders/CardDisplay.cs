@@ -12,6 +12,7 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
     private CardMovement cardMovement;
+    private SelectIndicater selectIndicater;
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
@@ -22,10 +23,8 @@ public class CardDisplay : Displays
 
     [SerializeField] private float scaleOnHover = 1.3f; 
 
-    public LayoutElement LayoutElement;
     public CardDissolve CardDissolve;
 
-    public SelectIndicater selectIndicater;
 
     private void Awake()
     {
@@ -35,12 +34,13 @@ public class CardDisplay : Displays
             LoadDisplayAttributesOnce();
         Invoke(nameof(LoadInvoke), 0.01f);
 
-        selectIndicater = SelectIndicater.Instance; 
+        
     }
 
     private void Start()
     {
         displayTransform = transform.GetChild(0).transform;
+        selectIndicater = SelectIndicater.Instance;
         CardDissolve = GetComponentInChildren<CardDissolve>();
     }
     private void LoadInvoke()
