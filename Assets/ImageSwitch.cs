@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class ImageSwitch : MonoBehaviour
 {
-
+    public GameObject nextButton;
+    public GameObject prevButton;
+    public GameObject panel;
     public GameObject[] background;
     public int pages;
-    int index;
+
+    private int index;
+    private bool isActive = false;
 
     void Start()
     {
@@ -24,26 +28,23 @@ public class ImageSwitch : MonoBehaviour
         if (index < 0)
             index = 0;
 
-
-
         if (index == 0)
         {
             background[0].gameObject.SetActive(true);
+            prevButton.SetActive(false);
         }
-
-        if (Input.GetMouseButtonDown(0))
+        else
         {
-            Next();
+            prevButton.SetActive(true);
         }
-
-        if (Input.GetMouseButtonDown(1))
+        if (index == pages)
         {
-            Previous();
-        }
-
-        if (Input.GetMouseButtonDown(2))
+            //background[pages].gameObject.SetActive(true);
+            nextButton.SetActive(false);
+        } 
+        else
         {
-            gameObject.SetActive(false);
+            nextButton.SetActive(true);
         }
     }
 
@@ -71,5 +72,20 @@ public class ImageSwitch : MonoBehaviour
         Debug.Log(index);
     }
 
+    public void Close()
+    {
+        if(panel != null)
+        {
+            isActive = panel.activeSelf;
+            background[index].gameObject.SetActive(false);
+            panel.SetActive(!isActive);
+            ResetOrder();
+        }
+    }
 
+    public void ResetOrder()
+    {
+        index = 0;
+        background[0].gameObject.SetActive(true);
+    }
 }
