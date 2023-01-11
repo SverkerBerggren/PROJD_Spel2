@@ -92,9 +92,8 @@ public class Choice : MonoBehaviour
         this.cardUsed = cardUsed;
         choiceMenu.SetActive(true);
         IsChoiceActive = true;
-
-        whichMethod = theMethod;
-        amountOfTargets = amountToTarget;
+		amountOfTargets = amountToTarget;
+		whichMethod = theMethod;
 
         if (listEnum.opponentChampions && listEnum.opponentLandmarks) // Is used by one switch
         {
@@ -155,6 +154,9 @@ public class Choice : MonoBehaviour
 
     private void MakeButtonsOfHand(ListEnum listEnum)
     {
+        if (whichMethod == WhichMethod.DiscardCard && amountOfTargets > actionOfPlayer.HandPlayer.cardsInHand.Count)
+            amountOfTargets = actionOfPlayer.HandPlayer.cardsInHand.Count;
+
 		for (int i = 0; i < actionOfPlayer.HandPlayer.cardsInHand.Count; i++)
 		{
 			CardDisplay cardDisplay = actionOfPlayer.HandPlayer.cardsInHand[i];
@@ -349,19 +351,18 @@ public class Choice : MonoBehaviour
         switch (whichMethod)
         {
             case WhichMethod.DiscardXCards:
-            DiscardCard();
-            ShankerAttack shankAttack = (ShankerAttack)cardUsed;
-            shankAttack.WaitForChoices(chosenTargets.Count);
+                DiscardCard();
+                ShankerAttack shankAttack = (ShankerAttack)cardUsed;
+                shankAttack.WaitForChoices(chosenTargets.Count);
                 break;
 
             case WhichMethod.Mulligan:
                 Mulligan();
-            break;
+                break;
 
             case WhichMethod.SeersShack:
                 SeersShackAbility();
                 break;
-
         }
         
         ResetChoice();
@@ -460,9 +461,14 @@ public class Choice : MonoBehaviour
 
         List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes);
 
+        bool enemyGraveyard = false;
+
+        if (amountOfTargets > 1) // Temporary fix for gravegriefing
+            enemyGraveyard = true;
+
         if (gameState.IsOnline)
         {
-            RequestDiscardCard request = new RequestDiscardCard(cards, false);
+            RequestDiscardCard request = new RequestDiscardCard(cards, enemyGraveyard);
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, gameState.RequestEmpty);
         }

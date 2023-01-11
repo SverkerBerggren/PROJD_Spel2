@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7536.9404, g: 8277.586, b: 10235.18, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -160,9 +160,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &6133458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,9 +289,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &20061362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,7 +1391,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &83290199
 GameObject:
@@ -16416,9 +16412,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &344974269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19847,7 +19841,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &502503626
 GameObject:
@@ -22629,7 +22623,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &601170530
 GameObject:
@@ -22668,9 +22662,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &601170532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23947,9 +23939,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &631345498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29307,9 +29297,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!4 &876286367
 Transform:
   m_ObjectHideFlags: 0
@@ -39846,9 +39834,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &1389671540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43073,9 +43059,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &1564163109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44892,9 +44876,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &1673928808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45580,8 +45562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckPlayer:
   - {fileID: 11400000, guid: 0182cc3c5f43792458a7009438b9a47f, type: 2}
-  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
   DeckOpponent: []
 --- !u!4 &1711450997
 Transform:
@@ -45874,9 +45855,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &1731128544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51665,9 +51644,7 @@ MonoBehaviour:
   Card: {fileID: 0}
   ManaCost: 0
   scaleOnHover: 1.3
-  LayoutElement: {fileID: 0}
   CardDissolve: {fileID: 0}
-  selectIndicater: {fileID: 0}
 --- !u!114 &1978138853
 MonoBehaviour:
   m_ObjectHideFlags: 0
