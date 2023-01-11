@@ -43,8 +43,8 @@ public class Hand : MonoBehaviour
    
             if (!cardsInHand.Contains(cardDisplay))
                cardsInHand.Add(cardDisplay);  
-            
-            cardDisplay.UpdateTextOnCard();
+            if (!cardDisplay.OpponentCard)
+                cardDisplay.UpdateTextOnCard();
 
             if (!cardDisplay.OpponentCard)
             {
@@ -126,6 +126,7 @@ public class Hand : MonoBehaviour
 	private Card CardToDiscard(CardDisplay cardDisplay)
     {
         Graveyard.Instance.AddCardToGraveyard(cardDisplay.Card); 
+        cardDisplay.Card = null;
         return cardDisplay.Card;
     }
 
