@@ -619,6 +619,11 @@ public class GameState : MonoBehaviour
         actionOfPlayer.UpdateUnspentMana();
     }
 
+    public IEnumerator ActivateYourTurnEffectAfterMulligan()
+    {
+        yield return new WaitUntil(() => HasPriority);
+        yourTurnEffect.ActivateEffect();
+    }
 
     public void EndTurn()
     {
@@ -700,7 +705,12 @@ public class GameState : MonoBehaviour
                 RemoveChampion(deadChampion);
             }
             else
-                PassPriority();
+            {
+                if (OpponentChampions.Count == 1)
+                    Victory();
+                else
+                    PassPriority();
+            }
         }
 	}
 
