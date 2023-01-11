@@ -47,6 +47,17 @@ public class Setup : MonoBehaviour
 		deckbuilder = Deckbuilder.Instance;
 	}
 
+    public void StopDeckbuilding()
+    {
+        foreach (Card card in amountOfCards.Keys)
+        {
+            for (int i = 0; i < amountOfCards[card]; i++)
+            {
+                playerDeckList.Add(card);
+            }
+        }
+    }
+
     public void SaveDeckToFile(string deckName)
     {
         if (!Directory.Exists(savePath))

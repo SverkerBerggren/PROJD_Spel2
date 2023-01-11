@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5829,13 +5829,13 @@ MonoBehaviour:
   - {fileID: 1930457552}
   gameObjectsToDisable:
   - {fileID: 2028886999}
-  - {fileID: 0}
   - {fileID: 1756219164}
   - {fileID: 797587028}
   - {fileID: 1582552278}
   - {fileID: 231280503}
   - {fileID: 1161218403}
   - {fileID: 1980353769}
+  - {fileID: 1453744183}
 --- !u!114 &2028887001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6611,6 +6611,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5465893664924537199, guid: fa2984591adafe1448edb48eaefe61f4, type: 2}
     - target: {fileID: 6297396219087923920, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: gameObjectsToEnable.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297396219087923920, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: gameObjectsToEnable.Array.data[0]
       value: 
       objectReference: {fileID: 171184196}
@@ -6642,14 +6646,34 @@ PrefabInstance:
       propertyPath: gameObjectsToEnable.Array.data[7]
       value: 
       objectReference: {fileID: 2028886999}
+    - target: {fileID: 6297396219087923920, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: gameObjectsToEnable.Array.data[8]
+      value: 
+      objectReference: {fileID: 2028886999}
+    - target: {fileID: 6297396219087923920, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: gameObjectsToEnable.Array.data[9]
+      value: 
+      objectReference: {fileID: 1453744183}
     - target: {fileID: 6297396219087923921, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6297396219087923921, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 432332335}
+    - target: {fileID: 6297396219087923921, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StopDeckbuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297396219087923921, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Setup, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297396219087923921, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6297396219087923922, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_Type
       value: 0
