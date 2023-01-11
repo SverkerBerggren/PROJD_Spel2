@@ -102,7 +102,7 @@ public class CardDisplay : Displays
         //set up Select Indicater, should only call this metod when it is a attack card
         
         
-        selectIndicater.UppdateIndicater(Card.TypeOfCard);
+        selectIndicater.UppdateIndicater(Card);
     }
 
     public void MouseExit()
