@@ -106,7 +106,6 @@ public class Hand : MonoBehaviour
 		Dissolve(cardDisp);
 
 		StartCoroutine(RemoveCards(cardIndexes, isPlayer));
-		print("FML");
 		return cards;
 	}
 
@@ -129,8 +128,8 @@ public class Hand : MonoBehaviour
 		for (int i = 0; i < cardIndexes.Count; i++)
 		{
 			Card card = cardsInHand[cardIndexes[i]].Card;
-			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
 			deck.AddCardToDeckPlayer(card);
+			ActionOfPlayer.Instance.ChangeCardOrder(true, cardsInHand[cardIndexes[i]]);
 		}
 		deck.ShuffleDeck();
 		ActionOfPlayer.Instance.DrawCardPlayer(cardIndexes.Count, null, true);
