@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7534.1084, g: 8274.189, b: 10230.102, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25529,13 +25529,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1529825318}
-  m_Father: {fileID: 1680066121}
-  m_RootOrder: 3
+  m_Father: {fileID: 642618656}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: 1820.0001, y: 980}
+  m_SizeDelta: {x: 0.00024414062, y: -0.5463867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607796551
 MonoBehaviour:
@@ -26855,6 +26855,7 @@ RectTransform:
   - {fileID: 551107192}
   - {fileID: 2031541842}
   - {fileID: 1680066121}
+  - {fileID: 607796549}
   - {fileID: 2089272522}
   - {fileID: 1435673231}
   m_Father: {fileID: 0}
@@ -33379,6 +33380,7 @@ MonoBehaviour:
   closeMenuButton: {fileID: 1889083386}
   ConfirmMenuButton: {fileID: 792144028}
   ButtonHolder: {fileID: 538839664}
+  whichMethod: 0
 --- !u!114 &925668437 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4933141262056775678, guid: 119c3f4eec5edab4693701c6b10fc789, type: 3}
@@ -36263,7 +36265,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1820.0001, y: 980}
+  m_SizeDelta: {x: 1820.0002, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1016571434
 MonoBehaviour:
@@ -43181,7 +43183,7 @@ RectTransform:
   m_GameObject: {fileID: 1367656223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6729801, y: 0.6729801, z: 0.6729801}
+  m_LocalScale: {x: 0.6194446, y: 0.6194446, z: 0.6194446}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1680066121}
@@ -43189,7 +43191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 748.1, y: 486.9999}
+  m_AnchoredPosition: {x: 880.6, y: 383.2}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367656225
@@ -43213,7 +43215,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+    m_NormalColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -50200,7 +50202,6 @@ RectTransform:
   - {fileID: 1367656224}
   - {fileID: 1016571433}
   - {fileID: 86574900}
-  - {fileID: 607796549}
   m_Father: {fileID: 642618656}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59721,7 +59722,7 @@ RectTransform:
   - {fileID: 942864702}
   - {fileID: 1669928097}
   m_Father: {fileID: 642618656}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -60927,7 +60928,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 69, y: 69}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2136758375
 PrefabInstance:
