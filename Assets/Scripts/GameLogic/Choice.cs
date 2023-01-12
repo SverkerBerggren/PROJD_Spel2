@@ -459,8 +459,7 @@ public class Choice : MonoBehaviour
         List<int> indexes = new List<int>();
         for (int i = 0; i < chosenTargets.Count; i++)
         {
-            int card = chosenTargets[i].index;
-            indexes.Add(card);
+            indexes.Add(chosenTargets[i].index);
         }
 
         List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes, true);
