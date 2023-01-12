@@ -26,6 +26,8 @@ public class ClientConnection : MonoBehaviour
 
     public static ClientConnection Instance { get; set; }
 
+    public bool SQLIsConnected = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -91,11 +93,20 @@ public class ClientConnection : MonoBehaviour
     public void AddRequest(ClientRequest request, Action<ServerResponse> action)
     {   
        
+
+
         request.gameId = gameId;
         request.whichPlayer = playerId;
         request.uniqueInteger = uniqueInteger;
 
         print("vilken request laggs " + request.GetType(request.Type));
+
+        if(request is RequestGameSetup)
+        {
+            bool temp = true;
+        }
+
+        print("ar man kopplad till sql servern  " + SQLIsConnected);
 
         lock (queuedRequests)
         {

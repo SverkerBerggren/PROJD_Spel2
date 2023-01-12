@@ -31,6 +31,11 @@ public class LobbyList : MonoBehaviour
     {
         ResponseAvailableLobbies recievedResponse = (ResponseAvailableLobbies)response;
 
+        if(response.SQLIsConnected)
+        {
+            ClientConnection.Instance.SQLIsConnected = true;
+        }
+
         List<int> allLobbies = new List<int>();
 
         foreach(Server.HostedLobby lobby in recievedResponse.Lobbies)

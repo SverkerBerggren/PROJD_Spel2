@@ -1,6 +1,3 @@
-
-
-
 public class GameActionOpponentDiscardCard : GameAction
 {
     public int amountOfCardsToDiscard = 0;

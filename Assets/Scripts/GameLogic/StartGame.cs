@@ -19,8 +19,39 @@ public class StartGame : MonoBehaviour
             ownChampions.Add(stringen);
         }
         gameSetup.opponentChampions = ownChampions;
+        if(gameSetup.opponentChampions == null)
+        {
+            gameSetup.opponentChampions = new List<string>();
+        }
+        Dictionary<string,int> deckListToSend = new Dictionary<string, int>();
+        List<CardAndAmount> cardsToSend = new List<CardAndAmount>();
+        foreach (Card card in Setup.Instance.playerDeckList)
+        {
+            if(!deckListToSend.ContainsKey(card.CardName))
+            {
+                deckListToSend.Add(card.CardName, 1);
+            }
+            else
+            {
+                deckListToSend[card.CardName] += 1;
+            }
+        }
+        foreach(string cardName in deckListToSend.Keys)
+        {
+            CardAndAmount cardAndAmountToAdd = new CardAndAmount();
+            cardAndAmountToAdd.cardName = cardName;
+            cardAndAmountToAdd.amount = deckListToSend[cardName];
+            cardsToSend.Add(cardAndAmountToAdd);
+        }
 
-        if( Random.Range(0, 2) == 0) // Randomizes who goes first
+        gameSetup.deckList = cardsToSend;
+
+        if(gameSetup.deckList == null)
+        {
+            gameSetup.deckList = new List<CardAndAmount>();
+        }
+
+        if ( Random.Range(0, 2) == 0)
         {
             gameSetup.firstTurn = true;
             Setup.Instance.shouldStartGame = true;

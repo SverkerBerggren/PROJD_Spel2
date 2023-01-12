@@ -414,30 +414,40 @@ public class GameState : MonoBehaviour
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
     {
-        if (discardCardsYourself)
-        {
-            ListEnum listEnum = new ListEnum();
-            listEnum.myHand = true;
-            choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
-            return;
-        }
-
         if (IsOnline)
-        {         
-            RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
-            requesten.whichPlayer = ClientConnection.Instance.playerId;
-            requesten.amountOfCardsToDiscard = amountToDiscard;
-            requesten.isRandom = false;
-            ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
+        {
+            if (discardCardsYourself)
+            {
+                ListEnum listEnum = new ListEnum();
+                listEnum.myHand = true;
+                choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
+            }
+            else
+            {
+                RequestOpponentDiscardCard requesten = new RequestOpponentDiscardCard();
+                requesten.whichPlayer = ClientConnection.Instance.playerId;
+                requesten.amountOfCardsToDiscard = amountToDiscard;
+                requesten.isRandom = false;
+                ClientConnection.Instance.AddRequest(requesten, RequestEmpty);
 
-            PassPriority();          
+                PassPriority();
+            }
         }
         else
         {
-            for (int i = 0; i < amountToDiscard; i++)
+            if (discardCardsYourself)
             {
-                actionOfPlayer.DiscardWhichCard(discardCardsYourself);
-            }          
+                ListEnum listEnum = new ListEnum();
+                listEnum.myHand = true;
+                choice.ChoiceMenu(listEnum, amountToDiscard, WhichMethod.DiscardCard, null);
+            }
+            else
+            {
+                for (int i = 0; i < amountToDiscard; i++)
+                {
+                    actionOfPlayer.DiscardWhichCard(discardCardsYourself);
+                }
+            }
         }
     }
 
@@ -672,6 +682,14 @@ public class GameState : MonoBehaviour
         else if (OpponentChampions.Count == 0)
         {
             Victory();
+            if(IsOnline)
+            {
+
+                print("skickas win game actionen??!?!??");
+                RequestEndGame request = new RequestEndGame();
+                ClientConnection.Instance.AddRequest(request,RequestEmpty);
+            }
+
             return;
         }
     }

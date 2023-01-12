@@ -8,7 +8,9 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
     public  int whichPlayer = 100;
     public List<GameAction> OpponentActions = new List<GameAction>();
     public string message = "";
-    public int gameId = 0; 
+    public int gameId = 0;
+
+    public bool SQLIsConnected = false;
     public Type GetType(int IntegerToConvert)
     {   if(IntegerToConvert == 0)
         {
@@ -92,7 +94,10 @@ public class ServerResponse : MBJson.JSONDeserializeable,MBJson.JSONTypeConverte
         }
         return (typeof(ServerResponse));
     }
-    public ServerResponse() { } //Denna ska inte tas bort, behovs for parsingen 
+    public ServerResponse() 
+    {
+        Type = 0;
+    } //Denna ska inte tas bort, behovs for parsingen 
 
     public object Deserialize(MBJson.JSONObject ObjectToParse)
     {
