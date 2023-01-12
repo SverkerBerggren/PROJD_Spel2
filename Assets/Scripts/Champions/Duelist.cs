@@ -11,15 +11,10 @@ public class Duelist : Champion
 		base.WhenCurrentChampion();
 		lE.opponentChampions = true;
         if (gameState.IsOnline)
-            Wait();
-        else if (gameState.OpponentChampion != this)
+			gameState.StartCoroutine(WaitForOpponent());
+		else if (gameState.OpponentChampion != this)
             Choice.Instance.ChoiceMenu(lE, 1, WhichMethod.SwitchChampionEnemy, null);
 	}
-
-    private void Wait()
-    {
-        gameState.StartCoroutine(WaitForOpponent());
-    }
 
     private IEnumerator WaitForOpponent()
     {

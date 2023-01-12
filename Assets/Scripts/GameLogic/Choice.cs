@@ -444,13 +444,13 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.IsItMyTurn)
         {
-            if (chosenTargets[0].whichList.myChampions && !gameState.PlayerChampion.Champion.ChampionName.Equals("Duelist")) // If my champion is not duelist
+            if (chosenTargets[0].whichList.myChampions && gameState.PlayerChampion.Champion is not Duelist) // If my champion is not duelist
                 gameState.PassPriority();
         }
         else if (gameState.OpponentChampion.Health <= 0 || (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.PlayerChampion.Champion is Duelist)) // If I swap to duelist when my champion dies
 			gameState.PassPriority();
 
-        if (chosenTargets[0].whichList.opponentChampions && gameState.OpponentChampion.Champion.ChampionName.Equals("Duelist")) // If I swap opponents chmampion to Duelist
+        if (chosenTargets[0].whichList.opponentChampions && gameState.OpponentChampion.Champion is Duelist) // If I swap opponents chmampion to Duelist
             gameState.PassPriority();
     }
 
