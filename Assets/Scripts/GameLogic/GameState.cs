@@ -557,7 +557,7 @@ public class GameState : MonoBehaviour
 		landmarkDisplay.Card = landmark;
 		landmarkDisplay.transform.GetChild(0).gameObject.SetActive(true);
 		landmarkDisplay.Health = landmark.MinionHealth;
-		landmarkDisplay.ManaCost = landmarkDisplay.Card.MaxManaCost;
+		landmarkDisplay.ManaCost = PlayerLandmarks[index].Card.MaxManaCost;
     }
 
     
@@ -619,11 +619,6 @@ public class GameState : MonoBehaviour
         actionOfPlayer.UpdateUnspentMana();
     }
 
-    public IEnumerator ActivateYourTurnEffectAfterMulligan()
-    {
-        yield return new WaitUntil(() => HasPriority);
-        yourTurnEffect.ActivateEffect();
-    }
 
     public void EndTurn()
     {
@@ -707,12 +702,7 @@ public class GameState : MonoBehaviour
                 RemoveChampion(deadChampion);
             }
             else
-            {
-                if (OpponentChampions.Count == 1)
-                    Victory();
-                else
-                    PassPriority();
-            }
+                PassPriority();
         }
 	}
 
