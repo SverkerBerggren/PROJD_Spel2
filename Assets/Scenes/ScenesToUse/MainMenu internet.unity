@@ -710,7 +710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &231280504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2629,7 +2629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &797587029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3580,7 +3580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1161218404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3862,7 +3862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1453744184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4471,7 +4471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1582552279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5226,7 +5226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1756219165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5260,14 +5260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407eea943d47ba047aea5b5a9faf2e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Champions:
-  - Duelist
-  - Builder
-  - Shanker
-  Cards:
-  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
-  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
-  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
+  Champions: []
+  Cards: []
 --- !u!114 &1756219167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5817,7 +5811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1980353770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6147,7 +6141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2028887000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9504,7 +9498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6297396219387924208, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6297396219387924209, guid: 9ebac9cff54cb8743b841a57803d3c45, type: 3}
       propertyPath: m_Pivot.x
