@@ -11,7 +11,6 @@ public class Choice : MonoBehaviour
     private GameState gameState;
     private ActionOfPlayer actionOfPlayer;
     private Graveyard graveyard;
-    private WhichMethod whichMethod;
     private Deck deck;
     private Card cardUsed;
     private bool dontPass;
@@ -28,6 +27,7 @@ public class Choice : MonoBehaviour
     public GameObject closeMenuButton;
     public GameObject ConfirmMenuButton;
     public GameObject ButtonHolder;
+    public WhichMethod whichMethod;
 
     private static Choice instance;
 	public static Choice Instance { get { return instance; } set { instance = value; } }

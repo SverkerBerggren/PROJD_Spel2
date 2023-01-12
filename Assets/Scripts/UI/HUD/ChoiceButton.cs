@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class ChoiceButton : MonoBehaviour
 {
-    public TargetInfo targetInfo;
+    private Choice choice;
 
     [SerializeField] private GameObject clickedEffect;
+	[SerializeField] private GameObject mulliganEffect;
+    public TargetInfo targetInfo;
 
-    [Header("Accessability")]
+	[Header("Accessability")]
     [SerializeField] private GameObject hoverEffect;
 
     [Header("Cards")]
@@ -15,16 +17,22 @@ public class ChoiceButton : MonoBehaviour
 
     public void OnClick()
     {
+        choice = Choice.Instance;
         if (clickedEffect.activeSelf)
         {
-            Choice.Instance.RemoveTargetInfo(targetInfo);
+			choice.RemoveTargetInfo(targetInfo);
             clickedEffect.SetActive(false);
-        }
+            if(choice.whichMethod == WhichMethod.Mulligan)
+			    mulliganEffect.SetActive(false);
+
+		}
         else
         {
-            Choice.Instance.AddTargetInfo(targetInfo);
+			choice.AddTargetInfo(targetInfo);
             clickedEffect.SetActive(true);
-        }
+			if (choice.whichMethod == WhichMethod.Mulligan)
+				mulliganEffect.SetActive(true);
+		}
     }
 
     public void OneSwitchHoverChoice()
