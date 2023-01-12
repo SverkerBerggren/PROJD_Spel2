@@ -4,62 +4,73 @@ using UnityEngine;
 
 public class SelectIndicater : MonoBehaviour
 {
-    public GameObject[] landmarkSlots;
-    public GameObject[] landmarkSelectBoxs;
-    public GameObject championSelectBox;
-    // Start is called before the first frame update
+	[SerializeField] private GameObject[] landmarkSelectBoxsOpponent;
+	[SerializeField] private GameObject[] landmarkSelectBoxsPlayer;
+	[SerializeField] private GameObject championSelectBoxOpponent;
+	[SerializeField] private GameObject championSelectBoxPlayer;
 
-    private static SelectIndicater instance;
-    public static SelectIndicater Instance { get { return instance; } }
+	private GameState gameState;
+	// Start is called before the first frame update
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    void Start()
-    {
-        
-    }
+	private static SelectIndicater instance;
+	public static SelectIndicater Instance { get { return instance; } }
 
-    // Update is called once per frame
-    void Update()
-    {
-  
-    }
-    //when player is trying to play a attack card, active the landmark indicater box if opponent has landmarks
-    //***Speical notice with protectiv walls, only that landmark should have indicater.
+	private void Awake()
+	{
+		if (Instance == null)
+			instance = this;
+		else
+			Destroy(gameObject);
+	}
 
-    public void UppdateIndicater(CardType tp)
-    {
-        if (tp != CardType.Attack) return;
-   
-        championSelectBox.SetActive(true);
-        for(int i = 0; i< landmarkSlots.Length; i++)
-        {
-            //if the landmark is targetable and the slot of landmark prefab is active. then active indicater 
-            if (landmarkSlots[i].activeInHierarchy && landmarkSlots[i].GetComponent<Transform>().parent.GetComponent<LandmarkDisplay>().Card.Targetable)
-            {              
-                landmarkSelectBoxs[i].SetActive(true);
-            }
-    
-        }
-      
-    }
-    public void DisableIndicater()
-    {
-        championSelectBox.SetActive(false);
-        foreach(GameObject go in landmarkSelectBoxs)
-        {
-            go.SetActive(false);
-        }
-    }
+	private void Start()
+	{
+		gameState = GameState.Instance;
+	}
 
+	//when player is trying to play a attack card, active the landmark indicater box if opponent has landmarks
+	//***Speical notice with protectiv walls, only that landmark should have indicater.
 
+	public void UppdateIndicater(Card card)
+	{
+		if (!card.Targetable) return;
+
+		// Check if opponent has a taunt landmark
+		for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
+		{
+			LandmarkDisplay landmarkDisp = gameState.OpponentLandmarks[i];
+			if (landmarkDisp.Card is TauntLandmark)
+			{
+				landmarkSelectBoxsOpponent[i].SetActive(true);
+				return;
+			}
+		}
+
+		championSelectBoxOpponent.SetActive(true);
+		championSelectBoxPlayer.SetActive(true);
+		for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
+		{
+			//if the landmark is targetable and the slot of landmark prefab is active. then active indicater 
+			if (gameState.OpponentLandmarks[i].Card != null)
+				landmarkSelectBoxsOpponent[i].SetActive(true);
+			if (gameState.PlayerLandmarks[i].Card != null)
+				landmarkSelectBoxsPlayer[i].SetActive(true);
+		}
+
+	}
+
+	public void DisableIndicater()
+	{
+		championSelectBoxOpponent.SetActive(false);
+		championSelectBoxPlayer.SetActive(false);
+		foreach (GameObject go in landmarkSelectBoxsOpponent)
+		{
+			go.SetActive(false);
+		}
+		foreach (GameObject go in landmarkSelectBoxsPlayer)
+		{
+			go.SetActive(false);
+		}
+	}
 }
+
