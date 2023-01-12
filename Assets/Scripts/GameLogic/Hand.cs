@@ -42,9 +42,10 @@ public class Hand : MonoBehaviour
             }
    
             if (!cardsInHand.Contains(cardDisplay))
-               cardsInHand.Add(cardDisplay);  
-            
-            cardDisplay.UpdateTextOnCard();
+               cardsInHand.Add(cardDisplay);
+
+			if (!cardDisplay.OpponentCard)
+                cardDisplay.UpdateTextOnCard();
 
             if (!cardDisplay.OpponentCard)
             {

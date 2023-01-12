@@ -59,7 +59,7 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.HasPriority)
         {
-            if (gameState.IsItMyTurn && (whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan))
+            if (gameState.IsItMyTurn || whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan)
                 ShowOpponentThinking();
             else
                 HideOpponentThinking();
@@ -432,9 +432,13 @@ public class Choice : MonoBehaviour
         }
 
         if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.PlayerChampion.Champion is not Duelist)
+        {
             gameState.PassPriority();
+	        if (gameState.IsItMyTurn)
+		        StartCoroutine(gameState.ActivateYourTurnEffectAfterMulligan());
+        }
 
-    }
+	}
 
     private void PriorityForSwap()
     {
@@ -459,7 +463,7 @@ public class Choice : MonoBehaviour
             indexes.Add(card);
         }
 
-        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes);
+        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes, true);
 
         bool enemyGraveyard = false;
 
