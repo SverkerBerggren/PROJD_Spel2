@@ -51,13 +51,13 @@ public class CardDisplay : Displays
     private void LoadSpriteRendererOnce()
     {
         loadedSpriteRenderer = true;
-        artworkSpriteRenderer = transform.GetChild(1).GetComponentInChildren<SpriteRenderer>();
+        artworkSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        cardDisplayAttributes = transform.GetChild(0).GetComponentInChildren<CardDisplayAttributes>();
+        cardDisplayAttributes = GetComponentInChildren<CardDisplayAttributes>();
         displayTransform = cardDisplayAttributes.transform;
     }
 

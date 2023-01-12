@@ -13,6 +13,6 @@ public class CultistLandmark : Landmarks
 
     public override int DealDamageAttack(int damage)
     {
-        return damage + GameState.Instance.AttacksPlayedThisTurn * this.Damage;
+        return damage + GameState.Instance.AttacksPlayedThisTurn * Damage;
     }
 }
