@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,9 +8,10 @@ public class OneSwitch : MonoBehaviour
 {
     private int index = -1;
     private int prevIndex = 0;
-    private int indexTargets = 0; 
     private bool clicked = false;
     private bool firstTime = true;
+    private Color normalSelectColor;
+    private bool changedList = false;
 
     private WhatShouldBeOneSwitch oneSwitchActivePrevious;
     private PlayCardManager playCardManager;
@@ -29,7 +27,11 @@ public class OneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
     [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
     [SerializeField] private EventSystem eventSystem;
-    [SerializeField] private GameObject[] whatToCheck; 
+    [SerializeField] private GameObject[] whatToCheck;
+
+    [SerializeField] private Color buttonSelectColor;
+
+    
 
     public WhatShouldBeOneSwitch OneSwitchActiveNow;
 
@@ -56,6 +58,7 @@ public class OneSwitch : MonoBehaviour
             shopHoverPrev.OneSwitchSelected();
         if (targetableRightNow[prevIndex].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
             settingsSelectHoverprev.OneSwitchHover();
+        eventSystem.SetSelectedGameObject(null);
         prevIndex = index;
     }
 
@@ -66,8 +69,6 @@ public class OneSwitch : MonoBehaviour
             cardDisplayShow.MouseEnter();
         if (targetableRightNow[index].TryGetComponent(out ChoiceButton choiceButton))
             choiceButton.OneSwitchHoverChoice();
-        if (targetableRightNow[index].TryGetComponent(out Button confirmButton))
-            confirmButton.Select();
         if (targetableRightNow[index].TryGetComponent(out PurchaseCard purchaseCardPrev))
             purchaseCardPrev.OneSwitchHover();
         if (targetableRightNow[index].TryGetComponent(out ReturnButton returnButtonPrev))
@@ -76,6 +77,16 @@ public class OneSwitch : MonoBehaviour
             shopHoverPrev.OneSwitchSelected();
         if (targetableRightNow[index].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
             settingsSelectHoverprev.OneSwitchHover();
+        if (targetableRightNow[index].TryGetComponent(out Button confirmButton))
+        {
+            ColorBlock colors = confirmButton.colors;
+            normalSelectColor = colors.selectedColor;
+            colors.selectedColor = buttonSelectColor;
+
+            confirmButton.colors = colors;
+
+            confirmButton.Select();
+        }
     }
 
     // Resets the last index when going starting over
@@ -103,6 +114,7 @@ public class OneSwitch : MonoBehaviour
     private void ChangeOneSwitch()
     {
         CheckWhatIsActive();
+        changedList = false;
 
         switch (OneSwitchActiveNow)
         {
@@ -131,22 +143,30 @@ public class OneSwitch : MonoBehaviour
                 break;
         }
 
-        oneSwitchActivePrevious = OneSwitchActiveNow;
+        if (oneSwitchActivePrevious != OneSwitchActiveNow)
+        {
+            changedList = true;
+            oneSwitchActivePrevious = OneSwitchActiveNow;
+            index = -1;
+            prevIndex = 0;
+        }
     }
     
     // The loop that checks which target to show
     private void CurrentTarget()
     {
-        if (OneSwitchActiveNow != oneSwitchActivePrevious)
+/*        if (OneSwitchActiveNow != oneSwitchActivePrevious)
         {
             index = -1;
             prevIndex = 0;
-        }
+        }*/
         ChangeOneSwitch();
 
         if (targetableRightNow.Count <= 0) return;
 
         index++;
+        if (index >= targetableRightNow.Count)
+            index = 0;
 
         for (; index < targetableRightNow.Count; index++)
         {
@@ -159,12 +179,9 @@ public class OneSwitch : MonoBehaviour
             break;
         }
 
-        if (index >= targetableRightNow.Count)
-            index = 0;
-
         if (index == 0 && !firstTime)
             ResetLast();
-        if (index - 1 == prevIndex)
+        if (prevIndex < targetableRightNow.Count && !changedList)
             HideTarget();
         ShowTarget();
         
@@ -178,11 +195,11 @@ public class OneSwitch : MonoBehaviour
         {
             if (playCardManager.TauntCard()) return;
 
-            else if (!cardDisplay.Card.Targetable)
+            else if (!cardDisplay.Card.Targetable)          
                 playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
+            
             else
             {
-                CancelInvoke();
                 clicked = true;
 
                 ListEnum lE = new ListEnum();
@@ -191,7 +208,6 @@ public class OneSwitch : MonoBehaviour
 
                 choice.ChoiceMenu(lE, 1, WhichMethod.OneSwitchTarget, cardDisplay.Card);
                 OneSwitchActiveNow = WhatShouldBeOneSwitch.Choice;
-                InvokeRepeating(nameof(CurrentTargetWithCard), 1f, 1f);
                 return;
             }
         }
@@ -201,34 +217,22 @@ public class OneSwitch : MonoBehaviour
     // If you try to target something with a card
     private void UsedCardWithTarget()
     {
-        if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out AvailableChampion availableChampion))
+        if (thingsToTargetWithCard[index].gameObject.TryGetComponent(out AvailableChampion availableChampion))
             playCardManager.PlayCard(TypeOfCardTargeting.Targeted, availableChampion.gameObject);
         
-        else if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out LandmarkDisplay landmark))
+        else if (thingsToTargetWithCard[index].gameObject.TryGetComponent(out LandmarkDisplay landmark))
             playCardManager.PlayCard(TypeOfCardTargeting.Targeted, landmark.gameObject);
         
         clicked = false;
-        CancelInvoke();
-        InvokeRepeating(nameof(CurrentTarget), 1f, 1f);
     }
 
     // Another loop that checks when you try to target something with a card
-    private void CurrentTargetWithCard()
+/*    private void CurrentTargetWithCard()
     {
-        if (oneSwitchActivePrevious != OneSwitchActiveNow)
-            ChangeOneSwitch();
+
+        ChangeOneSwitch();
 
         indexTargets++;
-
-        for (; indexTargets < thingsToTargetWithCard.Length; indexTargets++)
-        {
-            if (thingsToTargetWithCard[indexTargets].TryGetComponent(out LandmarkDisplay landmarkDisplay))
-            {
-                if (landmarkDisplay.Card == null) continue;
-            }
-                
-            break;
-        }
 
         if (indexTargets >= thingsToTargetWithCard.Length)
             indexTargets = 0;
@@ -236,17 +240,21 @@ public class OneSwitch : MonoBehaviour
         if (indexTargets == 0 && !firstTime)
             ResetLast();
 
-        HideTarget();
+        if (prevIndex < targetableRightNow.Count && !changedList)
+            HideTarget();
         ShowTarget();
 
-    }
+    }*/
 
     private void ChoiceAllternatives()
     {
         if (!whatToCheck[0].activeSelf)
             OneSwitchActiveNow = WhatShouldBeOneSwitch.Normal;
         targetableRightNow = choice.ButtonHolder.GetComponentsInChildren<Targetable>().ToList();
-        targetableRightNow.Add(choice.ConfirmMenuButton.GetComponent<Targetable>());
+        if (choice.ConfirmMenuButton.activeSelf)
+            targetableRightNow.Add(choice.ConfirmMenuButton.GetComponent<Targetable>());
+        else if (choice.closeMenuButton.activeSelf)
+            targetableRightNow.Add(choice.closeMenuButton.GetComponent<Targetable>());
     }
 
     private void OnDisable()
@@ -288,6 +296,7 @@ public class OneSwitch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            eventSystem.SetSelectedGameObject(null);
             if (!clicked)
             {
                 if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))

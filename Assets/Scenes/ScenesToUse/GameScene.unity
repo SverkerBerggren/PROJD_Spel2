@@ -28510,6 +28510,7 @@ MonoBehaviour:
   - {fileID: 1564927299}
   - {fileID: 2041054152}
   - {fileID: 218844563}
+  buttonSelectColor: {r: 0.086240605, g: 0.48580226, b: 0.8018868, a: 1}
   OneSwitchActiveNow: 0
 --- !u!114 &698962104
 MonoBehaviour:
@@ -33828,10 +33829,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   descriptionText: {fileID: 1768172077}
   choiceButtonPrefab: {fileID: 4087350943102769212, guid: 07666615b91b9bd429ab33f6ff6b9c0f, type: 3}
-  closeMenuButton: {fileID: 1889083386}
   choiceMenu: {fileID: 259351858}
   choiceOpponentMenu: {fileID: 1564927299}
   IsChoiceActive: 0
+  closeMenuButton: {fileID: 1889083386}
   ConfirmMenuButton: {fileID: 792144028}
   ButtonHolder: {fileID: 538839664}
 --- !u!114 &925668437 stripped
@@ -34506,7 +34507,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9150943, g: 0.75013006, b: 0.28057137, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -51382,24 +51383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fatigueDamage: 10
   DeckPlayer:
-  - {fileID: 11400000, guid: 6c37724b49e89224c80b9fab401a0aae, type: 2}
-  - {fileID: 11400000, guid: 6ffaa3e03182143448f040d3137963c3, type: 2}
-  - {fileID: 11400000, guid: e382f1387090e1b4d996458174ac8c78, type: 2}
-  - {fileID: 11400000, guid: e0077bc1a262d824ab327f813c7e6524, type: 2}
-  - {fileID: 11400000, guid: 1eb3b25ea1dbed0488b10e027b23c66f, type: 2}
-  - {fileID: 11400000, guid: fe2e9c357dba8b2479899b98c221bc29, type: 2}
-  - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
-  - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
-  - {fileID: 11400000, guid: 2175d7f8275807745816733ac541ca51, type: 2}
-  - {fileID: 11400000, guid: 39e6a98067f213542ba6291b354f93b3, type: 2}
-  - {fileID: 11400000, guid: b5e5f3a4252fc654c8d44b307fbf810f, type: 2}
-  - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
-  - {fileID: 11400000, guid: 41ff255202b0dcb4681b16fa8a2a6651, type: 2}
-  - {fileID: 11400000, guid: d716d90145e3afb4b949e779741cb780, type: 2}
-  - {fileID: 11400000, guid: af7b1fd6bce5cf64894a3079753b210a, type: 2}
-  - {fileID: 11400000, guid: 3390ecdd284127742ad01055a2b05e6b, type: 2}
-  - {fileID: 11400000, guid: 8f4cdaf216913ac44934aae9c1446486, type: 2}
-  - {fileID: 11400000, guid: 5f9d69447087e324881d7a586c75da19, type: 2}
+  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
+  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
+  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
   DeckOpponent: []
 --- !u!4 &1711450997
 Transform:
@@ -55971,6 +55957,7 @@ GameObject:
   - component: {fileID: 1889083390}
   - component: {fileID: 1889083389}
   - component: {fileID: 1889083388}
+  - component: {fileID: 1889083391}
   m_Layer: 5
   m_Name: CloseMenu
   m_TagString: Untagged
@@ -56093,6 +56080,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889083386}
   m_CullTransparentMesh: 1
+--- !u!114 &1889083391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889083386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1893681174
 GameObject:
   m_ObjectHideFlags: 0
@@ -57856,7 +57855,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9150943, g: 0.75013006, b: 0.28057137, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -60830,7 +60829,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9150943, g: 0.75013006, b: 0.28057137, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -62246,7 +62245,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.990566, g: 0.78953314, b: 0.23829652, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

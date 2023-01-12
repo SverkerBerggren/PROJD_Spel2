@@ -35,13 +35,11 @@ public class PlayCardManager : MonoBehaviour
             return TypeOfCardTargeting.Taunt;
 
 		else if (target.TryGetComponent(out AvailableChampion availableChampion))
-		{
-			if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-                return TypeOfCardTargeting.Targeted;
-        }
+		    return TypeOfCardTargeting.Targeted;
+        
 		else if (target.TryGetComponent(out LandmarkDisplay landmarkDisplay))
 		{
-			if (landmarkDisplay.Card != null && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+			if (landmarkDisplay.Card != null)
 				return TypeOfCardTargeting.Targeted;
 		}
 		return TypeOfCardTargeting.None;
@@ -84,10 +82,8 @@ public class PlayCardManager : MonoBehaviour
 			return CheckTarget(target);
 
 		else if (!card.Targetable && target.CompareTag("NonTargetCollider"))
-		{
-			if (actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
-				return TypeOfCardTargeting.UnTargeted;
-		}
+			return TypeOfCardTargeting.UnTargeted;
+		
 		return TypeOfCardTargeting.None;
 	}
 
@@ -148,7 +144,7 @@ public class PlayCardManager : MonoBehaviour
 		{
 			if (landmarkDisplay.Card == null) continue;
 
-			if (landmarkDisplay.Card is TauntLandmark && actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true))
+			if (landmarkDisplay.Card is TauntLandmark)
 			{
 				card.Target = null;
 				card.LandmarkTarget = landmarkDisplay;
@@ -187,6 +183,8 @@ public class PlayCardManager : MonoBehaviour
 
 	public void PlayCard(TypeOfCardTargeting typeOfcardTargeting, GameObject target)
 	{
+        if (!actionOfPlayer.CheckIfCanPlayCard(cardDisplay, true)) return;
+
 		switch (typeOfcardTargeting)
 		{
 			case TypeOfCardTargeting.Targeted:

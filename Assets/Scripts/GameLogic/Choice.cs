@@ -21,11 +21,11 @@ public class Choice : MonoBehaviour
 
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private GameObject choiceButtonPrefab;
-    [SerializeField] private GameObject closeMenuButton;
     [SerializeField] private GameObject choiceMenu;
     [SerializeField] private GameObject choiceOpponentMenu;
 
     public bool IsChoiceActive;
+    public GameObject closeMenuButton;
     public GameObject ConfirmMenuButton;
     public GameObject ButtonHolder;
 
@@ -98,7 +98,6 @@ public class Choice : MonoBehaviour
         if (listEnum.opponentChampions && listEnum.opponentLandmarks) // Is used by one switch
         {
             MakeButtonOfChampion(gameState.OpponentChampion.Champion, listEnum, 0);
-            listEnum.opponentChampions = false;
             for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
             {
                 LandmarkDisplay landmarkDisplay = gameState.OpponentLandmarks[i];
@@ -106,7 +105,8 @@ public class Choice : MonoBehaviour
                 
                 MakeButtonOfCard(landmarkDisplay.Card, listEnum, i + 1);
             }
-            yield return null;
+            closeMenuButton.SetActive(true);
+            yield break;
         }
 
         // Uses no switch because listenum can have multiple true
@@ -305,7 +305,7 @@ public class Choice : MonoBehaviour
     {
         if (chosenTargets[0].whichList.opponentChampions)
             cardUsed.Target = gameState.OpponentChampion.Champion;
-        else
+        else if (chosenTargets[0].whichList.opponentLandmarks)
             cardUsed.LandmarkTarget = gameState.OpponentLandmarks[chosenTargets[0].index - 1];
     }
 
@@ -584,6 +584,9 @@ public class Choice : MonoBehaviour
                         return true;
                 }
                 return false;
+            case WhichMethod.OneSwitchTarget:
+                descriptionText.text = "Chose a target";
+                break;
         }
         return true;
     }
