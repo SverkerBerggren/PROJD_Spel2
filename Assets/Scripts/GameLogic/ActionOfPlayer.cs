@@ -79,7 +79,7 @@ public class ActionOfPlayer : MonoBehaviour
 				else
 					cardDisplay.Card = specificCard;
 
-                if (CheckCardDrawn(cardDisplay, drawnCards) == -1) return -1;
+                if (CheckCardDrawn(cardDisplay, drawnCards) == -1) break;
 
 				drawnCards++;
 			}
@@ -100,10 +100,7 @@ public class ActionOfPlayer : MonoBehaviour
             drawnCards++;
         }
         else
-        {
-            print("Deck is empty or the drawn card is null!!!");
             return -1;
-        }
 
         return drawnCards;
     }

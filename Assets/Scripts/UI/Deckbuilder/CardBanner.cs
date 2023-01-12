@@ -1,8 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardBanner : MonoBehaviour
+public class CardBanner : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	private int count = 0;
 	private Card card;
@@ -85,15 +86,15 @@ public class CardBanner : MonoBehaviour
 		preview.SetActive(false);
 	}
 
-	public void OnHoverEnter()
-	{
+    public void OnPointerEnter(PointerEventData eventData)
+    {
 		preview.SetActive(true);
 		attributes.previewCard = true;
 		attributes.UpdateTextOnCardWithCard(card);
 	}
 
-	public void OnHoverExit()
-	{
+    public void OnPointerExit(PointerEventData eventData)
+    {
 		preview.SetActive(false);
 	}
 }

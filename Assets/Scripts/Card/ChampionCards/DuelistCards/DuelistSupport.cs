@@ -44,7 +44,7 @@ public class DuelistSupport : Spells
 		ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
 		foreach (Card card in Deck.Instance.DeckPlayer)
 		{
-			if (card is AttackSpell)
+			if (card.TypeOfCard == CardType.Attack)
 			{
 				actionOfPlayer.DrawCardPlayer(1, card, true);
 				Deck.Instance.RemoveCardFromDeck(card);

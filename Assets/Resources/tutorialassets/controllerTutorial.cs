@@ -9,7 +9,7 @@ public class controllerTutorial : MonoBehaviour
     public void StepTwo()
     { 
         uDialog.NewDialog()
-                .SetDimensions(900,400)
+                .SetDimensions(900, 400)
                 .SetThemeImageSet(eThemeImageSet.Fantasy)
                 .SetColorScheme("Personalized")
                 .SetTitleText("Starting the Game")

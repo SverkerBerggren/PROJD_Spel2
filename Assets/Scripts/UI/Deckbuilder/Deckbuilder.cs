@@ -9,7 +9,8 @@ public class Deckbuilder : MonoBehaviour
 {
     private Setup setup;
     private CardRegister register;
-    private TMP_Text decklist;
+    [SerializeField] private Transform cardHolders;
+    [SerializeField] private TMP_Text decklistText;
 
     [SerializeField] private GameObject buttonHolder;
     [SerializeField] private GameObject cardButton;
@@ -42,7 +43,6 @@ public class Deckbuilder : MonoBehaviour
         {
             Destroy(Instance);
         }
-        decklist = GetComponentInChildren<TMP_Text>();
     }
 
     void Start()
@@ -224,14 +224,14 @@ public class Deckbuilder : MonoBehaviour
         if (setup == null)
             setup = Setup.Instance;
 
-        decklist.text = "Deck: " + DeckName + "\n\n";
-        decklist.text += "Champions " + setup.myChampions.Count + "/3\n";
+        decklistText.text = "Deck: " + DeckName + "\n\n";
+        decklistText.text += "Champions " + setup.myChampions.Count + "/3\n";
         foreach (string champion in setup.myChampions) // WIP
         {
-            decklist.text += champion + "\n";
+            decklistText.text += champion + "\n";
         }
-        decklist.text += "\n";
-        decklist.text += "Cards " + setup.currentDeckSize + "/" + setup.deckCount + "\n";
+        decklistText.text += "\n";
+        decklistText.text += "Cards " + setup.currentDeckSize + "/" + setup.deckCount + "\n";
 
         List<Card> cards = new(setup.amountOfCards.Keys);
         cards.Sort(new CardComparer(CardFilter.ManaCost));
@@ -273,7 +273,7 @@ public class Deckbuilder : MonoBehaviour
 			cardBanner = CardBanners[card].GetComponent<CardBanner>();
 		else
 		{
-			GameObject banner = Instantiate(cardBannerPrefab, decklist.transform);
+			GameObject banner = Instantiate(cardBannerPrefab, cardHolders);
             cardBanner = banner.GetComponent<CardBanner>();
             cardBanner.SetCard(card);
             CardBanners.Add(card, banner);

@@ -59,7 +59,7 @@ public class Choice : MonoBehaviour
     {
         if (!gameState.HasPriority)
         {
-            if (gameState.IsItMyTurn && (whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan))
+            if (gameState.IsItMyTurn || whichMethod == WhichMethod.SwitchChampionMulligan || whichMethod == WhichMethod.Mulligan)
                 ShowOpponentThinking();
             else
                 HideOpponentThinking();
@@ -163,9 +163,9 @@ public class Choice : MonoBehaviour
 
 			if (whichMethod != WhichMethod.TransformChampionCard)
 				choiceButtonPrefab.SetActive(true);
-			else if (cardDisplay.Card.ChampionCard && cardDisplay.Card.ChampionCardType != ChampionCardType.All) continue;
+			else if (!cardDisplay.Card.ChampionCard || (cardDisplay.Card.ChampionCard && cardDisplay.Card.ChampionCardType == ChampionCardType.All)) continue;
 
-			MakeButtonOfCard(cardDisplay.Card, listEnum, i);
+			MakeButtonOfCard(cardDisplay.Card, listEnum, i);;
 		}
 	}
 
@@ -432,9 +432,13 @@ public class Choice : MonoBehaviour
         }
 
         if (whichMethod == WhichMethod.SwitchChampionMulligan && gameState.PlayerChampion.Champion is not Duelist)
+        {
             gameState.PassPriority();
+	        if (gameState.IsItMyTurn)
+		        StartCoroutine(gameState.ActivateYourTurnEffectAfterMulligan());
+        }
 
-    }
+	}
 
     private void PriorityForSwap()
     {
@@ -459,7 +463,7 @@ public class Choice : MonoBehaviour
             indexes.Add(card);
         }
 
-        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes);
+        List<string> cards = actionOfPlayer.HandPlayer.DiscardCardListWithIndexes(indexes, true);
 
         bool enemyGraveyard = false;
 
@@ -538,7 +542,7 @@ public class Choice : MonoBehaviour
                 foreach (LandmarkDisplay landmarks in GameState.Instance.PlayerLandmarks) // If Player got no landmarks
                 {
                     if (landmarks.Card != null)
-                        break;
+						return true;
                 }
                 return false;
 
@@ -558,7 +562,7 @@ public class Choice : MonoBehaviour
                 {
                     Card card = cardsInHand[i].Card;
                     if (card.ChampionCard && card.ChampionCardType != ChampionCardType.All)
-                        break;
+						return true;
                 }
                 return false;
 
@@ -577,7 +581,7 @@ public class Choice : MonoBehaviour
                 foreach (LandmarkDisplay landmarks in GameState.Instance.OpponentLandmarks) // If opponent got landmark
                 {
                     if (landmarks.Card != null)
-                        break;
+                        return true;
                 }
                 return false;
         }

@@ -27,7 +27,9 @@ public class CardDissolve : MonoBehaviour
 
     public async Task DissolveCard()
     {
-        glow.GetComponent<MeshRenderer>().enabled = false;
+		if (display.OpponentCard) return;
+
+		glow.GetComponent<MeshRenderer>().enabled = false;
         textCanvas.SetActive(false);
 
         float counter = meshMaterial.material.GetFloat(alpha);

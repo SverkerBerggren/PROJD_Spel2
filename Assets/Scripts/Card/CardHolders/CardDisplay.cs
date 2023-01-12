@@ -12,6 +12,7 @@ public class CardDisplay : Displays
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
     private CardMovement cardMovement;
+    private SelectIndicater selectIndicater;
 
     [NonSerialized] public CardDisplayAttributes cardDisplayAttributes;
     [NonSerialized] public SpriteRenderer artworkSpriteRenderer;
@@ -22,26 +23,24 @@ public class CardDisplay : Displays
 
     [SerializeField] private float scaleOnHover = 1.3f; 
 
-    public LayoutElement LayoutElement;
     public CardDissolve CardDissolve;
 
-    public SelectIndicater selectIndicater;
 
     private void Awake()
     {
         if (!loadedSpriteRenderer && OpponentCard)
             LoadSpriteRendererOnce();
-        if (!loadedDisplayAttributes)
+        if (!loadedDisplayAttributes && !OpponentCard)
             LoadDisplayAttributesOnce();
         Invoke(nameof(LoadInvoke), 0.01f);
 
-        selectIndicater = SelectIndicater.Instance; 
     }
 
     private void Start()
     {
         displayTransform = transform.GetChild(0).transform;
         CardDissolve = GetComponentInChildren<CardDissolve>();
+        selectIndicater = SelectIndicater.Instance; 
     }
     private void LoadInvoke()
     {
@@ -52,13 +51,13 @@ public class CardDisplay : Displays
     private void LoadSpriteRendererOnce()
     {
         loadedSpriteRenderer = true;
-        artworkSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        artworkSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void LoadDisplayAttributesOnce()
     {
         loadedDisplayAttributes = true;
-        cardDisplayAttributes = transform.GetChild(0).GetComponent<CardDisplayAttributes>();
+        cardDisplayAttributes = GetComponentInChildren<CardDisplayAttributes>();
         displayTransform = cardDisplayAttributes.transform;
     }
 
@@ -102,7 +101,7 @@ public class CardDisplay : Displays
         //set up Select Indicater, should only call this metod when it is a attack card
         
         
-        selectIndicater.UppdateIndicater(Card.TypeOfCard);
+        selectIndicater.UppdateIndicater(Card);
     }
 
     public void MouseExit()

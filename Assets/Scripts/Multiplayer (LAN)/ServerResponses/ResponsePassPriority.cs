@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class ResponsePassPriority : ServerResponse
 {
-    public bool priority;
+    public bool priority = false;
     public ResponsePassPriority()
     {
         Type = 14;

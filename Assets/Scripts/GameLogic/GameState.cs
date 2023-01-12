@@ -557,12 +557,16 @@ public class GameState : MonoBehaviour
 		landmarkDisplay.Card = landmark;
 		landmarkDisplay.transform.GetChild(0).gameObject.SetActive(true);
 		landmarkDisplay.Health = landmark.MinionHealth;
-		landmarkDisplay.ManaCost = PlayerLandmarks[index].Card.MaxManaCost;
+		landmarkDisplay.ManaCost = landmarkDisplay.Card.MaxManaCost;
     }
 
-    
+	public IEnumerator ActivateYourTurnEffectAfterMulligan()
+	{
+		yield return new WaitUntil(() => HasPriority);
+		yourTurnEffect.ActivateEffect();
+	}
 
-    public void TriggerUpKeep()
+	public void TriggerUpKeep()
     {
         DrawCard(1, null);
 
@@ -677,6 +681,14 @@ public class GameState : MonoBehaviour
         else if (OpponentChampions.Count == 0)
         {
             Victory();
+            if(IsOnline)
+            {
+
+                print("skickas win game actionen??!?!??");
+                RequestEndGame request = new RequestEndGame();
+                ClientConnection.Instance.AddRequest(request,RequestEmpty);
+            }
+
             return;
         }
     }
@@ -693,9 +705,14 @@ public class GameState : MonoBehaviour
                 SwapOnDeath(OpponentChampion);
                 RemoveChampion(deadChampion);
             }
-            else
-                PassPriority();
-        }
+			else
+			{
+				if (OpponentChampions.Count == 1)
+					Victory();
+				else
+					PassPriority();
+			}
+		}
 	}
 
     private void RemoveChampion(Champion deadChamp)

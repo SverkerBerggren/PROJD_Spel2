@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-
 public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
 {
     public  int Type = 0; 
@@ -100,6 +97,17 @@ public class ClientRequest : MBJson.JSONDeserializeable,MBJson.JSONTypeConverter
         if (IntegerToConvert == 21)
         {
             return (typeof(RequestStopSwapping));
+            
+        }
+        
+        if (IntegerToConvert == 22)
+        {
+            return (typeof(RequestEndGame));
+            
+        }
+        if (IntegerToConvert == 23)
+        {
+            return (typeof(RequestLogGameAction));
             
         }
 
