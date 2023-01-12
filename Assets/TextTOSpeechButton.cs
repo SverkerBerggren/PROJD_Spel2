@@ -13,7 +13,19 @@ public class TextTOSpeechButton : MonoBehaviour
     {
         if (clipToPlay == null)
             return;
+
+
         audioSource.clip = clipToPlay;
-        audioSource.PlayOneShot(clipToPlay);
+
+        if(audioSource.clip == clipToPlay)
+        {
+            if(audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                return;
+            }
+        }
+
+        audioSource.Play();
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7536.6094, g: 8277.09, b: 10234.289, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20671,6 +20671,79 @@ RectTransform:
   m_AnchoredPosition: {x: -18.624, y: 0.00015926361}
   m_SizeDelta: {x: -37.251, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &479401033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479401034}
+  - component: {fileID: 479401036}
+  - component: {fileID: 479401035}
+  m_Layer: 5
+  m_Name: RawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &479401034
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479401033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.54888564, y: 0.54888564, z: 0.54888564}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 567589610}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -45, y: -0.4}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &479401035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479401033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: a906cd9b20ab8b740814bff4853a92a9, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &479401036
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479401033}
+  m_CullTransparentMesh: 1
 --- !u!1 &480425541
 GameObject:
   m_ObjectHideFlags: 0
@@ -23894,6 +23967,7 @@ RectTransform:
   m_LocalScale: {x: 2.234291, y: 2.234291, z: 2.234291}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 479401034}
   - {fileID: 1612035902}
   m_Father: {fileID: 6594276099666920089}
   m_RootOrder: 18
@@ -24120,15 +24194,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.8066173, b: 0.35635456, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: fd3fcbc162375da46b51eeb8e8f8c438, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -25823,7 +25897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607796551
@@ -45297,7 +45371,7 @@ MonoBehaviour:
   imageToChange: {fileID: 5313670034827633284}
   texturePanel: {fileID: 2800000, guid: cf054ed70dc4c7f4d81d467713f81756, type: 3}
   textureImage: {fileID: 2800000, guid: e276b8a030d9d78408b2af7075ce8caa, type: 3}
-  textToChangeTitle: 'MANA '
+  textToChangeTitle: SHOP
   textToChangeInfo: At the end of your turn all unspent mana is accumulated as your
     unspent mana resource. In the shop you can buy abilities for your unspent mana.
     This is not treated as playing a card and as such the cards are not added to
@@ -45306,7 +45380,7 @@ MonoBehaviour:
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: dc32428501aa0c04e8e60574fc8b3a8d, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!114 &1392984651
 MonoBehaviour:
@@ -49897,11 +49971,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 567589610}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -6.800003, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1612035903
@@ -49924,7 +49998,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Voice reading??
+  m_text: Text to speech
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fa2984591adafe1448edb48eaefe61f4, type: 2}
   m_sharedMaterial: {fileID: 5465893664924537199, guid: fa2984591adafe1448edb48eaefe61f4, type: 2}
@@ -49951,7 +50025,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.05
+  m_fontSize: 20.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -49987,7 +50061,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 77.67807, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -65947,7 +66021,7 @@ MonoBehaviour:
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: 10042fcb1b5e7fb4196d8c7a6c5ad084, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!114 &3505210973884835908
 MonoBehaviour:
@@ -65964,17 +66038,15 @@ MonoBehaviour:
   imageToChange: {fileID: 5313670034827633284}
   texturePanel: {fileID: 2800000, guid: cf054ed70dc4c7f4d81d467713f81756, type: 3}
   textureImage: {fileID: 2800000, guid: 62a7e792a219f65488a1a263ef341000, type: 3}
-  textToChangeTitle: 'MANA '
-  textToChangeInfo: MANA IS THE NAME OF THE IN-GAME CURRENCY USED TO PLAY CARDS.
-    A CARDS MANA-COST IS SHOWN IN THE TOP LEFT CORNER. EVERY START OF YOUR MANA IS
-    THE NAME OF THE IN-GAME CURRENCY USED TO PLAY CARDS. A CARDS MANA-COST IS SHOWN
-    IN THE TOP LEFT CORNER. AT THE START OF YOUR ROUND YOUR REFRESH YOUR MANACOUNT
-    AND IS AS WELL GRANTED AN EXTRA MANA.
+  textToChangeTitle: GRAVEYARD
+  textToChangeInfo: EVERY CARD THAT IS PLAYED OR LANDMARK THAT IS DESTROYED IS SENT
+    TO THE RESPECTIVE PLAYERS GRAVEYARD. CERTAIN CARDS CAN INTERACT WITH CARDS IN
+    THE GRAVEYARD
   originalFont: {fileID: 0}
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: 2d2780ed71c5cdf42ad289b292dfeec5, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!222 &3604986466836370476
 CanvasRenderer:
@@ -66062,17 +66134,16 @@ MonoBehaviour:
   texturePanel: {fileID: 2800000, guid: c178057475ead464faa05e579bbb2a02, type: 3}
   textureImage: {fileID: 2800000, guid: db20c845aaeb890439865425aa6c2fa9, type: 3}
   textToChangeTitle: LANDMARK CARDS
-  textToChangeInfo: CARDS OF THIS TYPE ARE MARKED BY... LANDMARK CARDS CAN BE PUT
-    IN ONE OF YOUR LANDMARKS SLOTS, MEANING YOU CAN HAVE A MAXIMUM OF 4 LANDMARKS
-    ACTIVE AT A TIME. THESE CARDS HAVE VARIOUS EFFECTS THAT EITHER ALWAYS ARE ACTIVE,
-    OR TRIGGERED AT THE START OF YOUR ROUND. LANDMARK CARDS HAVE HP SHOWN IN THE
-    TOP RIGHT CORNER. YOUR OPPONENT CAN DESTROY YOUR LANDMARKS WITH THEIR ATTACK
-    CARDS
+  textToChangeInfo: LANDMARK CARDS CAN BE PUT IN ONE OF YOUR LANDMARKS SLOTS, MEANING
+    YOU CAN HAVE A MAXIMUM OF 4 LANDMARKS ACTIVE AT A TIME. THESE CARDS HAVE VARIOUS
+    EFFECTS THAT EITHER ALWAYS ARE ACTIVE, OR TRIGGERED AT THE START OF YOUR ROUND.
+    LANDMARK CARDS HAVE HP SHOWN IN THE TOP RIGHT CORNER. YOUR OPPONENT CAN DESTROY
+    YOUR LANDMARKS WITH THEIR ATTACK CARDS
   originalFont: {fileID: 0}
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: 43cf6a895ba346848a8b838715ca7451, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!224 &3810687257617743253
 RectTransform:
@@ -67471,7 +67542,7 @@ MonoBehaviour:
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: 16344c57ff327b94c865153a3a7cc9dd, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!1001 &5023242584136428750
 PrefabInstance:
@@ -70856,7 +70927,7 @@ MonoBehaviour:
   dyslexicFont: {fileID: 0}
   titleText: {fileID: 9119341223585739947}
   infoText: {fileID: 4967090353326725329}
-  audioClipToSet: {fileID: 0}
+  audioClipToSet: {fileID: 8300000, guid: 42eb3ea9cc29b174690974480f04f011, type: 3}
   textToSpeechScript: {fileID: 567589612}
 --- !u!114 &8230675307078516142
 MonoBehaviour:
