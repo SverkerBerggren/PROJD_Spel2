@@ -30,7 +30,7 @@ public class CardDisplay : Displays
     {
         if (!loadedSpriteRenderer && OpponentCard)
             LoadSpriteRendererOnce();
-        if (!loadedDisplayAttributes)
+        if (!loadedDisplayAttributes && !OpponentCard)
             LoadDisplayAttributesOnce();
         Invoke(nameof(LoadInvoke), 0.01f);
 
