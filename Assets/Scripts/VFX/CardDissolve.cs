@@ -27,7 +27,7 @@ public class CardDissolve : MonoBehaviour
 
     public async Task DissolveCard()
     {
-		if (display.OpponentCard) return;
+		if (display.OpponentCard || EffectController.Instance.AccesibilityDisable) return;
 
 		glow.GetComponent<MeshRenderer>().enabled = false;
         textCanvas.SetActive(false);
