@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7536.1484, g: 8276.42, b: 10232.5, a: 1}
+  m_IndirectSpecularColor: {r: 7541.1465, g: 8284.486, b: 10253.852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &83290199
 GameObject:
@@ -21737,7 +21737,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &502503626
 GameObject:
@@ -24882,7 +24882,7 @@ MonoBehaviour:
   Health: 0
   MaxHealth: 0
   Shield: 0
-  IsOpponent: 0
+  IsOpponent: 1
   Animator: {fileID: 0}
 --- !u!1 &601170530
 GameObject:
@@ -51488,9 +51488,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fatigueDamage: 10
   DeckPlayer:
+  - {fileID: 11400000, guid: 6c37724b49e89224c80b9fab401a0aae, type: 2}
+  - {fileID: 11400000, guid: 6ffaa3e03182143448f040d3137963c3, type: 2}
+  - {fileID: 11400000, guid: e382f1387090e1b4d996458174ac8c78, type: 2}
+  - {fileID: 11400000, guid: e0077bc1a262d824ab327f813c7e6524, type: 2}
+  - {fileID: 11400000, guid: 1eb3b25ea1dbed0488b10e027b23c66f, type: 2}
+  - {fileID: 11400000, guid: fe2e9c357dba8b2479899b98c221bc29, type: 2}
+  - {fileID: 11400000, guid: 0789c504ba464f84ab93ddaa16204792, type: 2}
+  - {fileID: 11400000, guid: 30e11b554649ec340a89138ebc370651, type: 2}
+  - {fileID: 11400000, guid: 2175d7f8275807745816733ac541ca51, type: 2}
+  - {fileID: 11400000, guid: 39e6a98067f213542ba6291b354f93b3, type: 2}
+  - {fileID: 11400000, guid: b5e5f3a4252fc654c8d44b307fbf810f, type: 2}
   - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
-  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
+  - {fileID: 11400000, guid: 41ff255202b0dcb4681b16fa8a2a6651, type: 2}
+  - {fileID: 11400000, guid: d716d90145e3afb4b949e779741cb780, type: 2}
+  - {fileID: 11400000, guid: af7b1fd6bce5cf64894a3079753b210a, type: 2}
+  - {fileID: 11400000, guid: 3390ecdd284127742ad01055a2b05e6b, type: 2}
+  - {fileID: 11400000, guid: 8f4cdaf216913ac44934aae9c1446486, type: 2}
   DeckOpponent: []
 --- !u!4 &1711450997
 Transform:
