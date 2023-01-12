@@ -63,6 +63,7 @@ public class Calculations : MonoBehaviour
 		}
 		return baseDamage;
 	}
+
 	public int CalculateHealing(int amount, bool justBaseHealing)
 	{
 		if (justBaseHealing)
@@ -99,6 +100,7 @@ public class Calculations : MonoBehaviour
 		}
 		return amount;
 	}
+
 	public void CalculateHandManaCost(CardDisplay cardDisplay)
 	{
         cardDisplay.ManaCost = cardDisplay.Card.MaxManaCost;
