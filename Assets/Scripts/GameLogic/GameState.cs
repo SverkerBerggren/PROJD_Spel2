@@ -684,6 +684,8 @@ public class GameState : MonoBehaviour
             Victory();
             if(IsOnline)
             {
+
+                print("skickas win game actionen??!?!??");
                 RequestEndGame request = new RequestEndGame();
                 ClientConnection.Instance.AddRequest(request,RequestEmpty);
             }

@@ -226,6 +226,7 @@ public class SpreadsheetUpdater
             
 
 			StreamWriter temp = File.CreateText(Application.dataPath + "/Resources/ChangedCards/" + textName);
+            
 			temp.WriteLine("Old Card");
 
 			temp.WriteLine(oldString);

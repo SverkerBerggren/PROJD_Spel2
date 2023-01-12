@@ -36,20 +36,27 @@ public class Server
 
     private void ConnectToSQLServer()
     {   
-
-        SQLServerSocket.Connect("mrboboget.se", 54000);
-
-        if(SQLServerSocket.Connected)
+        try   
         {
+            SQLServerSocket.Connect("mrboboget.se", 54000);
 
-            connectedToSQLServer = true;
+            if (SQLServerSocket.Connected)
+            {
 
-            RequestMatchID();
+                connectedToSQLServer = true;
 
-            Thread gameActionLoop = new Thread(SQLAddGameActionLoop);
+                RequestMatchID();
 
-            gameActionLoop.Start();
+                Thread gameActionLoop = new Thread(SQLAddGameActionLoop);
+
+                gameActionLoop.Start();
+            }
         }
+        catch(Exception e)
+        {
+            string hej = e.Message;
+        }
+
 
         
     } 
@@ -99,12 +106,13 @@ public class Server
                 //      buf.CopyTo(hej.ToCharArray(), hej.Length);
                 lock (SQLServerSocket)
                 {
-                    SQLServerSocket.GetStream().Write(buf);
+                    SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
                     //
                     responseToUse = "";
                     bool continueReading = true;
                     int totalBytesRecieved = 0;
                     byte[] newBuffer = new byte[4096];
+                    int gameActionIndex = 0;
                     while (continueReading)
                     {
 
@@ -113,15 +121,17 @@ public class Server
                         if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
                         {
                             char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
-                            responseToUse = new String(castedBuffer, 4, castedBuffer.Length - 4);
+                            responseToUse = new String(castedBuffer, 4, (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))));
                             continueReading = false;
                             messageRead = true;
+                            gameActionIndex = Convert.ToInt32(responseToUse) +1;
 
+                            responseToUse = Convert.ToString(gameActionIndex);
                         }
                     }
                 }
                 
-                SendMessageToSQLServerThread("insert into MatchGameHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," + responseToUse + "," + gameActionToLog.gameAction);
+                SendMessageToSQLServerThread("insert into MatchGameActionHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," +responseToUse  + ", 0 ,'"+ gameActionToLog.gameAction +"'" +")");
 
             }
            
@@ -155,7 +165,7 @@ public class Server
 
             lock(SQLServerSocket)
             {
-                SQLServerSocket.GetStream().Write(buf);
+                SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
                 //
 
                 bool continueReading = true;
@@ -175,11 +185,11 @@ public class Server
                         messageRead = true;
                         Integer integerToReturn = new Integer(Convert.ToInt32(response));
 
-                        
+                        integerToReturn.value += 1;
 
                         lock (currentGameId)
                         {
-                            currentGameId = integerToReturn;
+                            currentGameId = integerToReturn ;
                         }
                     }
                 }
@@ -220,7 +230,7 @@ public class Server
 
             lock(SQLServerSocket)
             {
-                SQLServerSocket.GetStream().Write(buf);
+                SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
                 //
 
                 bool continueReading = true;
@@ -278,17 +288,27 @@ public class Server
 
         MBJson.JSONObject ReturnValue = new MBJson.JSONObject();
         byte[] LengthBuffer = new byte[4];
-        int ReadBytes = Stream.Read(LengthBuffer, 0, 4);
-        if (ReadBytes < 4)
+        int ReadBytes = 0;
+        while(ReadBytes < 4)
         {
-            throw new Exception("Insufficient bytes to parse JSON object length");
+            int NewBytes = Stream.Read(LengthBuffer, ReadBytes, 4-ReadBytes);
+            if(NewBytes == 0)
+            {
+                throw new Exception("Insufficient bytes to parse JSON object length");
+            }
+            ReadBytes += NewBytes;
         }
         int DataLength = ParseBigEndianInteger(LengthBuffer, 0);
         byte[] JSONData = new byte[DataLength];
-        ReadBytes = Stream.Read(JSONData, 0, DataLength);
-        if (ReadBytes < DataLength)
+        ReadBytes = 0;
+        while(ReadBytes < DataLength)
         {
-            throw new Exception("Insufficient bytes sent for json object");
+            int NewBytes = Stream.Read(JSONData, ReadBytes, DataLength-ReadBytes);
+            if(NewBytes == 0)
+            {
+                throw new Exception("Insufficient bytes sent for json object");
+            }
+            ReadBytes += NewBytes;
         }
         int temp;
         ReturnValue = MBJson.JSONObject.ParseJSONObject(JSONData, 0, out temp);
@@ -403,7 +423,8 @@ public class Server
     {
         Thread connectSQLThread = new Thread(ConnectToSQLServer);
         connectSQLThread.Start();
-   
+
+      //  m_Listener = new TcpListener(63000);
         m_Listener.Start();
         while (!m_Stopping)
         {
@@ -414,10 +435,11 @@ public class Server
     }
     public void p_Listen(int port)
     {
-        Thread connectSQLThread = new Thread(ConnectToSQLServer);
-        connectSQLThread.Start();
+        
         m_Listener = new System.Net.Sockets.TcpListener(port);
         m_Listener.Start();
+        Thread connectSQLThread = new Thread(ConnectToSQLServer);
+        connectSQLThread.Start();
         while (!m_Stopping)
         {
             System.Net.Sockets.TcpClient NewConnection = m_Listener.AcceptTcpClient();
@@ -446,6 +468,8 @@ public class Server
 
     public ServerResponse HandleClientRequest(ClientRequest requestToHandle)
     {
+        
+
         if (requestToHandle is RequestOpponentActions)
         {
             return HandleRequestActions(requestToHandle);
@@ -789,22 +813,23 @@ public class Server
         gameAction.firstTurn = requestToHandle.firstTurn;
         AddGameAction(response, gameAction, requestToHandle.gameId);
 
-        if(!requestToHandle.reciprocate && connectedToSQLServer)
+        if( connectedToSQLServer)
         {
-            SendMessageToSQLServerThread("insert into MatchDatabase VALUES( "+ requestToHandle.gameId + ",1,2 )");
+            SendMessageToSQLServerThread("insert into MatchDatabase VALUES( "+ (requestToHandle.gameId) + ",1,2 )");
 
+            foreach (CardAndAmount cardAndAmount in requestToHandle.deckList)
+            {
+                SendMessageToSQLServerThread("insert into DeckList VALUES("+requestToHandle.gameId+"," + requestToHandle.whichPlayer + "," + "'" + cardAndAmount.cardName + "'," + cardAndAmount.amount + ")");
+            }
+
+            foreach (string champ in requestToHandle.opponentChampions)
+            {
+                SendMessageToSQLServerThread("insert into DeckList VALUES(" +requestToHandle.gameId+","+ requestToHandle.whichPlayer + ",'" + champ + "'," + 1 + ")");
+            }
 
         }
 
-        foreach(CardAndAmount cardAndAmount in requestToHandle.deckList)
-        {
-            SendMessageToSQLServerThread("insert into DeckList VALUES(" + requestToHandle.whichPlayer + "," + cardAndAmount.cardName + "," + cardAndAmount.amount + ")");
-        }
-
-        foreach(string champ in requestToHandle.opponentChampions)
-        {
-            SendMessageToSQLServerThread("insert into DeckList VALUES(" + requestToHandle.whichPlayer + "," + champ + "," + 1 + ")");
-        }
+      
 
 
         return response;
@@ -908,6 +933,9 @@ public class Server
         {
             GameActionToLog toLog = new GameActionToLog(requestToHandle.whichPlayer, requestToHandle.cardAndPlacement.CardName);
             toLog.gameId = requestToHandle.gameId;
+             SQLaddGameAction(toLog);
+
+
         }
 
         AddGameAction(response, gameAction, requestToHandle.gameId);
@@ -964,6 +992,7 @@ public class Server
         ResponseAvailableLobbies response = new ResponseAvailableLobbies();
         response.Lobbies = hostedLobbys.Values.ToList<HostedLobby>();
 
+        response.SQLIsConnected = connectedToSQLServer;
 
         return response;
     }

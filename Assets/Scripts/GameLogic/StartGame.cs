@@ -19,6 +19,10 @@ public class StartGame : MonoBehaviour
             ownChampions.Add(stringen);
         }
         gameSetup.opponentChampions = ownChampions;
+        if(gameSetup.opponentChampions == null)
+        {
+            gameSetup.opponentChampions = new List<string>();
+        }
         Dictionary<string,int> deckListToSend = new Dictionary<string, int>();
         List<CardAndAmount> cardsToSend = new List<CardAndAmount>();
         foreach (Card card in Setup.Instance.playerDeckList)
@@ -41,6 +45,11 @@ public class StartGame : MonoBehaviour
         }
 
         gameSetup.deckList = cardsToSend;
+
+        if(gameSetup.deckList == null)
+        {
+            gameSetup.deckList = new List<CardAndAmount>();
+        }
 
         if ( Random.Range(0, 2) == 0)
         {

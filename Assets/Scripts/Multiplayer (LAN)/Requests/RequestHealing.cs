@@ -1,7 +1,7 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
-using System; 
+
+
 public class RequestHealing : ClientRequest
 {
     public List<TargetAndAmount> targetsToHeal = new List<TargetAndAmount>(); 

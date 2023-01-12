@@ -18,6 +18,7 @@ public class InternetLoop : MonoBehaviour
     public string loadScene;
     public  bool hasJoinedLobby = false;
 
+    public bool SQLIsConnected = false;
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -30,6 +31,11 @@ public class InternetLoop : MonoBehaviour
 
     public void PerformOpponentsActions(ServerResponse response)
     {   
+        if(response.SQLIsConnected)
+        {
+            SQLIsConnected = true;
+        }
+
         gameState = GameState.Instance;
         register = CardRegister.Instance;
 
