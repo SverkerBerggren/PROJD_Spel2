@@ -163,9 +163,9 @@ public class Choice : MonoBehaviour
 
 			if (whichMethod != WhichMethod.TransformChampionCard)
 				choiceButtonPrefab.SetActive(true);
-			else if (cardDisplay.Card.ChampionCard && cardDisplay.Card.ChampionCardType != ChampionCardType.All) continue;
+			else if (!cardDisplay.Card.ChampionCard || (cardDisplay.Card.ChampionCard && cardDisplay.Card.ChampionCardType == ChampionCardType.All)) continue;
 
-			MakeButtonOfCard(cardDisplay.Card, listEnum, i);
+			MakeButtonOfCard(cardDisplay.Card, listEnum, i);;
 		}
 	}
 
@@ -542,7 +542,7 @@ public class Choice : MonoBehaviour
                 foreach (LandmarkDisplay landmarks in GameState.Instance.PlayerLandmarks) // If Player got no landmarks
                 {
                     if (landmarks.Card != null)
-                        break;
+						return true;
                 }
                 return false;
 
@@ -562,7 +562,7 @@ public class Choice : MonoBehaviour
                 {
                     Card card = cardsInHand[i].Card;
                     if (card.ChampionCard && card.ChampionCardType != ChampionCardType.All)
-                        break;
+						return true;
                 }
                 return false;
 
@@ -581,7 +581,7 @@ public class Choice : MonoBehaviour
                 foreach (LandmarkDisplay landmarks in GameState.Instance.OpponentLandmarks) // If opponent got landmark
                 {
                     if (landmarks.Card != null)
-                        break;
+                        return true;
                 }
                 return false;
         }
