@@ -404,12 +404,7 @@ public class GameState : MonoBehaviour
 
     public void DestroyLandmark(TargetInfo targetInfo)
     {
-        if (targetInfo.whichList.opponentLandmarks)
-            graveyard.AddCardToGraveyardOpponent(OpponentLandmarks[targetInfo.index].Card);
-        else
-            graveyard.AddCardToGraveyard(PlayerLandmarks[targetInfo.index].Card);
-
-        PlayerLandmarks[targetInfo.index].Card = null;
+        PlayerLandmarks[targetInfo.index].LandmarkDead();
     }
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)

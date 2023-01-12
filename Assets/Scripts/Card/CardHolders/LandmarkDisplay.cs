@@ -38,16 +38,13 @@ public class LandmarkDisplay : Displays
         landmarkPrefab.SetActive(false);
     }
 
-    private void LandmarkDead()
+    public void LandmarkDead()
     {
         if (OpponentLandmarks)
-        {
             graveyard.AddCardToGraveyardOpponent(Card);
-        }
         else
-        {
             graveyard.AddCardToGraveyard(Card);
-        }
+
         Landmarks landmark = (Landmarks)Card;
         landmark.WhenLandmarksDie();
         landmarkPrefab.SetActive(false);
