@@ -681,13 +681,6 @@ public class GameState : MonoBehaviour
         else if (OpponentChampions.Count == 0)
         {
             Victory();
-            if(IsOnline)
-            {
-
-                print("skickas win game actionen??!?!??");
-                RequestEndGame request = new RequestEndGame();
-                ClientConnection.Instance.AddRequest(request,RequestEmpty);
-            }
 
             return;
         }
@@ -762,6 +755,13 @@ public class GameState : MonoBehaviour
     //Victory and defeat should be in another script
     public void Victory()
     {
+        if (IsOnline)
+        {
+
+            print("skickas win game actionen??!?!??");
+            RequestEndGame request = new RequestEndGame();
+            ClientConnection.Instance.AddRequest(request, RequestEmpty);
+        }
         wonScreen.SetActive(true);
         confettiOne.Play();
         confettiTwo.Play();

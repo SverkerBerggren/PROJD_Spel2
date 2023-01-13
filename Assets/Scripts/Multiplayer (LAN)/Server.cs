@@ -62,31 +62,104 @@ public class Server
     } 
 
     public void SQLaddGameAction(GameActionToLog gameActionToLog)
-    {
-        lock(gameActionsToAdd)
+    {   try
         {
-            gameActionsToAdd.Add(gameActionToLog);
+            lock (gameActionsToAdd)
+            {
+                gameActionsToAdd.Add(gameActionToLog);
+            }
+            addGameActionSemaphore.Release();
         }
-        addGameActionSemaphore.Release();
+        catch(Exception e)
+        {
+            string errorMessage = e.Message;
+        }
+
 
     }
 
     public void SQLAddGameActionLoop()
-    {
-        while(connectedToSQLServer)
+    {   try
         {
-            addGameActionSemaphore.Wait();
-            GameActionToLog gameActionToLog; 
-            lock(gameActionsToAdd)
+            while (connectedToSQLServer)
             {
-                gameActionToLog = gameActionsToAdd[0];
-                gameActionsToAdd.RemoveAt(0);
+                addGameActionSemaphore.Wait();
+                GameActionToLog gameActionToLog;
+                lock (gameActionsToAdd)
+                {
+                    gameActionToLog = gameActionsToAdd[0];
+                    gameActionsToAdd.RemoveAt(0);
+                }
+                bool messageRead = false;
+                while (!messageRead)
+                {
+                    byte[] buf = new byte[4096];
+                    string message = "Request gameActionIndex:" + gameActionToLog.playerIndex + "" + gameActionToLog.gameId;
+                    int messagLength = message.Length;
+                    char firstChar = (char)(messagLength >> 24);
+                    char secondChar = (char)(messagLength >> 16);
+                    char thirdChar = (char)(messagLength >> 8);
+                    char fourthChar = (char)(messagLength);
+                    buf = new byte[messagLength + 4];
+                    buf[0] = (byte)firstChar;
+                    buf[1] = (byte)secondChar;
+                    buf[2] = (byte)thirdChar;
+                    buf[3] = (byte)fourthChar;
+
+                    for (int i = 0; i < messagLength; i++)
+                    {
+                        buf[4 + i] = (byte)message[i];
+                    }
+                    string responseToUse = "";
+                    //      buf.CopyTo(hej.ToCharArray(), hej.Length);
+                    lock (SQLServerSocket)
+                    {
+                        SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
+                        //
+                        responseToUse = "";
+                        bool continueReading = true;
+                        int totalBytesRecieved = 0;
+                        byte[] newBuffer = new byte[4096];
+                        int gameActionIndex = 0;
+                        while (continueReading)
+                        {
+
+                            totalBytesRecieved += SQLServerSocket.GetStream().Read(newBuffer, totalBytesRecieved, 4096 - totalBytesRecieved);
+
+                            if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                            {
+                                char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
+                                responseToUse = new String(castedBuffer, 4, (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))));
+                                continueReading = false;
+                                messageRead = true;
+                                gameActionIndex = Convert.ToInt32(responseToUse) + 1;
+
+                                responseToUse = Convert.ToString(gameActionIndex);
+                            }
+                        }
+                    }
+
+                    SendMessageToSQLServerThread("insert into MatchGameActionHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," + responseToUse + ", 0 ,'" + gameActionToLog.gameAction + "'" + ")");
+
+                }
+
             }
+        }
+        catch(Exception e)
+        {
+            string hej = e.Message;
+        }
+       
+    }
+
+    private  void RequestMatchID()
+    {   try
+        {
             bool messageRead = false;
             while (!messageRead)
             {
                 byte[] buf = new byte[4096];
-                string message = "Request gameActionIndex:" +gameActionToLog.playerIndex + "" +gameActionToLog.gameId;
+                string message = "Request match id";
                 int messagLength = message.Length;
                 char firstChar = (char)(messagLength >> 24);
                 char secondChar = (char)(messagLength >> 16);
@@ -102,17 +175,89 @@ public class Server
                 {
                     buf[4 + i] = (byte)message[i];
                 }
-                string responseToUse = "";
+
                 //      buf.CopyTo(hej.ToCharArray(), hej.Length);
+
                 lock (SQLServerSocket)
                 {
                     SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
                     //
-                    responseToUse = "";
+
                     bool continueReading = true;
                     int totalBytesRecieved = 0;
                     byte[] newBuffer = new byte[4096];
-                    int gameActionIndex = 0;
+                    while (continueReading)
+                    {
+
+                        totalBytesRecieved += SQLServerSocket.GetStream().Read(newBuffer, totalBytesRecieved, 4096 - totalBytesRecieved);
+
+
+                        if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
+                        {
+                            char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
+                            string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
+                            continueReading = false;
+                            messageRead = true;
+                            Integer integerToReturn = new Integer(Convert.ToInt32(response));
+
+                            integerToReturn.value += 1;
+
+                            lock (currentGameId)
+                            {
+                                currentGameId = integerToReturn;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        catch(Exception e)
+        {
+            string hej = e.Message;
+        }
+
+
+        
+
+    }
+
+    private void SendMessageToSQLServer( string messageToSend)
+    {   try
+        {
+            bool messageRead = false;
+            while (!messageRead)
+            {
+                byte[] buf = new byte[4096];
+                string message = messageToSend;
+
+                int messagLength = message.Length;
+
+                char firstChar = (char)(messagLength >> 24);
+                char secondChar = (char)(messagLength >> 16);
+                char thirdChar = (char)(messagLength >> 8);
+                char fourthChar = (char)(messagLength);
+                buf = new byte[messagLength + 4];
+                buf[0] = (byte)firstChar;
+                buf[1] = (byte)secondChar;
+                buf[2] = (byte)thirdChar;
+                buf[3] = (byte)fourthChar;
+
+
+                for (int i = 0; i < messagLength; i++)
+                {
+                    buf[4 + i] = (byte)message[i];
+                }
+
+
+                lock (SQLServerSocket)
+                {
+                    SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
+                    //
+
+                    bool continueReading = true;
+                    int totalBytesRecieved = 0;
+                    byte[] newBuffer = new byte[4096];
                     while (continueReading)
                     {
 
@@ -121,143 +266,34 @@ public class Server
                         if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
                         {
                             char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
-                            responseToUse = new String(castedBuffer, 4, (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))));
+                            string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
                             continueReading = false;
                             messageRead = true;
-                            gameActionIndex = Convert.ToInt32(responseToUse) +1;
-
-                            responseToUse = Convert.ToString(gameActionIndex);
                         }
                     }
                 }
-                
-                SendMessageToSQLServerThread("insert into MatchGameActionHistory VALUES(" + gameActionToLog.gameId + "," + gameActionToLog.playerIndex + "," +responseToUse  + ", 0 ,'"+ gameActionToLog.gameAction +"'" +")");
-
             }
-           
         }
-    }
-
-    private  void RequestMatchID()
-    {
-        bool messageRead = false;
-        while (!messageRead)
+        catch(Exception e)
         {
-            byte[] buf = new byte[4096];
-            string message = "Request match id";
-            int messagLength = message.Length;
-            char firstChar = (char)(messagLength >> 24);
-            char secondChar = (char)(messagLength >> 16);
-            char thirdChar = (char)(messagLength >> 8);
-            char fourthChar = (char)(messagLength);
-            buf = new byte[messagLength + 4];
-            buf[0] = (byte)firstChar;
-            buf[1] = (byte)secondChar;
-            buf[2] = (byte)thirdChar;
-            buf[3] = (byte)fourthChar;
-
-            for (int i = 0; i < messagLength; i++)
-            {
-                buf[4 + i] = (byte)message[i];
-            }
-
-            //      buf.CopyTo(hej.ToCharArray(), hej.Length);
-
-            lock(SQLServerSocket)
-            {
-                SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
-                //
-
-                bool continueReading = true;
-                int totalBytesRecieved = 0;
-                byte[] newBuffer = new byte[4096];
-                while (continueReading)
-                {
-
-                    totalBytesRecieved += SQLServerSocket.GetStream().Read(newBuffer, totalBytesRecieved, 4096 - totalBytesRecieved);
-
-
-                    if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
-                    {
-                        char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
-                        string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
-                        continueReading = false;
-                        messageRead = true;
-                        Integer integerToReturn = new Integer(Convert.ToInt32(response));
-
-                        integerToReturn.value += 1;
-
-                        lock (currentGameId)
-                        {
-                            currentGameId = integerToReturn ;
-                        }
-                    }
-                }
-            }
-
+            string hej = e.Message;
         }
-
         
-
-    }
-
-    private void SendMessageToSQLServer( string messageToSend)
-    {
-        bool messageRead = false;
-        while (!messageRead)
-        {
-            byte[] buf = new byte[4096];
-            string message = messageToSend;
-
-            int messagLength = message.Length;
-
-            char firstChar = (char)(messagLength >> 24);
-            char secondChar = (char)(messagLength >> 16);
-            char thirdChar = (char)(messagLength >> 8);
-            char fourthChar = (char)(messagLength);
-            buf = new byte[messagLength + 4];
-            buf[0] = (byte)firstChar;
-            buf[1] = (byte)secondChar;
-            buf[2] = (byte)thirdChar;
-            buf[3] = (byte)fourthChar;
-
-
-            for (int i = 0; i < messagLength; i++)
-            {
-                buf[4 + i] = (byte)message[i];
-            }
-
-
-            lock(SQLServerSocket)
-            {
-                SQLServerSocket.GetStream().Write(buf, 0, messagLength + 4);
-                //
-
-                bool continueReading = true;
-                int totalBytesRecieved = 0;
-                byte[] newBuffer = new byte[4096];
-                while (continueReading)
-                {
-
-                    totalBytesRecieved += SQLServerSocket.GetStream().Read(newBuffer, totalBytesRecieved, 4096 - totalBytesRecieved);
-
-                    if ((totalBytesRecieved - 4) == (newBuffer[0] * (1 << 24) + (newBuffer[1] * (1 << 16) + (newBuffer[2] * (1 << 8) + newBuffer[3]))))
-                    {
-                        char[] castedBuffer = System.Text.Encoding.UTF8.GetString(newBuffer).ToCharArray();
-                        string response = new String(castedBuffer, 4, castedBuffer.Length - 4);
-                        continueReading = false;
-                        messageRead = true;
-                    }
-                }
-            }
-        }
     }
 
     private void SendMessageToSQLServerThread(string message)
-    {
-        //ParameterizedThreadStart threadStart = new ParameterizedThreadStart(SendMessageToSQLServerThread);
-        Thread threadToActivate = new Thread(() => SendMessageToSQLServer(message));
-        threadToActivate.Start();
+    {   
+        try
+        {
+            //ParameterizedThreadStart threadStart = new ParameterizedThreadStart(SendMessageToSQLServerThread);
+            Thread threadToActivate = new Thread(() => SendMessageToSQLServer(message));
+            threadToActivate.Start();
+        }
+        catch(Exception e)
+        {
+            string hej = e.Message;
+        }
+
     }
 
 
@@ -672,7 +708,7 @@ public class Server
                 toLog.gameId = requestToHandle.gameId;
                 toLog.playerIndex = 0;
 
-                SQLaddGameAction(toLog);
+                SQLaddGameAction(anotherToLog);
             }
             else
             {
@@ -680,7 +716,7 @@ public class Server
                 toLog.gameId = requestToHandle.gameId;
                 toLog.playerIndex = 1;
 
-                SQLaddGameAction(toLog);
+                SQLaddGameAction(anotherToLog);
             }
         }
 
