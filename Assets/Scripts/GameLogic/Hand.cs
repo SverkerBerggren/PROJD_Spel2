@@ -40,16 +40,17 @@ public class Hand : MonoBehaviour
 				continue;
 			}
 
-			if (!cardsInHand.Contains(cardDisplay))
-				cardsInHand.Add(cardDisplay);
-			if (!cardDisplay.OpponentCard)
-				cardDisplay.UpdateTextOnCard();
-
 			if (!cardDisplay.OpponentCard)
 			{
 				transform.position += new Vector3(-4f, 0, 0);
 				cardDisplay.transform.localPosition = new Vector3(-1.75f + (i * 1.75f), -0.5f, -1.55f - (i * 0.05f));
 			}
+
+			if (!cardsInHand.Contains(cardDisplay))
+				cardsInHand.Add(cardDisplay);
+			if (!cardDisplay.OpponentCard)
+				cardDisplay.UpdateTextOnCard(false);
+
 		}
 	}
 

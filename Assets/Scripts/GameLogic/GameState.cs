@@ -391,7 +391,7 @@ public class GameState : MonoBehaviour
 
         cardDisp.Card = card;
         cardDisplayAttributes.previewCard = opponent;
-        cardDisp.UpdateTextOnCard();
+        cardDisp.UpdateTextOnCard(true);
         StopCoroutine(HideCardPlayed());
         StartCoroutine(HideCardPlayed());
     }

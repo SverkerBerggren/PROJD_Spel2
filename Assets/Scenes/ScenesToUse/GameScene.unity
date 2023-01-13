@@ -159,6 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &6133458
@@ -366,6 +368,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &20061362
@@ -17395,6 +17399,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &344974269
@@ -25331,6 +25337,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &601170532
@@ -26783,6 +26791,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &631345498
@@ -32804,6 +32814,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!4 &876286367
@@ -34215,7 +34227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 926317367}
   - component: {fileID: 926317369}
-  - component: {fileID: 926317368}
+  - component: {fileID: 926317370}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -34238,7 +34250,50 @@ Transform:
   m_Father: {fileID: 40350258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &926317368
+--- !u!114 &926317369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926317366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe046beec433f364e99f6256afab7aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 926317370}
+  shankerAttack: {fileID: 8300000, guid: 5fdcf783251b4aa4389da5615210db44, type: 3}
+  shieldSound: {fileID: 8300000, guid: 33befbdef7fa4cb48ade5a86a63e5ae6, type: 3}
+  healSound: {fileID: 8300000, guid: b5621cc4ae91e2646b68864a251d47ed, type: 3}
+  clickSound: {fileID: 8300000, guid: 059d3353905274841a0e58a29b29e510, type: 3}
+  builderAttack: {fileID: 8300000, guid: 9b05000be4315614092c5b023279d935, type: 3}
+  graveRobberAttack: {fileID: 8300000, guid: 9b05000be4315614092c5b023279d935, type: 3}
+  manaSound: {fileID: 8300000, guid: 18c2f940a2d47924191fd30d4b8eb0a2, type: 3}
+  landmarkSound: {fileID: 8300000, guid: 61bc8101355a2ed4591d6e7b6b7b2bba, type: 3}
+  wrongUI: {fileID: 8300000, guid: b187d7a951a320247a1fd006838f598c, type: 3}
+  damageSounds:
+  - {fileID: 8300000, guid: da3d061f990102749904312946685ade, type: 3}
+  - {fileID: 8300000, guid: df5d645b8bccc644c8e4c25859fa872d, type: 3}
+  - {fileID: 8300000, guid: 17d97fdb79e70834aaf3e2d6c04eb20f, type: 3}
+  - {fileID: 8300000, guid: 9f99d30301bc85e408e8813268658ede, type: 3}
+  - {fileID: 8300000, guid: 2bc0688f688d9924e9b6a94ee241520e, type: 3}
+  - {fileID: 8300000, guid: 193db5a1591c23c49adc4c63dfed1051, type: 3}
+  - {fileID: 8300000, guid: b5d87706e9ace2a4ab571ef51e7fdc89, type: 3}
+  - {fileID: 8300000, guid: e5f1e0bff56a1cd408b88add44e4b161, type: 3}
+  - {fileID: 8300000, guid: d5d4541131ecb384a988ecc1ce5cfaa6, type: 3}
+  - {fileID: 8300000, guid: ca713fcaf3fd99342ad86fa5f69f5d6b, type: 3}
+  - {fileID: 8300000, guid: 97377513e42a88d489dfe040f30c9ff5, type: 3}
+  - {fileID: 8300000, guid: e3dc9079369aa1d4283fdc9d4574983c, type: 3}
+  - {fileID: 8300000, guid: 9b4031b5ece4d3840aa8acca3617c44e, type: 3}
+  - {fileID: 8300000, guid: 82f003181bd9c054a82781997b641e84, type: 3}
+  - {fileID: 8300000, guid: 6997b623c6d407c4ca7a05fac7ba69e1, type: 3}
+  - {fileID: 8300000, guid: 893e656f1a4238445b6f7dd255a4a5f2, type: 3}
+  - {fileID: 8300000, guid: 223750e256e2e184d9fa0c8f005fdce3, type: 3}
+  - {fileID: 8300000, guid: 3bd8720557e9f7242a712f1479ba0e15, type: 3}
+  minPitch: 0.8
+  maxPitch: 1.2
+--- !u!82 &926317370
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34248,9 +34303,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2763185f83dbebb428ac3ff4a58a6cbc, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.56
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -34334,49 +34389,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &926317369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926317366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe046beec433f364e99f6256afab7aee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 926317368}
-  shankerAttack: {fileID: 8300000, guid: 5fdcf783251b4aa4389da5615210db44, type: 3}
-  shieldSound: {fileID: 8300000, guid: 33befbdef7fa4cb48ade5a86a63e5ae6, type: 3}
-  healSound: {fileID: 8300000, guid: b5621cc4ae91e2646b68864a251d47ed, type: 3}
-  clickSound: {fileID: 8300000, guid: 059d3353905274841a0e58a29b29e510, type: 3}
-  builderAttack: {fileID: 8300000, guid: 9b05000be4315614092c5b023279d935, type: 3}
-  graveRobberAttack: {fileID: 8300000, guid: 9b05000be4315614092c5b023279d935, type: 3}
-  manaSound: {fileID: 8300000, guid: 18c2f940a2d47924191fd30d4b8eb0a2, type: 3}
-  landmarkSound: {fileID: 8300000, guid: 61bc8101355a2ed4591d6e7b6b7b2bba, type: 3}
-  wrongUI: {fileID: 8300000, guid: b187d7a951a320247a1fd006838f598c, type: 3}
-  damageSounds:
-  - {fileID: 8300000, guid: da3d061f990102749904312946685ade, type: 3}
-  - {fileID: 8300000, guid: df5d645b8bccc644c8e4c25859fa872d, type: 3}
-  - {fileID: 8300000, guid: 17d97fdb79e70834aaf3e2d6c04eb20f, type: 3}
-  - {fileID: 8300000, guid: 9f99d30301bc85e408e8813268658ede, type: 3}
-  - {fileID: 8300000, guid: 2bc0688f688d9924e9b6a94ee241520e, type: 3}
-  - {fileID: 8300000, guid: 193db5a1591c23c49adc4c63dfed1051, type: 3}
-  - {fileID: 8300000, guid: b5d87706e9ace2a4ab571ef51e7fdc89, type: 3}
-  - {fileID: 8300000, guid: e5f1e0bff56a1cd408b88add44e4b161, type: 3}
-  - {fileID: 8300000, guid: d5d4541131ecb384a988ecc1ce5cfaa6, type: 3}
-  - {fileID: 8300000, guid: ca713fcaf3fd99342ad86fa5f69f5d6b, type: 3}
-  - {fileID: 8300000, guid: 97377513e42a88d489dfe040f30c9ff5, type: 3}
-  - {fileID: 8300000, guid: e3dc9079369aa1d4283fdc9d4574983c, type: 3}
-  - {fileID: 8300000, guid: 9b4031b5ece4d3840aa8acca3617c44e, type: 3}
-  - {fileID: 8300000, guid: 82f003181bd9c054a82781997b641e84, type: 3}
-  - {fileID: 8300000, guid: 6997b623c6d407c4ca7a05fac7ba69e1, type: 3}
-  - {fileID: 8300000, guid: 893e656f1a4238445b6f7dd255a4a5f2, type: 3}
-  - {fileID: 8300000, guid: 223750e256e2e184d9fa0c8f005fdce3, type: 3}
-  - {fileID: 8300000, guid: 3bd8720557e9f7242a712f1479ba0e15, type: 3}
-  minPitch: 0.8
-  maxPitch: 1.2
 --- !u!1 &929802394
 GameObject:
   m_ObjectHideFlags: 0
@@ -45146,6 +45158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &1389671540
@@ -49011,6 +49025,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &1564163109
@@ -51187,6 +51203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &1673928808
@@ -52251,6 +52269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &1731128544
@@ -58779,6 +58799,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Card: {fileID: 0}
   ManaCost: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  hoverPosition: {x: 0, y: 0, z: 0}
   scaleOnHover: 1.3
   CardDissolve: {fileID: 0}
 --- !u!114 &1978138853
@@ -61584,9 +61606,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2763185f83dbebb428ac3ff4a58a6cbc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 83551046fc500054ea1e65af51ab31b1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.075
   m_Pitch: 1
   Loop: 1
   Mute: 0

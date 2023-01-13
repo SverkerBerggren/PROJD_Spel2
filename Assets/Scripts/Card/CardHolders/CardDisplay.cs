@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class CardDisplay : Displays
 {
     private bool alreadyBig = false;
     private Vector3 originalSize;
+    private Vector3 originalPosition;
+    private Vector3 hoverPosition;
     private bool loadedSpriteRenderer = false;
     private bool loadedDisplayAttributes = false;
     private CardMovement cardMovement;
@@ -40,7 +43,7 @@ public class CardDisplay : Displays
     {
         displayTransform = transform.GetChild(0).transform;
         CardDissolve = GetComponentInChildren<CardDissolve>();
-        selectIndicater = SelectIndicater.Instance; 
+        selectIndicater = SelectIndicater.Instance;
     }
     private void LoadInvoke()
     {
@@ -59,6 +62,8 @@ public class CardDisplay : Displays
         loadedDisplayAttributes = true;
         cardDisplayAttributes = GetComponentInChildren<CardDisplayAttributes>();
         displayTransform = cardDisplayAttributes.transform;
+        originalPosition = new Vector3(0, 0, 0);
+        hoverPosition = new Vector3(originalPosition.x, originalPosition.y + 0.1f, originalPosition.z - 15);
     }
 
     public void HideUnusedCard()
@@ -75,11 +80,12 @@ public class CardDisplay : Displays
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    public void UpdateTextOnCard()
+    public void UpdateTextOnCard(bool showCard)
     {
         if (!loadedDisplayAttributes)
             LoadDisplayAttributesOnce();
-
+        if (!showCard)
+            MouseExit();
         cardDisplayAttributes.UpdateTextOnCard(this);
     }
 
@@ -94,14 +100,14 @@ public class CardDisplay : Displays
 
         if (!alreadyBig && !clickedOnCard)
         {
-            displayTransform.position += new Vector3(0, 7.5f, -1);
+            displayTransform.localPosition = hoverPosition;
             displayTransform.localScale = new Vector3(scaleOnHover, scaleOnHover, scaleOnHover);
             alreadyBig = true;
         }
         //set up Select Indicater, should only call this metod when it is a attack card
         
-        
-        selectIndicater.UppdateIndicater(Card);
+        if (selectIndicater != null)
+            selectIndicater.UppdateIndicater(Card);
     }
 
     public void MouseExit()
@@ -110,11 +116,12 @@ public class CardDisplay : Displays
         if (!mouseDown)
         {
             alreadyBig = false;
-            displayTransform.position += new Vector3(0, -7.5f, 1);
+            displayTransform.localPosition = originalPosition;
             ResetSize();
         }
         //Avaktivera  Indicater
-        selectIndicater.DisableIndicater();
+        if (selectIndicater != null)
+            selectIndicater.DisableIndicater();
     }
 
     public void EndStep()
