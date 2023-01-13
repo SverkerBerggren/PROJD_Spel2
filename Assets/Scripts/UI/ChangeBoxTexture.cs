@@ -15,8 +15,14 @@ public class ChangeBoxTexture : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoText;
 
 
+<<<<<<< HEAD
     [SerializeField] private AudioClip audioClipToSet;
     [SerializeField] private TextTOSpeechButton textToSpeechScript;
+=======
+    [SerializeField] private AudioClip clipToSet;
+    [SerializeField] private TextTOSpeechButton speechButton;
+
+>>>>>>> Main-5.0
 
     public void OnClick()
     {   
@@ -34,6 +40,10 @@ public class ChangeBoxTexture : MonoBehaviour
         titleText.text = textToChangeTitle;
         infoText.text = textToChangeInfo;
 
+<<<<<<< HEAD
         textToSpeechScript.clipToPlay = audioClipToSet;
+=======
+        speechButton.clipToPlay = clipToSet;
+>>>>>>> Main-5.0
     }
 }
