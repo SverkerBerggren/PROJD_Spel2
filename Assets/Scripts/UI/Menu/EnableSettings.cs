@@ -61,4 +61,20 @@ public class EnableSettings : MonoBehaviour
         }
     }
 
+    public void OnClickDisableAnimAndEffects()
+    {
+        if (!settingEnabled)
+        {
+            checkImage.SetActive(true);
+            actionOfPlayer.GetComponent<DisableAllEffects>().DisableEffects();
+            settingEnabled = true;
+        }
+        else
+        {
+            checkImage.SetActive(false);
+            actionOfPlayer.GetComponent<DisableAllEffects>().enableEffects();
+            settingEnabled = false;
+        }
+    }
+
 }

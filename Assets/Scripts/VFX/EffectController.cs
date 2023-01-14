@@ -16,9 +16,10 @@ public class EffectController : MonoBehaviour
     
     private Dictionary<Tuple<string,bool>, GameObject> shields; //sort champions name and it's shiled prefab ALT sort champion ist för name
     private GameObject shieldToGo;
+    public bool accesDisable;
     //for controlling propety in shader graph, for simulate a fade out effec
-    
-    
+
+
 
     private static EffectController instance;
 
@@ -96,6 +97,7 @@ public class EffectController : MonoBehaviour
     //the shield shall only has tre state, on, half-on, and disappear
     public void ActiveShield(Tuple<string,bool> tupleShields, int shieldAmount, GameObject gameObject)
     {
+        if (accesDisable) return;
         //shiled effect 100 procent
         //Set upp shield effect here at champions position 
         //can get shileds value throuht AvailableChampions.shield
@@ -115,9 +117,11 @@ public class EffectController : MonoBehaviour
         //champions.shield = shiledAmount;
     }
     public void DestroyShield(Tuple<string,bool> champion)
-    {   //shiled effect 0 procent
+    {
+        if (accesDisable) return;
+        //shiled effect 0 procent
         //this champion's shiled should be destroys 
-        
+
         shieldToGo = shields[champion];
         shieldToGo.GetComponent<ShieldEffect>().Disslove(); 
         shields.Remove(champion);
@@ -126,10 +130,12 @@ public class EffectController : MonoBehaviour
 
     public void GainHealingEffect(GameObject go)
     {
+        if (accesDisable) return;
         Instantiate(healingPrefab, go.transform.position, Quaternion.identity);
     }
 
-    public void GainCultistAttackEffect() { 
+    public void GainCultistAttackEffect() {
+        if (accesDisable) return;
         Instantiate(cultistAttackPrefab, targetPos.position, Quaternion.identity);
     }
 
@@ -141,7 +147,8 @@ public class EffectController : MonoBehaviour
 
     public void PlayAttackEffect(AvailableChampion holder)
     {
-    
+        if (accesDisable) return;
+
         switch (holder.Champion.ChampionName)
         {
             case "Cultist":
@@ -162,11 +169,17 @@ public class EffectController : MonoBehaviour
 
     public void PlayDeathEffect(AvailableChampion holder)
     {
+        if (accesDisable) return;
         if (holder.Champion.ChampionName.Equals("Shanker"))
             return;
 
            holder.GetComponentInChildren<EffectChampions>().StartDisolve();
 
     }
-    
+
+    public void DissableEffects(bool bo)
+    {
+        accesDisable = bo;
+    }
+
 }
