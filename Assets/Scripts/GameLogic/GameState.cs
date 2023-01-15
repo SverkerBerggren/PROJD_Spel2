@@ -218,16 +218,16 @@ public class GameState : MonoBehaviour
     {  
         if (choice.IsChoiceActive || !HasPriority) return;
 
+        audioManager.PlayClickSound();
+        PassPriority();
+        EndTurn();
+
         if (IsOnline)
         {
             RequestEndTurn request = new RequestEndTurn();
             request.whichPlayer = ClientConnection.Instance.playerId;
             ClientConnection.Instance.AddRequest(request, RequestEmpty);
         }
-
-        audioManager.PlayClickSound();
-        PassPriority();
-        EndTurn();
     }
 
     public void CalculateAndDealDamage(int damage, Card cardUsed)
@@ -409,7 +409,8 @@ public class GameState : MonoBehaviour
         else
             graveyard.AddCardToGraveyard(PlayerLandmarks[targetInfo.index].Card);
 
-        PlayerLandmarks[targetInfo.index].Card = null;
+		PlayerLandmarks[targetInfo.index].transform.GetChild(0).gameObject.SetActive(true);
+		PlayerLandmarks[targetInfo.index].Card = null;
     }
 
     public void DiscardCard(int amountToDiscard, bool discardCardsYourself)
@@ -554,10 +555,10 @@ public class GameState : MonoBehaviour
         else
             landmarkDisplay = PlayerLandmarks[index];
 
-		landmarkDisplay.Card = landmark;
 		landmarkDisplay.transform.GetChild(0).gameObject.SetActive(true);
+		landmarkDisplay.Card = landmark;
 		landmarkDisplay.Health = landmark.MinionHealth;
-		landmarkDisplay.ManaCost = landmarkDisplay.Card.MaxManaCost;
+		landmarkDisplay.ManaCost = landmark.MaxManaCost;
     }
 
 	public IEnumerator ActivateYourTurnEffectAfterMulligan()
@@ -658,8 +659,6 @@ public class GameState : MonoBehaviour
         DrawnCardsThisTurn = 0;
         Refresh();
     }
-
- 
 
     public void AddCardToPlayedCardsThisTurn(Card cardPlayed)
     {
@@ -812,11 +811,5 @@ public class GameState : MonoBehaviour
 
         if (PlayerChampions.Count <= 0)
             Defeat();
-           
-        else if (OpponentChampions.Count == 1 && OpponentChampion.Champion.Health <= 0)
-        {
-            
-            /*Victory();*/
-        }
     }
 }

@@ -190,6 +190,8 @@ public class Choice : MonoBehaviour
     {
 		for (int i = 0; i < graveyardCards.Count; i++)
 		{
+			if (Graveyard.Instance.GraveyardPlayer[i] == null) break;
+
 			MakeButtonOfCard(graveyardCards[i], listEnum, i);
 			closeMenuButton.SetActive(true);
 		}

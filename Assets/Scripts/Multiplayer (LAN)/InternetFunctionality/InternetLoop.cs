@@ -331,6 +331,7 @@ public class InternetLoop : MonoBehaviour
                 gameState.LandmarkPlaced(castedAction.landmarkToPlace.Placement.index, (Landmarks)CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.CardName], true);
                 gameState.ShowPlayedCard(CardRegister.Instance.cardRegister[castedAction.landmarkToPlace.CardName], true, -1);
                 ActionOfPlayer actionOfPlayer = ActionOfPlayer.Instance;
+				actionOfPlayer.ChangeCardOrder(false, actionOfPlayer.HandOpponent.cardsInHand[actionOfPlayer.HandOpponent.cardsInHand.Count - 1].GetComponent<CardDisplay>());
 			}
 
             if (action is GameActionStopSwapping)
