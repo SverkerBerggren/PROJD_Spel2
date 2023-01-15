@@ -89,7 +89,10 @@ public class Deckbuilder : MonoBehaviour
 
     private void FixDeckButtons()
     {
-        foreach (string filePath in Directory.GetFiles(Setup.savePath))
+		if (!Directory.Exists(Setup.savePath))
+			Directory.CreateDirectory(Setup.savePath);
+
+		foreach (string filePath in Directory.GetFiles(Setup.savePath))
         {
             string deckFile = Path.GetFileName(filePath);
 
