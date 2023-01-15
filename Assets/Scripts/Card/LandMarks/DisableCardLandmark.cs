@@ -30,6 +30,9 @@ public class DisableCardLandmark : Landmarks
 					info.index = i;
 				}
 			}
+
+			if (info.index == -1) return;
+
 			gameState.ChangeLandmarkStatus(info, true);
 		}
 	}

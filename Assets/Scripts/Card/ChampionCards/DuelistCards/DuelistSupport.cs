@@ -15,13 +15,18 @@ public class DuelistSupport : Spells
         List<AvailableChampion> enemyChamps = GameState.Instance.OpponentChampions;
         int index = 0;
 
-        for (int i = enemyChamps.Count - 1; i > 0; i--)
+        if (GameState.Instance.OpponentChampions.Count > 1)
         {
-            if (enemyChamps[i].Champion.Health > enemyChamps[i-1].Champion.Health)
-                index = i - 1;
-            else
-                index = i;
+            for (int i = enemyChamps.Count - 1; i > 0; i--)
+            {
+                if (enemyChamps[i].Champion.Health > enemyChamps[i - 1].Champion.Health)
+                    index = i - 1;
+                else
+                    index = i;
+            }
         }
+        else
+            index = 0;
 
         //I Do
         ListEnum lEOpponenent = new ListEnum();
