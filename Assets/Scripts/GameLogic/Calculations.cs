@@ -25,9 +25,7 @@ public class Calculations : MonoBehaviour
 		for (int i = 0; i < champ.Count; i++)
 		{
 			if (champ[i].Champion == cardUsed.Target)
-			{
 				return i;
-			}
 		}
 		return -1;
 	}
@@ -36,9 +34,7 @@ public class Calculations : MonoBehaviour
 		for (int i = 0; i < landmarks.Count; i++)
 		{
 			if (landmarks[i] == cardUsed.LandmarkTarget)
-			{
 				return i;
-			}
 		}
 		return -1;
 	}

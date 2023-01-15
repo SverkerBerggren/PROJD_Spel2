@@ -63,7 +63,7 @@ public class CardDisplay : Displays
         cardDisplayAttributes = GetComponentInChildren<CardDisplayAttributes>();
         displayTransform = cardDisplayAttributes.transform;
         originalPosition = new Vector3(0, 0, 0);
-        hoverPosition = new Vector3(originalPosition.x, originalPosition.y + 0.1f, originalPosition.z - 15);
+        hoverPosition = new Vector3(originalPosition.x, originalPosition.y + 0.11f, originalPosition.z - 15);
     }
 
     public void HideUnusedCard()
