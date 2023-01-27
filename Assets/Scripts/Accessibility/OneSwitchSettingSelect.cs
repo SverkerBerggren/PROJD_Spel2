@@ -12,4 +12,15 @@ public class OneSwitchSettingSelect : MonoBehaviour
         else
             oneSwitchHover.SetActive(true);
     }
+
+    public void HoverOn()
+    {
+        oneSwitchHover.SetActive(true);
+    }
+
+    public void HoverOff()
+    {
+        oneSwitchHover.SetActive(false);
+    }
+
 }

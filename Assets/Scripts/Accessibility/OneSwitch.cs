@@ -29,7 +29,9 @@ public class OneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
     [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
     [SerializeField] private EventSystem eventSystem;
-    [SerializeField] private GameObject[] whatToCheck; 
+    [SerializeField] private GameObject[] whatToCheck;
+    [SerializeField] private ColorBlock ColorToChangeButtonsTo;
+    [SerializeField] private ColorBlock ColorButtonStart;
 
     public WhatShouldBeOneSwitch OneSwitchActiveNow;
 
@@ -41,21 +43,18 @@ public class OneSwitch : MonoBehaviour
 
     // Hides the previous target
     private void HideTarget()
-    {
-        if (index - 1 < 0) return;
-        
+    {      
         if (targetableRightNow[prevIndex].TryGetComponent(out CardDisplay cardDisplayPrevious))
             cardDisplayPrevious.MouseExit();
+        
         if (targetableRightNow[prevIndex].TryGetComponent(out ChoiceButton choiceButtonPrev))
             choiceButtonPrev.OneSwitchHoverChoice();
         if (targetableRightNow[prevIndex].TryGetComponent(out PurchaseCard purchaseCardPrev))
             purchaseCardPrev.OneSwitchHover();
         if (targetableRightNow[prevIndex].TryGetComponent(out ReturnButton returnButtonPrev))
             returnButtonPrev.OneSwitchButtonSelect();
-        if (targetableRightNow[prevIndex].TryGetComponent(out ShopHover shopHoverPrev))
-            shopHoverPrev.OneSwitchSelected();
-        if (targetableRightNow[prevIndex].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
-            settingsSelectHoverprev.OneSwitchHover();
+
+        eventSystem.SetSelectedGameObject(null);
         prevIndex = index;
     }
 
@@ -67,15 +66,11 @@ public class OneSwitch : MonoBehaviour
         if (targetableRightNow[index].TryGetComponent(out ChoiceButton choiceButton))
             choiceButton.OneSwitchHoverChoice();
         if (targetableRightNow[index].TryGetComponent(out Button confirmButton))
-            confirmButton.Select();
+            confirmButton.Select();       
         if (targetableRightNow[index].TryGetComponent(out PurchaseCard purchaseCardPrev))
             purchaseCardPrev.OneSwitchHover();
         if (targetableRightNow[index].TryGetComponent(out ReturnButton returnButtonPrev))
             returnButtonPrev.OneSwitchButtonSelect();
-        if (targetableRightNow[index].TryGetComponent(out ShopHover shopHoverPrev))
-            shopHoverPrev.OneSwitchSelected();
-        if (targetableRightNow[index].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverprev))
-            settingsSelectHoverprev.OneSwitchHover();
     }
 
     // Resets the last index when going starting over
@@ -92,10 +87,7 @@ public class OneSwitch : MonoBehaviour
             purchaseCardLastReset.OneSwitchHover();
         if (targetableRightNow[length].TryGetComponent(out ReturnButton returnButtonLastReset))
             returnButtonLastReset.OneSwitchButtonSelect();
-        if (targetableRightNow[length].TryGetComponent(out ShopHover shopHoverLastReset))
-            shopHoverLastReset.OneSwitchSelected();
-        if (targetableRightNow[length].TryGetComponent(out OneSwitchSettingSelect settingsSelectHoverLastReset))
-            settingsSelectHoverLastReset.OneSwitchHover();
+
         eventSystem.SetSelectedGameObject(null);
     }
 
@@ -150,13 +142,9 @@ public class OneSwitch : MonoBehaviour
 
         for (; index < targetableRightNow.Count; index++)
         {
-            if (targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay))
-            {
-                if (cardDisplay.Card == null) continue;
-                if (!cardDisplay.cardDisplayAttributes.cardPlayableEffect.activeSelf) continue;
-            }
+            if (!targetableRightNow[index].TryGetComponent(out CardDisplay cardDisplay)) break;
 
-            break;
+            if (cardDisplay.GetComponentInChildren<CardDisplayAttributes>().cardPlayableEffect.activeSelf) break;
         }
 
         if (index >= targetableRightNow.Count)
@@ -164,8 +152,8 @@ public class OneSwitch : MonoBehaviour
 
         if (index == 0 && !firstTime)
             ResetLast();
-        if (index - 1 == prevIndex)
-            HideTarget();
+
+        HideTarget();
         ShowTarget();
         
         firstTime = false;       

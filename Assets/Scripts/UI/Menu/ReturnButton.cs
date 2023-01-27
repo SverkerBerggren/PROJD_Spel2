@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class ReturnButton : MonoBehaviour
 {
-    private RawImage rawImage;
+    private Image image;
     private Stack<GameObject> objectsToReturnTo = new Stack<GameObject>();
     private PauseMenu pauseMenuScript;
 
-    [SerializeField] private Texture returnImage; 
-    [SerializeField] private Texture xImage;
+    [SerializeField] private Sprite returnImage; 
+    [SerializeField] private Sprite xImage;
     [SerializeField] private GameObject pausMenu;
     [SerializeField] private GameObject oneSwitchSelect;
     [SerializeField] private GameObject currentActiveObject;
@@ -17,7 +17,7 @@ public class ReturnButton : MonoBehaviour
 
     public void Start()
     {
-        rawImage = GetComponent<RawImage>();
+        image = GetComponent<Image>();
         pauseMenuScript = FindObjectOfType<PauseMenu>();     
     }
 
@@ -32,9 +32,9 @@ public class ReturnButton : MonoBehaviour
     public void ChangeImageToReturn(bool changeImageToReturn)
     {
         if(changeImageToReturn)
-            rawImage.texture = returnImage;
+            image.sprite = returnImage;
         else
-            rawImage.texture = xImage;
+            image.sprite = xImage;
     }
     
     public void AddObjectToReturnTo(GameObject objectToReturnTo, GameObject objectToDisable)
