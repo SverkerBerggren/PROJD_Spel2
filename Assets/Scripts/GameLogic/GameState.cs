@@ -24,6 +24,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private int amountOfCardsToStartWith = 5;
 	[SerializeField] private bool mulligan = true;
 	[SerializeField] private bool chooseStartChampion = true;
+	[SerializeField] private ClearlyOpponentTurn clearlyOpponentTurn;
 
 	[Header("Win Screen")]
     [SerializeField] private GameObject lostScreen;
@@ -116,6 +117,7 @@ public class GameState : MonoBehaviour
                 HasPriority = false;
                 IsItMyTurn = false;
                 didIStart = false;
+                clearlyOpponentTurn.MakeOppoentClearer();
                 ChangeInteractabiltyEndTurn();
             }
             AddChampions(setup.myChampions, true);
@@ -126,7 +128,8 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            IsItMyTurn = true;
+			//clearlyOpponentTurn.MakeOppoentClearer();
+			IsItMyTurn = true;
             List<string> offlineChamps = new List<string>
             {
                 "Shanker",
@@ -636,13 +639,15 @@ public class GameState : MonoBehaviour
             IsItMyTurn = false;
             TriggerEndStep();
             firstTurn = false;
-        }
+			clearlyOpponentTurn.MakeOppoentClearer();
+		}
         else
         {       
             IsItMyTurn = true;
             TriggerUpKeep();
             yourTurnEffect.ActivateEffect();
-        }
+			clearlyOpponentTurn.ResetOpponent();
+		}
 
         actionOfPlayer.RoundCounter.text = "Round: " + AmountOfTurns;
         AttacksPlayedThisTurn = 0;

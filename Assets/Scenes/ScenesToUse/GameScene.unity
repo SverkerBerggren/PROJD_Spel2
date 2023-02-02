@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2503918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5293784917143949675, guid: 3055df55956ac0c4bbdd5b8ba0f56842, type: 3}
+  m_PrefabInstance: {fileID: 5023242584136428750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6133456
 GameObject:
   m_ObjectHideFlags: 0
@@ -15963,7 +15968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6509804}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21055,6 +21060,10 @@ PrefabInstance:
       propertyPath: cardRegisterPrefab
       value: 
       objectReference: {fileID: 4869321436457259476, guid: 2ea69d13cbeb0394f93a05bde3c189e2, type: 3}
+    - target: {fileID: 3291878523879393657, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
+      propertyPath: clearlyOpponentTurn
+      value: 
+      objectReference: {fileID: 698962107}
     - target: {fileID: 3291878523879393657, guid: 4823a9b2203d6cb4f9447b6f56646fe4, type: 3}
       propertyPath: amountOfCardsToStartWith
       value: 5
@@ -28240,6 +28249,7 @@ GameObject:
   - component: {fileID: 698962102}
   - component: {fileID: 698962101}
   - component: {fileID: 698962106}
+  - component: {fileID: 698962107}
   m_Layer: 0
   m_Name: ActionOfPlayer
   m_TagString: Player
@@ -28413,17 +28423,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   makeDarker:
-  - {fileID: 1900876284}
-  - {fileID: 1700738346}
-  - {fileID: 2140468870}
-  - {fileID: 1682617290}
-  - {fileID: 296789699}
-  - {fileID: 1719633347}
-  - {fileID: 98817241}
-  - {fileID: 68034599}
   - {fileID: 70928108}
   - {fileID: 416339641}
-  _Color: {r: 0.122641504, g: 0.122063, b: 0.122063, a: 0}
+  - {fileID: 2503918}
+  - {fileID: 501314918}
+  - {fileID: 1076373756}
+  _Color: {r: 0.122641504, g: 0.122063, b: 0.122063, a: 0.12156863}
   shaders:
   - {fileID: 2100000, guid: 5589cc3dec3403347a1344ebce0f7f0b, type: 2}
   - {fileID: 2100000, guid: 626d9fe648f1d444d9e1db9889df1343, type: 2}
@@ -28439,6 +28444,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24439272b91f87044ae37a50703cc37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &698962107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698962099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9411e74f1f6b9419c2b1689d0767d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaders:
+  - {fileID: 2100000, guid: 7ec77f5744599154b8f7828269a6c917, type: 2}
+  - {fileID: 2100000, guid: de752d473760ada47b45352d89fffaa5, type: 2}
+  - {fileID: 2100000, guid: 8db1876976d541d488411f50324b571d, type: 2}
+  - {fileID: 2100000, guid: 5c623942be8ec474db60f51be798b5d6, type: 2}
 --- !u!1 &700934350
 GameObject:
   m_ObjectHideFlags: 0
@@ -48235,7 +48257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6509804}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -50459,7 +50481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1680066121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64315,7 +64337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6509804}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
