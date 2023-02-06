@@ -8,6 +8,7 @@ public class LowerDetail : MonoBehaviour
     private float intensity = 1.0f;
     private List<Color> baseColorShader = new List<Color>();
     private List<Color> baseColors = new List<Color>();
+    private ClearlyOpponentTurn _clearlyOpponentTurn;
 
     [Header("Background")]
     [SerializeField] private List<GameObject> makeDarker = new List<GameObject>();
@@ -20,10 +21,17 @@ public class LowerDetail : MonoBehaviour
     void Start()
     {
         _camera = Camera.main;
+        _clearlyOpponentTurn = gameObject.GetComponentInParent<ClearlyOpponentTurn>();
     }
 
     public void SetUpLowerDetailBkg()
     {
+        if (_clearlyOpponentTurn.On)
+        {
+            _clearlyOpponentTurn.ResetOpponent();       
+        }
+        _clearlyOpponentTurn.setBool(true);
+
         //change ground_low base color to black
         _camera.cullingMask &= ~(1 << LayerMask.NameToLayer("Background"));
         foreach(GameObject go in makeDarker)
@@ -35,7 +43,14 @@ public class LowerDetail : MonoBehaviour
     }
 
     public void DefaultDetailBkg()
-    {  
+    {
+        _clearlyOpponentTurn.setBool(false);
+        if (_clearlyOpponentTurn.On)
+        {
+            _clearlyOpponentTurn.MakeOppoentClearer();
+        }
+      
+
         _camera.cullingMask |= 1 << LayerMask.NameToLayer("Background");
         for (int i = 0; i < makeDarker.Count; i++)
         {
@@ -46,7 +61,7 @@ public class LowerDetail : MonoBehaviour
         }
         baseColors.Clear();
     }
-
+   
     public void LowerDetailShader()
     {
         float factor = Mathf.Pow(0.2f, intensity);
