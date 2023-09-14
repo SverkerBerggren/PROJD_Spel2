@@ -9,6 +9,7 @@ public class ActionOfPlayer : MonoBehaviour
     private GameState gameState;
     private Graveyard graveyard;
     private int cardCost;
+	private double timer = 0;
 
     public TMP_Text RoundCounter;
     public Sprite BackfaceCard;
@@ -22,6 +23,8 @@ public class ActionOfPlayer : MonoBehaviour
     public readonly int MaxMana = 10;
     public int UnspentMana = 0;
     public bool SelectCardOption = false;
+
+
 
     private static ActionOfPlayer instance;
 
@@ -44,6 +47,20 @@ public class ActionOfPlayer : MonoBehaviour
 
 	private void Update()
     {
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+            timer = 0;       
+		}
+        if (Input.GetKey(KeyCode.Space))
+        {
+			timer += Time.deltaTime;
+            if (timer > 3)
+            {
+				GetComponent<NewOneSwitch>().enabled = true;
+                timer = 0;
+            }
+        }
+
         if (Input.GetKey(KeyCode.M))
             PlayerMana++;
 

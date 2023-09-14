@@ -5877,6 +5877,7 @@ MonoBehaviour:
   m_Script: {fileID: 1776204401}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &27810513
 Transform:
   m_ObjectHideFlags: 19
@@ -13310,6 +13311,82 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df1d27bd590b4b54b879c97bdcaeb7b4, type: 3}
+--- !u!1 &308409246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308409247}
+  - component: {fileID: 308409249}
+  - component: {fileID: 308409248}
+  m_Layer: 5
+  m_Name: OneSwitchImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &308409247
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308409246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1286953286}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 420, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &308409248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308409246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &308409249
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308409246}
+  m_CullTransparentMesh: 1
 --- !u!4 &309891388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 911e203c444cbe84ea76dd4a80721164, type: 3}
@@ -46978,6 +47055,7 @@ RectTransform:
   - {fileID: 1030059039}
   - {fileID: 910947400}
   - {fileID: 1222758125}
+  - {fileID: 308409247}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47380,6 +47458,7 @@ MonoBehaviour:
   cultistAttackPrefab: {fileID: 2532345445923353870, guid: a14ffceb7c42d0643921973713fdc7c9, type: 3}
   targetPos: {fileID: 1481200617}
   onHit: {fileID: 708629443}
+  accesDisable: 0
 --- !u!1001 &1301012385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72310,6 +72389,7 @@ GameObject:
   - component: {fileID: 2118901460}
   - component: {fileID: 2118901459}
   - component: {fileID: 2118901458}
+  - component: {fileID: 2118901464}
   m_Layer: 0
   m_Name: ActionOfPlayer
   m_TagString: Player
@@ -72471,6 +72551,22 @@ MonoBehaviour:
   - {fileID: 509798311}
   - {fileID: 729408110}
   - {fileID: 490630877}
+  ColorToChangeButtonsTo:
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_PressedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
+    m_ColorMultiplier: 0
+    m_FadeDuration: 0
+  ColorButtonStart:
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_PressedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
+    m_ColorMultiplier: 0
+    m_FadeDuration: 0
   OneSwitchActiveNow: 0
 --- !u!114 &2118901463
 MonoBehaviour:
@@ -72493,6 +72589,39 @@ MonoBehaviour:
   CurrentMana: 1
   UnspentMana: 0
   SelectCardOption: 0
+--- !u!114 &2118901464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118901456}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599c2992a7d3c8c4d83a74c26cfb6b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowSelected: {fileID: 308409246}
+  thingsToTargetInNormalSituation:
+  - {fileID: 441645700}
+  - {fileID: 668031289}
+  - {fileID: 1521570644}
+  - {fileID: 1698043723}
+  - {fileID: 1469162923}
+  - {fileID: 945847258}
+  - {fileID: 2059744612}
+  - {fileID: 1558458537}
+  - {fileID: 440322950}
+  - {fileID: 1078064862}
+  - {fileID: 679620925}
+  - {fileID: 833242183}
+  - {fileID: 1881161578}
+  thingsToTargetWithCard: []
+  thingsToTargetShop: []
+  thingsToTargetSettingsMenu: []
+  thingsToTargetOptionsMenu: []
+  eventSystem: {fileID: 0}
+  whatToCheck: []
 --- !u!1 &2118933709
 GameObject:
   m_ObjectHideFlags: 0
