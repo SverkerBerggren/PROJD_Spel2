@@ -124,6 +124,11 @@ public class CardDisplay : Displays
             selectIndicater.DisableIndicater();
     }
 
+    public void MouseExitOnDelay(float delay)
+    {
+        Invoke("MouseExit", delay);
+    }
+
     public void EndStep()
     {
         firstCardDrawn = false;

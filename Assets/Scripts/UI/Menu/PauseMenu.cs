@@ -28,6 +28,9 @@ public class PauseMenu : MonoBehaviour
         settingsButton.SetActive(false);
         IsPauseMenuActive = true;
         pauseMenuObjectToEnable.SetActive(true);
+
+        NewOneSwitch.Instance.resetBools();
+        NewOneSwitch.Instance.options = true;
     }
 
     public void SetIsPauseMenuActive(bool value)

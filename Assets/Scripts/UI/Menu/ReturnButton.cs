@@ -61,6 +61,9 @@ public class ReturnButton : MonoBehaviour
     }
     public void OnClick()
     {
+        NewOneSwitch.Instance.resetBools();
+        if (image.sprite == returnImage)
+            NewOneSwitch.Instance.options = true;
         ReturnAStep();
     }
 }
