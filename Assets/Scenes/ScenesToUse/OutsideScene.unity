@@ -7996,7 +7996,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
   m_PrefabInstance: {fileID: 668457973}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 977997118}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6fc591decb5b554fbc75394c3b40717, type: 3}
@@ -8977,6 +8977,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4558738974110861211, guid: ca89a0d1376240340839e119854a44be, type: 3}
   m_PrefabInstance: {fileID: 153778728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &154483492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5930002168094892981, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+  m_PrefabInstance: {fileID: 284671895}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &156421408 stripped
 Transform:
@@ -23207,7 +23212,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
   m_PrefabInstance: {fileID: 463860788}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2065772565}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6fc591decb5b554fbc75394c3b40717, type: 3}
@@ -29433,7 +29438,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
   m_PrefabInstance: {fileID: 2120018808}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1995193675}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6fc591decb5b554fbc75394c3b40717, type: 3}
@@ -33037,6 +33042,23 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: ebefc514c94bde44895aaf85599a89b0, type: 2}
+--- !u!1 &977997118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5930002168094892981, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+  m_PrefabInstance: {fileID: 668457973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &977997123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977997118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &979492916
 GameObject:
   m_ObjectHideFlags: 0
@@ -50710,10 +50732,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fatigueDamage: 10
   DeckPlayer:
-  - {fileID: 11400000, guid: f3b66e6a645219449a82a9aaa3a491fa, type: 2}
   - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
   - {fileID: 11400000, guid: fd7d49e86d345ea44b367bbb19fd1827, type: 2}
   - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
+  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
+  - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
   DeckOpponent: []
 --- !u!4 &1416181250
 Transform:
@@ -62764,10 +62787,22 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5930002168094892990, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
   m_PrefabInstance: {fileID: 284671895}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 154483492}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6fc591decb5b554fbc75394c3b40717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1843340024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154483492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1843438017 stripped
@@ -67968,6 +68003,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4152420929299423254, guid: fec1ff861cb2c364aace9e818f3f94d7, type: 3}
   m_PrefabInstance: {fileID: 1680254733}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1995193675 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5930002168094892981, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+  m_PrefabInstance: {fileID: 2120018808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1995193680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995193675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1995209417
 GameObject:
   m_ObjectHideFlags: 0
@@ -70578,6 +70630,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f132b1508b20f542b0d54d7205d0cf5, type: 3}
+--- !u!1 &2065772565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5930002168094892981, guid: 39bce689e28e5f648a65039e0f2aa462, type: 3}
+  m_PrefabInstance: {fileID: 463860788}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2065772570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065772565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950f7237139de14789806edfeb2c8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2065825068
 GameObject:
   m_ObjectHideFlags: 0
@@ -72473,6 +72542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a562e857ad189e64481183504bff3603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDisplay: {fileID: 0}
+  card: {fileID: 0}
 --- !u!114 &2118901461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72608,6 +72679,8 @@ MonoBehaviour:
   settings: 0
   shop: 0
   targetWithCard: 0
+  choiceMenuActive: 0
+  contentChoiceMenu: {fileID: 1782223317}
   ShowSelected: {fileID: 308409246}
   thingsToTargetInNormalSituation:
   - {fileID: 441645700}
@@ -72623,7 +72696,17 @@ MonoBehaviour:
   - {fileID: 679620925}
   - {fileID: 833242183}
   - {fileID: 1881161578}
-  thingsToTargetWithCard: []
+  thingsToTargetWithCard:
+  - {fileID: 1481200618}
+  - {fileID: 600066025}
+  - {fileID: 805341948}
+  - {fileID: 1871991676}
+  - {fileID: 339016619}
+  - {fileID: 463640016}
+  - {fileID: 977997123}
+  - {fileID: 2065772570}
+  - {fileID: 1995193680}
+  - {fileID: 1843340024}
   thingsToTargetShop:
   - {fileID: 1881161578}
   - {fileID: 990604292}
@@ -72638,6 +72721,7 @@ MonoBehaviour:
   - {fileID: 425267978}
   - {fileID: 475634111}
   - {fileID: 1627325364}
+  thingsToTargetWithChoiceMenu: []
   eventSystem: {fileID: 0}
   whatToCheck: []
   delay: 3

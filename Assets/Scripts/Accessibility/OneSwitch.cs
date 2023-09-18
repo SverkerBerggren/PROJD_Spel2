@@ -166,8 +166,8 @@ public class OneSwitch : MonoBehaviour
         {
             if (playCardManager.TauntCard()) return;
 
-            else if (!cardDisplay.Card.Targetable)
-                playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
+/*            else if (!cardDisplay.Card.Targetable)
+                //playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);*/
             else
             {
                 CancelInvoke();
@@ -189,11 +189,11 @@ public class OneSwitch : MonoBehaviour
     // If you try to target something with a card
     private void UsedCardWithTarget()
     {
-        if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out AvailableChampion availableChampion))
-            playCardManager.PlayCard(TypeOfCardTargeting.Targeted, availableChampion.gameObject);
+/*        if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out AvailableChampion availableChampion))
+            //playCardManager.PlayCard(TypeOfCardTargeting.Targeted, availableChampion.gameObject);*/
         
-        else if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out LandmarkDisplay landmark))
-            playCardManager.PlayCard(TypeOfCardTargeting.Targeted, landmark.gameObject);
+        if (thingsToTargetWithCard[indexTargets].gameObject.TryGetComponent(out LandmarkDisplay landmark))
+            //playCardManager.PlayCard(TypeOfCardTargeting.Targeted, landmark.gameObject);
         
         clicked = false;
         CancelInvoke();

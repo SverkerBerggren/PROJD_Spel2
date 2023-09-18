@@ -11,6 +11,7 @@ public class NewOneSwitch : MonoBehaviour
 {
     private PlayCardManager playCardManager;
     private Choice choice;
+    private GameState gameState;
     private bool clicked = false;
     private int i = 0;
 
@@ -18,7 +19,8 @@ public class NewOneSwitch : MonoBehaviour
     public bool settings = false;
     public bool shop = false;
     public bool targetWithCard = false;
-
+    public bool choiceMenuActive = false;
+    [SerializeField] private Transform contentChoiceMenu;
 
     public GameObject ShowSelected;
     [Header("Diffrent types of targets")]
@@ -27,10 +29,15 @@ public class NewOneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetShop;
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
     [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
+
+    [SerializeField] private List<GameObject> thingsToTargetWithChoiceMenu;
+
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject[] whatToCheck;
 
     [SerializeField] private float delay = 3f;
+    private Coroutine loopStart;
+    private CardDisplay cardToUse;
 
     private static NewOneSwitch instance;
     public static NewOneSwitch Instance { get { return instance; } set { instance = value; } }
@@ -40,6 +47,7 @@ public class NewOneSwitch : MonoBehaviour
     {
         playCardManager = PlayCardManager.Instance;
         choice = Choice.Instance;
+        gameState = GameState.Instance;
     }
     private void Awake()
     {
@@ -55,7 +63,7 @@ public class NewOneSwitch : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(LoopStart());
+        loopStart = StartCoroutine(LoopStart());
     }
 
     
@@ -64,6 +72,49 @@ public class NewOneSwitch : MonoBehaviour
     {   
         while (i < thingsToTargetInNormalSituation.Length)
         {
+            while (choiceMenuActive)
+            {
+                if (thingsToTargetWithChoiceMenu.Count == 0)
+                {
+                    for (int j = 0; j < contentChoiceMenu.childCount; j++)
+                    {
+                        thingsToTargetWithChoiceMenu.Add(contentChoiceMenu.GetChild(j).gameObject);
+                    }
+                    if (contentChoiceMenu.parent.GetChild(3).gameObject.activeSelf)
+                    {
+                        thingsToTargetWithChoiceMenu.Add(contentChoiceMenu.parent.GetChild(3).gameObject);
+                    }
+
+                }
+                
+                StartCoroutine(ScaleSelected(thingsToTargetWithChoiceMenu[i]));
+
+                yield return new WaitForSeconds(3);
+                i++;
+                if (i == thingsToTargetWithChoiceMenu.Count)
+                    i = 0;
+            }
+
+            while (targetWithCard)
+            {
+                if (thingsToTargetWithCard[i].TryGetComponent(out LandmarkDisplay landmarkDisplay))
+                {
+                    if (landmarkDisplay.Card == null)
+                    {
+                        i++;
+                        if (i == thingsToTargetWithCard.Length)
+                            i = 0;
+                        continue;
+                    }
+                }
+                StartCoroutine(ScaleSelected(thingsToTargetWithCard[i].gameObject));
+                print(i);
+                yield return new WaitForSeconds(3);
+                i++;
+                if (i == thingsToTargetWithCard.Length)
+                    i = 0;
+            }
+
             while (options)
             {
                 StartCoroutine(ScaleSelected(thingsToTargetOptionsMenu[i].gameObject));
@@ -115,6 +166,7 @@ public class NewOneSwitch : MonoBehaviour
 
 
             yield return new WaitForSeconds(3);
+            print(i);
             i++;
 
             if (i == thingsToTargetInNormalSituation.Length)
@@ -127,21 +179,31 @@ public class NewOneSwitch : MonoBehaviour
     IEnumerator ScaleSelected(GameObject gameObjectToChangeBack)
     {
         gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(1.5f, 1.5f, 1.5f));
-        yield return new WaitForSeconds(delay);       
-        gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(2/3f, 2/3f, 2/3f));
+        yield return new WaitForSeconds(delay);
+        if (gameObjectToChangeBack != null)
+            gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(2/3f, 2/3f, 2/3f));
     }
 
-    public void resetBools()
+    public void ResetBools()
     {
+        i = 0;
         options = false;
         settings = false;
         shop = false;
         targetWithCard = false;
-    }
+        choiceMenuActive = false;
+        thingsToTargetWithChoiceMenu.Clear();
+}
 
     // Update is called once per frame
     void Update()
     {
+
+        if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0 ) 
+        {
+            choiceMenuActive = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             clicked = true;
@@ -162,14 +224,34 @@ public class NewOneSwitch : MonoBehaviour
                 print("CLicked for Shop Situation");
             }
             else if (targetWithCard)
-            {
+            {               
+                playCardManager.PlayCard(TypeOfCardTargeting.Targeted, thingsToTargetWithCard[i].gameObject);
                 print("CLicked for target with card Situation");
+                ResetBools();
+            }
+            else if (choiceMenuActive)
+            {
+                thingsToTargetWithChoiceMenu[i].GetComponent<Button>().onClick.Invoke();
             }
             else // Normal
             {
-                if (thingsToTargetInNormalSituation[i].TryGetComponent(out CardDisplay cardDisplay))
+                if (thingsToTargetInNormalSituation[i].TryGetComponent(out CardDisplay cardDisplay)) //Chose which Card to use
                 {
-                    //Play Card
+                    playCardManager.card = cardDisplay.Card;
+                    playCardManager.cardDisplay = cardDisplay;
+                    if (playCardManager.TauntCard()) // IF There is a landmark with taunt
+                        ResetBools();
+                    if (!cardDisplay.Card.Targetable) // if you don't need a target use the card
+                    {
+                        playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
+                        ResetBools();
+                    }
+                    else
+                    {
+                        targetWithCard = true;
+                        cardToUse = cardDisplay;                
+                    }
+
                 }
                 else
                 {
@@ -178,8 +260,9 @@ public class NewOneSwitch : MonoBehaviour
                 }
                 
             }
-
             i = 0;
+            StopCoroutine(loopStart);
+            loopStart = StartCoroutine(LoopStart());
         }
     }
 

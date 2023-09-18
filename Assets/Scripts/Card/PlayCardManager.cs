@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayCardManager : MonoBehaviour
 {
     private ActionOfPlayer actionOfPlayer;
-    private CardDisplay cardDisplay;
-    private Card card;
+    public CardDisplay cardDisplay;
+    public Card card;
     private Graveyard graveyard;
     private GameState gameState;
 

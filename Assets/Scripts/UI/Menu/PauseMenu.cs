@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour
         IsPauseMenuActive = true;
         pauseMenuObjectToEnable.SetActive(true);
 
-        NewOneSwitch.Instance.resetBools();
+        NewOneSwitch.Instance.ResetBools();
         NewOneSwitch.Instance.options = true;
     }
 

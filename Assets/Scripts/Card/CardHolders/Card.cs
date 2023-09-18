@@ -50,6 +50,7 @@ public abstract class Card : ScriptableObject
 
     [NonSerialized] public bool PurchasedFormShop = false;
 
+    public bool choiceCard = false;
   
     public Champion Target { get { return target; } set { target = value; } }
     public LandmarkDisplay LandmarkTarget { get { return landmarkTarget; } set { landmarkTarget = value; } }

@@ -95,6 +95,8 @@ public class Choice : MonoBehaviour
 		amountOfTargets = amountToTarget;
 		whichMethod = theMethod;
 
+        bool hasLandmarks = true;
+
         if (listEnum.opponentChampions && listEnum.opponentLandmarks) // Is used by one switch
         {
             MakeButtonOfChampion(gameState.OpponentChampion.Champion, listEnum, 0);
@@ -102,7 +104,11 @@ public class Choice : MonoBehaviour
             for (int i = 0; i < gameState.OpponentLandmarks.Count; i++)
             {
                 LandmarkDisplay landmarkDisplay = gameState.OpponentLandmarks[i];
-                if (landmarkDisplay.Card == null) continue;
+                if (landmarkDisplay.Card == null)
+                {
+                    hasLandmarks = false;
+                    continue;
+                }
                 
                 MakeButtonOfCard(landmarkDisplay.Card, listEnum, i + 1);
             }
@@ -297,6 +303,8 @@ public class Choice : MonoBehaviour
             cardUsed = null;
             whichMethod = WhichMethod.Null;
 			ResetChoice();
+            if (NewOneSwitch.Instance != null)
+                NewOneSwitch.Instance.ResetBools();
             gameState.Refresh();
 			//waitRoom.Remove(waitRoom[0]);
 			NextInWaitRoom();			
@@ -366,7 +374,9 @@ public class Choice : MonoBehaviour
                 SeersShackAbility();
                 break;
         }
-        
+        if (NewOneSwitch.Instance != null)
+            NewOneSwitch.Instance.ResetBools();
+
         ResetChoice();
         gameState.Refresh();
         
