@@ -12,15 +12,22 @@ public class NewOneSwitch : MonoBehaviour
     private PlayCardManager playCardManager;
     private Choice choice;
     private GameState gameState;
-    private bool clicked = false;
+    private bool canClick = true;
     private int i = 0;
+    private float timer = 0;
 
     public bool options = false;
     public bool settings = false;
     public bool shop = false;
     public bool targetWithCard = false;
     public bool choiceMenuActive = false;
+    public bool tutorialMenu = false;
+    public bool tutorialMenuIsOpen = false;
+
+
     [SerializeField] private Transform contentChoiceMenu;
+
+    private Button tutorialCloseButton;
 
     public GameObject ShowSelected;
     [Header("Diffrent types of targets")]
@@ -29,6 +36,7 @@ public class NewOneSwitch : MonoBehaviour
     [SerializeField] private Targetable[] thingsToTargetShop;
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
     [SerializeField] private Targetable[] thingsToTargetOptionsMenu;
+    [SerializeField] private Targetable[] thingsToTargetTutorialMenu;
 
     [SerializeField] private List<GameObject> thingsToTargetWithChoiceMenu;
 
@@ -63,15 +71,33 @@ public class NewOneSwitch : MonoBehaviour
 
     private void OnEnable()
     {
-        loopStart = StartCoroutine(LoopStart());
+        Invoke("StartLoopWithDelay", 0.1f);
     }
 
-    
+    private void StartLoopWithDelay()
+    {
+        loopStart = StartCoroutine(LoopStart());
+        canClick = true;
+    }
 
     IEnumerator LoopStart()
     {   
         while (i < thingsToTargetInNormalSituation.Length)
         {
+         
+
+            while (tutorialMenu)
+            {
+                StartCoroutine(ScaleSelected(thingsToTargetTutorialMenu[i].gameObject));
+
+                yield return new WaitForSeconds(delay);
+                canClick = true;
+                i++;
+                if (i == thingsToTargetWithChoiceMenu.Count)
+                    i = 0;
+            }
+
+
             while (choiceMenuActive)
             {
                 if (thingsToTargetWithChoiceMenu.Count == 0)
@@ -89,7 +115,8 @@ public class NewOneSwitch : MonoBehaviour
                 
                 StartCoroutine(ScaleSelected(thingsToTargetWithChoiceMenu[i]));
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(delay);
+                canClick = true;
                 i++;
                 if (i == thingsToTargetWithChoiceMenu.Count)
                     i = 0;
@@ -109,7 +136,8 @@ public class NewOneSwitch : MonoBehaviour
                 }
                 StartCoroutine(ScaleSelected(thingsToTargetWithCard[i].gameObject));
                 print(i);
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(delay);
+                canClick = true;
                 i++;
                 if (i == thingsToTargetWithCard.Length)
                     i = 0;
@@ -119,7 +147,8 @@ public class NewOneSwitch : MonoBehaviour
             {
                 StartCoroutine(ScaleSelected(thingsToTargetOptionsMenu[i].gameObject));
                
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(delay);
+                canClick = true;
                 i++;
                 if (i == thingsToTargetOptionsMenu.Length)
                     i = 0;
@@ -129,7 +158,8 @@ public class NewOneSwitch : MonoBehaviour
             {
                 StartCoroutine(ScaleSelected(thingsToTargetSettingsMenu[i].gameObject));
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(delay);
+                canClick = true;
                 i++;
                 if (i == thingsToTargetSettingsMenu.Length)
                     i = 0;
@@ -138,7 +168,8 @@ public class NewOneSwitch : MonoBehaviour
             {
                 StartCoroutine(ScaleSelected(thingsToTargetShop[i].gameObject));
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(delay);
+                canClick = true;
                 i++;
                 if (i == thingsToTargetShop.Length)
                     i = 0;
@@ -155,7 +186,7 @@ public class NewOneSwitch : MonoBehaviour
                 }
                 cardDisplay.MouseEnter();
 
-                cardDisplay.MouseExitOnDelay(3f);
+                cardDisplay.MouseExitOnDelay(delay);
 
             }
             // Else other
@@ -165,7 +196,8 @@ public class NewOneSwitch : MonoBehaviour
             }
 
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(delay);
+            canClick = true;
             print(i);
             i++;
 
@@ -192,6 +224,8 @@ public class NewOneSwitch : MonoBehaviour
         shop = false;
         targetWithCard = false;
         choiceMenuActive = false;
+        tutorialMenu = false;
+        tutorialMenuIsOpen = false;
         thingsToTargetWithChoiceMenu.Clear();
 }
 
@@ -204,9 +238,11 @@ public class NewOneSwitch : MonoBehaviour
             choiceMenuActive = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && canClick)
         {
-            clicked = true;
+            canClick = false;
             
             if (options)
             {
@@ -222,6 +258,7 @@ public class NewOneSwitch : MonoBehaviour
             {
                 thingsToTargetShop[i].GetComponent<Button>().onClick.Invoke();
                 print("CLicked for Shop Situation");
+                ResetBools();
             }
             else if (targetWithCard)
             {               
@@ -233,16 +270,29 @@ public class NewOneSwitch : MonoBehaviour
             {
                 thingsToTargetWithChoiceMenu[i].GetComponent<Button>().onClick.Invoke();
             }
+            else if (tutorialMenu)
+            {
+                thingsToTargetTutorialMenu[i].GetComponent<Button>().onClick.Invoke();
+                tutorialCloseButton = thingsToTargetTutorialMenu[i].GetComponent<OpenTutorialMenu>().tutorialPanel.transform.GetChild(1).GetComponent<Button>();
+                tutorialMenuIsOpen = true;
+                StopCoroutine(loopStart);
+                return;
+            }
+            else if (tutorialMenuIsOpen)
+            {
+                tutorialCloseButton.onClick.Invoke();
+            }
             else // Normal
             {
                 if (thingsToTargetInNormalSituation[i].TryGetComponent(out CardDisplay cardDisplay)) //Chose which Card to use
                 {
                     playCardManager.card = cardDisplay.Card;
                     playCardManager.cardDisplay = cardDisplay;
+                    ActionOfPlayer.Instance.CheckIfCanPlayCard(cardDisplay, true);
                     if (playCardManager.TauntCard()) // IF There is a landmark with taunt
                         ResetBools();
                     if (!cardDisplay.Card.Targetable) // if you don't need a target use the card
-                    {
+                    {                      
                         playCardManager.PlayCard(TypeOfCardTargeting.UnTargeted, null);
                         ResetBools();
                     }
@@ -262,7 +312,7 @@ public class NewOneSwitch : MonoBehaviour
             }
             i = 0;
             StopCoroutine(loopStart);
-            loopStart = StartCoroutine(LoopStart());
+            Invoke("StartLoopWithDelay", 0.1f);
         }
     }
 

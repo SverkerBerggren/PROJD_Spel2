@@ -14,10 +14,14 @@ public class ShopHover : MonoBehaviour
             if (shopMenu.activeSelf)
             {
                 shopMenu.SetActive(false);
+                if (NewOneSwitch.Instance != null)
+                    NewOneSwitch.Instance.ResetBools();
             }
             else
             {
                 shopMenu.SetActive(true);
+                if (NewOneSwitch.Instance != null)
+                    NewOneSwitch.Instance.shop = true;
             }
         }
             

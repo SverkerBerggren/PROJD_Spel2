@@ -7,13 +7,20 @@ public class OpenTutorialMenu : MonoBehaviour
     
     public GameObject tutorialPanel;
 
+
     public void OpenTutorial()
     {
-        if (tutorialPanel != null)
+        if (tutorialPanel.activeSelf)
         {
-            bool isActive = tutorialPanel.activeSelf;
-
-            tutorialPanel.SetActive(!isActive);
+            tutorialPanel.SetActive(false);
+            if (NewOneSwitch.Instance != null)
+                NewOneSwitch.Instance.ResetBools();
+        }
+        else
+        {
+            tutorialPanel.SetActive(true);
+            if (NewOneSwitch.Instance != null)
+                NewOneSwitch.Instance.tutorialMenu = true;
         }
     }
 }
