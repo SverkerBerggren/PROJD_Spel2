@@ -14,7 +14,7 @@ public class OpenTutorialMenu : MonoBehaviour
         {
             tutorialPanel.SetActive(false);
             if (NewOneSwitch.Instance != null)
-                NewOneSwitch.Instance.ResetBools();
+                NewOneSwitch.Instance.tutorialMenuIsOpen = false;
         }
         else
         {

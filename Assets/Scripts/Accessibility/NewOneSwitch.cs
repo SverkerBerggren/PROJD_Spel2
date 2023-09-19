@@ -27,7 +27,7 @@ public class NewOneSwitch : MonoBehaviour
 
     [SerializeField] private Transform contentChoiceMenu;
 
-    private Button tutorialCloseButton;
+    public Button tutorialCloseButton;
 
     public GameObject ShowSelected;
     [Header("Diffrent types of targets")]
@@ -84,7 +84,12 @@ public class NewOneSwitch : MonoBehaviour
     {   
         while (i < thingsToTargetInNormalSituation.Length)
         {
-         
+            while (tutorialMenuIsOpen)
+            {
+                StartCoroutine(ScaleSelected(tutorialCloseButton.gameObject));
+                yield return new WaitForSeconds(delay);
+                canClick = true;
+            }
 
             while (tutorialMenu)
             {
@@ -270,17 +275,27 @@ public class NewOneSwitch : MonoBehaviour
             {
                 thingsToTargetWithChoiceMenu[i].GetComponent<Button>().onClick.Invoke();
             }
-            else if (tutorialMenu)
-            {
-                thingsToTargetTutorialMenu[i].GetComponent<Button>().onClick.Invoke();
-                tutorialCloseButton = thingsToTargetTutorialMenu[i].GetComponent<OpenTutorialMenu>().tutorialPanel.transform.GetChild(1).GetComponent<Button>();
-                tutorialMenuIsOpen = true;
-                StopCoroutine(loopStart);
-                return;
-            }
             else if (tutorialMenuIsOpen)
             {
                 tutorialCloseButton.onClick.Invoke();
+            }
+            else if (tutorialMenu)
+            {
+                thingsToTargetTutorialMenu[i].GetComponent<Button>().onClick.Invoke();
+                                     
+                if (i == 7)
+                {
+                    ResetBools();
+                }
+                else
+                {
+                    canClick = true;
+                    tutorialCloseButton = thingsToTargetTutorialMenu[i].GetComponent<OpenTutorialMenu>().tutorialPanel.transform.GetChild(1).GetComponent<Button>();
+                    tutorialMenuIsOpen = true;
+                    StopCoroutine(loopStart);
+                    return;
+                }
+
             }
             else // Normal
             {
