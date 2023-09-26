@@ -10,6 +10,7 @@ public class ActionOfPlayer : MonoBehaviour
     private Graveyard graveyard;
     private int cardCost;
 	private double timer = 0;
+	private NewOneSwitch newOneSwitch;
 
     public TMP_Text RoundCounter;
     public Sprite BackfaceCard;
@@ -43,7 +44,9 @@ public class ActionOfPlayer : MonoBehaviour
 	{
         choice = Choice.Instance;
 		graveyard = Graveyard.Instance;
-	}
+		newOneSwitch = GetComponent<NewOneSwitch>();
+
+    }
 
 	private void Update()
     {
@@ -56,7 +59,7 @@ public class ActionOfPlayer : MonoBehaviour
 			timer += Time.deltaTime;
             if (timer > 3)
             {
-				GetComponent<NewOneSwitch>().enabled = true;
+                newOneSwitch.enabled = !newOneSwitch.enabled;
                 timer = 0;
             }
         }

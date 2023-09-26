@@ -26,6 +26,10 @@ public class NewOneSwitch : MonoBehaviour
 
 
     [SerializeField] private Transform contentChoiceMenu;
+    [SerializeField] private GameObject optionsMenuOpen;
+    [SerializeField] private GameObject settingsMenuOpen;
+    [SerializeField] private GameObject shopMenuOpen;
+    [SerializeField] private GameObject tutortialMenuOpen;
 
     public Button tutorialCloseButton;
 
@@ -72,6 +76,12 @@ public class NewOneSwitch : MonoBehaviour
     private void OnEnable()
     {
         Invoke("StartLoopWithDelay", 0.1f);
+    }
+
+    private void OnDisable()
+    {
+        ResetBools();
+        StopCoroutine(loopStart);
     }
 
     private void StartLoopWithDelay()
@@ -238,55 +248,51 @@ public class NewOneSwitch : MonoBehaviour
     void Update()
     {
 
-        if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0 ) 
+        if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0)
         {
             choiceMenuActive = true;
         }
+        else if ((!options) && optionsMenuOpen.activeSelf)
+            options = true;
+        else if ((!settings) && settingsMenuOpen.activeSelf)
+            settings = true;
+        else if ((!shop) && shopMenuOpen.activeSelf)
+            shop = true;
+        else if ((!tutorialMenu) && tutortialMenuOpen.activeSelf)
+            tutorialMenu = true;
 
-
-
-        if (Input.GetKeyDown(KeyCode.Space) && canClick)
+        if (Input.GetKeyUp(KeyCode.Space) && canClick)
         {
             canClick = false;
             
             if (options)
-            {
                 thingsToTargetOptionsMenu[i].GetComponent<Button>().onClick.Invoke();
-                print("CLicked for Options Situation");
-            }
+
             else if (settings) // Accessibility Screenen
-            {
                 thingsToTargetSettingsMenu[i].GetComponent<Button>().onClick.Invoke();
-                print("CLicked for Settings Situation");
-            }
+
             else if (shop)
             {
                 thingsToTargetShop[i].GetComponent<Button>().onClick.Invoke();
-                print("CLicked for Shop Situation");
                 ResetBools();
             }
             else if (targetWithCard)
             {               
                 playCardManager.PlayCard(TypeOfCardTargeting.Targeted, thingsToTargetWithCard[i].gameObject);
-                print("CLicked for target with card Situation");
                 ResetBools();
             }
             else if (choiceMenuActive)
-            {
                 thingsToTargetWithChoiceMenu[i].GetComponent<Button>().onClick.Invoke();
-            }
+
             else if (tutorialMenuIsOpen)
-            {
                 tutorialCloseButton.onClick.Invoke();
-            }
+
             else if (tutorialMenu)
             {
                 thingsToTargetTutorialMenu[i].GetComponent<Button>().onClick.Invoke();
                                      
                 if (i == 7)
-                {
                     ResetBools();
-                }
                 else
                 {
                     canClick = true;
