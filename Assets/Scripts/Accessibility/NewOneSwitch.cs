@@ -17,7 +17,7 @@ public class NewOneSwitch : MonoBehaviour
     private int i = 0;
     private float timer = 0;
 
-    private bool initialClick = false;
+    public bool initialClick = false;
 
     public bool options = false;
     public bool settings = false;
@@ -162,6 +162,17 @@ public class NewOneSwitch : MonoBehaviour
                     i = 0;
             }
 
+            while (settings) // Accessiblity Screen
+            {
+                StartCoroutine(ScaleSelected(thingsToTargetSettingsMenu[i].gameObject));
+
+                yield return new WaitForSeconds(delay);
+                canClick = true;
+                i++;
+                if (i == thingsToTargetSettingsMenu.Length)
+                    i = 0;
+            }
+
             while (options)
             {
                 StartCoroutine(ScaleSelected(thingsToTargetOptionsMenu[i].gameObject));
@@ -173,16 +184,6 @@ public class NewOneSwitch : MonoBehaviour
                     i = 0;
             }
 
-            while (settings) // Accessiblity Screen
-            {
-                StartCoroutine(ScaleSelected(thingsToTargetSettingsMenu[i].gameObject));
-
-                yield return new WaitForSeconds(delay);
-                canClick = true;
-                i++;
-                if (i == thingsToTargetSettingsMenu.Length)
-                    i = 0;
-            }
             while (shop) // Accessiblity Screen
             {
                 StartCoroutine(ScaleSelected(thingsToTargetShop[i].gameObject));
@@ -254,10 +255,10 @@ public class NewOneSwitch : MonoBehaviour
 
         if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0)      
             choiceMenuActive = true;
-        else if ((!options) && optionsMenuOpen.activeSelf)
-            options = true;
         else if ((!settings) && settingsMenuOpen.activeSelf)
             settings = true;
+        else if ((!options) && optionsMenuOpen.activeSelf)
+            options = true;
         else if ((!shop) && shopMenuOpen.activeSelf)
             shop = true;
         else if (tutortialMenuOpen.activeSelf)
@@ -277,12 +278,12 @@ public class NewOneSwitch : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space) && canClick && initialClick)
         {
             canClick = false;
-            
-            if (options)
-                thingsToTargetOptionsMenu[i].GetComponent<Button>().onClick.Invoke();
 
-            else if (settings) // Accessibility Screenen
+            if (settings) // Accessibility Screenen
                 thingsToTargetSettingsMenu[i].GetComponent<Button>().onClick.Invoke();
+            
+            else if(options)
+                thingsToTargetOptionsMenu[i].GetComponent<Button>().onClick.Invoke();
 
             else if (shop)
             {

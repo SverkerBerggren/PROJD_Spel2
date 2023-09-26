@@ -17,13 +17,14 @@ public class EnableSettings : MonoBehaviour
         if(!settingEnabled)
         {
             checkImage.SetActive(true);
-            actionOfPlayer.GetComponent<OneSwitch>().enabled = true;
+            actionOfPlayer.GetComponent<NewOneSwitch>().enabled = true;
+            actionOfPlayer.GetComponent<NewOneSwitch>().initialClick = true;
             settingEnabled = true;
         }
         else
         {
             checkImage.SetActive(false);
-            actionOfPlayer.GetComponent<OneSwitch>().enabled = false;
+            actionOfPlayer.GetComponent<NewOneSwitch>().enabled = false;
             settingEnabled = false;
         }
     }
