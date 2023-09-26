@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,9 +13,11 @@ public class NewOneSwitch : MonoBehaviour
     private PlayCardManager playCardManager;
     private Choice choice;
     private GameState gameState;
-    private bool canClick = true;
+    private bool canClick = false;
     private int i = 0;
     private float timer = 0;
+
+    private bool initialClick = false;
 
     public bool options = false;
     public bool settings = false;
@@ -30,6 +33,7 @@ public class NewOneSwitch : MonoBehaviour
     [SerializeField] private GameObject settingsMenuOpen;
     [SerializeField] private GameObject shopMenuOpen;
     [SerializeField] private GameObject tutortialMenuOpen;
+    [SerializeField] private GameObject tutortialStepsOpen;
 
     public Button tutorialCloseButton;
 
@@ -248,20 +252,29 @@ public class NewOneSwitch : MonoBehaviour
     void Update()
     {
 
-        if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0)
-        {
+        if ((!choiceMenuActive) && contentChoiceMenu.childCount > 0)      
             choiceMenuActive = true;
-        }
         else if ((!options) && optionsMenuOpen.activeSelf)
             options = true;
         else if ((!settings) && settingsMenuOpen.activeSelf)
             settings = true;
         else if ((!shop) && shopMenuOpen.activeSelf)
             shop = true;
-        else if ((!tutorialMenu) && tutortialMenuOpen.activeSelf)
+        else if (tutortialMenuOpen.activeSelf)
+        {
+            foreach (Transform child in tutortialStepsOpen.transform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    tutorialCloseButton = child.GetChild(1).GetComponent<Button>();
+                    tutorialMenuIsOpen = true;
+                    break;
+                }
+            }
             tutorialMenu = true;
+        }
 
-        if (Input.GetKeyUp(KeyCode.Space) && canClick)
+        if (Input.GetKeyUp(KeyCode.Space) && canClick && initialClick)
         {
             canClick = false;
             
@@ -334,6 +347,10 @@ public class NewOneSwitch : MonoBehaviour
             i = 0;
             StopCoroutine(loopStart);
             Invoke("StartLoopWithDelay", 0.1f);
+        }
+        else if (Input.GetKeyUp(KeyCode.Space) && !initialClick)
+        {
+            initialClick = true;
         }
     }
 
