@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7529.657, g: 8269.08, b: 10221.641, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8839,6 +8839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139322356}
   - component: {fileID: 139322357}
+  - component: {fileID: 139322358}
   m_Layer: 5
   m_Name: ActiveChamp
   m_TagString: Untagged
@@ -8890,6 +8891,18 @@ MonoBehaviour:
   currentTime: 0
   startShow: 0
   hasShown: 0
+--- !u!114 &139322358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139322355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &153778728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10051,6 +10064,7 @@ MonoBehaviour:
   healthBar: {fileID: 457397716}
   imageHolder: {fileID: 224384396}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 2118933714}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -17936,6 +17950,7 @@ MonoBehaviour:
   healthBar: {fileID: 176652403}
   imageHolder: {fileID: 2053614978}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 1145393171}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -21717,6 +21732,7 @@ MonoBehaviour:
   healthBar: {fileID: 1185423255}
   imageHolder: {fileID: 137693395}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 1240922983}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -36263,6 +36279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145393169}
   - component: {fileID: 1145393170}
+  - component: {fileID: 1145393171}
   m_Layer: 5
   m_Name: ActiveChamp
   m_TagString: Untagged
@@ -36313,6 +36330,18 @@ MonoBehaviour:
   currentTime: 0
   startShow: 0
   hasShown: 0
+--- !u!114 &1145393171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145393168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1146279216
 GameObject:
   m_ObjectHideFlags: 0
@@ -44800,6 +44829,7 @@ GameObject:
   - component: {fileID: 1240922982}
   - component: {fileID: 1240922981}
   - component: {fileID: 1240922980}
+  - component: {fileID: 1240922983}
   m_Layer: 5
   m_Name: PassiveChamp2
   m_TagString: Untagged
@@ -44888,6 +44918,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240922978}
   m_CullTransparentMesh: 1
+--- !u!114 &1240922983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240922978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1244987712
 GameObject:
   m_ObjectHideFlags: 0
@@ -48255,6 +48297,7 @@ MonoBehaviour:
   healthBar: {fileID: 1621330743}
   imageHolder: {fileID: 1442049215}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 1587933094}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -50719,11 +50762,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fatigueDamage: 10
   DeckPlayer:
-  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
   - {fileID: 11400000, guid: fd7d49e86d345ea44b367bbb19fd1827, type: 2}
-  - {fileID: 11400000, guid: f9ab504a8c5664440b816253b92f3a93, type: 2}
-  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
+  - {fileID: 11400000, guid: f3b66e6a645219449a82a9aaa3a491fa, type: 2}
+  - {fileID: 11400000, guid: d7f043970df2218459ebd34a87bc6596, type: 2}
+  - {fileID: 11400000, guid: da194dbd2ebd2c249b56e20d07c57a3f, type: 2}
+  - {fileID: 11400000, guid: 59644cb68f4e6f646bbb737b258b9f16, type: 2}
+  - {fileID: 11400000, guid: 985ecd663c410fa408bca91547f2b7fa, type: 2}
   - {fileID: 11400000, guid: eac1cb081b340344f867f49b471923fe, type: 2}
+  - {fileID: 11400000, guid: 36b84d2c4b1f3db41afb5c729e9a7918, type: 2}
+  - {fileID: 11400000, guid: 1a99ad388b4589d4d8151aa9d5f56e45, type: 2}
+  - {fileID: 11400000, guid: 9bc17fe12ea18194ab79964a5eea317a, type: 2}
+  - {fileID: 11400000, guid: fb214ca893c696c4db7094731be1d915, type: 2}
+  - {fileID: 11400000, guid: 0182cc3c5f43792458a7009438b9a47f, type: 2}
+  - {fileID: 11400000, guid: 689ee58c8e87ef343a1fb72d75f37321, type: 2}
+  - {fileID: 11400000, guid: 1fbcd8c6383674344af538f9b08675fd, type: 2}
+  - {fileID: 11400000, guid: 43c98b492d4d9b9488f45d0806be4fc3, type: 2}
+  - {fileID: 11400000, guid: 2d90d736d80b4f2429e35556c49c4523, type: 2}
+  - {fileID: 11400000, guid: 83f9aa96569d37540a67aa58ac385e87, type: 2}
+  - {fileID: 11400000, guid: 51e9aef10cb0e61498ad9040fbb28635, type: 2}
+  - {fileID: 11400000, guid: 9473f0a7edf82404fa543958d06dfe0c, type: 2}
+  - {fileID: 11400000, guid: 470a4e0149811a641bc94bf1ad3fa899, type: 2}
+  - {fileID: 11400000, guid: 8bb3f9a8cffd4214ba7266d7ebe68d7a, type: 2}
+  - {fileID: 11400000, guid: 0a0460334dffa014a8830917d76621a0, type: 2}
+  - {fileID: 11400000, guid: cf4b25fc0f7f1c248a462ba53001fb23, type: 2}
+  - {fileID: 11400000, guid: f933ffe8702820e4293d84356fe7924b, type: 2}
+  - {fileID: 11400000, guid: b2643ed4ecb82b54ba433a6514c27c8e, type: 2}
+  - {fileID: 11400000, guid: 1842253e60bc3234a82f72de080d19c9, type: 2}
+  - {fileID: 11400000, guid: 814eba0519f4b2d41ae1d4ac381a7d75, type: 2}
+  - {fileID: 11400000, guid: 6025628fbc5217742a490a2ad097945f, type: 2}
+  - {fileID: 11400000, guid: b1c07469e713a2349aeb7ea51e01924c, type: 2}
   DeckOpponent: []
 --- !u!4 &1416181250
 Transform:
@@ -52073,6 +52140,7 @@ MonoBehaviour:
   healthBar: {fileID: 101668683}
   imageHolder: {fileID: 731267171}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 1941728658}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -52643,6 +52711,7 @@ MonoBehaviour:
   healthBar: {fileID: 457040933}
   imageHolder: {fileID: 1590953582}
   meshToShow: {fileID: 0}
+  healthBarShake: {fileID: 139322358}
   Champion: {fileID: 0}
   NameOfChampion: 
   Health: 0
@@ -55798,6 +55867,7 @@ GameObject:
   - component: {fileID: 1587933093}
   - component: {fileID: 1587933092}
   - component: {fileID: 1587933091}
+  - component: {fileID: 1587933094}
   m_Layer: 5
   m_Name: PassiveChamp2
   m_TagString: Untagged
@@ -55887,6 +55957,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587933089}
   m_CullTransparentMesh: 1
+--- !u!114 &1587933094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587933089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1589825652
 GameObject:
   m_ObjectHideFlags: 0
@@ -65794,6 +65876,7 @@ GameObject:
   - component: {fileID: 1941728657}
   - component: {fileID: 1941728656}
   - component: {fileID: 1941728655}
+  - component: {fileID: 1941728658}
   m_Layer: 5
   m_Name: PassiveChamp1
   m_TagString: Untagged
@@ -65882,6 +65965,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941728653}
   m_CullTransparentMesh: 1
+--- !u!114 &1941728658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941728653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1944978839
 GameObject:
   m_ObjectHideFlags: 0
@@ -72782,6 +72877,7 @@ GameObject:
   - component: {fileID: 2118933713}
   - component: {fileID: 2118933712}
   - component: {fileID: 2118933711}
+  - component: {fileID: 2118933714}
   m_Layer: 5
   m_Name: PassiveChamp1
   m_TagString: Untagged
@@ -72870,6 +72966,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118933709}
   m_CullTransparentMesh: 1
+--- !u!114 &2118933714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118933709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b6de0c7bceb64583b182a07154be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2118984006
 GameObject:
   m_ObjectHideFlags: 0

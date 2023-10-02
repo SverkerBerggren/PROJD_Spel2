@@ -21,6 +21,8 @@ public class AvailableChampion : MonoBehaviour
 	[SerializeField] private GameObject imageHolder;
 	[SerializeField] private GameObject meshToShow;
 
+    [SerializeField] private HealthBarShake healthBarShake;
+
     [NonSerialized] public GameObject TargetingEffect;
 
 	public Champion Champion;
@@ -154,6 +156,8 @@ public class AvailableChampion : MonoBehaviour
             Champion.Health -= damage;
         else
             DamageShield(damage);
+
+        healthBarShake.StartShake();
 
         if (Champion.Health <= 0)
         {
