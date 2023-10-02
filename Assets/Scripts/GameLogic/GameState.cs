@@ -129,12 +129,12 @@ public class GameState : MonoBehaviour
             IsItMyTurn = true;
             List<string> offlineChamps = new List<string>
             {
-                "Shanker",
-                //"TheOneWhoDraws",
-                //"Duelist",
-                "Graverobber",
-                "Builder",
-                //"Cultist",
+                "TheOneWhoDraws",
+                "Duelist",
+                "Cultist",
+                //"Shanker",
+                //"Graverobber",
+                //"Builder",
             };
             AddChampions(offlineChamps, true);
             AddChampions(offlineChamps, false);

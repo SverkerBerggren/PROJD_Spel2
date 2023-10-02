@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class AvailableChampion : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class AvailableChampion : MonoBehaviour
     private Slider healthBarSlider;
     private TMP_Text healthBarText;
 	private Image currentSprite;
+    private Renderer[] champRen;
 
     [SerializeField] private ShieldShow shieldShow;
     [SerializeField] private TMP_Text passiveEffect;
@@ -156,8 +159,15 @@ public class AvailableChampion : MonoBehaviour
             Champion.Health -= damage;
         else
             DamageShield(damage);
-
+        
         healthBarShake.StartShake();
+
+        champRen = meshToShow.GetComponentsInChildren<Renderer>();
+        foreach (Renderer ren in champRen)
+        {
+            ren.material.SetColor("_EmissiveColor", Color.red * 10000);
+        }
+        Invoke("BackColorOnHit", 0.5f);
 
         if (Champion.Health <= 0)
         {
@@ -169,6 +179,14 @@ public class AvailableChampion : MonoBehaviour
 		    }
             else
                 Death();
+        }
+    }
+
+    private void BackColorOnHit()
+    {
+        foreach (Renderer ren in champRen)
+        {
+            ren.material.SetColor("_EmissiveColor", Color.black * 10000);
         }
     }
 
