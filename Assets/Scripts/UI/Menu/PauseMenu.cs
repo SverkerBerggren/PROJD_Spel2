@@ -11,8 +11,8 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsPauseMenuActive)
-            settingsButton.SetActive(true);
+        /*if (!IsPauseMenuActive)
+            settingsButton.SetActive(true);*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -25,7 +25,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowPauseMenu()
     {
-        settingsButton.SetActive(false);
+       /* settingsButton.SetActive(false);*/
         IsPauseMenuActive = true;
         pauseMenuObjectToEnable.SetActive(true);
 
