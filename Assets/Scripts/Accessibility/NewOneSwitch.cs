@@ -26,6 +26,7 @@ public class NewOneSwitch : MonoBehaviour
     public bool choiceMenuActive = false;
     public bool tutorialMenu = false;
     public bool tutorialMenuIsOpen = false;
+    public bool outerLoop = true;
 
 
     [SerializeField] private Transform contentChoiceMenu;
@@ -39,7 +40,8 @@ public class NewOneSwitch : MonoBehaviour
 
     public GameObject ShowSelected;
     [Header("Diffrent types of targets")]
-    [SerializeField] private Targetable[] thingsToTargetInNormalSituation;
+    [SerializeField] private Targetable[] thingsToTargetInNormalSituationInnerLoop;
+    [SerializeField] private Targetable[] thingsToTargetInNormalSituationOuterLoop;
     [SerializeField] private Targetable[] thingsToTargetWithCard;
     [SerializeField] private Targetable[] thingsToTargetShop;
     [SerializeField] private Targetable[] thingsToTargetSettingsMenu;
@@ -96,7 +98,7 @@ public class NewOneSwitch : MonoBehaviour
 
     IEnumerator LoopStart()
     {   
-        while (i < thingsToTargetInNormalSituation.Length)
+        while (i < thingsToTargetInNormalSituationInnerLoop.Length)
         {
             while (tutorialMenuIsOpen)
             {
@@ -195,8 +197,19 @@ public class NewOneSwitch : MonoBehaviour
                     i = 0;
             }
 
+            while (outerLoop)
+            {
+                StartCoroutine(ScaleSelected(thingsToTargetInNormalSituationOuterLoop[i].gameObject));
+
+                yield return new WaitForSeconds(delay);
+                canClick = true;
+                i++;
+                if (i == thingsToTargetInNormalSituationOuterLoop.Length)
+                    i = 0;
+            }
+
             // If Card
-            if (thingsToTargetInNormalSituation[i].TryGetComponent(out CardDisplay cardDisplay))
+            if (thingsToTargetInNormalSituationInnerLoop[i].TryGetComponent(out CardDisplay cardDisplay))
             {
                 //IF there is no card
                 if (cardDisplay.Card == null || !cardDisplay.GetComponentInChildren<CardDisplayAttributes>().cardPlayableEffect.activeSelf)
@@ -212,8 +225,10 @@ public class NewOneSwitch : MonoBehaviour
             // Else other
             else
             {
-                StartCoroutine(ScaleSelected(thingsToTargetInNormalSituation[i].gameObject));
+                StartCoroutine(ScaleSelected(thingsToTargetInNormalSituationInnerLoop[i].gameObject));
             }
+
+
 
 
             yield return new WaitForSeconds(delay);
@@ -221,7 +236,7 @@ public class NewOneSwitch : MonoBehaviour
             print(i);
             i++;
 
-            if (i == thingsToTargetInNormalSituation.Length)
+            if (i == thingsToTargetInNormalSituationInnerLoop.Length)
                 i = 0;
         }
 
@@ -236,6 +251,18 @@ public class NewOneSwitch : MonoBehaviour
             gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(2/3f, 2/3f, 2/3f));
     }
 
+    public void SwitchLoop()
+    {
+        if (outerLoop)
+        {
+            outerLoop = false;
+        }
+        else
+        {
+            outerLoop = true;
+        }
+    }
+
     public void ResetBools()
     {
         i = 0;
@@ -246,6 +273,7 @@ public class NewOneSwitch : MonoBehaviour
         choiceMenuActive = false;
         tutorialMenu = false;
         tutorialMenuIsOpen = false;
+        outerLoop = false;
         thingsToTargetWithChoiceMenu.Clear();
 }
 
@@ -317,9 +345,14 @@ public class NewOneSwitch : MonoBehaviour
                 }
 
             }
+            else if (outerLoop)
+            {
+                thingsToTargetInNormalSituationOuterLoop[i].GetComponent<Button>().onClick.Invoke();
+                print("CLicked for Normal Situation");
+            }
             else // Normal
             {
-                if (thingsToTargetInNormalSituation[i].TryGetComponent(out CardDisplay cardDisplay)) //Chose which Card to use
+                if (thingsToTargetInNormalSituationInnerLoop[i].TryGetComponent(out CardDisplay cardDisplay)) //Chose which Card to use
                 {
                     playCardManager.card = cardDisplay.Card;
                     playCardManager.cardDisplay = cardDisplay;
@@ -340,7 +373,7 @@ public class NewOneSwitch : MonoBehaviour
                 }
                 else
                 {
-                    thingsToTargetInNormalSituation[i].GetComponent<Button>().onClick.Invoke();
+                    thingsToTargetInNormalSituationInnerLoop[i].GetComponent<Button>().onClick.Invoke();
                     print("CLicked for Normal Situation");
                 }
                 
