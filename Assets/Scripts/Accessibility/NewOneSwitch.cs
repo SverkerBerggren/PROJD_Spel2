@@ -27,6 +27,7 @@ public class NewOneSwitch : MonoBehaviour
     public bool tutorialMenu = false;
     public bool tutorialMenuIsOpen = false;
     public bool outerLoop = true;
+    public float delay = 2f;
 
 
     [SerializeField] private Transform contentChoiceMenu;
@@ -53,7 +54,6 @@ public class NewOneSwitch : MonoBehaviour
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject[] whatToCheck;
 
-    [SerializeField] private float delay = 3f;
     private Coroutine loopStart;
     private CardDisplay cardToUse;
 
