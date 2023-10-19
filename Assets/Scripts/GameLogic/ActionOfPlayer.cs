@@ -18,6 +18,8 @@ public class ActionOfPlayer : MonoBehaviour
     public Hand HandPlayer;
     public Hand HandOpponent;
 
+	public bool OneSwitchOn = false;
+
     public int PlayerMana = 0;
     public int EnemyMana = 0;
     public int CurrentMana = 0;
@@ -59,6 +61,7 @@ public class ActionOfPlayer : MonoBehaviour
 			timer += Time.deltaTime;
             if (timer > 3)
             {
+				OneSwitchOn = !OneSwitchOn;
                 newOneSwitch.enabled = !newOneSwitch.enabled;
                 timer = 0;
             }

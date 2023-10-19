@@ -53,6 +53,8 @@ public class NewOneSwitch : MonoBehaviour
 
     [SerializeField] private List<GameObject> thingsToTargetWithChoiceMenu;
 
+    [SerializeField] private List<GameObject> attackIndicators;
+
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject[] whatToCheck;
 
@@ -157,9 +159,10 @@ public class NewOneSwitch : MonoBehaviour
                         continue;
                     }
                 }
+                attackIndicators[i].SetActive(true);
                 StartCoroutine(ScaleSelected(thingsToTargetWithCard[i].gameObject, thingsToTargetWithCard[i].particleSystem));
-                print(i);
                 yield return new WaitForSeconds(delay);
+                attackIndicators[i].SetActive(false);
                 canClick = true;
                 i++;
                 if (i == thingsToTargetWithCard.Length)
@@ -235,7 +238,6 @@ public class NewOneSwitch : MonoBehaviour
 
             yield return new WaitForSeconds(delay);
             canClick = true;
-            print(i);
             i++;
 
             if (i == thingsToTargetInNormalSituationInnerLoop.Length)

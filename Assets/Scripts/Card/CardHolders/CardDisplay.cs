@@ -106,7 +106,7 @@ public class CardDisplay : Displays
         }
         //set up Select Indicater, should only call this metod when it is a attack card
         
-        if (selectIndicater != null)
+        if (selectIndicater != null && !ActionOfPlayer.Instance.OneSwitchOn)
             selectIndicater.UppdateIndicater(Card);
     }
 
