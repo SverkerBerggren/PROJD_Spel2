@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ public class NewOneSwitch : MonoBehaviour
     private int i = 0;
     private float timer = 0;
 
-    public float delay = 2f;
+    public float delay;
     [NonSerialized] public bool initialClick = false;
 
     [NonSerialized] public bool options = false;
@@ -28,6 +28,8 @@ public class NewOneSwitch : MonoBehaviour
     [NonSerialized] public bool tutorialMenu = false;
     [NonSerialized] public bool tutorialMenuIsOpen = false;
     [NonSerialized] public bool outerLoop = true;
+
+    [NonSerialized] public List<float> speeds = new List<float>();
 
 
     [SerializeField] private float scaleOfSelectedObject;
@@ -61,6 +63,8 @@ public class NewOneSwitch : MonoBehaviour
     private Coroutine loopStart;
     private CardDisplay cardToUse;
 
+    private TextAsset textFile;
+
     private static NewOneSwitch instance;
     public static NewOneSwitch Instance { get { return instance; } set { instance = value; } }
 
@@ -70,6 +74,8 @@ public class NewOneSwitch : MonoBehaviour
         playCardManager = PlayCardManager.Instance;
         choice = Choice.Instance;
         gameState = GameState.Instance;
+
+        ReadFile();
     }
     private void Awake()
     {
@@ -81,6 +87,24 @@ public class NewOneSwitch : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void ReadFile()
+    {
+        StreamReader reader = new StreamReader("Assets/OneSwitchSpeedController/SpeedController.txt");
+        string fileContent = reader.ReadToEnd();
+        string[] splitFileContent = fileContent.Split(char.Parse("\n"));
+        foreach (string line in splitFileContent)
+        {        
+            string numberIsolation = line.Split(':')[1];
+
+            float number = float.Parse(numberIsolation);
+
+            speeds.Add(number);
+            Debug.Log(number);
+        }
+        delay = speeds[1];
+        reader.Close();
     }
 
     private void OnEnable()

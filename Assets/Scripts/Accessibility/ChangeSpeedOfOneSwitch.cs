@@ -20,17 +20,17 @@ public class ChangeSpeedOfOneSwitch : MonoBehaviour
         switch (nextSpeed)
         {
             case SpeedOfOneSwitch.Slow:
-                newOneSwitch.delay = 4;
+                newOneSwitch.delay = newOneSwitch.speeds[0];
                 nextSpeed = SpeedOfOneSwitch.Medium;
                 textObject.text += "Slow";
                 break;
             case SpeedOfOneSwitch.Medium:
-                newOneSwitch.delay = 2;
+                newOneSwitch.delay = newOneSwitch.speeds[1];
                 nextSpeed = SpeedOfOneSwitch.Fast;
                 textObject.text += "Medium";
                 break;
             case SpeedOfOneSwitch.Fast:
-                newOneSwitch.delay = 1;
+                newOneSwitch.delay = newOneSwitch.speeds[2];
                 nextSpeed = SpeedOfOneSwitch.Slow;
                 textObject.text += "Fast";
                 break;
