@@ -25,6 +25,7 @@ public class AvailableChampion : MonoBehaviour
 	[SerializeField] private GameObject meshToShow;
 
     [SerializeField] private HealthBarShake healthBarShake;
+    [SerializeField] private DamageNumber damageNumberIndicator;
 
     [NonSerialized] public GameObject TargetingEffect;
 
@@ -168,6 +169,9 @@ public class AvailableChampion : MonoBehaviour
             ren.material.SetColor("_EmissiveColor", Color.red * 10000);
         }
         Invoke("BackColorOnHit", 0.5f);
+        damageNumberIndicator.text.text = damage.ToString();
+        damageNumberIndicator.gameObject.SetActive(true);
+        
 
         if (Champion.Health <= 0)
         {
