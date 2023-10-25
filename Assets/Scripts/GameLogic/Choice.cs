@@ -388,6 +388,7 @@ public class Choice : MonoBehaviour
 
     private void Mulligan()
     {
+        
         List<int> indexes = new List<int>();
         for (int i = 0; i < chosenTargets.Count; i++)
         {

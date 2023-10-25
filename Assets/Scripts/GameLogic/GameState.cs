@@ -91,6 +91,7 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        UnityEngine.Debug.Log("COmmer in hit");
         if (CardRegister.Instance == null)
             Instantiate(cardRegisterPrefab, transform.parent);
 
