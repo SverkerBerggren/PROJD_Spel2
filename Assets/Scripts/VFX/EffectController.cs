@@ -173,7 +173,7 @@ public class EffectController : MonoBehaviour
         if (holder.Champion.ChampionName.Equals("Shanker"))
             return;
 
-           holder.GetComponentInChildren<EffectChampions>().StartDisolve();
+           //holder.GetComponentInChildren<EffectChampions>().StartDisolve();
 
     }
 

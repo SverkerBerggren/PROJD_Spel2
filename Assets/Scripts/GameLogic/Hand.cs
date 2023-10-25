@@ -107,7 +107,6 @@ public class Hand : MonoBehaviour
 		Dissolve(cardDisp);
 
 		StartCoroutine(RemoveCards(cardIndexes, isPlayer));
-		print("FML");
 		return cards;
 	}
 

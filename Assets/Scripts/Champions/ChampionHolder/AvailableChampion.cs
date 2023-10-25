@@ -182,13 +182,17 @@ public class AvailableChampion : MonoBehaviour
 			    Invoke(nameof(Death), 3.0f);
 		    }
             else
+            {
+                CancelInvoke("BackColorOnHit");
                 Death();
+            }
         }
     }
 
     private void BackColorOnHit()
     {
         if (champRen == null) return;
+        if (champRen.Length == 0) return;
         foreach (Renderer ren in champRen)
         {
             ren.material.SetColor("_EmissiveColor", Color.black * 10000);
