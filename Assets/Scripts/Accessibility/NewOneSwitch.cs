@@ -16,6 +16,7 @@ public class NewOneSwitch : MonoBehaviour
     private bool canClick = false;
     private int i = 0;
     private float timer = 0;
+    private string savePath;
 
     public float delay;
     [NonSerialized] public bool initialClick = false;
@@ -75,6 +76,8 @@ public class NewOneSwitch : MonoBehaviour
         choice = Choice.Instance;
         gameState = GameState.Instance;
 
+        CreateDirectory();
+
         ReadFile();
     }
     private void Awake()
@@ -87,11 +90,26 @@ public class NewOneSwitch : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        
+    }
+
+    private void CreateDirectory()
+    {
+        savePath = Application.dataPath + "/OneSwitchSpeedController/";
+        if (!Directory.Exists(savePath))
+        {
+            Directory.CreateDirectory(savePath);
+
+            File.WriteAllText(savePath + "SpeedController.txt", "SlowSpeed:4\nNormalSpeed:2\nFastSpeed:1");
+        }
     }
 
     private void ReadFile()
     {
-        StreamReader reader = new StreamReader("Assets/OneSwitchSpeedController/SpeedController.txt");
+
+
+        StreamReader reader = new StreamReader(savePath + "SpeedController.txt");
         string fileContent = reader.ReadToEnd();
         string[] splitFileContent = fileContent.Split(char.Parse("\n"));
         foreach (string line in splitFileContent)
