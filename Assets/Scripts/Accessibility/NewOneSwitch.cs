@@ -386,7 +386,6 @@ public class NewOneSwitch : MonoBehaviour
             else if (outerLoop)
             {
                 thingsToTargetInNormalSituationOuterLoop[i].GetComponent<Button>().onClick.Invoke();
-                print("CLicked for Normal Situation");
             }
             else // Normal
             {
@@ -412,7 +411,6 @@ public class NewOneSwitch : MonoBehaviour
                 else
                 {
                     thingsToTargetInNormalSituationInnerLoop[i].GetComponent<Button>().onClick.Invoke();
-                    print("CLicked for Normal Situation");
                 }
                 
             }

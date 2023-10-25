@@ -188,6 +188,7 @@ public class AvailableChampion : MonoBehaviour
 
     private void BackColorOnHit()
     {
+        if (champRen == null) return;
         foreach (Renderer ren in champRen)
         {
             ren.material.SetColor("_EmissiveColor", Color.black * 10000);

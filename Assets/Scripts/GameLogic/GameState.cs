@@ -127,7 +127,7 @@ public class GameState : MonoBehaviour
         else
         {
             IsItMyTurn = true;
-            List<string> offlineChamps = new List<string>
+            List<string> offlineChampsPlayer = new List<string>
             {
                 "TheOneWhoDraws",
                 "Duelist",
@@ -136,8 +136,17 @@ public class GameState : MonoBehaviour
                 //"Graverobber",
                 //"Builder",
             };
-            AddChampions(offlineChamps, true);
-            AddChampions(offlineChamps, false);
+            List<string> offlineChampsEnemy = new List<string>
+            {
+                //"TheOneWhoDraws",
+                //"Duelist",
+                //"Cultist",
+                "Shanker",
+                "Graverobber",
+                "Builder",
+            };
+            AddChampions(offlineChampsPlayer, true);
+            AddChampions(offlineChampsEnemy, false);
             InstantiateCardsFromDeck(deck.DeckPlayer);
         }
         PlayerChampion = PlayerChampions[0];
