@@ -17,6 +17,9 @@ public class NewOneSwitch : MonoBehaviour
     private int i = 0;
     private float timer = 0;
     private string savePath;
+    private GameObject changedObject;
+    private GameObject particleSystem;
+    private Coroutine scaleCourtine;
 
     public float delay;
     [NonSerialized] public bool initialClick = false;
@@ -148,14 +151,18 @@ public class NewOneSwitch : MonoBehaviour
         {
             while (tutorialMenuIsOpen)
             {
-                StartCoroutine(ScaleSelected(tutorialCloseButton.gameObject, thingsToTargetInNormalSituationInnerLoop[i].particleSystem));
+                changedObject = tutorialCloseButton.gameObject;
+                particleSystem = thingsToTargetInNormalSituationInnerLoop[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
                 yield return new WaitForSeconds(delay);
                 canClick = true;
             }
 
             while (tutorialMenu)
             {
-                StartCoroutine(ScaleSelected(thingsToTargetTutorialMenu[i].gameObject, thingsToTargetTutorialMenu[i].particleSystem));
+                changedObject = thingsToTargetTutorialMenu[i].gameObject;
+                particleSystem = thingsToTargetTutorialMenu[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
 
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -179,8 +186,10 @@ public class NewOneSwitch : MonoBehaviour
                     }
 
                 }
-                
-                StartCoroutine(ScaleSelected(thingsToTargetWithChoiceMenu[i], null));
+
+                changedObject = thingsToTargetWithChoiceMenu[i];
+                particleSystem = null;
+                scaleCourtine = StartCoroutine(ScaleSelected());
 
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -202,7 +211,10 @@ public class NewOneSwitch : MonoBehaviour
                     }
                 }
                 attackIndicators[i].SetActive(true);
-                StartCoroutine(ScaleSelected(thingsToTargetWithCard[i].gameObject, thingsToTargetWithCard[i].particleSystem));
+
+                changedObject = thingsToTargetWithCard[i].gameObject;
+                particleSystem = thingsToTargetWithCard[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
                 yield return new WaitForSeconds(delay);
                 attackIndicators[i].SetActive(false);
                 canClick = true;
@@ -213,7 +225,9 @@ public class NewOneSwitch : MonoBehaviour
 
             while (settings) // Accessiblity Screen
             {
-                StartCoroutine(ScaleSelected(thingsToTargetSettingsMenu[i].gameObject, thingsToTargetSettingsMenu[i].particleSystem));
+                changedObject = thingsToTargetSettingsMenu[i].gameObject;
+                particleSystem = thingsToTargetSettingsMenu[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
 
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -224,7 +238,9 @@ public class NewOneSwitch : MonoBehaviour
 
             while (options)
             {
-                StartCoroutine(ScaleSelected(thingsToTargetOptionsMenu[i].gameObject, thingsToTargetOptionsMenu[i].particleSystem));
+                changedObject = thingsToTargetOptionsMenu[i].gameObject;
+                particleSystem = thingsToTargetOptionsMenu[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
                
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -235,7 +251,9 @@ public class NewOneSwitch : MonoBehaviour
 
             while (shop) // Accessiblity Screen
             {
-                StartCoroutine(ScaleSelected(thingsToTargetShop[i].gameObject, thingsToTargetShop[i].particleSystem));
+                changedObject = thingsToTargetShop[i].gameObject;
+                particleSystem = thingsToTargetShop[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
 
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -246,7 +264,9 @@ public class NewOneSwitch : MonoBehaviour
 
             while (outerLoop)
             {
-                StartCoroutine(ScaleSelected(thingsToTargetInNormalSituationOuterLoop[i].gameObject, thingsToTargetInNormalSituationOuterLoop[i].particleSystem));
+                changedObject = thingsToTargetInNormalSituationOuterLoop[i].gameObject;
+                particleSystem = thingsToTargetInNormalSituationOuterLoop[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
 
                 yield return new WaitForSeconds(delay);
                 canClick = true;
@@ -272,11 +292,10 @@ public class NewOneSwitch : MonoBehaviour
             // Else other
             else
             {
-                StartCoroutine(ScaleSelected(thingsToTargetInNormalSituationInnerLoop[i].gameObject, thingsToTargetInNormalSituationInnerLoop[i].particleSystem));
+                changedObject = thingsToTargetInNormalSituationInnerLoop[i].gameObject;
+                particleSystem = thingsToTargetInNormalSituationInnerLoop[i].particleSystem;
+                scaleCourtine = StartCoroutine(ScaleSelected());
             }
-
-
-
 
             yield return new WaitForSeconds(delay);
             canClick = true;
@@ -289,18 +308,23 @@ public class NewOneSwitch : MonoBehaviour
         
     }
 
-    IEnumerator ScaleSelected(GameObject gameObjectToChangeBack, GameObject particleSystem)
+    IEnumerator ScaleSelected()
     {
-        gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(scaleOfSelectedObject, scaleOfSelectedObject, scaleOfSelectedObject));
+        changedObject.transform.localScale = Vector3.Scale(changedObject.transform.localScale, new Vector3(scaleOfSelectedObject, scaleOfSelectedObject, scaleOfSelectedObject));
         if (particleSystem != null)
             particleSystem.SetActive(true);
 
         yield return new WaitForSeconds(delay);
 
-        if (gameObjectToChangeBack != null)
+        BackToUsalScale();
+    }
+
+    private void BackToUsalScale()
+    {
+        if (changedObject != null)
         {
             float scaleDownAmount = 1 / scaleOfSelectedObject;
-            gameObjectToChangeBack.transform.localScale = Vector3.Scale(gameObjectToChangeBack.transform.localScale, new Vector3(scaleDownAmount, scaleDownAmount, scaleDownAmount));
+            changedObject.transform.localScale = Vector3.Scale(changedObject.transform.localScale, new Vector3(scaleDownAmount, scaleDownAmount, scaleDownAmount));
 
             if (particleSystem != null)
                 particleSystem.SetActive(false);
@@ -362,6 +386,10 @@ public class NewOneSwitch : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space) && canClick && initialClick)
         {
             canClick = false;
+
+            StopCoroutine(scaleCourtine);
+            BackToUsalScale();
+
 
             if (settings) // Accessibility Screenen
                 thingsToTargetSettingsMenu[i].GetComponent<Button>().onClick.Invoke();
