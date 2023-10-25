@@ -124,7 +124,18 @@ public class Choice : MonoBehaviour
 			MakeButtonsOfChampionList(gameState.OpponentChampions, listEnum);
 
         if (listEnum.myHand)
-            MakeButtonsOfHand(listEnum);
+        {
+            if (whichMethod == WhichMethod.Mulligan)
+            {
+                yield return new WaitForSeconds(0.1f);
+                MakeButtonsOfHand(listEnum);
+            }
+            else
+            {
+                MakeButtonsOfHand(listEnum);
+            }
+
+        }
 
 		if (listEnum.myGraveyard)
 			MakeButtonsOfGraveyard(graveyard.GraveyardPlayer, listEnum);
