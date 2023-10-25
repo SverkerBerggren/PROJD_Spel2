@@ -774,11 +774,13 @@ public class GameState : MonoBehaviour
         wonScreen.SetActive(true);
         confettiOne.Play();
         confettiTwo.Play();
+        choice.gameObject.SetActive(false);
     }
 
     public void Defeat()
     {
         lostScreen.SetActive(true);
+        choice.gameObject.SetActive(false);
     }
 
     public static void Swap(List<AvailableChampion> list, int i, int j)
