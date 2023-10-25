@@ -122,7 +122,6 @@ public class NewOneSwitch : MonoBehaviour
             float number = float.Parse(numberIsolation);
 
             speeds.Add(number);
-            Debug.Log(number);
         }
         delay = speeds[1];
         reader.Close();
